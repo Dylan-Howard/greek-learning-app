@@ -1,0 +1,44 @@
+[
+  {
+    "type": "meta",
+    "content": "Section Heading",
+    "marker": "h2"
+  },
+  {
+    "type": "unit",
+    "id": "unit_1",
+    "path": "0",
+    "vocab_id": 42,
+    "root": "λόγος",
+    "gram_feature_ids": [1, 5, 8, 12], // [N, NOM, M, S]
+    "translation": "word",
+    "children": null
+  },
+  {
+    "type": "unit",
+    "id": "unit_2",
+    "path": "1",
+    "syn_feature_ids": [3], // [NOUN_PHRASE]
+    "translation": "the word",
+    "children": [
+      {
+        "type": "unit",
+        "id": "unit_2_0",
+        "path": "1.0",
+        "vocab_id": 15,
+        "root": "ὁ",
+        "gram_feature_ids": [2, 5, 8, 12], // [ART, NOM, M, S]
+        "translation": "the"
+      },
+      {
+        "type": "unit",
+        "id": "unit_2_1",
+        "path": "1.1",
+        "vocab_id": 42,
+        "root": "λόγος",
+        "gram_feature_ids": [1, 5, 8, 12],
+        "translation": "word"
+      }
+    ]
+  }
+]
