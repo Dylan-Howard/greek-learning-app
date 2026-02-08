@@ -1,12 +1,16 @@
 // GreekParser.API/Controllers/BooksController.cs
 using Microsoft.AspNetCore.Mvc;
 using GreekParser.Application.DTOs.Books;
+using GreekParser.Application.DTOs.Vocabulary;
 using GreekParser.Application.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace GreekParser.API.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/books")]
     public class BooksController : ControllerBase
     {
         private readonly IBookService _bookService;
@@ -49,6 +53,19 @@ namespace GreekParser.API.Controllers
                 _logger.LogError(ex, "Error fetching book");
                 return StatusCode(500, new { message = "An error occurred while fetching the book" });
             }
+        }
+
+        [HttpGet("{id}/words")]
+        public async Task<ActionResult<List<SimpleWordDto>>> GetWordsByBookId(int id)
+        {
+            // Placeholder implementation
+            var words = new List<SimpleWordDto>
+            {
+                new SimpleWordDto { RootId = 1, Content = "λόγος", Occurances = 330, Gloss = "word, reason", RootGUID = Guid.NewGuid() },
+                new SimpleWordDto { RootId = 2, Content = "θεός", Occurances = 1317, Gloss = "God, god", RootGUID = Guid.NewGuid() },
+                new SimpleWordDto { RootId = 3, Content = "καί", Occurances = 9162, Gloss = "and, also", RootGUID = Guid.NewGuid() }
+            };
+            return Ok(words);
         }
 
         [HttpPost]

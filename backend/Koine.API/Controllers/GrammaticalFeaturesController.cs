@@ -2,11 +2,14 @@
 using Microsoft.AspNetCore.Mvc;
 using GreekParser.Application.DTOs.Features;
 using GreekParser.Application.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace GreekParser.API.Controllers
 {
     [ApiController]
-    [Route("api/grammatical-features")]
+    [Route("api/grammaticalForms")]
     public class GrammaticalFeaturesController : ControllerBase
     {
         private readonly IGrammaticalFeatureService _featureService;
@@ -19,105 +22,90 @@ namespace GreekParser.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<GrammaticalFeatureDto>>> GetAll()
+        public async Task<ActionResult<List<SimpleGrammaticalFormDto>>> GetAll()
         {
-            try
+            // Placeholder implementation
+            var features = new List<SimpleGrammaticalFormDto>
             {
-                var features = await _featureService.GetAllFeaturesAsync();
-                return Ok(features);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error fetching grammatical features");
-                return StatusCode(500, new { message = "An error occurred while fetching features" });
-            }
+                new SimpleGrammaticalFormDto { GrammarId = 1, Name = "Noun", Abbreviation = "N", LessonId = 2, GrammarGUID = Guid.NewGuid() },
+                new SimpleGrammaticalFormDto { GrammarId = 2, Name = "Verb", Abbreviation = "V", LessonId = 3, GrammarGUID = Guid.NewGuid() }
+            };
+            return Ok(features);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<GrammaticalFeatureDto>> GetById(int id)
+        public async Task<ActionResult<SimpleGrammaticalFormDto>> GetById(int id)
         {
-            try
+            // Placeholder implementation
+            if (id > 2)
             {
-                var feature = await _featureService.GetFeatureByIdAsync(id);
-                if (feature == null)
-                    return NotFound(new { message = "Feature not found" });
-
-                return Ok(feature);
+                return NotFound(new { message = "Feature not found" });
             }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error fetching feature");
-                return StatusCode(500, new { message = "An error occurred while fetching the feature" });
-            }
-        }
-
-        [HttpGet("code/{code}")]
-        public async Task<ActionResult<GrammaticalFeatureDto>> GetByCode(string code)
-        {
-            try
-            {
-                var feature = await _featureService.GetFeatureByCodeAsync(code);
-                if (feature == null)
-                    return NotFound(new { message = "Feature not found" });
-
-                return Ok(feature);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error fetching feature by code");
-                return StatusCode(500, new { message = "An error occurred while fetching the feature" });
-            }
+            var feature = new SimpleGrammaticalFormDto { GrammarId = id, Name = "Placeholder", Abbreviation = "P", LessonId = 1, GrammarGUID = Guid.NewGuid() };
+            return Ok(feature);
         }
 
         [HttpPost]
-        public async Task<ActionResult<GrammaticalFeatureDto>> Create([FromBody] CreateGrammaticalFeatureDto createDto)
+        public async Task<ActionResult<SimpleGrammaticalFormDto>> Create([FromBody] SimpleGrammaticalFormDto createDto)
         {
-            try
-            {
-                var feature = await _featureService.CreateFeatureAsync(createDto);
-                return CreatedAtAction(nameof(GetById), new { id = feature.Id }, feature);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error creating feature");
-                return StatusCode(500, new { message = "An error occurred while creating the feature" });
-            }
+            // Placeholder implementation
+            createDto.GrammarId = 99;
+            createDto.GrammarGUID = Guid.NewGuid();
+            return CreatedAtAction(nameof(GetById), new { id = createDto.GrammarId }, createDto);
         }
 
-        [HttpPut("{id}")]
-        public async Task<ActionResult<GrammaticalFeatureDto>> Update(int id, [FromBody] UpdateGrammaticalFeatureDto updateDto)
-        {
-            try
-            {
-                var feature = await _featureService.UpdateFeatureAsync(id, updateDto);
-                if (feature == null)
-                    return NotFound(new { message = "Feature not found" });
+        // [HttpGet("code/{code}")]
+        // public async Task<ActionResult<GrammaticalFeatureDto>> GetByCode(string code)
+        // {
+        //     try
+        //     {
+        //         var feature = await _featureService.GetFeatureByCodeAsync(code);
+        //         if (feature == null)
+        //             return NotFound(new { message = "Feature not found" });
 
-                return Ok(feature);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error updating feature");
-                return StatusCode(500, new { message = "An error occurred while updating the feature" });
-            }
-        }
+        //         return Ok(feature);
+        //     }
+        //     catch (Exception ex)
+        //     {
+        //         _logger.LogError(ex, "Error fetching feature by code");
+        //         return StatusCode(500, new { message = "An error occurred while fetching the feature" });
+        //     }
+        // }
 
-        [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(int id)
-        {
-            try
-            {
-                var success = await _featureService.DeleteFeatureAsync(id);
-                if (!success)
-                    return NotFound(new { message = "Feature not found" });
+        // [HttpPut("{id}")]
+        // public async Task<ActionResult<GrammaticalFeatureDto>> Update(int id, [FromBody] UpdateGrammaticalFeatureDto updateDto)
+        // {
+        //     try
+        //     {
+        //         var feature = await _featureService.UpdateFeatureAsync(id, updateDto);
+        //         if (feature == null)
+        //             return NotFound(new { message = "Feature not found" });
 
-                return NoContent();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error deleting feature");
-                return StatusCode(500, new { message = "An error occurred while deleting the feature" });
-            }
-        }
+        //         return Ok(feature);
+        //     }
+        //     catch (Exception ex)
+        //     {
+        //         _logger.LogError(ex, "Error updating feature");
+        //         return StatusCode(500, new { message = "An error occurred while updating the feature" });
+        //     }
+        // }
+
+        // [HttpDelete("{id}")]
+        // public async Task<ActionResult> Delete(int id)
+        // {
+        //     try
+        //     {
+        //         var success = await _featureService.DeleteFeatureAsync(id);
+        //         if (!success)
+        //             return NotFound(new { message = "Feature not found" });
+
+        //         return NoContent();
+        //     }
+        //     catch (Exception ex)
+        //     {
+        //         _logger.LogError(ex, "Error deleting feature");
+        //         return StatusCode(500, new { message = "An error occurred while deleting the feature" });
+        //     }
+        // }
     }
 }

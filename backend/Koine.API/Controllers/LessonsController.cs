@@ -4,12 +4,14 @@ using Microsoft.AspNetCore.Mvc;
 using GreekParser.Application.DTOs.Lessons;
 using GreekParser.Application.Interfaces;
 using System.Security.Claims;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace GreekParser.API.Controllers
 {
-    [Authorize]
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/lessons")]
     public class LessonsController : ControllerBase
     {
         private readonly ILessonService _lessonService;
@@ -21,42 +23,43 @@ namespace GreekParser.API.Controllers
             _logger = logger;
         }
 
+        [AllowAnonymous]
         [HttpGet]
-        public async Task<ActionResult<List<LessonDto>>> GetAllLessons()
+        public async Task<ActionResult<List<SimpleLessonDto>>> GetAllLessons()
         {
-            try
+            // Placeholder implementation
+            var lessons = new List<SimpleLessonDto>
             {
-                var userId = GetUserIdFromClaims();
-                var lessons = await _lessonService.GetAllLessonsAsync(userId);
-                return Ok(lessons);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error fetching lessons");
-                return StatusCode(500, new { message = "An error occurred while fetching lessons" });
-            }
+                new SimpleLessonDto { LessonId = 1, Title = "Lesson 1: The Alphabet", LessonGUID = Guid.NewGuid() },
+                new SimpleLessonDto { LessonId = 2, Title = "Lesson 2: Nouns", LessonGUID = Guid.NewGuid() }
+            };
+            return Ok(lessons);
         }
 
+        [AllowAnonymous]
         [HttpGet("{id}")]
-        public async Task<ActionResult<LessonDto>> GetLesson(int id)
+        public async Task<ActionResult<SimpleLessonDto>> GetLesson(int id)
         {
-            try
+            // Placeholder implementation
+            if (id > 2)
             {
-                var userId = GetUserIdFromClaims();
-                var lesson = await _lessonService.GetLessonByIdAsync(id, userId);
-                
-                if (lesson == null)
-                    return NotFound(new { message = "Lesson not found" });
-                
-                return Ok(lesson);
+                return NotFound(new { message = "Lesson not found" });
             }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error fetching lesson");
-                return StatusCode(500, new { message = "An error occurred while fetching the lesson" });
-            }
+            var lesson = new SimpleLessonDto { LessonId = id, Title = $"Lesson {id}", LessonGUID = Guid.NewGuid() };
+            return Ok(lesson);
+        }
+        
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<ActionResult<SimpleLessonDto>> CreateLesson([FromBody] SimpleLessonDto lesson)
+        {
+            // Placeholder implementation
+            lesson.LessonId = 99; // Dummy ID
+            lesson.LessonGUID = Guid.NewGuid();
+            return CreatedAtAction(nameof(GetLesson), new { id = lesson.LessonId }, lesson);
         }
 
+        [Authorize]
         [HttpPost("{id}/complete")]
         public async Task<ActionResult> CompleteLesson(int id, [FromBody] CompleteLessonDto completionDto)
         {

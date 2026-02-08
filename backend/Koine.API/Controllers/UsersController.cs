@@ -1,4 +1,4 @@
-// GreekParser.API/Controllers/UsersController.cs (Admin)
+// GreekParser.API/Controllers/UsersController.cs
 using Microsoft.AspNetCore.Mvc;
 using GreekParser.Application.DTOs.Auth;
 using GreekParser.Application.DTOs.Users;
@@ -7,7 +7,7 @@ using GreekParser.Application.Interfaces;
 namespace GreekParser.API.Controllers
 {
     [ApiController]
-    [Route("api/admin/users")]
+    [Route("api/users")]
     public class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -52,6 +52,12 @@ namespace GreekParser.API.Controllers
             }
         }
 
+        [HttpPost]
+        public async Task<ActionResult<UserDto>> Create([FromBody] CreateUserDto createDto)
+        {
+            return StatusCode(501, new { message = "Not Implemented" });
+        }
+
         [HttpPut("{id}")]
         public async Task<ActionResult<UserDto>> Update(int id, [FromBody] UpdateUserDto updateDto)
         {
@@ -86,6 +92,24 @@ namespace GreekParser.API.Controllers
                 _logger.LogError(ex, "Error deleting user");
                 return StatusCode(500, new { message = "An error occurred while deleting the user" });
             }
+        }
+
+        [HttpGet("{id}/lessons")]
+        public async Task<ActionResult<List<UserLessonDto>>> GetUserLessons(int id)
+        {
+            return StatusCode(501, new { message = "Not Implemented" });
+        }
+
+        [HttpGet("{id}/words")]
+        public async Task<ActionResult<List<UserWordDto>>> GetUserWords(int id)
+        {
+            return StatusCode(501, new { message = "Not Implemented" });
+        }
+
+        [HttpGet("{id}/settings")]
+        public async Task<ActionResult<List<UserSettingDto>>> GetUserSettings(int id)
+        {
+            return StatusCode(501, new { message = "Not Implemented" });
         }
     }
 }

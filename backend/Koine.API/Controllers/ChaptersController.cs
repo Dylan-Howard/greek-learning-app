@@ -1,7 +1,11 @@
 // GreekParser.API/Controllers/ChaptersController.cs
 using Microsoft.AspNetCore.Mvc;
 using GreekParser.Application.DTOs.Chapters;
+using GreekParser.Application.DTOs.Vocabulary;
 using GreekParser.Application.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace GreekParser.API.Controllers
 {
@@ -49,6 +53,18 @@ namespace GreekParser.API.Controllers
                 _logger.LogError(ex, "Error fetching chapter");
                 return StatusCode(500, new { message = "An error occurred while fetching the chapter" });
             }
+        }
+
+        [HttpGet("chapters/{id}/words")]
+        public async Task<ActionResult<List<SimpleWordDto>>> GetWordsByChapterId(int id)
+        {
+            // Placeholder implementation
+            var words = new List<SimpleWordDto>
+            {
+                new SimpleWordDto { RootId = 1, Content = "λόγος", Occurances = 330, Gloss = "word, reason", RootGUID = Guid.NewGuid() },
+                new SimpleWordDto { RootId = 2, Content = "θεός", Occurances = 1317, Gloss = "God, god", RootGUID = Guid.NewGuid() }
+            };
+            return Ok(words);
         }
 
         [HttpPost("books/{bookId}/chapters")]

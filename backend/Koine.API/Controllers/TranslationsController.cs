@@ -2,11 +2,12 @@
 using Microsoft.AspNetCore.Mvc;
 using GreekParser.Application.DTOs.Translations;
 using GreekParser.Application.Interfaces;
+using System.Threading.Tasks;
 
 namespace GreekParser.API.Controllers
 {
     [ApiController]
-    [Route("api")]
+    [Route("api/translations")]
     public class TranslationsController : ControllerBase
     {
         private readonly ITranslationService _translationService;
@@ -18,7 +19,13 @@ namespace GreekParser.API.Controllers
             _logger = logger;
         }
 
-        [HttpGet("books/{bookId}/translations")]
+        [HttpPost]
+        public async Task<ActionResult<SimpleTranslationDto>> CreateTranslation([FromBody] SimpleTranslationDto translation)
+        {
+            return StatusCode(501, new { message = "Not Implemented" });
+        }
+
+        [HttpGet("~/api/books/{bookId}/translations")]
         public async Task<ActionResult<List<TranslationDto>>> GetByBookId(int bookId)
         {
             try
@@ -33,7 +40,7 @@ namespace GreekParser.API.Controllers
             }
         }
 
-        [HttpGet("translations/{id}")]
+        [HttpGet("{id}")]
         public async Task<ActionResult<TranslationDto>> GetById(int id)
         {
             try
@@ -51,7 +58,7 @@ namespace GreekParser.API.Controllers
             }
         }
 
-        [HttpPost("books/{bookId}/translations")]
+        [HttpPost("~/api/books/{bookId}/translations")]
         public async Task<ActionResult<TranslationDto>> Create(int bookId, [FromBody] CreateTranslationDto createDto)
         {
             try
@@ -66,7 +73,7 @@ namespace GreekParser.API.Controllers
             }
         }
 
-        [HttpPut("translations/{id}")]
+        [HttpPut("{id}")]
         public async Task<ActionResult<TranslationDto>> Update(int id, [FromBody] UpdateTranslationDto updateDto)
         {
             try
@@ -84,7 +91,7 @@ namespace GreekParser.API.Controllers
             }
         }
 
-        [HttpDelete("translations/{id}")]
+        [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
             try
