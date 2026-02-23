@@ -1,0 +1,39 @@
+services:
+  scripture-parser:
+    build: .
+    image: scripture-parser:latest
+
+    # Mount ./build on the host to /app/build in the container.
+    # All generated JSON and XLSX files should be written to /app/build
+    # so they persist after the container exits.
+    #
+    # scripture-cache persists downloaded source data (OpenGNT zip, OSHB XML)
+    # between runs so the container doesn't re-download on every job.
+    volumes:
+      - ./build:/app/build
+      - scripture-cache:/app/cache
+
+    # One-shot: container exits when the command finishes.
+    # Override at runtime, e.g.:
+    #
+    #   NT (1 John, chapter 1):
+      # docker compose run --rm scripture-parser \
+      #   python parse_opengnt.py --book 62 --chapter 1 --out /app/build/1john_ch1.json
+    #
+    #   OT (Ruth, chapter 1):
+    #   docker compose run --rm scripture-parser \
+    #     python parse_oshb.py --book Ruth --chapter 1 --out /app/build/ruth_ch1.json
+    #
+    #   Full book:
+    #   docker compose run --rm scripture-parser \
+    #     python parse_opengnt.py --book 62 --out /app/build/1john_all.json
+    #
+    #   Tracking spreadsheet (re-generate):
+    #   docker compose run --rm scripture-parser \
+    #     python build_tracker.py
+    #
+    restart: "no"
+
+volumes:
+  scripture-cache:
+    driver: local
