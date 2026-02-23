@@ -1,13 +1,13 @@
-// GreekParser.API/Program.cs
+// Koine.API/Program.cs
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
-using GreekParser.Infrastructure.Data.Context;
-using GreekParser.Infrastructure.Data;
-using GreekParser.Application.Interfaces;
-using GreekParser.Application.Services;
+using Koine.Infrastructure.Data.Context;
+using Koine.Infrastructure.Data;
+using Koine.Application.Interfaces;
+using Koine.Application.Services;
 using NSwag;
 using NSwag.Generation.Processors.Security;
 
@@ -26,7 +26,7 @@ builder.Services.AddOpenApiDocument(config =>
     config.Description = "API for Greek language learning and parsing";
     
     // Add JWT authentication to Swagger
-    config.AddSecurity("Bearer", new OpenApiSecurityScheme
+    config.AddSecurity("Bearer", new NSwag.OpenApiSecurityScheme
     {
         Type = OpenApiSecuritySchemeType.ApiKey,
         Name = "Authorization",
@@ -38,10 +38,10 @@ builder.Services.AddOpenApiDocument(config =>
 });
 
 // Database
-builder.Services.AddDbContext<GreekParserDbContext>(options =>
+builder.Services.AddDbContext<KoineDbContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection"),
-        b => b.MigrationsAssembly("GreekParser.Infrastructure")
+        b => b.MigrationsAssembly("Koine.Infrastructure")
     ));
 
 // Unit of Work & Repositories
@@ -60,6 +60,7 @@ builder.Services.AddScoped<ISyntacticalFeatureService, SyntacticalFeatureService
 builder.Services.AddScoped<ITranslationService, TranslationService>();
 builder.Services.AddScoped<ITranslationUnitService, TranslationUnitService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IStudyService, StudyService>();
 
 // JWT Authentication
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
@@ -109,7 +110,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUi(); // Serves the Swagger UI
 }
 
-app.UseHttpsRedirection();
+// TODO: Re-enable HTTPS redirection in production
+// app.UseHttpsRedirection();
 app.UseCors("AllowFrontend");
 app.UseAuthentication();
 app.UseAuthorization();
@@ -123,12 +125,14 @@ if (app.Environment.IsDevelopment())
         var services = scope.ServiceProvider;
         try
         {
-            await GreekParser.Infrastructure.Data.Seed.DatabaseSeeder.SeedAsync(services);
+            var context = services.GetRequiredService<KoineDbContext>();
+            await context.Database.MigrateAsync();
+            await Koine.Infrastructure.Data.Seed.DatabaseSeeder.SeedAsync(services);
         }
         catch (Exception ex)
         {
             var logger = services.GetRequiredService<ILogger<Program>>();
-            logger.LogError(ex, "An error occurred seeding the database.");
+            logger.LogError(ex, "An error occurred during database initialization.");
         }
     }
 }

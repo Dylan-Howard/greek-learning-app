@@ -1,5 +1,5 @@
-// GreekParser.Domain/ValueObjects/UnitNode.cs
-namespace GreekParser.Domain.ValueObjects
+// Koine.Domain/ValueObjects/UnitNode.cs
+namespace Koine.Domain.ValueObjects
 {
     public class UnitNode
     {

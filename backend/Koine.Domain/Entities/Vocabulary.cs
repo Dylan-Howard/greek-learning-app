@@ -1,5 +1,5 @@
-// GreekParser.Domain/Entities/Vocabulary.cs
-namespace GreekParser.Domain.Entities
+// Koine.Domain/Entities/Vocabulary.cs
+namespace Koine.Domain.Entities
 {
     public class Vocabulary
     {

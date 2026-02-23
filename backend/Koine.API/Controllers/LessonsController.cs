@@ -1,14 +1,14 @@
-// GreekParser.API/Controllers/LessonsController.cs
+// Koine.API/Controllers/LessonsController.cs
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using GreekParser.Application.DTOs.Lessons;
-using GreekParser.Application.Interfaces;
+using Koine.Application.DTOs.Lessons;
+using Koine.Application.Interfaces;
 using System.Security.Claims;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace GreekParser.API.Controllers
+namespace Koine.API.Controllers
 {
     [ApiController]
     [Route("api/lessons")]
@@ -25,38 +25,55 @@ namespace GreekParser.API.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public async Task<ActionResult<List<SimpleLessonDto>>> GetAllLessons()
+        public async Task<ActionResult<List<LessonDto>>> GetAllLessons()
         {
-            // Placeholder implementation
-            var lessons = new List<SimpleLessonDto>
+            try
             {
-                new SimpleLessonDto { LessonId = 1, Title = "Lesson 1: The Alphabet", LessonGUID = Guid.NewGuid() },
-                new SimpleLessonDto { LessonId = 2, Title = "Lesson 2: Nouns", LessonGUID = Guid.NewGuid() }
-            };
-            return Ok(lessons);
+                var userId = GetUserIdFromClaimsOrDefault();
+                var lessons = await _lessonService.GetAllLessonsAsync(userId);
+                return Ok(lessons);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error fetching lessons");
+                return StatusCode(500, new { message = "An error occurred while fetching lessons" });
+            }
         }
 
         [AllowAnonymous]
         [HttpGet("{id}")]
-        public async Task<ActionResult<SimpleLessonDto>> GetLesson(int id)
+        public async Task<ActionResult<LessonDto>> GetLesson(int id)
         {
-            // Placeholder implementation
-            if (id > 2)
+            try
             {
-                return NotFound(new { message = "Lesson not found" });
+                var userId = GetUserIdFromClaimsOrDefault();
+                var lesson = await _lessonService.GetLessonByIdAsync(id, userId);
+                if (lesson == null)
+                    return NotFound(new { message = "Lesson not found" });
+
+                return Ok(lesson);
             }
-            var lesson = new SimpleLessonDto { LessonId = id, Title = $"Lesson {id}", LessonGUID = Guid.NewGuid() };
-            return Ok(lesson);
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error fetching lesson");
+                return StatusCode(500, new { message = "An error occurred while fetching the lesson" });
+            }
         }
         
         [AllowAnonymous]
         [HttpPost]
-        public async Task<ActionResult<SimpleLessonDto>> CreateLesson([FromBody] SimpleLessonDto lesson)
+        public async Task<ActionResult<LessonDto>> CreateLesson([FromBody] CreateLessonDto lessonDto)
         {
-            // Placeholder implementation
-            lesson.LessonId = 99; // Dummy ID
-            lesson.LessonGUID = Guid.NewGuid();
-            return CreatedAtAction(nameof(GetLesson), new { id = lesson.LessonId }, lesson);
+            try
+            {
+                var lesson = await _lessonService.CreateLessonAsync(lessonDto);
+                return CreatedAtAction(nameof(GetLesson), new { id = lesson.Id }, lesson);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error creating lesson");
+                return StatusCode(500, new { message = "An error occurred while creating the lesson" });
+            }
         }
 
         [Authorize]
@@ -88,6 +105,16 @@ namespace GreekParser.API.Controllers
             if (string.IsNullOrEmpty(userIdClaim) || !int.TryParse(userIdClaim, out var userId))
             {
                 throw new UnauthorizedAccessException("Invalid user token");
+            }
+            return userId;
+        }
+
+        private int GetUserIdFromClaimsOrDefault()
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(userIdClaim) || !int.TryParse(userIdClaim, out var userId))
+            {
+                return 0; // Default for anonymous
             }
             return userId;
         }

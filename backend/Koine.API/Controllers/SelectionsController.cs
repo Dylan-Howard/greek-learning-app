@@ -1,9 +1,9 @@
-// GreekParser.API/Controllers/SelectionsController.cs
+// Koine.API/Controllers/SelectionsController.cs
 using Microsoft.AspNetCore.Mvc;
-using GreekParser.Application.DTOs.Selections;
+using Koine.Application.DTOs.Selections;
 using System.Threading.Tasks;
 
-namespace GreekParser.API.Controllers
+namespace Koine.API.Controllers
 {
     [ApiController]
     [Route("api/selections")]

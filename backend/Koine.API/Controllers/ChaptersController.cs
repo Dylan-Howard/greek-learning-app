@@ -1,24 +1,26 @@
-// GreekParser.API/Controllers/ChaptersController.cs
+// Koine.API/Controllers/ChaptersController.cs
 using Microsoft.AspNetCore.Mvc;
-using GreekParser.Application.DTOs.Chapters;
-using GreekParser.Application.DTOs.Vocabulary;
-using GreekParser.Application.Interfaces;
+using Koine.Application.DTOs.Chapters;
+using Koine.Application.DTOs.Vocabulary;
+using Koine.Application.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace GreekParser.API.Controllers
+namespace Koine.API.Controllers
 {
     [ApiController]
     [Route("api")]
     public class ChaptersController : ControllerBase
     {
         private readonly IChapterService _chapterService;
+        private readonly IVocabularyService _vocabularyService;
         private readonly ILogger<ChaptersController> _logger;
 
-        public ChaptersController(IChapterService chapterService, ILogger<ChaptersController> logger)
+        public ChaptersController(IChapterService chapterService, IVocabularyService vocabularyService, ILogger<ChaptersController> logger)
         {
             _chapterService = chapterService;
+            _vocabularyService = vocabularyService;
             _logger = logger;
         }
 
@@ -58,13 +60,16 @@ namespace GreekParser.API.Controllers
         [HttpGet("chapters/{id}/words")]
         public async Task<ActionResult<List<SimpleWordDto>>> GetWordsByChapterId(int id)
         {
-            // Placeholder implementation
-            var words = new List<SimpleWordDto>
+            try
             {
-                new SimpleWordDto { RootId = 1, Content = "λόγος", Occurances = 330, Gloss = "word, reason", RootGUID = Guid.NewGuid() },
-                new SimpleWordDto { RootId = 2, Content = "θεός", Occurances = 1317, Gloss = "God, god", RootGUID = Guid.NewGuid() }
-            };
-            return Ok(words);
+                var words = await _vocabularyService.GetWordsByChapterIdAsync(id);
+                return Ok(words);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error fetching words for chapter");
+                return StatusCode(500, new { message = "An error occurred while fetching words for chapter" });
+            }
         }
 
         [HttpPost("books/{bookId}/chapters")]

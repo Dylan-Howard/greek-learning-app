@@ -1,5 +1,5 @@
-// GreekParser.Application/DTOs/Progress/FeatureProgressDto.cs
-namespace GreekParser.Application.DTOs.Progress
+// Koine.Application/DTOs/Progress/FeatureProgressDto.cs
+namespace Koine.Application.DTOs.Progress
 {
     public class FeatureProgressDto
     {

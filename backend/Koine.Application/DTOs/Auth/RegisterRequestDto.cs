@@ -1,5 +1,5 @@
-// GreekParser.Application/DTOs/Auth/RegisterRequestDto.cs
-namespace GreekParser.Application.DTOs.Auth
+// Koine.Application/DTOs/Auth/RegisterRequestDto.cs
+namespace Koine.Application.DTOs.Auth
 {
     public class RegisterRequestDto
     {

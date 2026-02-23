@@ -1,12 +1,12 @@
-// GreekParser.Infrastructure/Data/Context/GreekParserDbContext.cs
+// Koine.Infrastructure/Data/Context/KoineDbContext.cs
 using Microsoft.EntityFrameworkCore;
-using GreekParser.Domain.Entities;
+using Koine.Domain.Entities;
 
-namespace GreekParser.Infrastructure.Data.Context
+namespace Koine.Infrastructure.Data.Context
 {
-    public class GreekParserDbContext : DbContext
+    public class KoineDbContext : DbContext
     {
-        public GreekParserDbContext(DbContextOptions<GreekParserDbContext> options)
+        public KoineDbContext(DbContextOptions<KoineDbContext> options)
             : base(options)
         {
         }
@@ -22,13 +22,16 @@ namespace GreekParser.Infrastructure.Data.Context
         public DbSet<User> Users { get; set; } = null!;
         public DbSet<UserProgress> UserProgresses { get; set; } = null!;
         public DbSet<LessonCompletion> LessonCompletions { get; set; } = null!;
+        public DbSet<UserSetting> UserSettings { get; set; } = null!;
+        public DbSet<VocabularySet> VocabularySets { get; set; } = null!;
+        public DbSet<VocabularySetItem> VocabularySetItems { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
             // Apply all configurations from assembly
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(GreekParserDbContext).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(KoineDbContext).Assembly);
         }
     }
 }

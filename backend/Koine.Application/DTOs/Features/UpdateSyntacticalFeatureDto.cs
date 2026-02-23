@@ -1,5 +1,5 @@
-// GreekParser.Application/DTOs/Features/UpdateSyntacticalFeatureDto.cs
-namespace GreekParser.Application.DTOs.Features
+// Koine.Application/DTOs/Features/UpdateSyntacticalFeatureDto.cs
+namespace Koine.Application.DTOs.Features
 {
     public class UpdateSyntacticalFeatureDto
     {

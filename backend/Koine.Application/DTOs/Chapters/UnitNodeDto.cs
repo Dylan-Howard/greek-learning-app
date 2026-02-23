@@ -1,5 +1,5 @@
-// GreekParser.Application/DTOs/Chapters/UnitNodeDto.cs
-namespace GreekParser.Application.DTOs.Chapters
+// Koine.Application/DTOs/Chapters/UnitNodeDto.cs
+namespace Koine.Application.DTOs.Chapters
 {
     public class UnitNodeDto
     {

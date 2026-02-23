@@ -1,5 +1,5 @@
-// GreekParser.Application/DTOs/Common/PaginatedResultDto.cs
-namespace GreekParser.Application.DTOs.Common
+// Koine.Application/DTOs/Common/PaginatedResultDto.cs
+namespace Koine.Application.DTOs.Common
 {
     public class PaginatedResultDto<T>
     {

@@ -1,5 +1,5 @@
-// GreekParser.Application/DTOs/Books/CreateBookDto.cs
-namespace GreekParser.Application.DTOs.Books
+// Koine.Application/DTOs/Books/CreateBookDto.cs
+namespace Koine.Application.DTOs.Books
 {
     public class CreateBookDto
     {

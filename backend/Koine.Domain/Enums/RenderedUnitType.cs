@@ -1,4 +1,4 @@
-namespace GreekParser.Domain.Enums
+namespace Koine.Domain.Enums
 {
     public enum RenderedUnitType
     {

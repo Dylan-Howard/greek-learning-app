@@ -1,9 +1,9 @@
-// GreekParser.Application/Services/GrammaticalFeatureService.cs
-using GreekParser.Application.DTOs.Features;
-using GreekParser.Application.Interfaces;
-using GreekParser.Domain.Entities;
+// Koine.Application/Services/GrammaticalFeatureService.cs
+using Koine.Application.DTOs.Features;
+using Koine.Application.Interfaces;
+using Koine.Domain.Entities;
 
-namespace GreekParser.Application.Services
+namespace Koine.Application.Services
 {
     public class GrammaticalFeatureService : IGrammaticalFeatureService
     {

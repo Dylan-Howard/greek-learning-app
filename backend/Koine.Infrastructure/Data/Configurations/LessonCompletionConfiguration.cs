@@ -1,9 +1,9 @@
-// GreekParser.Infrastructure/Data/Configurations/LessonCompletionConfiguration.cs
+// Koine.Infrastructure/Data/Configurations/LessonCompletionConfiguration.cs
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using GreekParser.Domain.Entities;
+using Koine.Domain.Entities;
 
-namespace GreekParser.Infrastructure.Data.Configurations
+namespace Koine.Infrastructure.Data.Configurations
 {
     public class LessonCompletionConfiguration : IEntityTypeConfiguration<LessonCompletion>
     {

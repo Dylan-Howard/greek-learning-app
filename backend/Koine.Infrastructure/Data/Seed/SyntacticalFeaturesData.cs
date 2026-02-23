@@ -1,5 +1,5 @@
-// GreekParser.Infrastructure/Data/Seed/SyntacticalFeaturesData.cs
-namespace GreekParser.Infrastructure.Data.Seed
+// Koine.Infrastructure/Data/Seed/SyntacticalFeaturesData.cs
+namespace Koine.Infrastructure.Data.Seed
 {
     public static class SyntacticalFeaturesData
     {

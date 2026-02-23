@@ -1,5 +1,7 @@
-// GreekParser.Application/Interfaces/Repositories/IChapterRepository.cs
-namespace GreekParser.Application.Interfaces.Repositories
+using Koine.Domain.Entities;
+
+// Koine.Application/Interfaces/Repositories/IChapterRepository.cs
+namespace Koine.Application.Interfaces.Repositories
 {
     public interface IChapterRepository : IRepository<Chapter>
     {

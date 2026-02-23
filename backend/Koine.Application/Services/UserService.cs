@@ -1,9 +1,11 @@
-// GreekParser.Application/Services/UserService.cs
-using GreekParser.Application.DTOs.Auth;
-using GreekParser.Application.DTOs.Users;
-using GreekParser.Application.Interfaces;
+// Koine.Application/Services/UserService.cs
+using Koine.Application.DTOs.Auth;
+using Koine.Application.DTOs.Users;
+using Koine.Application.Interfaces;
+using Koine.Domain.Entities;
+using System.Text;
 
-namespace GreekParser.Application.Services
+namespace Koine.Application.Services
 {
     public class UserService : IUserService
     {
@@ -31,6 +33,41 @@ namespace GreekParser.Application.Services
         {
             var user = await _unitOfWork.Users.GetByIdAsync(userId);
             if (user == null) return null;
+
+            return new UserDto
+            {
+                Id = user.Id,
+                Email = user.Email,
+                Username = user.Username,
+                DisplayName = user.DisplayName
+            };
+        }
+
+        public async Task<UserDto?> CreateUserAsync(CreateUserDto createDto)
+        {
+            if (string.IsNullOrEmpty(createDto.Email) || string.IsNullOrEmpty(createDto.Username) || string.IsNullOrEmpty(createDto.Password))
+                return null;
+
+            // Check if user already exists
+            var existingUser = await _unitOfWork.Users.GetByEmailAsync(createDto.Email);
+            if (existingUser != null) return null;
+
+            var existingUsername = await _unitOfWork.Users.GetByUsernameAsync(createDto.Username);
+            if (existingUsername != null) return null;
+
+            var user = new User
+            {
+                Email = createDto.Email,
+                Username = createDto.Username,
+                PasswordHash = HashPassword(createDto.Password),
+                CreatedAt = DateTime.UtcNow
+            };
+
+            await _unitOfWork.Users.AddAsync(user);
+            await _unitOfWork.SaveChangesAsync();
+
+            // Create initial progress record
+            await _unitOfWork.UserProgress.GetOrCreateByUserIdAsync(user.Id);
 
             return new UserDto
             {
@@ -76,6 +113,50 @@ namespace GreekParser.Application.Services
             await _unitOfWork.SaveChangesAsync();
 
             return true;
+        }
+
+        public async Task<List<UserSettingDto>> GetUserSettingsAsync(int userId)
+        {
+            var settings = await _unitOfWork.UserSettings.GetByUserIdAsync(userId);
+            return settings.Select(s => new UserSettingDto
+            {
+                SettingName = s.SettingName,
+                SettingValue = s.SettingValue
+            }).ToList();
+        }
+
+        public async Task<bool> UpdateUserSettingAsync(int userId, UserSettingDto settingDto)
+        {
+            if (string.IsNullOrEmpty(settingDto.SettingName)) return false;
+
+            var setting = await _unitOfWork.UserSettings.GetByUserAndNameAsync(userId, settingDto.SettingName);
+            if (setting != null)
+            {
+                setting.SettingValue = settingDto.SettingValue ?? string.Empty;
+                setting.UpdatedAt = DateTime.UtcNow;
+                await _unitOfWork.UserSettings.UpdateAsync(setting);
+            }
+            else
+            {
+                setting = new UserSetting
+                {
+                    UserId = userId,
+                    SettingName = settingDto.SettingName,
+                    SettingValue = settingDto.SettingValue ?? string.Empty,
+                    UpdatedAt = DateTime.UtcNow
+                };
+                await _unitOfWork.UserSettings.AddAsync(setting);
+            }
+
+            await _unitOfWork.SaveChangesAsync();
+            return true;
+        }
+
+        private string HashPassword(string password)
+        {
+            // TODO: Implement proper password hashing (BCrypt, Argon2, etc.)
+            // This is just a placeholder to match AuthService
+            return Convert.ToBase64String(Encoding.UTF8.GetBytes(password));
         }
     }
 }

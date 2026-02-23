@@ -1,5 +1,5 @@
-// GreekParser.Application/DTOs/Vocabulary/VocabularySearchDto.cs
-namespace GreekParser.Application.DTOs.Vocabulary
+// Koine.Application/DTOs/Vocabulary/VocabularySearchDto.cs
+namespace Koine.Application.DTOs.Vocabulary
 {
     public class VocabularySearchDto
     {

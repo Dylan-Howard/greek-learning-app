@@ -1,7 +1,7 @@
-// GreekParser.Application/DTOs/Lessons/SimpleLessonDto.cs
+// Koine.Application/DTOs/Lessons/SimpleLessonDto.cs
 using System;
 
-namespace GreekParser.Application.DTOs.Lessons
+namespace Koine.Application.DTOs.Lessons
 {
     public class SimpleLessonDto
     {

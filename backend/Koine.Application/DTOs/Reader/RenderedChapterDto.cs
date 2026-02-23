@@ -1,5 +1,5 @@
-// GreekParser.Application/DTOs/Reader/RenderedChapterDto.cs
-namespace GreekParser.Application.DTOs.Reader
+// Koine.Application/DTOs/Reader/RenderedChapterDto.cs
+namespace Koine.Application.DTOs.Reader
 {
     public class RenderedChapterDto
     {

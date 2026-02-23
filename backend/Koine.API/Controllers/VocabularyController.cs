@@ -1,14 +1,14 @@
-// GreekParser.API/Controllers/VocabularyController.cs
+// Koine.API/Controllers/VocabularyController.cs
 using Microsoft.AspNetCore.Mvc;
-using GreekParser.Application.DTOs.Common;
-using GreekParser.Application.DTOs.Vocabulary;
-using GreekParser.Application.Interfaces;
+using Koine.Application.DTOs.Common;
+using Koine.Application.DTOs.Vocabulary;
+using Koine.Application.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace GreekParser.API.Controllers
+namespace Koine.API.Controllers
 {
     [ApiController]
     [Route("api/words")]
@@ -26,111 +26,131 @@ namespace GreekParser.API.Controllers
         [HttpGet]
         public async Task<ActionResult<List<SimpleWordDto>>> GetAll([FromQuery] int? occurances, [FromQuery] string? comparison)
         {
-            // Placeholder implementation
-            var words = new List<SimpleWordDto>
+            try
             {
-                new SimpleWordDto { RootId = 1, Content = "λόγος", Occurances = 330, Gloss = "word, reason", RootGUID = Guid.NewGuid() },
-                new SimpleWordDto { RootId = 2, Content = "θεός", Occurances = 1317, Gloss = "God, god", RootGUID = Guid.NewGuid() }
-            };
+                var words = await _vocabularyService.GetAllSimpleAsync();
 
-            if (occurances.HasValue && !string.IsNullOrEmpty(comparison))
-            {
-                if (comparison == "greater")
+                if (occurances.HasValue && !string.IsNullOrEmpty(comparison))
                 {
-                    words = words.Where(w => w.Occurances > occurances.Value).ToList();
+                    if (comparison == "greater")
+                    {
+                        words = words.Where(w => w.Occurances > occurances.Value).ToList();
+                    }
+                    else
+                    {
+                        words = words.Where(w => w.Occurances < occurances.Value).ToList();
+                    }
                 }
-                else
-                {
-                    words = words.Where(w => w.Occurances < occurances.Value).ToList();
-                }
+
+                return Ok(words);
             }
-
-            return Ok(words);
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error fetching vocabulary");
+                return StatusCode(500, new { message = "An error occurred while fetching vocabulary" });
+            }
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<SimpleWordDto>> GetById(int id)
         {
-            // Placeholder implementation
-            if (id > 2)
+            try
             {
-                return NotFound(new { message = "Word not found" });
+                var word = await _vocabularyService.GetSimpleByIdAsync(id);
+                if (word == null)
+                    return NotFound(new { message = "Word not found" });
+
+                return Ok(word);
             }
-            var word = new SimpleWordDto { RootId = id, Content = "placeholder", Occurances = 100, Gloss = "placeholder", RootGUID = Guid.NewGuid() };
-            return Ok(word);
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error fetching word");
+                return StatusCode(500, new { message = "An error occurred while fetching the word" });
+            }
         }
 
         [HttpPost("update")]
         public async Task<ActionResult> UpdateWord([FromBody] SimpleWordDto word)
         {
-            // Placeholder implementation
-            return Ok(new { message = "Word updated successfully" });
+            try
+            {
+                var success = await _vocabularyService.UpdateSimpleWordAsync(word);
+                if (!success)
+                    return NotFound(new { message = "Word not found" });
+
+                return Ok(new { message = "Word updated successfully" });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error updating word");
+                return StatusCode(500, new { message = "An error occurred while updating the word" });
+            }
         }
 
-        // [HttpGet("search")]
-        // public async Task<ActionResult<PaginatedResultDto<VocabularyDto>>> Search([FromQuery] VocabularySearchDto searchDto)
-        // {
-        //     try
-        //     {
-        //         var result = await _vocabularyService.SearchVocabularyAsync(searchDto);
-        //         return Ok(result);
-        //     }
-        //     catch (Exception ex)
-        //     {
-        //         _logger.LogError(ex, "Error searching vocabulary");
-        //         return StatusCode(500, new { message = "An error occurred while searching vocabulary" });
-        //     }
-        // }
+        [HttpGet("search")]
+        public async Task<ActionResult<PaginatedResultDto<VocabularyDto>>> Search([FromQuery] VocabularySearchDto searchDto)
+        {
+            try
+            {
+                var result = await _vocabularyService.SearchVocabularyAsync(searchDto);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error searching vocabulary");
+                return StatusCode(500, new { message = "An error occurred while searching vocabulary" });
+            }
+        }
 
-        // [HttpPost]
-        // public async Task<ActionResult<VocabularyDto>> Create([FromBody] CreateVocabularyDto createDto)
-        // {
-        //     try
-        //     {
-        //         var vocab = await _vocabularyService.CreateVocabularyAsync(createDto);
-        //         return CreatedAtAction(nameof(GetById), new { id = vocab.Id }, vocab);
-        //     }
-        //     catch (Exception ex)
-        //     {
-        //         _logger.LogError(ex, "Error creating vocabulary");
-        //         return StatusCode(500, new { message = "An error occurred while creating the vocabulary" });
-        //     }
-        // }
+        [HttpPost]
+        public async Task<ActionResult<VocabularyDto>> Create([FromBody] CreateVocabularyDto createDto)
+        {
+            try
+            {
+                var vocab = await _vocabularyService.CreateVocabularyAsync(createDto);
+                return CreatedAtAction(nameof(GetById), new { id = vocab.Id }, vocab);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error creating vocabulary");
+                return StatusCode(500, new { message = "An error occurred while creating the vocabulary" });
+            }
+        }
 
-        // [HttpPut("{id}")]
-        // public async Task<ActionResult<VocabularyDto>> Update(int id, [FromBody] UpdateVocabularyDto updateDto)
-        // {
-        //     try
-        //     {
-        //         var vocab = await _vocabularyService.UpdateVocabularyAsync(id, updateDto);
-        //         if (vocab == null)
-        //             return NotFound(new { message = "Vocabulary not found" });
+        [HttpPut("{id}")]
+        public async Task<ActionResult<VocabularyDto>> Update(int id, [FromBody] UpdateVocabularyDto updateDto)
+        {
+            try
+            {
+                var vocab = await _vocabularyService.UpdateVocabularyAsync(id, updateDto);
+                if (vocab == null)
+                    return NotFound(new { message = "Vocabulary not found" });
 
-        //         return Ok(vocab);
-        //     }
-        //     catch (Exception ex)
-        //     {
-        //         _logger.LogError(ex, "Error updating vocabulary");
-        //         return StatusCode(500, new { message = "An error occurred while updating the vocabulary" });
-        //     }
-        // }
+                return Ok(vocab);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error updating vocabulary");
+                return StatusCode(500, new { message = "An error occurred while updating the vocabulary" });
+            }
+        }
 
-        // [HttpDelete("{id}")]
-        // public async Task<ActionResult> Delete(int id)
-        // {
-        //     try
-        //     {
-        //         var success = await _vocabularyService.DeleteVocabularyAsync(id);
-        //         if (!success)
-        //             return NotFound(new { message = "Vocabulary not found" });
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            try
+            {
+                var success = await _vocabularyService.DeleteVocabularyAsync(id);
+                if (!success)
+                    return NotFound(new { message = "Vocabulary not found" });
 
-        //         return NoContent();
-        //     }
-        //     catch (Exception ex)
-        //     {
-        //         _logger.LogError(ex, "Error deleting vocabulary");
-        //         return StatusCode(500, new { message = "An error occurred while deleting the vocabulary" });
-        //     }
-        // }
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error deleting vocabulary");
+                return StatusCode(500, new { message = "An error occurred while deleting the vocabulary" });
+            }
+        }
     }
 }

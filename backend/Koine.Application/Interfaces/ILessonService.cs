@@ -1,5 +1,7 @@
-// GreekParser.Application/Interfaces/ILessonService.cs (Enhanced)
-namespace GreekParser.Application.Interfaces
+// Koine.Application/Interfaces/ILessonService.cs (Enhanced)
+using Koine.Application.DTOs.Lessons;
+
+namespace Koine.Application.Interfaces
 {
     public interface ILessonService
     {

@@ -1,9 +1,9 @@
-// GreekParser.Application/Services/TranslationService.cs
-using GreekParser.Application.DTOs.Translations;
-using GreekParser.Application.Interfaces;
-using GreekParser.Domain.Entities;
+// Koine.Application/Services/TranslationService.cs
+using Koine.Application.DTOs.Translations;
+using Koine.Application.Interfaces;
+using Koine.Domain.Entities;
 
-namespace GreekParser.Application.Services
+namespace Koine.Application.Services
 {
     public class TranslationService : ITranslationService
     {

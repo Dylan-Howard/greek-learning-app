@@ -1,5 +1,7 @@
-// GreekParser.Application/Interfaces/Repositories/IUserProgressRepository.cs
-namespace GreekParser.Application.Interfaces.Repositories
+using Koine.Domain.Entities;
+
+// Koine.Application/Interfaces/Repositories/IUserProgressRepository.cs
+namespace Koine.Application.Interfaces.Repositories
 {
     public interface IUserProgressRepository : IRepository<UserProgress>
     {

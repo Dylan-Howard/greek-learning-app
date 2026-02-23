@@ -1,5 +1,5 @@
-// GreekParser.Domain/Entities/Book.cs
-namespace GreekParser.Domain.Entities
+// Koine.Domain/Entities/Book.cs
+namespace Koine.Domain.Entities
 {
     public class Book
     {

@@ -1,5 +1,5 @@
-// GreekParser.Domain/Entities/UserProgress.cs
-namespace GreekParser.Domain.Entities
+// Koine.Domain/Entities/UserProgress.cs
+namespace Koine.Domain.Entities
 {
     public class UserProgress
     {

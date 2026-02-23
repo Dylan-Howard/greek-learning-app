@@ -1,11 +1,11 @@
-// GreekParser.API/Controllers/ProgressController.cs
+// Koine.API/Controllers/ProgressController.cs
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using GreekParser.Application.DTOs.Progress;
-using GreekParser.Application.Interfaces;
+using Koine.Application.DTOs.Progress;
+using Koine.Application.Interfaces;
 using System.Security.Claims;
 
-namespace GreekParser.API.Controllers
+namespace Koine.API.Controllers
 {
     [Authorize]
     [ApiController]

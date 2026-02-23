@@ -1,5 +1,7 @@
-// GreekParser.Application/Interfaces/Repositories/IVocabularyRepository.cs
-namespace GreekParser.Application.Interfaces.Repositories
+using Koine.Domain.Entities;
+
+// Koine.Application/Interfaces/Repositories/IVocabularyRepository.cs
+namespace Koine.Application.Interfaces.Repositories
 {
     public interface IVocabularyRepository : IRepository<Vocabulary>
     {

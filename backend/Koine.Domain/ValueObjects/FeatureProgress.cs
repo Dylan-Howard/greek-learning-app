@@ -1,5 +1,5 @@
-// GreekParser.Domain/ValueObjects/FeatureProgress.cs
-namespace GreekParser.Domain.ValueObjects
+// Koine.Domain/ValueObjects/FeatureProgress.cs
+namespace Koine.Domain.ValueObjects
 {
     public class FeatureProgress
     {

@@ -1,9 +1,9 @@
-// GreekParser.API/Controllers/DevAuthController.cs
+// Koine.API/Controllers/DevAuthController.cs
 #if DEBUG
 using Microsoft.AspNetCore.Mvc;
-using GreekParser.Application.Interfaces;
+using Koine.Application.Interfaces;
 
-namespace GreekParser.API.Controllers
+namespace Koine.API.Controllers
 {
     /// <summary>
     /// Development-only authentication endpoints

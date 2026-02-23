@@ -1,5 +1,7 @@
-// GreekParser.Application/Interfaces/IUnitOfWork.cs (Updated)
-namespace GreekParser.Application.Interfaces
+using Koine.Domain.Entities;
+using Koine.Application.Interfaces.Repositories;
+
+namespace Koine.Application.Interfaces
 {
     public interface IUnitOfWork : IDisposable
     {
@@ -14,6 +16,9 @@ namespace GreekParser.Application.Interfaces
         IGrammaticalFeatureRepository GrammaticalFeatures { get; }
         ISyntacticalFeatureRepository SyntacticalFeatures { get; }
         ITranslationRepository Translations { get; }
+        IUserSettingRepository UserSettings { get; }
+        IVocabularySetRepository VocabularySets { get; }
+        IVocabularySetItemRepository VocabularySetItems { get; }
         
         Task<int> SaveChangesAsync();
         Task BeginTransactionAsync();

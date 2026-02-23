@@ -1,7 +1,7 @@
-// GreekParser.Application/DTOs/Features/SimpleGrammaticalFormDto.cs
+// Koine.Application/DTOs/Features/SimpleGrammaticalFormDto.cs
 using System;
 
-namespace GreekParser.Application.DTOs.Features
+namespace Koine.Application.DTOs.Features
 {
     public class SimpleGrammaticalFormDto
     {

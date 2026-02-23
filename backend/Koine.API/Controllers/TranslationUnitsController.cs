@@ -1,9 +1,9 @@
-// GreekParser.API/Controllers/TranslationUnitsController.cs
+// Koine.API/Controllers/TranslationUnitsController.cs
 using Microsoft.AspNetCore.Mvc;
-using GreekParser.Application.DTOs.Translations;
-using GreekParser.Application.Interfaces;
+using Koine.Application.DTOs.Translations;
+using Koine.Application.Interfaces;
 
-namespace GreekParser.API.Controllers
+namespace Koine.API.Controllers
 {
     [ApiController]
     [Route("api")]

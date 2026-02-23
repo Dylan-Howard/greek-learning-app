@@ -1,10 +1,10 @@
-// GreekParser.Application/Services/ChapterService.cs
+// Koine.Application/Services/ChapterService.cs
 using System.Text.Json;
-using GreekParser.Application.DTOs.Chapters;
-using GreekParser.Application.Interfaces;
-using GreekParser.Domain.Entities;
+using Koine.Application.DTOs.Chapters;
+using Koine.Application.Interfaces;
+using Koine.Domain.Entities;
 
-namespace GreekParser.Application.Services
+namespace Koine.Application.Services
 {
     public class ChapterService : IChapterService
     {

@@ -1,5 +1,7 @@
-// GreekParser.Application/Interfaces/IGrammaticalFeatureService.cs
-namespace GreekParser.Application.Interfaces
+// Koine.Application/Interfaces/IGrammaticalFeatureService.cs
+using Koine.Application.DTOs.Features;
+
+namespace Koine.Application.Interfaces
 {
     public interface IGrammaticalFeatureService
     {

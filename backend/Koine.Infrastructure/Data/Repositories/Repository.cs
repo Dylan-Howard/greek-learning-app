@@ -1,16 +1,16 @@
-// GreekParser.Infrastructure/Data/Repositories/Repository.cs
+// Koine.Infrastructure/Data/Repositories/Repository.cs
 using Microsoft.EntityFrameworkCore;
-using GreekParser.Application.Interfaces.Repositories;
-using GreekParser.Infrastructure.Data.Context;
+using Koine.Application.Interfaces.Repositories;
+using Koine.Infrastructure.Data.Context;
 
-namespace GreekParser.Infrastructure.Data.Repositories
+namespace Koine.Infrastructure.Data.Repositories
 {
     public class Repository<T> : IRepository<T> where T : class
     {
-        protected readonly GreekParserDbContext _context;
+        protected readonly KoineDbContext _context;
         protected readonly DbSet<T> _dbSet;
 
-        public Repository(GreekParserDbContext context)
+        public Repository(KoineDbContext context)
         {
             _context = context;
             _dbSet = context.Set<T>();

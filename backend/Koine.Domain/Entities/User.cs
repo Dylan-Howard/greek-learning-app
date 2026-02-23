@@ -1,5 +1,5 @@
-// GreekParser.Domain/Entities/User.cs
-namespace GreekParser.Domain.Entities
+// Koine.Domain/Entities/User.cs
+namespace Koine.Domain.Entities
 {
     public class User
     {
@@ -14,5 +14,7 @@ namespace GreekParser.Domain.Entities
         // Navigation properties
         public virtual UserProgress? Progress { get; set; }
         public virtual ICollection<LessonCompletion> LessonCompletions { get; set; } = new List<LessonCompletion>();
+        public virtual ICollection<UserSetting> Settings { get; set; } = new List<UserSetting>();
+        public virtual ICollection<VocabularySet> VocabularySets { get; set; } = new List<VocabularySet>();
     }
 }

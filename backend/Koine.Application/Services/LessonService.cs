@@ -1,10 +1,10 @@
-// GreekParser.Application/Services/LessonService.cs (Enhanced)
+// Koine.Application/Services/LessonService.cs (Enhanced)
 using System.Text.Json;
-using GreekParser.Application.DTOs.Lessons;
-using GreekParser.Application.Interfaces;
-using GreekParser.Domain.Entities;
+using Koine.Application.DTOs.Lessons;
+using Koine.Application.Interfaces;
+using Koine.Domain.Entities;
 
-namespace GreekParser.Application.Services
+namespace Koine.Application.Services
 {
     public class LessonService : ILessonService
     {

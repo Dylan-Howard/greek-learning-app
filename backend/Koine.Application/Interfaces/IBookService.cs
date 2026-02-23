@@ -1,5 +1,7 @@
-// GreekParser.Application/Interfaces/IBookService.cs (Enhanced)
-namespace GreekParser.Application.Interfaces
+// Koine.Application/Interfaces/IBookService.cs (Enhanced)
+using Koine.Application.DTOs.Books;
+
+namespace Koine.Application.Interfaces
 {
     public interface IBookService
     {

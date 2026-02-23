@@ -1,5 +1,5 @@
-// GreekParser.Application/DTOs/Lessons/CompleteLessonDto.cs
-namespace GreekParser.Application.DTOs.Lessons
+// Koine.Application/DTOs/Lessons/CompleteLessonDto.cs
+namespace Koine.Application.DTOs.Lessons
 {
     public class CompleteLessonDto
     {

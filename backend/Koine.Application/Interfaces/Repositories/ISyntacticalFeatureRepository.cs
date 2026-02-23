@@ -1,4 +1,6 @@
-namespace GreekParser.Application.Interfaces.Repositories
+using Koine.Domain.Entities;
+
+namespace Koine.Application.Interfaces.Repositories
 {
     public interface ISyntacticalFeatureRepository : IRepository<SyntacticalFeature>
     {

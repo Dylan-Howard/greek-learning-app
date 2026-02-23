@@ -1,13 +1,13 @@
-// GreekParser.API/Controllers/ReaderController.cs
+// Koine.API/Controllers/ReaderController.cs
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using GreekParser.Application.DTOs.Reader;
-using GreekParser.Application.Interfaces;
+using Koine.Application.DTOs.Reader;
+using Koine.Application.Interfaces;
 using System.Security.Claims;
 
-namespace GreekParser.API.Controllers
+namespace Koine.API.Controllers
 {
-    [Authorize]
+    [AllowAnonymous]
     [ApiController]
     [Route("api/[controller]")]
     public class ReaderController : ControllerBase
@@ -29,7 +29,7 @@ namespace GreekParser.API.Controllers
         {
             try
             {
-                var userId = GetUserIdFromClaims();
+                var userId = GetUserIdFromClaimsOrDefault();
                 var result = await _readerService.RenderChapterAsync(userId, book, chapter, lang);
                 return Ok(result);
             }
@@ -45,12 +45,14 @@ namespace GreekParser.API.Controllers
             }
         }
 
-        private int GetUserIdFromClaims()
+        private int GetUserIdFromClaimsOrDefault()
         {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (string.IsNullOrEmpty(userIdClaim) || !int.TryParse(userIdClaim, out var userId))
             {
-                throw new UnauthorizedAccessException("Invalid user token");
+                // TODO: For production, enforce authentication. 
+                // Using User ID 1 (beginner) as default for MVP development.
+                return 1;
             }
             return userId;
         }

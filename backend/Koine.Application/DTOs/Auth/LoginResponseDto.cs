@@ -1,5 +1,5 @@
-// GreekParser.Application/DTOs/Auth/LoginResponseDto.cs
-namespace GreekParser.Application.DTOs.Auth
+// Koine.Application/DTOs/Auth/LoginResponseDto.cs
+namespace Koine.Application.DTOs.Auth
 {
     public class LoginResponseDto
     {

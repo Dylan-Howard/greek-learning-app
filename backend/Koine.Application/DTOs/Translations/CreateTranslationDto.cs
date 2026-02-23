@@ -1,5 +1,5 @@
-// GreekParser.Application/DTOs/Translations/CreateTranslationDto.cs
-namespace GreekParser.Application.DTOs.Translations
+// Koine.Application/DTOs/Translations/CreateTranslationDto.cs
+namespace Koine.Application.DTOs.Translations
 {
     public class CreateTranslationDto
     {

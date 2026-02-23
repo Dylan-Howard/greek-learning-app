@@ -1,14 +1,14 @@
-// GreekParser.Infrastructure/Data/Repositories/ChapterRepository.cs
+// Koine.Infrastructure/Data/Repositories/ChapterRepository.cs
 using Microsoft.EntityFrameworkCore;
-using GreekParser.Application.Interfaces.Repositories;
-using GreekParser.Domain.Entities;
-using GreekParser.Infrastructure.Data.Context;
+using Koine.Application.Interfaces.Repositories;
+using Koine.Domain.Entities;
+using Koine.Infrastructure.Data.Context;
 
-namespace GreekParser.Infrastructure.Data.Repositories
+namespace Koine.Infrastructure.Data.Repositories
 {
     public class ChapterRepository : Repository<Chapter>, IChapterRepository
     {
-        public ChapterRepository(GreekParserDbContext context) : base(context)
+        public ChapterRepository(KoineDbContext context) : base(context)
         {
         }
 

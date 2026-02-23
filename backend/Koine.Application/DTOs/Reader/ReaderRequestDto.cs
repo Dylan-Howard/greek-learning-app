@@ -1,5 +1,5 @@
-// GreekParser.Application/DTOs/Reader/ReaderRequestDto.cs
-namespace GreekParser.Application.DTOs.Reader
+// Koine.Application/DTOs/Reader/ReaderRequestDto.cs
+namespace Koine.Application.DTOs.Reader
 {
     public class ReaderRequestDto
     {

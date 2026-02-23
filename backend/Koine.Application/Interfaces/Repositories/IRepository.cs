@@ -1,5 +1,7 @@
-// GreekParser.Application/Interfaces/Repositories/IRepository.cs
-namespace GreekParser.Application.Interfaces.Repositories
+using Koine.Domain.Entities;
+
+// Koine.Application/Interfaces/Repositories/IRepository.cs
+namespace Koine.Application.Interfaces.Repositories
 {
     public interface IRepository<T> where T : class
     {

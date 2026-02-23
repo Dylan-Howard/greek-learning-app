@@ -1,5 +1,5 @@
-// GreekParser.Domain/Enums/LessonType.cs
-namespace GreekParser.Domain.Enums
+// Koine.Domain/Enums/LessonType.cs
+namespace Koine.Domain.Enums
 {
     public enum LessonType
     {

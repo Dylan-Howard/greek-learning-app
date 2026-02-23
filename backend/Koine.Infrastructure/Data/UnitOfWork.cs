@@ -1,18 +1,17 @@
-// GreekParser.Infrastructure/Data/UnitOfWork.cs (Updated)
 using Microsoft.EntityFrameworkCore.Storage;
-using GreekParser.Application.Interfaces;
-using GreekParser.Application.Interfaces.Repositories;
-using GreekParser.Infrastructure.Data.Context;
-using GreekParser.Infrastructure.Data.Repositories;
+using Koine.Application.Interfaces;
+using Koine.Application.Interfaces.Repositories;
+using Koine.Infrastructure.Data.Context;
+using Koine.Infrastructure.Data.Repositories;
 
-namespace GreekParser.Infrastructure.Data
+namespace Koine.Infrastructure.Data
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly GreekParserDbContext _context;
+        private readonly KoineDbContext _context;
         private IDbContextTransaction? _transaction;
 
-        public UnitOfWork(GreekParserDbContext context)
+        public UnitOfWork(KoineDbContext context)
         {
             _context = context;
             
@@ -27,6 +26,9 @@ namespace GreekParser.Infrastructure.Data
             GrammaticalFeatures = new GrammaticalFeatureRepository(_context);
             SyntacticalFeatures = new SyntacticalFeatureRepository(_context);
             Translations = new TranslationRepository(_context);
+            UserSettings = new UserSettingRepository(_context);
+            VocabularySets = new VocabularySetRepository(_context);
+            VocabularySetItems = new VocabularySetItemRepository(_context);
         }
 
         public IBookRepository Books { get; }
@@ -40,6 +42,10 @@ namespace GreekParser.Infrastructure.Data
         public IGrammaticalFeatureRepository GrammaticalFeatures { get; }
         public ISyntacticalFeatureRepository SyntacticalFeatures { get; }
         public ITranslationRepository Translations { get; }
+        public IUserSettingRepository UserSettings { get; }
+        public IVocabularySetRepository VocabularySets { get; }
+        public IVocabularySetItemRepository VocabularySetItems { get; }
+
         public async Task<int> SaveChangesAsync()
         {
             return await _context.SaveChangesAsync();

@@ -1,5 +1,5 @@
-// GreekParser.Domain/Entities/TranslationUnit.cs
-namespace GreekParser.Domain.Entities
+// Koine.Domain/Entities/TranslationUnit.cs
+namespace Koine.Domain.Entities
 {
     public class TranslationUnit
     {

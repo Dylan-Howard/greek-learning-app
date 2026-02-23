@@ -1,7 +1,7 @@
-// GreekParser.Application/DTOs/Vocabulary/SimpleWordDto.cs
+// Koine.Application/DTOs/Vocabulary/SimpleWordDto.cs
 using System;
 
-namespace GreekParser.Application.DTOs.Vocabulary
+namespace Koine.Application.DTOs.Vocabulary
 {
     public class SimpleWordDto
     {

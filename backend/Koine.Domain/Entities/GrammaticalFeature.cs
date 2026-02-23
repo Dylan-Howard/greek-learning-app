@@ -1,5 +1,5 @@
-// GreekParser.Domain/Entities/GrammaticalFeature.cs
-namespace GreekParser.Domain.Entities
+// Koine.Domain/Entities/GrammaticalFeature.cs
+namespace Koine.Domain.Entities
 {
     public class GrammaticalFeature
     {

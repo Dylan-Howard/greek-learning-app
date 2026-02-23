@@ -1,5 +1,5 @@
-// GreekParser.Application/DTOs/Users/CreateUserDto.cs
-namespace GreekParser.Application.DTOs.Users
+// Koine.Application/DTOs/Users/CreateUserDto.cs
+namespace Koine.Application.DTOs.Users
 {
     public class CreateUserDto
     {

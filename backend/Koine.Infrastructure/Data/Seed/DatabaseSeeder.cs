@@ -1,20 +1,21 @@
-// GreekParser.Infrastructure/Data/Seed/DatabaseSeeder.cs
+// Koine.Infrastructure/Data/Seed/DatabaseSeeder.cs
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using GreekParser.Infrastructure.Data.Context;
-using GreekParser.Domain.Entities;
+using Koine.Infrastructure.Data.Context;
+using Koine.Domain.Entities;
+using Koine.Domain.ValueObjects;
 using System.Text.Json;
 
-namespace GreekParser.Infrastructure.Data.Seed
+namespace Koine.Infrastructure.Data.Seed
 {
     public static class DatabaseSeeder
     {
         public static async Task SeedAsync(IServiceProvider serviceProvider)
         {
             using var scope = serviceProvider.CreateScope();
-            var context = scope.ServiceProvider.GetRequiredService<GreekParserDbContext>();
-            var logger = scope.ServiceProvider.GetRequiredService<ILogger<GreekParserDbContext>>();
+            var context = scope.ServiceProvider.GetRequiredService<KoineDbContext>();
+            var logger = scope.ServiceProvider.GetRequiredService<ILogger<KoineDbContext>>();
 
             try
             {
@@ -75,6 +76,11 @@ namespace GreekParser.Infrastructure.Data.Seed
                 }
                 await context.SaveChangesAsync();
 
+                // Get ID mappings for text seeding
+                var gramCodeToId = await context.GrammaticalFeatures.ToDictionaryAsync(f => f.Code, f => f.Id);
+                var synCodeToId = await context.SyntacticalFeatures.ToDictionaryAsync(f => f.Code, f => f.Id);
+                var vocabToId = await context.Vocabularies.ToDictionaryAsync(v => v.Root, v => v.Id);
+
                 // 4. Create Book
                 logger.LogInformation("Creating book: 1 John...");
                 var book = new Book
@@ -89,14 +95,17 @@ namespace GreekParser.Infrastructure.Data.Seed
                 // 5. Create Chapters
                 logger.LogInformation("Creating chapters...");
                 var chapters = FirstJohnTextData.GetChapters();
-                foreach (var (index, units) in chapters)
+                foreach (var (index, seedUnits) in chapters)
                 {
+                    // Map SeedUnitNodes to Domain UnitNodes
+                    var unitNodes = seedUnits.Select((u, i) => MapToUnitNode(u, gramCodeToId, synCodeToId, vocabToId, i.ToString())).ToList();
+                    
                     context.Chapters.Add(new Chapter
                     {
                         BookId = book.Id,
                         ChapterIndex = index,
                         Title = $"Chapter {index}",
-                        UnitTreeJson = JsonSerializer.Serialize(units),
+                        UnitTreeJson = JsonSerializer.Serialize(unitNodes),
                         CreatedAt = DateTime.UtcNow
                     });
                 }
@@ -172,6 +181,37 @@ namespace GreekParser.Infrastructure.Data.Seed
                 logger.LogError(ex, "Error occurred during database seeding");
                 throw;
             }
+        }
+
+        private static UnitNode MapToUnitNode(
+            SeedUnitNode seedNode, 
+            Dictionary<string, int> gramCodeToId, 
+            Dictionary<string, int> synCodeToId,
+            Dictionary<string, int> vocabToId,
+            string path)
+        {
+            var node = new UnitNode
+            {
+                Type = seedNode.Type ?? "unit",
+                Path = path,
+                Root = seedNode.Root,
+                Translation = seedNode.Translation,
+                Content = seedNode.Content,
+                Marker = seedNode.Marker,
+                GramFeatureIds = seedNode.GrammarCodes?
+                    .Select(c => gramCodeToId.TryGetValue(c, out var id) ? id : 0)
+                    .Where(id => id != 0)
+                    .ToList(),
+                SynFeatureIds = seedNode.SyntaxCodes?
+                    .Select(c => synCodeToId.TryGetValue(c, out var id) ? id : 0)
+                    .Where(id => id != 0)
+                    .ToList(),
+                VocabId = seedNode.Root != null && vocabToId.TryGetValue(seedNode.Root, out var vid) ? vid : null,
+                Children = seedNode.Children?
+                    .Select((c, i) => MapToUnitNode(c, gramCodeToId, synCodeToId, vocabToId, $"{path}.{i}"))
+                    .ToList()
+            };
+            return node;
         }
 
         private static string HashPassword(string password)

@@ -1,5 +1,5 @@
-// GreekParser.Domain/ValueObjects/VocabularyProgress.cs
-namespace GreekParser.Domain.ValueObjects
+// Koine.Domain/ValueObjects/VocabularyProgress.cs
+namespace Koine.Domain.ValueObjects
 {
     public class VocabularyProgress
     {

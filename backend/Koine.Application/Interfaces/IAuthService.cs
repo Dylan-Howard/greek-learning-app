@@ -1,5 +1,7 @@
-// GreekParser.Application/Interfaces/IAuthService.cs
-namespace GreekParser.Application.Interfaces
+// Koine.Application/Interfaces/IAuthService.cs
+using Koine.Application.DTOs.Auth;
+
+namespace Koine.Application.Interfaces
 {
     public interface IAuthService
     {

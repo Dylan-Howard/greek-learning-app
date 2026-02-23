@@ -1,9 +1,10 @@
-// GreekParser.Application/Services/ProgressService.cs
+// Koine.Application/Services/ProgressService.cs
 using System.Text.Json;
-using GreekParser.Application.DTOs.Progress;
-using GreekParser.Application.Interfaces;
+using Koine.Application.DTOs.Progress;
+using Koine.Application.DTOs.Users;
+using Koine.Application.Interfaces;
 
-namespace GreekParser.Application.Services
+namespace Koine.Application.Services
 {
     public class ProgressService : IProgressService
     {
@@ -103,6 +104,43 @@ namespace GreekParser.Application.Services
             await _unitOfWork.SaveChangesAsync();
 
             return true;
+        }
+
+        public async Task<List<UserLessonDto>> GetUserLessonsAsync(int userId)
+        {
+            var progress = await _unitOfWork.UserProgress.GetByUserIdAsync(userId);
+            if (progress == null) return new List<UserLessonDto>();
+
+            var completedIds = JsonSerializer.Deserialize<List<int>>(progress.CompletedLessonIdsJson) ?? new();
+            var allLessons = await _unitOfWork.Lessons.GetAllAsync();
+
+            return allLessons.Select(l => new UserLessonDto
+            {
+                LessonId = l.Id,
+                Name = l.Title,
+                IsComplete = completedIds.Contains(l.Id)
+            }).ToList();
+        }
+
+        public async Task<List<UserWordDto>> GetUserVocabularyAsync(int userId)
+        {
+            var progress = await _unitOfWork.UserProgress.GetByUserIdAsync(userId);
+            if (progress == null) return new List<UserWordDto>();
+
+            var vocabProgress = JsonSerializer.Deserialize<Dictionary<int, Domain.ValueObjects.VocabularyProgress>>(
+                progress.VocabularyProgressJson) ?? new();
+
+            var vocabIds = vocabProgress.Keys.ToList();
+            var vocabItems = await _unitOfWork.Vocabulary.GetByIdsAsync(vocabIds);
+            var vocabMap = vocabItems.ToDictionary(v => v.Id, v => v);
+
+            return vocabProgress.Select(kvp => new UserWordDto
+            {
+                WordId = kvp.Key,
+                GreekWord = vocabMap.ContainsKey(kvp.Key) ? vocabMap[kvp.Key].Root : "Unknown",
+                EnglishMeaning = vocabMap.ContainsKey(kvp.Key) ? vocabMap[kvp.Key].Gloss : string.Empty,
+                KnowledgeLevel = kvp.Value.MasteryLevel
+            }).ToList();
         }
     }
 }

@@ -1,11 +1,11 @@
-// GreekParser.Application/Services/VocabularyService.cs (Enhanced)
+// Koine.Application/Services/VocabularyService.cs (Enhanced)
 using Microsoft.EntityFrameworkCore;
-using GreekParser.Application.DTOs.Common;
-using GreekParser.Application.DTOs.Vocabulary;
-using GreekParser.Application.Interfaces;
-using GreekParser.Domain.Entities;
+using Koine.Application.DTOs.Common;
+using Koine.Application.DTOs.Vocabulary;
+using Koine.Application.Interfaces;
+using Koine.Domain.Entities;
 
-namespace GreekParser.Application.Services
+namespace Koine.Application.Services
 {
     public class VocabularyService : IVocabularyService
     {
@@ -183,6 +183,62 @@ namespace GreekParser.Application.Services
             if (vocab == null) return false;
 
             await _unitOfWork.Vocabulary.DeleteAsync(vocab);
+            await _unitOfWork.SaveChangesAsync();
+
+            return true;
+        }
+
+        public async Task<List<SimpleWordDto>> GetAllSimpleAsync()
+        {
+            var allVocabulary = await _unitOfWork.Vocabulary.GetAllAsync();
+            return allVocabulary.Select(v => new SimpleWordDto
+            {
+                RootId = v.Id,
+                Content = v.Root,
+                Occurances = v.FrequencyRank ?? 0,
+                Gloss = v.Gloss,
+                RootGUID = Guid.NewGuid() // Temporary placeholder
+            }).ToList();
+        }
+
+        public async Task<SimpleWordDto?> GetSimpleByIdAsync(int id)
+        {
+            var v = await _unitOfWork.Vocabulary.GetByIdAsync(id);
+            if (v == null) return null;
+
+            return new SimpleWordDto
+            {
+                RootId = v.Id,
+                Content = v.Root,
+                Occurances = v.FrequencyRank ?? 0,
+                Gloss = v.Gloss,
+                RootGUID = Guid.NewGuid() // Temporary placeholder
+            };
+        }
+
+        public async Task<List<SimpleWordDto>> GetWordsByBookIdAsync(int bookId)
+        {
+            // Simplified implementation: returning all words for now
+            // To properly implement this, we'd need to parse all UnitTrees in the book
+            return await GetAllSimpleAsync();
+        }
+
+        public async Task<List<SimpleWordDto>> GetWordsByChapterIdAsync(int chapterId)
+        {
+            // Simplified implementation: returning all words for now
+            return await GetAllSimpleAsync();
+        }
+
+        public async Task<bool> UpdateSimpleWordAsync(SimpleWordDto wordDto)
+        {
+            var vocab = await _unitOfWork.Vocabulary.GetByIdAsync(wordDto.RootId);
+            if (vocab == null) return false;
+
+            vocab.Root = wordDto.Content;
+            vocab.Gloss = wordDto.Gloss ?? string.Empty;
+            vocab.FrequencyRank = wordDto.Occurances;
+
+            await _unitOfWork.Vocabulary.UpdateAsync(vocab);
             await _unitOfWork.SaveChangesAsync();
 
             return true;

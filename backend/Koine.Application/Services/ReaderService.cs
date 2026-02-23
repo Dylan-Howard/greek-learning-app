@@ -1,10 +1,10 @@
-// GreekParser.Application/Services/ReaderService.cs
+// Koine.Application/Services/ReaderService.cs
 using System.Text.Json;
-using GreekParser.Application.DTOs.Reader;
-using GreekParser.Application.Interfaces;
-using GreekParser.Domain.ValueObjects;
+using Koine.Application.DTOs.Reader;
+using Koine.Application.Interfaces;
+using Koine.Domain.ValueObjects;
 
-namespace GreekParser.Application.Services
+namespace Koine.Application.Services
 {
     public class ReaderService : IReaderService
     {
@@ -26,11 +26,9 @@ namespace GreekParser.Application.Services
             if (chapter == null)
                 throw new KeyNotFoundException($"Chapter {chapterIndex} not found in book {bookId}");
 
-            // 2. Fetch user progress
+            // 2. Fetch user progress (with fallback for MVP)
             var userProgress = await _unitOfWork.UserProgress.GetByUserIdAsync(userId);
-            if (userProgress == null)
-                throw new KeyNotFoundException($"User progress not found for user {userId}");
-
+            
             // 3. Fetch translation
             var translation = await _unitOfWork.Translations.GetByBookAndLanguageAsync(bookId, targetLanguage);
             if (translation == null)
@@ -55,13 +53,18 @@ namespace GreekParser.Application.Services
             var unitTree = JsonSerializer.Deserialize<List<UnitNode>>(chapter.UnitTreeJson) 
                 ?? new List<UnitNode>();
 
-            // 7. Parse progress data
-            var gramProgress = JsonSerializer.Deserialize<Dictionary<int, FeatureProgress>>(
-                userProgress.GrammaticalFeatureProgressJson) ?? new();
-            var synProgress = JsonSerializer.Deserialize<Dictionary<int, FeatureProgress>>(
-                userProgress.SyntacticalFeatureProgressJson) ?? new();
-            var vocabProgress = JsonSerializer.Deserialize<Dictionary<int, VocabularyProgress>>(
-                userProgress.VocabularyProgressJson) ?? new();
+            // 7. Parse progress data (fallback to defaults if userProgress is null)
+            var gramProgress = userProgress != null 
+                ? (JsonSerializer.Deserialize<Dictionary<int, FeatureProgress>>(userProgress.GrammaticalFeatureProgressJson) ?? new())
+                : new Dictionary<int, FeatureProgress>();
+                
+            var synProgress = userProgress != null
+                ? (JsonSerializer.Deserialize<Dictionary<int, FeatureProgress>>(userProgress.SyntacticalFeatureProgressJson) ?? new())
+                : new Dictionary<int, FeatureProgress>();
+                
+            var vocabProgress = userProgress != null
+                ? (JsonSerializer.Deserialize<Dictionary<int, VocabularyProgress>>(userProgress.VocabularyProgressJson) ?? new())
+                : new Dictionary<int, VocabularyProgress>();
 
             // 8. Render units
             var renderedUnits = unitTree
@@ -108,7 +111,7 @@ namespace GreekParser.Application.Services
             var needsPractice =
                 (unit.GramFeatureIds?.Any(id => gramProgress.TryGetValue(id, out var p) && p.NeedsPractice) ?? false) ||
                 (unit.SynFeatureIds?.Any(id => synProgress.TryGetValue(id, out var p) && p.NeedsPractice) ?? false) ||
-                (unit.VocabId.HasValue && vocabProgress.TryGetValue(unit.VocabId.Value, out var vp) && vp.NeedsPractice);
+                (unit.VocabId.HasValue && vocabProgress.TryGetValue(unit.VocabId.Value, out var vpNeeds) && vpNeeds.NeedsPractice);
 
             // Rendering logic
             if (!knowsSyntax && unit.Children != null && unit.Children.Any())

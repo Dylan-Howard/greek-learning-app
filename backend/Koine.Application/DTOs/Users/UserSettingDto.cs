@@ -1,5 +1,5 @@
-// GreekParser.Application/DTOs/Users/UserSettingDto.cs
-namespace GreekParser.Application.DTOs.Users
+// Koine.Application/DTOs/Users/UserSettingDto.cs
+namespace Koine.Application.DTOs.Users
 {
     public class UserSettingDto
     {

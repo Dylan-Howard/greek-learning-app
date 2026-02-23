@@ -1,5 +1,5 @@
-// GreekParser.Application/DTOs/Selections/ChapterSelectionDto.cs
-namespace GreekParser.Application.DTOs.Selections
+// Koine.Application/DTOs/Selections/ChapterSelectionDto.cs
+namespace Koine.Application.DTOs.Selections
 {
     public class ChapterSelectionDto
     {

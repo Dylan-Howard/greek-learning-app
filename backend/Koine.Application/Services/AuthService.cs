@@ -1,14 +1,14 @@
-// GreekParser.Application/Services/AuthService.cs
+// Koine.Application/Services/AuthService.cs
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using GreekParser.Application.DTOs.Auth;
-using GreekParser.Application.Interfaces;
-using GreekParser.Domain.Entities;
+using Koine.Application.DTOs.Auth;
+using Koine.Application.Interfaces;
+using Koine.Domain.Entities;
 
-namespace GreekParser.Application.Services
+namespace Koine.Application.Services
 {
     public class AuthService : IAuthService
     {

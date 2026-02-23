@@ -1,5 +1,5 @@
-// GreekParser.Domain/Entities/Lesson.cs
-namespace GreekParser.Domain.Entities
+// Koine.Domain/Entities/Lesson.cs
+namespace Koine.Domain.Entities
 {
     public class Lesson
     {

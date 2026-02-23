@@ -1,5 +1,7 @@
-// GreekParser.Application/Interfaces/Repositories/ILessonCompletionRepository.cs
-namespace GreekParser.Application.Interfaces.Repositories
+using Koine.Domain.Entities;
+
+// Koine.Application/Interfaces/Repositories/ILessonCompletionRepository.cs
+namespace Koine.Application.Interfaces.Repositories
 {
     public interface ILessonCompletionRepository : IRepository<LessonCompletion>
     {

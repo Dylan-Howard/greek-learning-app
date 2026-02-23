@@ -1,12 +1,12 @@
-// GreekParser.API/Controllers/GrammaticalFeaturesController.cs
+// Koine.API/Controllers/GrammaticalFeaturesController.cs
 using Microsoft.AspNetCore.Mvc;
-using GreekParser.Application.DTOs.Features;
-using GreekParser.Application.Interfaces;
+using Koine.Application.DTOs.Features;
+using Koine.Application.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace GreekParser.API.Controllers
+namespace Koine.API.Controllers
 {
     [ApiController]
     [Route("api/grammaticalForms")]

@@ -1,5 +1,7 @@
-// GreekParser.Application/Interfaces/IChapterService.cs
-namespace GreekParser.Application.Interfaces
+// Koine.Application/Interfaces/IChapterService.cs
+using Koine.Application.DTOs.Chapters;
+
+namespace Koine.Application.Interfaces
 {
     public interface IChapterService
     {

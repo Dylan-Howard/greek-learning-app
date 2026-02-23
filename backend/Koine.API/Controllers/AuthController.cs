@@ -1,9 +1,9 @@
-// GreekParser.API/Controllers/AuthController.cs
+// Koine.API/Controllers/AuthController.cs
 using Microsoft.AspNetCore.Mvc;
-using GreekParser.Application.DTOs.Auth;
-using GreekParser.Application.Interfaces;
+using Koine.Application.DTOs.Auth;
+using Koine.Application.Interfaces;
 
-namespace GreekParser.API.Controllers
+namespace Koine.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

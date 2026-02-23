@@ -1,5 +1,5 @@
-// GreekParser.Application/DTOs/Books/UpdateBookDto.cs
-namespace GreekParser.Application.DTOs.Books
+// Koine.Application/DTOs/Books/UpdateBookDto.cs
+namespace Koine.Application.DTOs.Books
 {
     public class UpdateBookDto
     {

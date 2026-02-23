@@ -1,10 +1,10 @@
-// GreekParser.Application/Services/BookService.cs
+// Koine.Application/Services/BookService.cs
 using System.Text.Json;
-using GreekParser.Application.DTOs.Books;
-using GreekParser.Application.Interfaces;
-using GreekParser.Domain.Entities;
+using Koine.Application.DTOs.Books;
+using Koine.Application.Interfaces;
+using Koine.Domain.Entities;
 
-namespace GreekParser.Application.Services
+namespace Koine.Application.Services
 {
     public class BookService : IBookService
     {

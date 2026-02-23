@@ -1,9 +1,9 @@
-// GreekParser.Infrastructure/Data/Configurations/ChapterConfiguration.cs
+// Koine.Infrastructure/Data/Configurations/ChapterConfiguration.cs
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using GreekParser.Domain.Entities;
+using Koine.Domain.Entities;
 
-namespace GreekParser.Infrastructure.Data.Configurations
+namespace Koine.Infrastructure.Data.Configurations
 {
     public class ChapterConfiguration : IEntityTypeConfiguration<Chapter>
     {

@@ -1,5 +1,5 @@
-// GreekParser.Infrastructure/Data/Seed/GrammaticalFeaturesData.cs
-namespace GreekParser.Infrastructure.Data.Seed
+// Koine.Infrastructure/Data/Seed/GrammaticalFeaturesData.cs
+namespace Koine.Infrastructure.Data.Seed
 {
     public static class GrammaticalFeaturesData
     {
@@ -29,7 +29,7 @@ namespace GreekParser.Infrastructure.Data.Seed
                 // Gender
                 ("M", "Masculine", "gender", "Masculine gender", 30),
                 ("F", "Feminine", "gender", "Feminine gender", 31),
-                ("N", "Neuter", "gender", "Neuter gender", 32),
+                ("NEUT", "Neuter", "gender", "Neuter gender", 32),
 
                 // Number
                 ("S", "Singular", "number", "Singular number", 40),

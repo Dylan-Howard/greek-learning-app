@@ -1,5 +1,7 @@
-// GreekParser.Application/Interfaces/IReaderService.cs
-namespace GreekParser.Application.Interfaces
+// Koine.Application/Interfaces/IReaderService.cs
+using Koine.Application.DTOs.Reader;
+
+namespace Koine.Application.Interfaces
 {
     public interface IReaderService
     {

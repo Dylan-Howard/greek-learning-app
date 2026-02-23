@@ -1,5 +1,5 @@
-// GreekParser.Domain/ValueObjects/TranslationMapping.cs
-namespace GreekParser.Domain.ValueObjects
+// Koine.Domain/ValueObjects/TranslationMapping.cs
+namespace Koine.Domain.ValueObjects
 {
     public class TranslationMapping
     {

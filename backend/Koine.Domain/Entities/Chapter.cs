@@ -1,5 +1,5 @@
-// GreekParser.Domain/Entities/Chapter.cs
-namespace GreekParser.Domain.Entities
+// Koine.Domain/Entities/Chapter.cs
+namespace Koine.Domain.Entities
 {
     public class Chapter
     {

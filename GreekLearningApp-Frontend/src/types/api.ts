@@ -1,0 +1,173 @@
+// GreekLearningApp-Frontend/src/types/api.ts
+
+export interface BookDto {
+  id: number;
+  title: string;
+  languageCode: string;
+  createdAt: string;
+}
+
+export interface CreateBookDto {
+  title: string;
+  languageCode?: string | null;
+}
+
+export interface UpdateBookDto {
+  title: string;
+  languageCode?: string | null;
+}
+
+export interface ChapterDto {
+  id: number;
+  bookId: number;
+  chapterIndex: number;
+  title?: string | null;
+  unitTree: UnitNodeDto[];
+  createdAt: string;
+}
+
+export interface UnitNodeDto {
+  type: string;
+  synFeatureIds?: number[] | null;
+  translation?: string | null;
+  children?: UnitNodeDto[] | null;
+  content?: string | null;
+  marker?: string | null;
+}
+
+export interface RenderedChapterDto {
+  chapterId: number;
+  title: string;
+  units: RenderedUnitDto[];
+}
+
+export interface RenderedUnitDto {
+  type: string;
+  text?: string | null;
+  original?: string | null;
+  hints?: string[] | null;
+  vocabId?: number | null;
+  marker?: string | null;
+  children?: RenderedUnitDto[] | null;
+}
+
+export interface SimpleWordDto {
+  rootGUID: string;
+  rootId: number;
+  content: string;
+  occurances: number;
+  gloss?: string | null;
+}
+
+export interface VocabularyDto {
+  id: number;
+  root: string;
+  transliteration?: string | null;
+  gloss: string;
+  partOfSpeech?: string | null;
+  frequencyRank?: number | null;
+}
+
+export interface UserDto {
+  id: number;
+  email: string;
+  username: string;
+  displayName?: string | null;
+  settings?: UserSettingDto[] | null;
+}
+
+export interface UserSettingDto {
+  settingName?: string | null;
+  settingValue?: string | null;
+}
+
+export interface UserLessonDto {
+  lessonId: number;
+  name?: string | null;
+  isComplete: boolean;
+}
+
+export interface UserWordDto {
+  wordId: number;
+  greekWord?: string | null;
+  englishMeaning?: string | null;
+  knowledgeLevel: number;
+}
+
+export interface LessonDto {
+  id: number;
+  title: string;
+  lessonIndex: number;
+  contentMarkdown: string;
+  lessonType: string;
+  grammaticalFeatureIds: number[];
+  syntacticalFeatureIds: number[];
+  vocabularyIds: number[];
+  isCompleted: boolean;
+}
+
+export interface UserProgressDto {
+  completedLessonIds: number[];
+  grammaticalFeatureProgress: { [key: string]: FeatureProgressDto };
+  syntacticalFeatureProgress: { [key: string]: FeatureProgressDto };
+  vocabularyProgress: { [key: string]: VocabularyProgressDto };
+  updatedAt: string;
+}
+
+export interface FeatureProgressDto {
+  masteryLevel: number;
+  needsPractice: boolean;
+  lastPracticed: string;
+}
+
+export interface VocabularyProgressDto {
+  masteryLevel: number;
+  needsPractice: boolean;
+  lastPracticed: string;
+  timesSeen: number;
+}
+
+export interface SelectionsDto {
+  texts: TextSelectionDto[];
+  chapters: ChapterSelectionDto[];
+}
+
+export interface TextSelectionDto {
+  textId: number;
+  title: string;
+}
+
+export interface ChapterSelectionDto {
+  chapterId: number;
+  chapterNumber: number;
+}
+
+export interface VocabularySetDto {
+  id: number;
+  title: string;
+  description: string;
+  items: VocabularySetItemDto[];
+  createdAt: string;
+  lastPracticed?: string | null;
+}
+
+export interface VocabularySetItemDto {
+  id: number;
+  vocabularyId: number;
+  root: string;
+  gloss: string;
+  masteryLevel: number;
+  lastSeen?: string | null;
+}
+
+export interface RegisterRequestDto {
+  email?: string | null;
+  username?: string | null;
+  password?: string | null;
+}
+
+export interface CreateUserDto {
+  email?: string | null;
+  username?: string | null;
+  password?: string | null;
+}

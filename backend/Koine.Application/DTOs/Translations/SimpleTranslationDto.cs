@@ -1,7 +1,7 @@
-// GreekParser.Application/DTOs/Translations/SimpleTranslationDto.cs
+// Koine.Application/DTOs/Translations/SimpleTranslationDto.cs
 using System;
 
-namespace GreekParser.Application.DTOs.Translations
+namespace Koine.Application.DTOs.Translations
 {
     public class SimpleTranslationDto
     {

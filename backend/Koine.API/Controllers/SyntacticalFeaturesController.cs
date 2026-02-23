@@ -1,9 +1,9 @@
-// GreekParser.API/Controllers/SyntacticalFeaturesController.cs
+// Koine.API/Controllers/SyntacticalFeaturesController.cs
 using Microsoft.AspNetCore.Mvc;
-using GreekParser.Application.DTOs.Features;
-using GreekParser.Application.Interfaces;
+using Koine.Application.DTOs.Features;
+using Koine.Application.Interfaces;
 
-namespace GreekParser.API.Controllers
+namespace Koine.API.Controllers
 {
     [ApiController]
     [Route("api/syntactical-features")]
