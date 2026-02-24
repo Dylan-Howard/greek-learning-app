@@ -1,10 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import { describe, expect, it } from 'vitest';
 
-// test('renders learn react link', () => {
-//   render(<App />);
-//   const linkElement = screen.getByText(/learn react/i);
-//   expect(linkElement).toBeInTheDocument();
-// });
+describe('test harness', () => {
+  it('runs baseline tests', () => {
+    expect(true).toBe(true);
+  });
+});

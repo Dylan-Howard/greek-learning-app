@@ -3,10 +3,10 @@
 import React from 'react';
 import { Container, Typography, Box, Paper, Stack, Breadcrumbs, Link } from '@mui/material';
 import NextLink from 'next/link';
-import { useUser } from '@clerk/nextjs';
+import { useUserContext } from '../../services/User';
 
 export default function ProfilePage() {
-  const { user } = useUser();
+  const { user } = useUserContext();
 
   return (
     <Container maxWidth="md" sx={{ py: 4 }}>
@@ -25,11 +25,11 @@ export default function ProfilePage() {
         <Stack spacing={3}>
           <Box>
             <Typography variant="overline">Name</Typography>
-            <Typography variant="h5">{user?.fullName || 'Scholar'}</Typography>
+            <Typography variant="h5">{user?.name || 'Scholar'}</Typography>
           </Box>
           <Box>
-            <Typography variant="overline">Email</Typography>
-            <Typography variant="body1">{user?.primaryEmailAddress?.emailAddress}</Typography>
+            <Typography variant="overline">Profile</Typography>
+            <Typography variant="body1">{`Development User ${user?.id || 'guest'}`}</Typography>
           </Box>
           <Box>
             <Typography variant="overline">Account Status</Typography>

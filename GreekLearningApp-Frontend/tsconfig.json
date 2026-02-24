@@ -25,7 +25,11 @@
         "name": "next"
       }
     ],
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "paths": {
+      "@app": [ "./src/app" ],
+      "@/*": [ "./src/*" ]
+    }
   },
   "include": [
     "src",
@@ -41,9 +45,5 @@
   ],
   "exclude": [
     "node_modules"
-  ],
-  "paths": {
-    "@app": [ "./src/app" ],
-    "@/*": [ "./src/*" ]
-  }
+  ]
 }

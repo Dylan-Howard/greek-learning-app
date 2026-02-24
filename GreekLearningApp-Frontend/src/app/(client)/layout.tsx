@@ -1,28 +1,39 @@
 'use client';
 
 import { useEffect, useMemo, useState, ReactNode } from 'react';
-import { useUser } from '@clerk/nextjs';
 import { UserContext } from '../services/User';
 import * as UserService from '../services/AzureUserService';
+import {
+  DEV_USER_CHANGED_EVENT,
+  getActiveDevUserId,
+  setActiveDevUserId,
+  sanitizeDevUserId,
+} from '../services/devUserSession';
 
 export default function ClientLayout({ children }: { children: ReactNode }) {
   const [activeUser, setActiveUser] = useState(UserService.getDefaultUserState());
-  const { isLoaded, isSignedIn, user } = useUser();
 
   useEffect(() => {
-    if (!isLoaded || !isSignedIn || !user) {
-      return;
-    }
-
-    const userId = user.id;
-
-    UserService.fetchUser(userId)
-      .then((usr) => {
+    const loadUser = (id: string) => {
+      UserService.fetchUser(id).then((usr) => {
         if (usr) {
           setActiveUser(usr);
         }
       });
-  }, [isLoaded, isSignedIn, user]);
+    };
+
+    const initialId = getActiveDevUserId();
+    setActiveDevUserId(initialId);
+    loadUser(initialId);
+
+    const onDevUserChanged = (evt: Event) => {
+      const customEvt = evt as CustomEvent<string>;
+      loadUser(sanitizeDevUserId(customEvt.detail));
+    };
+
+    window.addEventListener(DEV_USER_CHANGED_EVENT, onDevUserChanged);
+    return () => window.removeEventListener(DEV_USER_CHANGED_EVENT, onDevUserChanged);
+  }, []);
 
   const value = useMemo(() => ({ user: activeUser, setUser: setActiveUser }), [activeUser]);
 

@@ -41,3 +41,11 @@ docker-compose down -v
 nswag run nswag.json
 
 # This generates: frontend/src/api/generated/api-client.ts
+
+## Coverage Commands
+
+# From repository root:
+./scripts/coverage-backend-focused.sh
+./scripts/coverage-backend.sh
+./scripts/coverage-frontend.sh
+./scripts/coverage-all.sh

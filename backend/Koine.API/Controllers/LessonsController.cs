@@ -76,13 +76,13 @@ namespace Koine.API.Controllers
             }
         }
 
-        [Authorize]
+        [AllowAnonymous]
         [HttpPost("{id}/complete")]
         public async Task<ActionResult> CompleteLesson(int id, [FromBody] CompleteLessonDto completionDto)
         {
             try
             {
-                var userId = GetUserIdFromClaims();
+                var userId = GetUserIdFromClaimsOrDefault();
                 completionDto.LessonId = id;
                 
                 var success = await _lessonService.CompleteLessonAsync(userId, completionDto);
@@ -99,22 +99,12 @@ namespace Koine.API.Controllers
             }
         }
 
-        private int GetUserIdFromClaims()
-        {
-            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            if (string.IsNullOrEmpty(userIdClaim) || !int.TryParse(userIdClaim, out var userId))
-            {
-                throw new UnauthorizedAccessException("Invalid user token");
-            }
-            return userId;
-        }
-
         private int GetUserIdFromClaimsOrDefault()
         {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (string.IsNullOrEmpty(userIdClaim) || !int.TryParse(userIdClaim, out var userId))
             {
-                return 0; // Default for anonymous
+                return 1; // Default for MVP development.
             }
             return userId;
         }

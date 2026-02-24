@@ -1,41 +1,52 @@
 'use client';
 
-import React from 'react';
-import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
+import { ReactNode } from 'react';
+import { useRouter } from 'next/navigation';
+
 import Select, { SelectChangeEvent } from '@mui/material/Select';
+import * as AzureTextService from '../../services/AzureTextService';
 
 export default function ReaderPageSelect({
+  children,
+  id,
+  labelId,
   label,
-  value,
-  options,
-  onChange,
-}: {
-  label: string;
-  value: number;
-  options: { value: number; label: string }[];
-  onChange: (event: SelectChangeEvent<number>) => void;
+  reference,
+  page,
+} : {
+  children: ReactNode,
+  id: string
+  labelId: string
+  label: string
+  reference: string,
+  page: { bookId: number, chapterId: number },
 }) {
+  const router = useRouter();
+
+  const handleChange = async (event: SelectChangeEvent) => {
+    let targetBook = page.bookId;
+    let targetChapter;
+
+    if (reference === 'book') {
+      targetBook = parseInt(event.target.value, 10);
+      const chapters = await AzureTextService.fetchChaptersByText(targetBook);
+      targetChapter = chapters[0].chapterId;
+    } else {
+      targetChapter = parseInt(event.target.value, 10);
+    }
+    router.push(`/reader/${targetBook}/${targetChapter}`);
+  };
+
   return (
-    <Box sx={{ minWidth: 120 }}>
-      <FormControl fullWidth size="small">
-        <InputLabel id={`select-label-${label}`}>{label}</InputLabel>
-        <Select
-          labelId={`select-label-${label}`}
-          id={`select-${label}`}
-          value={value}
-          label={label}
-          onChange={onChange}
-        >
-          {options.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-    </Box>
+    <Select
+      id={id}
+      value={`${reference === 'book' ? page.bookId : page.chapterId}`}
+      labelId={labelId}
+      label={label}
+      onChange={handleChange}
+      sx={{ width: 180 }}
+    >
+      {children}
+    </Select>
   );
 }

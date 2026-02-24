@@ -1,41 +1,71 @@
 'use client';
 
-import React from 'react';
+import { ReactNode } from 'react';
+
 import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
-import { Box } from '@mui/material';
-import { RenderedUnitDto } from '../../../types/api';
 
-export default function ReaderPageUnit({ unit }: { unit: RenderedUnitDto }) {
+export function ReaderPageUnitHelp({ children } : { children: ReactNode }) {
   const theme = useTheme();
 
-  // Handle expanded units (recursive)
-  if (unit.type === 'expanded' && unit.children) {
-    return (
-      <Box component="span" sx={{ display: 'inline-flex', flexWrap: 'wrap', borderBottom: '1px dotted #ccc', pb: 0.5 }}>
-        {unit.children.map((child, idx) => (
-          <ReaderPageUnit key={idx} unit={child} />
-        ))}
-      </Box>
-    );
-  }
-
-  // Handle leaf units
   return (
     <Typography
-      component="span"
       sx={{
-        fontSize: '1.2rem',
+        display: 'inline-block',
+        color: theme.palette.text.primary,
+        fontFamily: 'Noto Serif, serif',
+        fontSize: theme.typography.readerHelp.fontSize,
+        lineHeight: theme.typography.readerHelp.lineHeight,
         mr: 1,
-        cursor: 'pointer',
-        color: unit.type === 'translated' ? 'text.secondary' : 'inherit',
-        fontStyle: unit.type === 'translated' ? 'italic' : 'normal',
-        '&:hover': {
-          color: theme.palette.primary.main,
-        },
       }}
     >
-      {unit.text || unit.original}
+      {children}
     </Typography>
+  );
+}
+
+export function ReaderPageUnit({ children } : { children: ReactNode }) {
+  const theme = useTheme();
+
+  return (
+    <Typography
+      sx={{
+        color: theme.palette.text.primary,
+        cursor: 'pointer',
+        fontFamily: 'Noto Serif, serif',
+        fontSize: theme.typography.readerBody.fontSize,
+        lineHeight: theme.typography.readerBody.lineHeight,
+        mr: 1,
+        '&:hover': { color: theme.palette.primary.main },
+      }}
+    >
+      {children}
+    </Typography>
+  // <Box
+  //   role="button"
+  //   tabIndex={0}
+  //   onClick={() => handleClick()}
+  //   sx={{ display: 'inline-block' }}
+  // >
+
+  //   {
+  //     helpText
+  //       ? (
+  //         <Typography
+  //           sx={{
+  //             display: 'inline-block',
+  //             color: theme.palette.text.primary,
+  //             fontFamily: 'Noto Serif, serif',
+  //             fontSize: theme.typography.readerHelp.fontSize,
+  //             lineHeight: theme.typography.readerHelp.lineHeight,
+  //             mr: 1,
+  //           }}
+  //         >
+  //           {helpText}
+  //         </Typography>
+  //       )
+  //       : ''
+  //     }
+  // </Box>
   );
 }

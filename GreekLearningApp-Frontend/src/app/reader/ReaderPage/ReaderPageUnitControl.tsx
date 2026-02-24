@@ -1,53 +1,23 @@
 'use client';
 
-import React from 'react';
+import { ReactNode } from 'react';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import { useReaderContext } from './ReaderPageContext';
-import { RenderedUnitDto } from '../../../types/api';
 
-export default function ReaderPageUnitControl({ unit }: { unit: RenderedUnitDto }) {
+export default function ReaderTextUnit(
+  { children, morphologyId } : { children: ReactNode, morphologyId: number },
+) {
   const { page, setPage } = useReaderContext();
-
-  const handleClick = () => {
-    if (unit.vocabId) {
-      setPage({ ...page, tabId: 3, morphologyId: unit.vocabId });
-    }
-  };
+  const handleClick = () => setPage({ ...page, tabId: 3, morphologyId });
 
   return (
     <Box
-      component="span"
-      onClick={handleClick}
-      sx={{
-        display: 'inline-flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        verticalAlign: 'top',
-        mx: 0.5,
-        cursor: unit.vocabId ? 'pointer' : 'default',
-      }}
+      role="button"
+      tabIndex={0}
+      onClick={() => handleClick()}
+      sx={{ display: 'inline-block' }}
     >
-      <Typography
-        variant="body1"
-        sx={{
-          fontFamily: '"Noto Serif", serif',
-          fontSize: '1.2rem',
-          lineHeight: 1.2,
-        }}
-      >
-        {unit.original}
-      </Typography>
-      <Typography
-        variant="caption"
-        sx={{
-          fontSize: '0.75rem',
-          color: 'text.secondary',
-          lineHeight: 1.2,
-        }}
-      >
-        {unit.text}
-      </Typography>
+      {children}
     </Box>
   );
 }

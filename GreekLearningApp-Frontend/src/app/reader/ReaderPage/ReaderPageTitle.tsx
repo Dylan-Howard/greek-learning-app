@@ -1,16 +1,21 @@
 'use client';
 
-import React from 'react';
+import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 
-export default function ReaderPageTitle({ children }: { children: React.ReactNode }) {
+export default function ReaderPageTitle(props: { children: any }) {
+  const theme = useTheme();
+  const { children } = props;
+
   return (
     <Typography
-      variant="h1"
+      variant="h2"
       sx={{
+        fontFamily: 'Noto Serif, serif',
+        fontSize: 48,
+        fontWeight: theme.typography.fontWeightBold,
+        lineHeight: 1.8,
         textAlign: 'center',
-        fontSize: { xs: '2.5rem', sm: '3.5rem' },
-        mt: 4,
         mb: 2,
       }}
     >

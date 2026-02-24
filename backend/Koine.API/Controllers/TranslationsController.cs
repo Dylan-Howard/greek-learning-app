@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Koine.Application.DTOs.Translations;
 using Koine.Application.Interfaces;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Koine.API.Controllers
@@ -11,18 +13,60 @@ namespace Koine.API.Controllers
     public class TranslationsController : ControllerBase
     {
         private readonly ITranslationService _translationService;
+        private readonly ITranslationUnitService _translationUnitService;
         private readonly ILogger<TranslationsController> _logger;
 
-        public TranslationsController(ITranslationService translationService, ILogger<TranslationsController> logger)
+        public TranslationsController(
+            ITranslationService translationService,
+            ITranslationUnitService translationUnitService,
+            ILogger<TranslationsController> logger)
         {
             _translationService = translationService;
+            _translationUnitService = translationUnitService;
             _logger = logger;
         }
 
         [HttpPost]
         public async Task<ActionResult<SimpleTranslationDto>> CreateTranslation([FromBody] SimpleTranslationDto translation)
         {
-            return StatusCode(501, new { message = "Not Implemented" });
+            try
+            {
+                if (translation.TranslationId <= 0)
+                {
+                    return BadRequest(new { message = "translationId is required for legacy translation unit creation." });
+                }
+
+                if (string.IsNullOrWhiteSpace(translation.Content))
+                {
+                    return BadRequest(new { message = "content is required." });
+                }
+
+                var created = await _translationUnitService.CreateUnitAsync(translation.TranslationId, new CreateTranslationUnitDto
+                {
+                    // Legacy payload did not have these fields; use a deterministic compatibility mapping.
+                    ChapterId = translation.UnitId,
+                    OriginalUnitPath = $"legacy/unit/{translation.UnitId}",
+                    TranslatedText = translation.Content,
+                    DisplayOrder = 0,
+                    ScopeStart = null,
+                    ScopeEnd = null,
+                });
+
+                var response = new SimpleTranslationDto
+                {
+                    TranslationGuid = Guid.NewGuid(),
+                    TranslationId = created.Id,
+                    UnitId = translation.UnitId,
+                    Content = created.TranslatedText,
+                };
+
+                return CreatedAtAction(nameof(GetById), new { id = response.TranslationId }, response);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error creating legacy translation unit");
+                return StatusCode(500, new { message = "An error occurred while creating the translation" });
+            }
         }
 
         [HttpGet("~/api/books/{bookId}/translations")]

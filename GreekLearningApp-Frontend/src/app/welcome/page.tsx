@@ -1,5 +1,3 @@
-'use client';
-
 import NextLink from 'next/link';
 import NextImage from 'next/image';
 import {
@@ -11,12 +9,7 @@ import {
   Typography,
 } from '@mui/material';
 
-import {
-  SignedIn,
-  SignedOut,
-  SignInButton,
-  SignUpButton,
-} from '@clerk/nextjs';
+import './Onboarding.css';
 import WelcomeIllustration from './WelcomeIllustration';
 
 export default function WelcomePage() {
@@ -48,37 +41,27 @@ export default function WelcomePage() {
               <NextImage src="/static/img/koine-logo.svg" alt="Koine Logo" width={128} height={128} />
             </Box>
             <Typography variant="h2" sx={{ fontSize: 42, textAlign: 'center', mb: 2 }}>Welcome, Scholar!</Typography>
-            <Typography variant="body1" sx={{ textAlign: 'center', mb: 6 }}>Start reading by by signing into your account below.</Typography>
+            <Typography variant="body1" sx={{ textAlign: 'center', mb: 6 }}>
+              Authentication is disabled for MVP development. Use the dev user switcher in the reader nav.
+            </Typography>
 
-            <SignedIn>
-              <Stack flexDirection="row" justifyContent="center" sx={{ mb: 2 }}>
-                <NextLink href="/reader">
-                  <Button variant="contained" type="button">Start Reading</Button>
-                </NextLink>
-              </Stack>
-            </SignedIn>
-            <SignedOut>
-              <Stack flexDirection="row" justifyContent="center" sx={{ mb: 2 }}>
-                <SignUpButton>
-                  <Button variant="outlined" type="button" sx={{ mr: 2 }}>Create Account</Button>
-                </SignUpButton>
-                <SignInButton>
-                  <Button variant="contained" type="button">Sign In</Button>
-                </SignInButton>
-              </Stack>
-              <Stack flexDirection="row" justifyContent="center">
-                <Link href="reader">
-                  <Button type="button" size="small" sx={{ color: '#333' }}>Continue as guest</Button>
-                </Link>
-              </Stack>
-            </SignedOut>
+            <Stack flexDirection="row" justifyContent="center" sx={{ mb: 2 }}>
+              <NextLink href="/reader">
+                <Button variant="contained" type="button">Start Reading</Button>
+              </NextLink>
+            </Stack>
+            <Stack flexDirection="row" justifyContent="center">
+              <Link href="/onboarding">
+                <Button type="button" size="small" sx={{ color: '#333' }}>Run Onboarding</Button>
+              </Link>
+            </Stack>
           </Box>
           <NextLink href="/about">
             <Button fullWidth size="small" sx={{ color: 'text.primary' }}>About Koine</Button>
           </NextLink>
         </Stack>
       </Grid>
-      <Grid size={{ sm: 6 }} sx={{ display: { xs: 'none', sm: 'block' } }}>
+      <Grid  size={{ sm: 6 }} sx={{ display: { xs: 'none', sm: 'block' } }}>
         <Stack flexDirection="column" justifyContent="center" alignItems="center" sx={{ height: '100vh' }}>
           <WelcomeIllustration />
         </Stack>

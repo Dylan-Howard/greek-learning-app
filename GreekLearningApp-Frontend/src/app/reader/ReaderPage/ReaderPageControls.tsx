@@ -1,44 +1,52 @@
 'use client';
 
-import React from 'react';
-import Stack from '@mui/material/Stack';
+import { useRouter } from 'next/navigation';
+
 import Fab from '@mui/material/Fab';
-import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
-import NavigateNextIcon from '@mui/icons-material/NavigateNext';
-import { useReaderContext } from './ReaderPageContext';
+import Stack from '@mui/material/Stack';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
-export default function ReaderPageControls() {
-  const { page, setPage } = useReaderContext();
+import * as AzureTextService from '../../services/AzureTextService';
 
-  const handleNext = () => {
-    if (page) {
-      setPage({ ...page, chapterId: page.chapterId + 1 });
-    }
-  };
+export default function ReaderPageControls(
+  { chapterId, chapterPosition }: { chapterId: number, chapterPosition: string | undefined },
+) {
+  const router = useRouter();
 
-  const handlePrev = () => {
-    if (page && page.chapterId > 1) {
-      setPage({ ...page, chapterId: page.chapterId - 1 });
-    }
+  const handleChapterChange = async (targetChapterId: number) => {
+    const { textId } = await AzureTextService.fetchChapter(targetChapterId);
+    router.push(`/reader?bookId=${textId}&chapterId=${targetChapterId}`);
   };
 
   return (
     <Stack
-      direction="row"
-      spacing={2}
-      sx={{
-        position: 'fixed',
-        bottom: 16,
-        right: 16,
-        zIndex: 1000,
-      }}
+      direction={chapterPosition === 'first' ? 'row-reverse' : 'row'}
+      justifyContent="space-between"
+      sx={{ m: 4, mt: 0 }}
     >
-      <Fab color="primary" onClick={handlePrev} disabled={!page || page.chapterId <= 1}>
-        <NavigateBeforeIcon />
-      </Fab>
-      <Fab color="primary" onClick={handleNext} disabled={!page}>
-        <NavigateNextIcon />
-      </Fab>
+      {chapterPosition !== 'first'
+        ? (
+          <Fab
+            color="primary"
+            aria-label="navigate-back"
+            onClick={() => handleChapterChange(chapterId - 1)}
+          >
+            <ChevronLeftIcon />
+          </Fab>
+        )
+        : ''}
+      {chapterPosition !== 'last'
+        ? (
+          <Fab
+            color="primary"
+            aria-label="navigate-back"
+            onClick={() => handleChapterChange(chapterId + 1)}
+          >
+            <ChevronRightIcon />
+          </Fab>
+        )
+        : ''}
     </Stack>
   );
 }

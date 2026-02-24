@@ -1,28 +1,30 @@
-'use client';
+import Link from 'next/link';
+import {
+  Breadcrumbs,
+  Button,
+  Grid,
+  Stack,
+  Typography,
+} from '@mui/material';
 
-import React from 'react';
-import { Container, Typography, Grid, Breadcrumbs, Link } from '@mui/material';
-import NextLink from 'next/link';
-
-export default function LessonsPage() {
+function Lessons() {
   return (
-    <Container maxWidth="lg" sx={{ py: 4 }}>
-      <Breadcrumbs aria-label="breadcrumb" sx={{ mb: 4 }}>
-        <Link component={NextLink} href="/reader" color="inherit">
-          Reader
-        </Link>
-        <Typography color="text.primary">Lessons</Typography>
-      </Breadcrumbs>
-
-      <Typography variant="h2" gutterBottom align="center" sx={{ mb: 6 }}>
-        Grammar Lessons
-      </Typography>
-
-      <Grid container spacing={4} justifyContent="center">
-        <Typography variant="h5" color="text.secondary">
-          Lessons are currently under development.
-        </Typography>
+    <Grid container justifyContent="center" sx={{ mt: 4 }}>
+      <Grid  size={{ sm: 11 }} sx={{ mb: 8 }}>
+        <Breadcrumbs aria-label="breadcrumb">
+          <Link href="/reader">Koine Reader</Link>
+          <Typography color="primary.main">Lessons</Typography>
+        </Breadcrumbs>
       </Grid>
-    </Container>
+      <Grid  size={{ xs: 11 }}>
+        <Typography variant="h2" sx={{ textAlign: 'center', mb: 4 }}>Coming Soon</Typography>
+        <Typography variant="body1" sx={{ textAlign: 'center', mb: 4 }}>We&#39;re working hard to build this page for our users.</Typography>
+        <Stack flexDirection="row" justifyContent="center">
+          <Link href="/reader"><Button variant="contained">Return to reader</Button></Link>
+        </Stack>
+      </Grid>
+    </Grid>
   );
 }
+
+export default Lessons;
