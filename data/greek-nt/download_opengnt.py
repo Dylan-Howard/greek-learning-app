@@ -15,10 +15,14 @@ CACHE_FILE = "opengnt_keyedFeatures_cache.zip"
 TSV_FILE = "opengnt_keyedFeatures.txt"
 
 def download_tsv():
-    """Download the TSV file from GitHub"""
+    """Download the TSV/CSV file (or zip) from GitHub"""
     urls = [
+        "https://raw.githubusercontent.com/eliranwong/OpenGNT/master/OpenGNT_keyedFeatures.csv.zip",
+        "https://github.com/eliranwong/OpenGNT/raw/master/OpenGNT_keyedFeatures.csv.zip",
         "https://raw.githubusercontent.com/eliranwong/OpenGNT/main/opengnt_keyedFeatures.txt",
         "https://github.com/eliranwong/OpenGNT/raw/main/opengnt_keyedFeatures.txt",
+        "https://raw.githubusercontent.com/eliranwong/OpenGNT/master/opengnt_keyedFeatures.txt",
+        "https://github.com/eliranwong/OpenGNT/raw/master/opengnt_keyedFeatures.txt",
     ]
     
     print("📥 Downloading OpenGNT data file...")
@@ -32,7 +36,21 @@ def download_tsv():
             response.raise_for_status()
             
             total_size = int(response.headers.get('content-length', 0))
-            
+
+            if url.lower().endswith(".zip"):
+                with open(CACHE_FILE, 'wb') as f, tqdm(
+                    desc="Downloading",
+                    total=total_size,
+                    unit='B',
+                    unit_scale=True,
+                    unit_divisor=1024,
+                ) as pbar:
+                    for chunk in response.iter_content(chunk_size=8192):
+                        f.write(chunk)
+                        pbar.update(len(chunk))
+                print(f"✅ Downloaded: {CACHE_FILE}")
+                return True
+
             with open(TSV_FILE, 'wb') as f, tqdm(
                 desc="Downloading",
                 total=total_size,
@@ -43,7 +61,7 @@ def download_tsv():
                 for chunk in response.iter_content(chunk_size=8192):
                     f.write(chunk)
                     pbar.update(len(chunk))
-            
+
             print(f"✅ Downloaded: {TSV_FILE}")
             return True
         
@@ -60,6 +78,9 @@ def create_zip():
     print(f"\n📦 Creating cache file...")
     
     try:
+        if Path(CACHE_FILE).exists():
+            print(f"✅ Cache already exists: {CACHE_FILE}")
+            return True
         with zipfile.ZipFile(CACHE_FILE, 'w', zipfile.ZIP_DEFLATED) as zf:
             zf.write(TSV_FILE, TSV_FILE)
         
@@ -102,7 +123,7 @@ def main():
         print("="*60)
         print("\nManual steps:")
         print("1. Visit: https://github.com/eliranwong/OpenGNT")
-        print("2. Download: opengnt_keyedFeatures.txt")
+        print("2. Download: OpenGNT_keyedFeatures.csv.zip (preferred)")
         print("3. Place it in this directory")
         print("4. Run this script again to create the cache zip")
         return 1

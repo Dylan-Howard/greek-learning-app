@@ -34,7 +34,7 @@ except ImportError:
 
 
 # OpenGNT data URL - Updated location
-OPENGNT_URL = "https://github.com/eliranwong/OpenGNT/raw/main/opengnt_keyedFeatures.zip"
+OPENGNT_URL = "https://github.com/eliranwong/OpenGNT/raw/master/OpenGNT_keyedFeatures.csv.zip"
 CACHE_FILE = "opengnt_keyedFeatures_cache.zip"
 
 # Book number to name mapping
@@ -70,15 +70,19 @@ def download_opengnt(force=False):
         print(f"✓ Using cached OpenGNT data: {CACHE_FILE}")
         return cache_path
     
-    # The OpenGNT repository has the TSV file directly, not in a zip
-    # We need to download the TSV file instead
+    # The OpenGNT repository may provide either a zip (preferred) or a raw TSV/CSV.
     print(f"📥 Downloading OpenGNT data from GitHub...")
     
     # Try to download the TSV file directly
     urls = [
-        # Direct TSV file (most reliable)
+        # Zip file (current canonical location on master)
+        "https://raw.githubusercontent.com/eliranwong/OpenGNT/master/OpenGNT_keyedFeatures.csv.zip",
+        "https://github.com/eliranwong/OpenGNT/raw/master/OpenGNT_keyedFeatures.csv.zip",
+        # Fallbacks (legacy raw TSV)
         "https://raw.githubusercontent.com/eliranwong/OpenGNT/main/opengnt_keyedFeatures.txt",
         "https://github.com/eliranwong/OpenGNT/raw/main/opengnt_keyedFeatures.txt",
+        "https://raw.githubusercontent.com/eliranwong/OpenGNT/master/opengnt_keyedFeatures.txt",
+        "https://github.com/eliranwong/OpenGNT/raw/master/opengnt_keyedFeatures.txt",
     ]
     
     for i, url in enumerate(urls, 1):
@@ -88,30 +92,39 @@ def download_opengnt(force=False):
             response = requests.get(url, stream=True, timeout=30)
             response.raise_for_status()
             
-            # Save as TSV directly, we'll create a mock zip structure
-            tsv_file = cache_path.parent / "opengnt_keyedFeatures.txt"
-            
             total_size = int(response.headers.get('content-length', 0))
-            
-            with open(tsv_file, 'wb') as f, tqdm(
-                desc="Downloading",
-                total=total_size,
-                unit='B',
-                unit_scale=True,
-                unit_divisor=1024,
-            ) as pbar:
-                for chunk in response.iter_content(chunk_size=8192):
-                    f.write(chunk)
-                    pbar.update(len(chunk))
-            
-            # Create a zip file containing the TSV
-            import zipfile
-            with zipfile.ZipFile(cache_path, 'w', zipfile.ZIP_DEFLATED) as zf:
-                zf.write(tsv_file, 'opengnt_keyedFeatures.txt')
-            
-            # Clean up TSV file
-            tsv_file.unlink()
-            
+
+            if url.lower().endswith(".zip"):
+                # Save zip directly
+                with open(cache_path, 'wb') as f, tqdm(
+                    desc="Downloading",
+                    total=total_size,
+                    unit='B',
+                    unit_scale=True,
+                    unit_divisor=1024,
+                ) as pbar:
+                    for chunk in response.iter_content(chunk_size=8192):
+                        f.write(chunk)
+                        pbar.update(len(chunk))
+            else:
+                # Save as TSV/CSV directly, then create a zip wrapper
+                tsv_file = cache_path.parent / "opengnt_keyedFeatures.txt"
+                with open(tsv_file, 'wb') as f, tqdm(
+                    desc="Downloading",
+                    total=total_size,
+                    unit='B',
+                    unit_scale=True,
+                    unit_divisor=1024,
+                ) as pbar:
+                    for chunk in response.iter_content(chunk_size=8192):
+                        f.write(chunk)
+                        pbar.update(len(chunk))
+
+                with zipfile.ZipFile(cache_path, 'w', zipfile.ZIP_DEFLATED) as zf:
+                    zf.write(tsv_file, 'opengnt_keyedFeatures.txt')
+
+                tsv_file.unlink()
+
             print(f"✓ Downloaded and cached: {CACHE_FILE}")
             return cache_path
         
@@ -126,8 +139,7 @@ def download_opengnt(force=False):
     print(f"\nTroubleshooting:")
     print(f"  1. Check your internet connection")
     print(f"  2. Visit https://github.com/eliranwong/OpenGNT manually")
-    print(f"  3. Download opengnt_keyedFeatures.txt and run this script:")
-    print(f"     python -c \"import zipfile; zipfile.ZipFile('{CACHE_FILE}', 'w').write('opengnt_keyedFeatures.txt')\"")
+    print(f"  3. Download OpenGNT_keyedFeatures.csv.zip and place it next to this script")
     print(f"  4. Or check if the repository has been moved/renamed")
     sys.exit(1)
 
@@ -204,64 +216,187 @@ def parse_rmac_code(rmac: str) -> Dict[str, str]:
     return result
 
 
+def _select_data_file(zf: zipfile.ZipFile) -> str:
+    """Pick the best data file inside the zip."""
+    candidates = zf.namelist()
+    # Prefer keyedFeatures files with known extensions
+    for name in candidates:
+        lower = name.lower()
+        if "keyedfeatures" in lower and lower.endswith((".txt", ".tsv", ".csv")):
+            return name
+    # Fallback: first file
+    if candidates:
+        return candidates[0]
+    return ""
+
+
+def _detect_delimiter(sample: str) -> str:
+    """Detect delimiter between tab and comma, default to tab."""
+    if "\t" in sample and "," not in sample:
+        return "\t"
+    if "," in sample and "\t" not in sample:
+        return ","
+    try:
+        import csv
+        dialect = csv.Sniffer().sniff(sample, delimiters="\t,")
+        return dialect.delimiter
+    except Exception:
+        return "\t"
+
+
+def _split_bracketed(value: str) -> List[str]:
+    value = value.strip()
+    if value.startswith("〔") and value.endswith("〕"):
+        value = value[1:-1]
+    if not value:
+        return []
+    return value.split("｜")
+
+
+def _parse_keyed_features_row(parts: List[str], line_num: int) -> Optional[Dict]:
+    # Expected columns (tab-delimited): see OpenGNT_keyedFeatures.csv
+    if len(parts) < 9:
+        return None
+
+    # Book/Chapter/Verse
+    bcv = _split_bracketed(parts[4])
+    if len(bcv) < 3:
+        return None
+    book_str, chapter_str, verse_str = bcv[0], bcv[1], bcv[2]
+    if not (book_str.isdigit() and chapter_str.isdigit() and verse_str.isdigit()):
+        return None
+
+    # Word number from OpenTextWord_KEY (e.g., 40.1.1.w1)
+    word_key_parts = _split_bracketed(parts[5])
+    if len(word_key_parts) < 3:
+        return None
+    word_key = word_key_parts[2]
+    match = re.search(r"w(\d+)", word_key)
+    if not match:
+        return None
+
+    # Morph column with Greek + RMAC (e.g., BIMNRSTWH=Βίβλος=G0976=N-NSF;)
+    morph_parts = _split_bracketed(parts[7])
+    if not morph_parts:
+        return None
+    morph_entry = next((m for m in morph_parts if m.strip()), "")
+    morph_entry = morph_entry.split(";")[0].strip()
+    if not morph_entry:
+        return None
+    morph_tokens = morph_entry.split("=")
+    if len(morph_tokens) < 2:
+        return None
+    greek = morph_tokens[1].strip()
+    rmac = morph_tokens[-1].strip()
+    if not greek or not rmac:
+        return None
+
+    # Gloss column (take first gloss if present)
+    gloss_parts = _split_bracketed(parts[8])
+    gloss = gloss_parts[0].strip() if gloss_parts else ""
+
+    try:
+        book = int(book_str)
+        chapter = int(chapter_str)
+        verse = int(verse_str)
+        word_num = int(match.group(1))
+    except ValueError:
+        print(f"⚠️  Warning: Skipping malformed line {line_num}: invalid numeric field")
+        return None
+
+    grammar = parse_rmac_code(rmac)
+    return {
+        'book': book,
+        'chapter': chapter,
+        'verse': verse,
+        'word_num': word_num,
+        'greek': greek,
+        'rmac': rmac,
+        'lemma': greek,
+        'transliteration': '',
+        'gloss': gloss,
+        'grammar': grammar,
+        'pos': grammar.get('pos', ''),
+    }
+
+
 def load_opengnt_data(zip_path: Path) -> List[Dict]:
-    """Load and parse the OpenGNT TSV data from the zip file"""
+    """Load and parse the OpenGNT TSV/CSV data from the zip file"""
     print(f"📖 Loading OpenGNT data...")
     
     tokens = []
     
     try:
         with zipfile.ZipFile(zip_path, 'r') as zf:
-            # The main file is opengnt_keyedFeatures.txt
-            tsv_filename = 'opengnt_keyedFeatures.txt'
-            
-            if tsv_filename not in zf.namelist():
-                print(f"✗ Error: {tsv_filename} not found in zip")
+            data_filename = _select_data_file(zf)
+            if not data_filename:
+                print(f"✗ Error: No data file found in zip")
                 sys.exit(1)
-            
-            with zf.open(tsv_filename) as f:
+
+            with zf.open(data_filename) as f:
                 content = f.read().decode('utf-8')
-                
-                for line_num, line in enumerate(content.splitlines(), 1):
-                    line = line.strip()
-                    if not line or line.startswith('#'):
-                        continue
-                    
-                    parts = line.split('\t')
-                    if len(parts) < 10:
-                        continue
-                    
-                    try:
-                        # Parse the reference: BBCCVVWW (book, chapter, verse, word)
-                        ref = parts[0]
-                        book = int(ref[0:2])
-                        chapter = int(ref[2:4])
-                        verse = int(ref[4:6])
-                        word_num = int(ref[6:8])
-                        
-                        # Parse grammar codes
-                        rmac = parts[2]
-                        grammar = parse_rmac_code(rmac)
-                        
-                        token = {
-                            'book': book,
-                            'chapter': chapter,
-                            'verse': verse,
-                            'word_num': word_num,
-                            'greek': parts[1],              # Greek word
-                            'rmac': rmac,                   # Full RMAC code
-                            'lemma': parts[3],              # Lemma
-                            'transliteration': parts[4],    # Transliteration
-                            'gloss': parts[5],              # English gloss
-                            'grammar': grammar,             # Parsed grammar components
-                            'pos': grammar.get('pos', ''),  # Part of speech
-                        }
-                        
+
+            # Determine delimiter
+            sample = content[:10000]
+            delimiter = _detect_delimiter(sample)
+
+            import csv
+            reader = csv.reader(content.splitlines(), delimiter=delimiter)
+            for line_num, parts in enumerate(reader, 1):
+                if not parts:
+                    continue
+                if parts[0].startswith('#'):
+                    continue
+                # Header row detection for keyedFeatures CSV
+                if parts[0].strip() == "FEATURESsort1":
+                    continue
+
+                # New keyedFeatures format
+                if parts[0].strip().isdigit() and len(parts) >= 9 and parts[4].startswith("〔"):
+                    token = _parse_keyed_features_row(parts, line_num)
+                    if token:
                         tokens.append(token)
-                        
-                    except (ValueError, IndexError) as e:
-                        print(f"⚠️  Warning: Skipping malformed line {line_num}: {e}")
+                    else:
+                        print(f"⚠️  Warning: Skipping malformed line {line_num}: invalid keyedFeatures row")
+                    continue
+
+                if len(parts) < 6:
+                    continue
+
+                try:
+                    # Parse the reference: BBCCVVWW (book, chapter, verse, word)
+                    ref = parts[0].strip()
+                    if len(ref) < 8 or not ref[:8].isdigit():
+                        print(f"⚠️  Warning: Skipping malformed line {line_num}: invalid ref '{ref}'")
                         continue
+                    book = int(ref[0:2])
+                    chapter = int(ref[2:4])
+                    verse = int(ref[4:6])
+                    word_num = int(ref[6:8])
+
+                    # Parse grammar codes
+                    rmac = parts[2]
+                    grammar = parse_rmac_code(rmac)
+
+                    token = {
+                        'book': book,
+                        'chapter': chapter,
+                        'verse': verse,
+                        'word_num': word_num,
+                        'greek': parts[1],              # Greek word
+                        'rmac': rmac,                   # Full RMAC code
+                        'lemma': parts[3],              # Lemma
+                        'transliteration': parts[4],    # Transliteration
+                        'gloss': parts[5],              # English gloss
+                        'grammar': grammar,             # Parsed grammar components
+                        'pos': grammar.get('pos', ''),  # Part of speech
+                    }
+
+                    tokens.append(token)
+
+                except (ValueError, IndexError) as e:
+                    print(f"⚠️  Warning: Skipping malformed line {line_num}: {e}")
+                    continue
         
         print(f"✓ Loaded {len(tokens)} tokens")
         return tokens
@@ -310,7 +445,9 @@ def format_output(
             'chapter': chapter,
             'start_verse': start_verse,
             'end_verse': end_verse,
-            'tokens': []
+            'tokens': [],
+            'verse_count': 0,
+            'token_count': 0,
         }
     
     # Group by verse
