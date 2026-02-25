@@ -19,13 +19,6 @@ RUN dotnet restore "Koine.API/Koine.API.csproj"
 # Copy everything else
 COPY . .
 
-# Install dotnet-ef tool
-RUN dotnet tool install --global dotnet-ef --version 9.0.2
-ENV PATH="$PATH:/root/.dotnet/tools"
-
-# Generate migrations
-RUN dotnet ef migrations add InitialCreate --project Koine.Infrastructure --startup-project Koine.API
-
 # Build
 WORKDIR "/src/Koine.API"
 RUN dotnet build "Koine.API.csproj" -c Release -o /app/build
@@ -38,4 +31,3 @@ WORKDIR /app
 COPY --from=publish /app/publish .
 
 ENTRYPOINT ["dotnet", "Koine.API.dll"]
-

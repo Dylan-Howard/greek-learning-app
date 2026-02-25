@@ -331,4 +331,77 @@ public class LessonServiceTests
         Assert.That(result, Is.True);
         lessonRepo.Verify(r => r.DeleteAsync(lesson), Times.Once);
     }
+
+    [Test]
+    public async Task GetLessonTracksAsync_ComputesProgressAndNextLesson()
+    {
+        var lessonRepo = new Mock<ILessonRepository>();
+        var lessonTrackRepo = new Mock<ILessonTrackRepository>();
+        var completionRepo = new Mock<ILessonCompletionRepository>();
+        var userProgressRepo = new Mock<IUserProgressRepository>();
+        var uow = new Mock<IUnitOfWork>();
+
+        lessonTrackRepo.Setup(r => r.GetAllOrderedAsync()).ReturnsAsync(new List<LessonTrack>
+        {
+            new() { Id = 2, Slug = "core", Title = "Core", Description = "Core track", SortOrder = 1 },
+        });
+        lessonRepo.Setup(r => r.GetAllOrderedAsync()).ReturnsAsync(new List<Lesson>
+        {
+            new() { Id = 10, TrackId = 2, Title = "A", LessonIndex = 1, GrammaticalFeatureIdsJson = "[]", SyntacticalFeatureIdsJson = "[]", VocabularyIdsJson = "[]" },
+            new() { Id = 11, TrackId = 2, Title = "B", LessonIndex = 2, GrammaticalFeatureIdsJson = "[]", SyntacticalFeatureIdsJson = "[]", VocabularyIdsJson = "[]" },
+        });
+        completionRepo.Setup(r => r.GetByUserIdAsync(7)).ReturnsAsync(new List<LessonCompletion>
+        {
+            new() { UserId = 7, LessonId = 10 },
+        });
+
+        uow.SetupGet(x => x.LessonTracks).Returns(lessonTrackRepo.Object);
+        uow.SetupGet(x => x.Lessons).Returns(lessonRepo.Object);
+        uow.SetupGet(x => x.LessonCompletions).Returns(completionRepo.Object);
+        uow.SetupGet(x => x.UserProgress).Returns(userProgressRepo.Object);
+
+        var service = new LessonService(uow.Object);
+        var tracks = await service.GetLessonTracksAsync(7, includeLessons: true);
+
+        Assert.That(tracks, Has.Count.EqualTo(1));
+        Assert.That(tracks[0].CompletedLessons, Is.EqualTo(1));
+        Assert.That(tracks[0].TotalLessons, Is.EqualTo(2));
+        Assert.That(tracks[0].NextLessonId, Is.EqualTo(11));
+        Assert.That(tracks[0].Lessons, Has.Count.EqualTo(2));
+    }
+
+    [Test]
+    public async Task GetNextLessonAsync_ReturnsNull_WhenTrackCompleted()
+    {
+        var lessonRepo = new Mock<ILessonRepository>();
+        var lessonTrackRepo = new Mock<ILessonTrackRepository>();
+        var completionRepo = new Mock<ILessonCompletionRepository>();
+        var userProgressRepo = new Mock<IUserProgressRepository>();
+        var uow = new Mock<IUnitOfWork>();
+
+        lessonTrackRepo.Setup(r => r.GetBySlugAsync("core")).ReturnsAsync(new LessonTrack
+        {
+            Id = 1,
+            Slug = "core",
+            Title = "Core"
+        });
+        lessonRepo.Setup(r => r.GetByTrackIdAsync(1)).ReturnsAsync(new List<Lesson>
+        {
+            new() { Id = 4, TrackId = 1, LessonIndex = 1, GrammaticalFeatureIdsJson = "[]", SyntacticalFeatureIdsJson = "[]", VocabularyIdsJson = "[]" },
+        });
+        completionRepo.Setup(r => r.GetByUserIdAsync(9)).ReturnsAsync(new List<LessonCompletion>
+        {
+            new() { UserId = 9, LessonId = 4 },
+        });
+
+        uow.SetupGet(x => x.LessonTracks).Returns(lessonTrackRepo.Object);
+        uow.SetupGet(x => x.Lessons).Returns(lessonRepo.Object);
+        uow.SetupGet(x => x.LessonCompletions).Returns(completionRepo.Object);
+        uow.SetupGet(x => x.UserProgress).Returns(userProgressRepo.Object);
+
+        var service = new LessonService(uow.Object);
+        var next = await service.GetNextLessonAsync(9, "core");
+
+        Assert.That(next, Is.Null);
+    }
 }

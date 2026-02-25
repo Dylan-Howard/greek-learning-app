@@ -19,6 +19,7 @@ namespace Koine.Infrastructure.Data
             Chapters = new ChapterRepository(_context);
             UserProgress = new UserProgressRepository(_context);
             TranslationUnits = new TranslationUnitRepository(_context);
+            LessonTracks = new LessonTrackRepository(_context);
             Lessons = new LessonRepository(_context);
             LessonCompletions = new LessonCompletionRepository(_context);
             Users = new UserRepository(_context);
@@ -35,6 +36,7 @@ namespace Koine.Infrastructure.Data
         public IChapterRepository Chapters { get; }
         public IUserProgressRepository UserProgress { get; }
         public ITranslationUnitRepository TranslationUnits { get; }
+        public ILessonTrackRepository LessonTracks { get; }
         public ILessonRepository Lessons { get; }
         public ILessonCompletionRepository LessonCompletions { get; }
         public IUserRepository Users { get; }

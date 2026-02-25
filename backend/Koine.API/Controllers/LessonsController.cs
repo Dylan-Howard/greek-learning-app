@@ -25,18 +25,81 @@ namespace Koine.API.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public async Task<ActionResult<List<LessonDto>>> GetAllLessons()
+        public async Task<ActionResult<List<LessonDto>>> GetAllLessons([FromQuery] string? trackSlug = null)
         {
             try
             {
                 var userId = GetUserIdFromClaimsOrDefault();
-                var lessons = await _lessonService.GetAllLessonsAsync(userId);
+                var lessons = string.IsNullOrWhiteSpace(trackSlug)
+                    ? await _lessonService.GetAllLessonsAsync(userId)
+                    : await _lessonService.GetLessonsByTrackAsync(userId, trackSlug);
                 return Ok(lessons);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error fetching lessons");
                 return StatusCode(500, new { message = "An error occurred while fetching lessons" });
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpGet("tracks")]
+        public async Task<ActionResult<List<LessonTrackDto>>> GetLessonTracks([FromQuery] bool includeLessons = false)
+        {
+            try
+            {
+                var userId = GetUserIdFromClaimsOrDefault();
+                var tracks = await _lessonService.GetLessonTracksAsync(userId, includeLessons);
+                return Ok(tracks);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error fetching lesson tracks");
+                return StatusCode(500, new { message = "An error occurred while fetching lesson tracks" });
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpGet("tracks/{trackSlug}")]
+        public async Task<ActionResult<LessonTrackDto>> GetLessonTrack(string trackSlug)
+        {
+            try
+            {
+                var userId = GetUserIdFromClaimsOrDefault();
+                var track = await _lessonService.GetLessonTrackAsync(trackSlug, userId);
+                if (track == null)
+                {
+                    return NotFound(new { message = "Lesson track not found" });
+                }
+
+                return Ok(track);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error fetching lesson track {TrackSlug}", trackSlug);
+                return StatusCode(500, new { message = "An error occurred while fetching the lesson track" });
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpGet("tracks/{trackSlug}/next")]
+        public async Task<ActionResult<LessonDto>> GetNextLesson(string trackSlug)
+        {
+            try
+            {
+                var userId = GetUserIdFromClaimsOrDefault();
+                var lesson = await _lessonService.GetNextLessonAsync(userId, trackSlug);
+                if (lesson == null)
+                {
+                    return NotFound(new { message = "No next lesson found for track" });
+                }
+
+                return Ok(lesson);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error fetching next lesson for {TrackSlug}", trackSlug);
+                return StatusCode(500, new { message = "An error occurred while fetching the next lesson" });
             }
         }
 

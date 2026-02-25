@@ -1,4 +1,3 @@
-// Koine.Application/Services/LessonService.cs (Enhanced)
 using System.Text.Json;
 using Koine.Application.DTOs.Lessons;
 using Koine.Application.Interfaces;
@@ -15,45 +14,149 @@ namespace Koine.Application.Services
             _unitOfWork = unitOfWork;
         }
 
+        public async Task<List<LessonTrackDto>> GetLessonTracksAsync(int userId, bool includeLessons = false)
+        {
+            var tracks = await _unitOfWork.LessonTracks.GetAllOrderedAsync();
+            var lessons = await _unitOfWork.Lessons.GetAllOrderedAsync();
+            var completions = await _unitOfWork.LessonCompletions.GetByUserIdAsync(userId);
+            var completedLessonIds = completions.Select(c => c.LessonId).ToHashSet();
+
+            return tracks.Select(track =>
+            {
+                var trackLessons = lessons.Where(l => l.TrackId == track.Id).OrderBy(l => l.LessonIndex).ToList();
+                var completed = trackLessons.Count(l => completedLessonIds.Contains(l.Id));
+                var next = trackLessons.FirstOrDefault(l => !completedLessonIds.Contains(l.Id));
+
+                return new LessonTrackDto
+                {
+                    Id = track.Id,
+                    Slug = track.Slug,
+                    Title = track.Title,
+                    Description = track.Description,
+                    SortOrder = track.SortOrder,
+                    TotalLessons = trackLessons.Count,
+                    CompletedLessons = completed,
+                    PercentComplete = trackLessons.Count == 0
+                        ? 0
+                        : Math.Round((decimal)completed * 100m / trackLessons.Count, 2),
+                    NextLessonId = next?.Id,
+                    NextLessonSlug = next?.Slug,
+                    NextLessonTitle = next?.Title,
+                    Lessons = includeLessons
+                        ? trackLessons.Select(l => MapLesson(l, completedLessonIds.Contains(l.Id), track.Slug)).ToList()
+                        : new List<LessonDto>()
+                };
+            }).ToList();
+        }
+
+        public async Task<LessonTrackDto?> GetLessonTrackAsync(string trackSlug, int userId)
+        {
+            var normalizedSlug = trackSlug.Trim().ToLowerInvariant();
+            var track = await _unitOfWork.LessonTracks.GetBySlugAsync(normalizedSlug);
+            if (track == null)
+            {
+                return null;
+            }
+
+            var lessons = await _unitOfWork.Lessons.GetByTrackIdAsync(track.Id);
+            var completions = await _unitOfWork.LessonCompletions.GetByUserIdAsync(userId);
+            var completedLessonIds = completions.Select(c => c.LessonId).ToHashSet();
+
+            var completed = lessons.Count(l => completedLessonIds.Contains(l.Id));
+            var next = lessons.OrderBy(l => l.LessonIndex).FirstOrDefault(l => !completedLessonIds.Contains(l.Id));
+
+            return new LessonTrackDto
+            {
+                Id = track.Id,
+                Slug = track.Slug,
+                Title = track.Title,
+                Description = track.Description,
+                SortOrder = track.SortOrder,
+                TotalLessons = lessons.Count,
+                CompletedLessons = completed,
+                PercentComplete = lessons.Count == 0 ? 0 : Math.Round((decimal)completed * 100m / lessons.Count, 2),
+                NextLessonId = next?.Id,
+                NextLessonSlug = next?.Slug,
+                NextLessonTitle = next?.Title,
+                Lessons = lessons
+                    .OrderBy(l => l.LessonIndex)
+                    .Select(l => MapLesson(l, completedLessonIds.Contains(l.Id), track.Slug))
+                    .ToList()
+            };
+        }
+
+        public async Task<LessonDto?> GetNextLessonAsync(int userId, string trackSlug)
+        {
+            var normalizedSlug = trackSlug.Trim().ToLowerInvariant();
+            var track = await _unitOfWork.LessonTracks.GetBySlugAsync(normalizedSlug);
+            if (track == null)
+            {
+                return null;
+            }
+
+            var lessons = await _unitOfWork.Lessons.GetByTrackIdAsync(track.Id);
+            var completions = await _unitOfWork.LessonCompletions.GetByUserIdAsync(userId);
+            var completedLessonIds = completions.Select(c => c.LessonId).ToHashSet();
+            var next = lessons
+                .OrderBy(l => l.LessonIndex)
+                .FirstOrDefault(l => !completedLessonIds.Contains(l.Id));
+
+            if (next == null)
+            {
+                return null;
+            }
+
+            return MapLesson(next, false, track.Slug);
+        }
+
         public async Task<List<LessonDto>> GetAllLessonsAsync(int userId)
         {
             var lessons = await _unitOfWork.Lessons.GetAllOrderedAsync();
             var completions = await _unitOfWork.LessonCompletions.GetByUserIdAsync(userId);
             var completedLessonIds = completions.Select(c => c.LessonId).ToHashSet();
 
-            return lessons.Select(l => new LessonDto
+            return lessons.Select(l =>
+                MapLesson(
+                    l,
+                    completedLessonIds.Contains(l.Id),
+                    l.Track?.Slug ?? string.Empty)).ToList();
+        }
+
+        public async Task<List<LessonDto>> GetLessonsByTrackAsync(int userId, string trackSlug)
+        {
+            var track = await _unitOfWork.LessonTracks.GetBySlugAsync(trackSlug.Trim().ToLowerInvariant());
+            if (track == null)
             {
-                Id = l.Id,
-                Title = l.Title,
-                LessonIndex = l.LessonIndex,
-                ContentMarkdown = l.ContentMarkdown,
-                LessonType = l.LessonType,
-                GrammaticalFeatureIds = JsonSerializer.Deserialize<List<int>>(l.GrammaticalFeatureIdsJson) ?? new(),
-                SyntacticalFeatureIds = JsonSerializer.Deserialize<List<int>>(l.SyntacticalFeatureIdsJson) ?? new(),
-                VocabularyIds = JsonSerializer.Deserialize<List<int>>(l.VocabularyIdsJson) ?? new(),
-                IsCompleted = completedLessonIds.Contains(l.Id)
-            }).ToList();
+                return new List<LessonDto>();
+            }
+
+            var lessons = await _unitOfWork.Lessons.GetByTrackIdAsync(track.Id);
+            var completions = await _unitOfWork.LessonCompletions.GetByUserIdAsync(userId);
+            var completedLessonIds = completions.Select(c => c.LessonId).ToHashSet();
+
+            return lessons
+                .OrderBy(l => l.LessonIndex)
+                .Select(l => MapLesson(l, completedLessonIds.Contains(l.Id), track.Slug))
+                .ToList();
         }
 
         public async Task<LessonDto?> GetLessonByIdAsync(int lessonId, int userId)
         {
             var lesson = await _unitOfWork.Lessons.GetByIdAsync(lessonId);
-            if (lesson == null) return null;
+            if (lesson == null)
+            {
+                return null;
+            }
 
             var completion = await _unitOfWork.LessonCompletions.GetByUserAndLessonAsync(userId, lessonId);
-
-            return new LessonDto
+            var trackSlug = string.Empty;
+            if (lesson.TrackId > 0)
             {
-                Id = lesson.Id,
-                Title = lesson.Title,
-                LessonIndex = lesson.LessonIndex,
-                ContentMarkdown = lesson.ContentMarkdown,
-                LessonType = lesson.LessonType,
-                GrammaticalFeatureIds = JsonSerializer.Deserialize<List<int>>(lesson.GrammaticalFeatureIdsJson) ?? new(),
-                SyntacticalFeatureIds = JsonSerializer.Deserialize<List<int>>(lesson.SyntacticalFeatureIdsJson) ?? new(),
-                VocabularyIds = JsonSerializer.Deserialize<List<int>>(lesson.VocabularyIdsJson) ?? new(),
-                IsCompleted = completion != null
-            };
+                var track = await _unitOfWork.LessonTracks.GetByIdAsync(lesson.TrackId);
+                trackSlug = track?.Slug ?? string.Empty;
+            }
+
+            return MapLesson(lesson, completion != null, trackSlug);
         }
 
         public async Task<bool> CompleteLessonAsync(int userId, CompleteLessonDto completionDto)
@@ -61,18 +164,15 @@ namespace Koine.Application.Services
             var lesson = await _unitOfWork.Lessons.GetByIdAsync(completionDto.LessonId);
             if (lesson == null) return false;
 
-            // Check if already completed
             var existingCompletion = await _unitOfWork.LessonCompletions.GetByUserAndLessonAsync(userId, completionDto.LessonId);
             if (existingCompletion != null)
             {
-                // Update existing completion
                 existingCompletion.Score = completionDto.Score;
                 existingCompletion.CompletedAt = DateTime.UtcNow;
                 await _unitOfWork.LessonCompletions.UpdateAsync(existingCompletion);
             }
             else
             {
-                // Create new completion
                 var completion = new LessonCompletion
                 {
                     UserId = userId,
@@ -83,9 +183,8 @@ namespace Koine.Application.Services
                 await _unitOfWork.LessonCompletions.AddAsync(completion);
             }
 
-            // Update user progress
             var userProgress = await _unitOfWork.UserProgress.GetOrCreateByUserIdAsync(userId);
-            
+
             var completedLessonIds = JsonSerializer.Deserialize<List<int>>(userProgress.CompletedLessonIdsJson) ?? new();
             if (!completedLessonIds.Contains(completionDto.LessonId))
             {
@@ -93,7 +192,6 @@ namespace Koine.Application.Services
                 userProgress.CompletedLessonIdsJson = JsonSerializer.Serialize(completedLessonIds);
             }
 
-            // Update feature progress based on lesson
             var gramFeatureIds = JsonSerializer.Deserialize<List<int>>(lesson.GrammaticalFeatureIdsJson) ?? new();
             var synFeatureIds = JsonSerializer.Deserialize<List<int>>(lesson.SyntacticalFeatureIdsJson) ?? new();
             var vocabIds = JsonSerializer.Deserialize<List<int>>(lesson.VocabularyIdsJson) ?? new();
@@ -151,9 +249,12 @@ namespace Koine.Application.Services
         {
             var lesson = new Lesson
             {
+                TrackId = createDto.TrackId,
+                Slug = NormalizeSlug(createDto.Slug, createDto.Title),
                 Title = createDto.Title,
                 LessonIndex = createDto.LessonIndex,
                 ContentMarkdown = createDto.ContentMarkdown,
+                ContentPath = createDto.ContentPath,
                 LessonType = createDto.LessonType,
                 GrammaticalFeatureIdsJson = JsonSerializer.Serialize(createDto.GrammaticalFeatureIds),
                 SyntacticalFeatureIdsJson = JsonSerializer.Serialize(createDto.SyntacticalFeatureIds),
@@ -164,18 +265,13 @@ namespace Koine.Application.Services
             await _unitOfWork.Lessons.AddAsync(lesson);
             await _unitOfWork.SaveChangesAsync();
 
-            return new LessonDto
+            if (lesson.TrackId <= 0)
             {
-                Id = lesson.Id,
-                Title = lesson.Title,
-                LessonIndex = lesson.LessonIndex,
-                ContentMarkdown = lesson.ContentMarkdown,
-                LessonType = lesson.LessonType,
-                GrammaticalFeatureIds = createDto.GrammaticalFeatureIds,
-                SyntacticalFeatureIds = createDto.SyntacticalFeatureIds,
-                VocabularyIds = createDto.VocabularyIds,
-                IsCompleted = false
-            };
+                return MapLesson(lesson, false, string.Empty);
+            }
+
+            var track = await _unitOfWork.LessonTracks.GetByIdAsync(lesson.TrackId);
+            return MapLesson(lesson, false, track?.Slug ?? string.Empty);
         }
 
         public async Task<LessonDto?> UpdateLessonAsync(int lessonId, UpdateLessonDto updateDto)
@@ -183,9 +279,12 @@ namespace Koine.Application.Services
             var lesson = await _unitOfWork.Lessons.GetByIdAsync(lessonId);
             if (lesson == null) return null;
 
+            lesson.TrackId = updateDto.TrackId;
+            lesson.Slug = NormalizeSlug(updateDto.Slug, updateDto.Title);
             lesson.Title = updateDto.Title;
             lesson.LessonIndex = updateDto.LessonIndex;
             lesson.ContentMarkdown = updateDto.ContentMarkdown;
+            lesson.ContentPath = updateDto.ContentPath;
             lesson.LessonType = updateDto.LessonType;
             lesson.GrammaticalFeatureIdsJson = JsonSerializer.Serialize(updateDto.GrammaticalFeatureIds);
             lesson.SyntacticalFeatureIdsJson = JsonSerializer.Serialize(updateDto.SyntacticalFeatureIds);
@@ -194,18 +293,13 @@ namespace Koine.Application.Services
             await _unitOfWork.Lessons.UpdateAsync(lesson);
             await _unitOfWork.SaveChangesAsync();
 
-            return new LessonDto
+            if (lesson.TrackId <= 0)
             {
-                Id = lesson.Id,
-                Title = lesson.Title,
-                LessonIndex = lesson.LessonIndex,
-                ContentMarkdown = lesson.ContentMarkdown,
-                LessonType = lesson.LessonType,
-                GrammaticalFeatureIds = updateDto.GrammaticalFeatureIds,
-                SyntacticalFeatureIds = updateDto.SyntacticalFeatureIds,
-                VocabularyIds = updateDto.VocabularyIds,
-                IsCompleted = false
-            };
+                return MapLesson(lesson, false, string.Empty);
+            }
+
+            var track = await _unitOfWork.LessonTracks.GetByIdAsync(lesson.TrackId);
+            return MapLesson(lesson, false, track?.Slug ?? string.Empty);
         }
 
         public async Task<bool> DeleteLessonAsync(int lessonId)
@@ -217,6 +311,44 @@ namespace Koine.Application.Services
             await _unitOfWork.SaveChangesAsync();
 
             return true;
+        }
+
+        private static LessonDto MapLesson(Lesson lesson, bool isCompleted, string trackSlug)
+        {
+            return new LessonDto
+            {
+                Id = lesson.Id,
+                TrackId = lesson.TrackId,
+                TrackSlug = trackSlug,
+                Slug = lesson.Slug,
+                Title = lesson.Title,
+                LessonIndex = lesson.LessonIndex,
+                ContentMarkdown = lesson.ContentMarkdown,
+                ContentPath = lesson.ContentPath,
+                LessonType = lesson.LessonType,
+                GrammaticalFeatureIds = JsonSerializer.Deserialize<List<int>>(lesson.GrammaticalFeatureIdsJson) ?? new(),
+                SyntacticalFeatureIds = JsonSerializer.Deserialize<List<int>>(lesson.SyntacticalFeatureIdsJson) ?? new(),
+                VocabularyIds = JsonSerializer.Deserialize<List<int>>(lesson.VocabularyIdsJson) ?? new(),
+                IsCompleted = isCompleted
+            };
+        }
+
+        private static string NormalizeSlug(string candidate, string fallbackTitle)
+        {
+            var raw = string.IsNullOrWhiteSpace(candidate) ? fallbackTitle : candidate;
+            var normalized = new string(raw
+                .Trim()
+                .ToLowerInvariant()
+                .Select(ch => char.IsLetterOrDigit(ch) ? ch : '-')
+                .ToArray());
+
+            while (normalized.Contains("--"))
+            {
+                normalized = normalized.Replace("--", "-");
+            }
+
+            normalized = normalized.Trim('-');
+            return string.IsNullOrWhiteSpace(normalized) ? "lesson" : normalized;
         }
     }
 }

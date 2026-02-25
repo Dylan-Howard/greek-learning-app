@@ -9,6 +9,7 @@ namespace Koine.Application.Interfaces
         IChapterRepository Chapters { get; }
         IUserProgressRepository UserProgress { get; }
         ITranslationUnitRepository TranslationUnits { get; }
+        ILessonTrackRepository LessonTracks { get; }
         ILessonRepository Lessons { get; }
         ILessonCompletionRepository LessonCompletions { get; }
         IUserRepository Users { get; }

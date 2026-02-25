@@ -96,14 +96,38 @@ export interface UserWordDto {
 
 export interface LessonDto {
   id: number;
+  trackId: number;
+  trackSlug: string;
+  slug: string;
   title: string;
   lessonIndex: number;
   contentMarkdown: string;
+  contentPath?: string | null;
   lessonType: string;
   grammaticalFeatureIds: number[];
   syntacticalFeatureIds: number[];
   vocabularyIds: number[];
   isCompleted: boolean;
+}
+
+export interface LessonTrackDto {
+  id: number;
+  slug: string;
+  title: string;
+  description: string;
+  sortOrder: number;
+  totalLessons: number;
+  completedLessons: number;
+  percentComplete: number;
+  nextLessonId?: number | null;
+  nextLessonSlug?: string | null;
+  nextLessonTitle?: string | null;
+  lessons: LessonDto[];
+}
+
+export interface CompleteLessonDto {
+  lessonId: number;
+  score?: number | null;
 }
 
 export interface UserProgressDto {

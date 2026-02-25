@@ -14,6 +14,17 @@ namespace Koine.Infrastructure.Data.Repositories
         public async Task<List<Lesson>> GetAllOrderedAsync()
         {
             return await _dbSet
+                .Include(l => l.Track)
+                .OrderBy(l => l.TrackId)
+                .ThenBy(l => l.LessonIndex)
+                .ToListAsync();
+        }
+
+        public async Task<List<Lesson>> GetByTrackIdAsync(int trackId)
+        {
+            return await _dbSet
+                .Include(l => l.Track)
+                .Where(l => l.TrackId == trackId)
                 .OrderBy(l => l.LessonIndex)
                 .ToListAsync();
         }
@@ -21,6 +32,7 @@ namespace Koine.Infrastructure.Data.Repositories
         public async Task<List<Lesson>> GetByTypeAsync(string lessonType)
         {
             return await _dbSet
+                .Include(l => l.Track)
                 .Where(l => l.LessonType == lessonType)
                 .OrderBy(l => l.LessonIndex)
                 .ToListAsync();

@@ -17,6 +17,9 @@
     <None Include="Data/Seed/greeknt-occurrences.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Data/Seed/Lessons/*.mdx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <PropertyGroup>

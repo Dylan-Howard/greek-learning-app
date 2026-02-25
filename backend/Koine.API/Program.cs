@@ -10,6 +10,7 @@ using Koine.Application.Interfaces;
 using Koine.Application.Services;
 using NSwag;
 using NSwag.Generation.Processors.Security;
+using Microsoft.Data.SqlClient;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -123,18 +124,42 @@ if (app.Environment.IsDevelopment())
     using (var scope = app.Services.CreateScope())
     {
         var services = scope.ServiceProvider;
+        var logger = services.GetRequiredService<ILogger<Program>>();
         try
         {
             var context = services.GetRequiredService<KoineDbContext>();
-            await context.Database.MigrateAsync();
+
+            var hasMigrations = (await context.Database.GetMigrationsAsync()).Any();
+            if (hasMigrations)
+            {
+                try
+                {
+                    await context.Database.MigrateAsync();
+                }
+                catch (SqlException ex) when (IsDuplicateObjectMigrationError(ex))
+                {
+                    logger.LogWarning(ex,
+                        "Migration attempted to create existing objects; continuing with schema compatibility seeding.");
+                }
+            }
+            else
+            {
+                await context.Database.EnsureCreatedAsync();
+            }
+
             await Koine.Infrastructure.Data.Seed.DatabaseSeeder.SeedAsync(services);
         }
         catch (Exception ex)
         {
-            var logger = services.GetRequiredService<ILogger<Program>>();
             logger.LogError(ex, "An error occurred during database initialization.");
         }
     }
 }
 
 app.Run();
+
+static bool IsDuplicateObjectMigrationError(SqlException ex)
+{
+    // SQL Server 2714: "There is already an object named ... in the database."
+    return ex.Number == 2714;
+}

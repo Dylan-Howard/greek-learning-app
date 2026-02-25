@@ -22,12 +22,14 @@ namespace Koine.Infrastructure.Data.Seed
                 logger.LogInformation("Starting database seeding...");
                 await EnsureVocabularySchemaAsync(context);
                 await EnsureVocabularySetSchemaAsync(context);
+                await EnsureLessonSchemaAsync(context);
 
                 // Check if already seeded
                 if (await context.Books.AnyAsync())
                 {
-                    logger.LogInformation("Database already seeded. Ensuring system vocabulary sets are synchronized.");
+                    logger.LogInformation("Database already seeded. Ensuring system data is synchronized.");
                     await EnsureSystemVocabularySetsAsync(context);
+                    await EnsureLessonTracksAndLessonsAsync(context, logger);
                     return;
                 }
 
@@ -132,40 +134,9 @@ namespace Koine.Infrastructure.Data.Seed
                 context.Translations.Add(translation);
                 await context.SaveChangesAsync();
 
-                // 7. Create Lessons
-                logger.LogInformation("Creating lessons...");
-                int lessonIndex = 1;
-                
-                foreach (var gramFeature in await context.GrammaticalFeatures.ToListAsync())
-                {
-                    context.Lessons.Add(new Lesson
-                    {
-                        Title = $"Test Lesson: {gramFeature.Name}",
-                        LessonIndex = lessonIndex++,
-                        ContentMarkdown = $"# {gramFeature.Name}\n\n{gramFeature.Definition}\n\nThis is a test lesson.",
-                        LessonType = "grammar",
-                        GrammaticalFeatureIdsJson = JsonSerializer.Serialize(new[] { gramFeature.Id }),
-                        SyntacticalFeatureIdsJson = "[]",
-                        VocabularyIdsJson = "[]",
-                        CreatedAt = DateTime.UtcNow
-                    });
-                }
-
-                foreach (var synFeature in await context.SyntacticalFeatures.ToListAsync())
-                {
-                    context.Lessons.Add(new Lesson
-                    {
-                        Title = $"Test Lesson: {synFeature.Name}",
-                        LessonIndex = lessonIndex++,
-                        ContentMarkdown = $"# {synFeature.Name}\n\n{synFeature.Definition}\n\nThis is a test lesson.",
-                        LessonType = "syntax",
-                        GrammaticalFeatureIdsJson = "[]",
-                        SyntacticalFeatureIdsJson = JsonSerializer.Serialize(new[] { synFeature.Id }),
-                        VocabularyIdsJson = "[]",
-                        CreatedAt = DateTime.UtcNow
-                    });
-                }
-                await context.SaveChangesAsync();
+                // 7. Create lesson tracks and lessons
+                logger.LogInformation("Creating lesson tracks and lessons...");
+                await EnsureLessonTracksAndLessonsAsync(context, logger);
 
                 // 8. Create Test Users
                 logger.LogInformation("Creating test users...");
@@ -227,6 +198,226 @@ namespace Koine.Infrastructure.Data.Seed
         {
             // TODO: Use proper password hashing (BCrypt, Argon2, etc.)
             return Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(password));
+        }
+
+        private static async Task EnsureLessonTracksAndLessonsAsync(KoineDbContext context, ILogger logger)
+        {
+            var now = DateTime.UtcNow;
+            var tracks = new[]
+            {
+                new { Slug = "koine-core", Title = "Koine Core Track", Description = "Core grammar and syntax progression for Koine Greek.", SortOrder = 1 },
+                new { Slug = "decker-track", Title = "Decker Track", Description = "Alternative track with the same feature coverage for textbook-based pacing.", SortOrder = 2 },
+            };
+
+            foreach (var trackSeed in tracks)
+            {
+                var track = await context.LessonTracks.FirstOrDefaultAsync(t => t.Slug == trackSeed.Slug);
+                if (track == null)
+                {
+                    track = new LessonTrack
+                    {
+                        Slug = trackSeed.Slug,
+                        Title = trackSeed.Title,
+                        Description = trackSeed.Description,
+                        SortOrder = trackSeed.SortOrder,
+                        IsSystem = true,
+                        CreatedAt = now
+                    };
+                    context.LessonTracks.Add(track);
+                    await context.SaveChangesAsync();
+                }
+                else
+                {
+                    track.Title = trackSeed.Title;
+                    track.Description = trackSeed.Description;
+                    track.SortOrder = trackSeed.SortOrder;
+                    track.IsSystem = true;
+                    context.LessonTracks.Update(track);
+                    await context.SaveChangesAsync();
+                }
+
+                await EnsureTrackLessonsAsync(context, track, logger);
+            }
+
+            // Backfill legacy lessons that may still be unassigned.
+            var defaultTrack = await context.LessonTracks.FirstAsync(t => t.Slug == "koine-core");
+            var unassignedLessons = await context.Lessons.Where(l => l.TrackId == 0).ToListAsync();
+            foreach (var lesson in unassignedLessons)
+            {
+                lesson.TrackId = defaultTrack.Id;
+                lesson.Slug = string.IsNullOrWhiteSpace(lesson.Slug) ? $"lesson-{lesson.Id}" : lesson.Slug;
+            }
+
+            if (unassignedLessons.Count > 0)
+            {
+                context.Lessons.UpdateRange(unassignedLessons);
+                await context.SaveChangesAsync();
+            }
+        }
+
+        private static async Task EnsureTrackLessonsAsync(KoineDbContext context, LessonTrack track, ILogger logger)
+        {
+            var grammarFeatures = await context.GrammaticalFeatures
+                .OrderBy(g => g.SortOrder)
+                .ThenBy(g => g.Id)
+                .ToListAsync();
+            var syntaxFeatures = await context.SyntacticalFeatures
+                .OrderBy(s => s.SortOrder)
+                .ThenBy(s => s.Id)
+                .ToListAsync();
+
+            var lessonIndex = 1;
+            foreach (var feature in grammarFeatures)
+            {
+                var lessonSlug = $"grammar-{feature.Code.ToLowerInvariant()}";
+                var contentPath = "Data/Seed/Lessons/grammar-template.mdx";
+                var content = await BuildFeatureLessonContentAsync(
+                    fallbackHeading: $"Grammar: {feature.Name}",
+                    definition: feature.Definition,
+                    featureCode: feature.Code,
+                    lessonType: "grammar",
+                    contentPath: contentPath);
+
+                await UpsertTrackLessonAsync(
+                    context,
+                    track.Id,
+                    lessonSlug,
+                    title: $"{feature.Name}",
+                    lessonType: "grammar",
+                    lessonIndex: lessonIndex++,
+                    contentMarkdown: content,
+                    contentPath: contentPath,
+                    grammaticalFeatureIds: new[] { feature.Id },
+                    syntacticalFeatureIds: Array.Empty<int>(),
+                    vocabularyIds: Array.Empty<int>());
+            }
+
+            foreach (var feature in syntaxFeatures)
+            {
+                var lessonSlug = $"syntax-{feature.Code.ToLowerInvariant()}";
+                var contentPath = "Data/Seed/Lessons/syntax-template.mdx";
+                var content = await BuildFeatureLessonContentAsync(
+                    fallbackHeading: $"Syntax: {feature.Name}",
+                    definition: feature.Definition,
+                    featureCode: feature.Code,
+                    lessonType: "syntax",
+                    contentPath: contentPath);
+
+                await UpsertTrackLessonAsync(
+                    context,
+                    track.Id,
+                    lessonSlug,
+                    title: $"{feature.Name}",
+                    lessonType: "syntax",
+                    lessonIndex: lessonIndex++,
+                    contentMarkdown: content,
+                    contentPath: contentPath,
+                    grammaticalFeatureIds: Array.Empty<int>(),
+                    syntacticalFeatureIds: new[] { feature.Id },
+                    vocabularyIds: Array.Empty<int>());
+            }
+
+            logger.LogInformation("Ensured lessons for track {TrackSlug}: {Count} lessons", track.Slug, lessonIndex - 1);
+        }
+
+        private static async Task UpsertTrackLessonAsync(
+            KoineDbContext context,
+            int trackId,
+            string slug,
+            string title,
+            string lessonType,
+            int lessonIndex,
+            string contentMarkdown,
+            string? contentPath,
+            IEnumerable<int> grammaticalFeatureIds,
+            IEnumerable<int> syntacticalFeatureIds,
+            IEnumerable<int> vocabularyIds)
+        {
+            var lesson = await context.Lessons.FirstOrDefaultAsync(l => l.TrackId == trackId && l.Slug == slug);
+            if (lesson == null)
+            {
+                lesson = new Lesson
+                {
+                    TrackId = trackId,
+                    Slug = slug,
+                    Title = title,
+                    LessonType = lessonType,
+                    LessonIndex = lessonIndex,
+                    ContentMarkdown = contentMarkdown,
+                    ContentPath = contentPath,
+                    GrammaticalFeatureIdsJson = JsonSerializer.Serialize(grammaticalFeatureIds.Distinct().ToList()),
+                    SyntacticalFeatureIdsJson = JsonSerializer.Serialize(syntacticalFeatureIds.Distinct().ToList()),
+                    VocabularyIdsJson = JsonSerializer.Serialize(vocabularyIds.Distinct().ToList()),
+                    CreatedAt = DateTime.UtcNow
+                };
+                context.Lessons.Add(lesson);
+            }
+            else
+            {
+                lesson.Title = title;
+                lesson.LessonType = lessonType;
+                lesson.LessonIndex = lessonIndex;
+                lesson.ContentMarkdown = contentMarkdown;
+                lesson.ContentPath = contentPath;
+                lesson.GrammaticalFeatureIdsJson = JsonSerializer.Serialize(grammaticalFeatureIds.Distinct().ToList());
+                lesson.SyntacticalFeatureIdsJson = JsonSerializer.Serialize(syntacticalFeatureIds.Distinct().ToList());
+                lesson.VocabularyIdsJson = JsonSerializer.Serialize(vocabularyIds.Distinct().ToList());
+                context.Lessons.Update(lesson);
+            }
+
+            await context.SaveChangesAsync();
+        }
+
+        private static async Task<string> BuildFeatureLessonContentAsync(
+            string fallbackHeading,
+            string definition,
+            string featureCode,
+            string lessonType,
+            string contentPath)
+        {
+            var mdx = await LoadLessonMdxAsync(contentPath);
+            if (!string.IsNullOrWhiteSpace(mdx))
+            {
+                return mdx
+                    .Replace("{{HEADING}}", fallbackHeading)
+                    .Replace("{{FEATURE_CODE}}", featureCode)
+                    .Replace("{{DEFINITION}}", definition)
+                    .Replace("{{LESSON_TYPE}}", lessonType);
+            }
+
+            return $"""
+                # {fallbackHeading}
+
+                **Feature Code:** `{featureCode}`
+
+                ## Overview
+                {definition}
+
+                ## Why It Matters
+                This placeholder lesson introduces {lessonType} feature `{featureCode}` for the MVP track.
+
+                ## TODO (Next Phase)
+                Add interactive practice problems and adaptive checks for this lesson.
+                """;
+        }
+
+        private static async Task<string?> LoadLessonMdxAsync(string relativePath)
+        {
+            var candidates = new[]
+            {
+                Path.Combine(AppContext.BaseDirectory, relativePath.Replace('/', Path.DirectorySeparatorChar)),
+                Path.Combine(Directory.GetCurrentDirectory(), relativePath.Replace('/', Path.DirectorySeparatorChar)),
+            };
+
+            foreach (var candidate in candidates)
+            {
+                if (File.Exists(candidate))
+                {
+                    return await File.ReadAllTextAsync(candidate);
+                }
+            }
+
+            return null;
         }
 
         private static async Task EnsureSystemVocabularySetsAsync(KoineDbContext context)
@@ -413,6 +604,64 @@ namespace Koine.Infrastructure.Data.Seed
                     UPDATE [VocabularySets]
                     SET [Slug] = CONCAT('legacy-', [Id])
                     WHERE [Slug] IS NULL OR LTRIM(RTRIM([Slug])) = '';
+                END
+                """);
+        }
+
+        private static async Task EnsureLessonSchemaAsync(KoineDbContext context)
+        {
+            await context.Database.ExecuteSqlRawAsync(
+                """
+                IF OBJECT_ID(N'[LessonTracks]', N'U') IS NULL
+                BEGIN
+                    CREATE TABLE [LessonTracks](
+                        [Id] int IDENTITY(1,1) NOT NULL PRIMARY KEY,
+                        [Slug] nvarchar(200) NOT NULL,
+                        [Title] nvarchar(200) NOT NULL,
+                        [Description] nvarchar(1000) NOT NULL CONSTRAINT [DF_LessonTracks_Description] DEFAULT (''),
+                        [SortOrder] int NOT NULL CONSTRAINT [DF_LessonTracks_SortOrder] DEFAULT (0),
+                        [IsSystem] bit NOT NULL CONSTRAINT [DF_LessonTracks_IsSystem] DEFAULT (1),
+                        [CreatedAt] datetime2 NOT NULL CONSTRAINT [DF_LessonTracks_CreatedAt] DEFAULT (GETUTCDATE())
+                    );
+
+                    CREATE UNIQUE INDEX [IX_LessonTracks_Slug] ON [LessonTracks]([Slug]);
+                END
+                """);
+
+            await context.Database.ExecuteSqlRawAsync(
+                """
+                IF OBJECT_ID(N'[Lessons]', N'U') IS NOT NULL
+                BEGIN
+                    IF COL_LENGTH('Lessons', 'TrackId') IS NULL
+                    BEGIN
+                        ALTER TABLE [Lessons] ADD [TrackId] int NOT NULL CONSTRAINT [DF_Lessons_TrackId] DEFAULT (0);
+                    END
+
+                    IF COL_LENGTH('Lessons', 'Slug') IS NULL
+                    BEGIN
+                        ALTER TABLE [Lessons] ADD [Slug] nvarchar(200) NOT NULL CONSTRAINT [DF_Lessons_Slug] DEFAULT ('');
+                    END
+
+                    IF COL_LENGTH('Lessons', 'ContentPath') IS NULL
+                    BEGIN
+                        ALTER TABLE [Lessons] ADD [ContentPath] nvarchar(500) NULL;
+                    END
+                END
+                """);
+
+            await context.Database.ExecuteSqlRawAsync(
+                """
+                IF OBJECT_ID(N'[Lessons]', N'U') IS NOT NULL
+                BEGIN
+                    IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_Lessons_Track_LessonIndex' AND object_id = OBJECT_ID('Lessons'))
+                    BEGIN
+                        CREATE INDEX [IX_Lessons_Track_LessonIndex] ON [Lessons]([TrackId], [LessonIndex]);
+                    END
+
+                    IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_Lessons_Track_Slug' AND object_id = OBJECT_ID('Lessons'))
+                    BEGIN
+                        CREATE UNIQUE INDEX [IX_Lessons_Track_Slug] ON [Lessons]([TrackId], [Slug]);
+                    END
                 END
                 """);
         }

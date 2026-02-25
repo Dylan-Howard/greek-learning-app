@@ -18,6 +18,7 @@ namespace Koine.Infrastructure.Data.Context
         public DbSet<Vocabulary> Vocabularies { get; set; } = null!;
         public DbSet<Translation> Translations { get; set; } = null!;
         public DbSet<TranslationUnit> TranslationUnits { get; set; } = null!;
+        public DbSet<LessonTrack> LessonTracks { get; set; } = null!;
         public DbSet<Lesson> Lessons { get; set; } = null!;
         public DbSet<User> Users { get; set; } = null!;
         public DbSet<UserProgress> UserProgresses { get; set; } = null!;
