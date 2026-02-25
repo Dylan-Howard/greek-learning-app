@@ -55,7 +55,7 @@ export interface SimpleWordDto {
   rootGUID: string;
   rootId: number;
   content: string;
-  occurances: number;
+  occurrences: number;
   gloss?: string | null;
 }
 
@@ -65,7 +65,7 @@ export interface VocabularyDto {
   transliteration?: string | null;
   gloss: string;
   partOfSpeech?: string | null;
-  frequencyRank?: number | null;
+  occurrences?: number | null;
 }
 
 export interface UserDto {

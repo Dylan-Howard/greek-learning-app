@@ -62,15 +62,17 @@ namespace Koine.Infrastructure.Data.Seed
                 // 3. Seed Vocabulary
                 logger.LogInformation("Seeding vocabulary...");
                 var vocabulary = FirstJohnTextData.GetVocabulary();
-                foreach (var (root, transliteration, gloss, partOfSpeech, frequencyRank) in vocabulary)
+                var occurrencesByRoot = GreekNtOccurrencesData.Load();
+                foreach (var (root, transliteration, gloss, partOfSpeech, fallbackOccurrences) in vocabulary)
                 {
+                    var occurrences = occurrencesByRoot.GetValueOrDefault(root, fallbackOccurrences);
                     context.Vocabularies.Add(new Vocabulary
                     {
                         Root = root,
                         Transliteration = transliteration,
                         Gloss = gloss,
                         PartOfSpeech = partOfSpeech,
-                        FrequencyRank = frequencyRank,
+                        Occurrences = occurrences,
                         CreatedAt = DateTime.UtcNow
                     });
                 }

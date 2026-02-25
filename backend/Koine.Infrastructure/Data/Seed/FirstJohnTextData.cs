@@ -108,7 +108,7 @@ namespace Koine.Infrastructure.Data.Seed
         private static List<SeedUnitNode> GetChapter4() => new List<SeedUnitNode>();
         private static List<SeedUnitNode> GetChapter5() => new List<SeedUnitNode>();
 
-        public static List<(string Root, string Transliteration, string Gloss, string PartOfSpeech, int FrequencyRank)> GetVocabulary()
+        public static List<(string Root, string Transliteration, string Gloss, string PartOfSpeech, int Occurrences)> GetVocabulary()
         {
             return new List<(string, string, string, string, int)>
             {

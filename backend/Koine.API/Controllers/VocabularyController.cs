@@ -24,21 +24,21 @@ namespace Koine.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<SimpleWordDto>>> GetAll([FromQuery] int? occurances, [FromQuery] string? comparison)
+        public async Task<ActionResult<List<SimpleWordDto>>> GetAll([FromQuery] int? occurrences, [FromQuery] string? comparison)
         {
             try
             {
                 var words = await _vocabularyService.GetAllSimpleAsync();
 
-                if (occurances.HasValue && !string.IsNullOrEmpty(comparison))
+                if (occurrences.HasValue && !string.IsNullOrEmpty(comparison))
                 {
                     if (comparison == "greater")
                     {
-                        words = words.Where(w => w.Occurances > occurances.Value).ToList();
+                        words = words.Where(w => w.Occurrences > occurrences.Value).ToList();
                     }
                     else
                     {
-                        words = words.Where(w => w.Occurances < occurances.Value).ToList();
+                        words = words.Where(w => w.Occurrences < occurrences.Value).ToList();
                     }
                 }
 

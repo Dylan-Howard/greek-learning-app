@@ -32,7 +32,7 @@ namespace Koine.Application.Services
                     Transliteration = v.Transliteration,
                     Gloss = v.Gloss,
                     PartOfSpeech = v.PartOfSpeech,
-                    FrequencyRank = v.FrequencyRank
+                    Occurrences = v.Occurrences
                 })
                 .ToList();
 
@@ -74,7 +74,7 @@ namespace Koine.Application.Services
                     Transliteration = v.Transliteration,
                     Gloss = v.Gloss,
                     PartOfSpeech = v.PartOfSpeech,
-                    FrequencyRank = v.FrequencyRank
+                    Occurrences = v.Occurrences
                 })
                 .ToList();
 
@@ -99,7 +99,7 @@ namespace Koine.Application.Services
                 Transliteration = vocab.Transliteration,
                 Gloss = vocab.Gloss,
                 PartOfSpeech = vocab.PartOfSpeech,
-                FrequencyRank = vocab.FrequencyRank
+                Occurrences = vocab.Occurrences
             };
         }
 
@@ -110,7 +110,7 @@ namespace Koine.Application.Services
             var allVocabulary = await _unitOfWork.Vocabulary.GetAllAsync();
             
             var vocabList = allVocabulary
-                .OrderBy(v => v.FrequencyRank ?? int.MaxValue)
+                .OrderBy(v => v.Occurrences ?? int.MaxValue)
                 .Take(count)
                 .Select(v => new VocabularyDto
                 {
@@ -119,7 +119,7 @@ namespace Koine.Application.Services
                     Transliteration = v.Transliteration,
                     Gloss = v.Gloss,
                     PartOfSpeech = v.PartOfSpeech,
-                    FrequencyRank = v.FrequencyRank
+                    Occurrences = v.Occurrences
                 })
                 .ToList();
 
@@ -134,7 +134,7 @@ namespace Koine.Application.Services
                 Transliteration = createDto.Transliteration,
                 Gloss = createDto.Gloss,
                 PartOfSpeech = createDto.PartOfSpeech,
-                FrequencyRank = createDto.FrequencyRank,
+                Occurrences = createDto.Occurrences,
                 CreatedAt = DateTime.UtcNow
             };
 
@@ -148,7 +148,7 @@ namespace Koine.Application.Services
                 Transliteration = vocab.Transliteration,
                 Gloss = vocab.Gloss,
                 PartOfSpeech = vocab.PartOfSpeech,
-                FrequencyRank = vocab.FrequencyRank
+                Occurrences = vocab.Occurrences
             };
         }
 
@@ -161,7 +161,7 @@ namespace Koine.Application.Services
             vocab.Transliteration = updateDto.Transliteration;
             vocab.Gloss = updateDto.Gloss;
             vocab.PartOfSpeech = updateDto.PartOfSpeech;
-            vocab.FrequencyRank = updateDto.FrequencyRank;
+            vocab.Occurrences = updateDto.Occurrences;
 
             await _unitOfWork.Vocabulary.UpdateAsync(vocab);
             await _unitOfWork.SaveChangesAsync();
@@ -173,7 +173,7 @@ namespace Koine.Application.Services
                 Transliteration = vocab.Transliteration,
                 Gloss = vocab.Gloss,
                 PartOfSpeech = vocab.PartOfSpeech,
-                FrequencyRank = vocab.FrequencyRank
+                Occurrences = vocab.Occurrences
             };
         }
 
@@ -195,7 +195,7 @@ namespace Koine.Application.Services
             {
                 RootId = v.Id,
                 Content = v.Root,
-                Occurances = v.FrequencyRank ?? 0,
+                Occurrences = v.Occurrences ?? 0,
                 Gloss = v.Gloss,
                 RootGUID = Guid.NewGuid() // Temporary placeholder
             }).ToList();
@@ -210,7 +210,7 @@ namespace Koine.Application.Services
             {
                 RootId = v.Id,
                 Content = v.Root,
-                Occurances = v.FrequencyRank ?? 0,
+                Occurrences = v.Occurrences ?? 0,
                 Gloss = v.Gloss,
                 RootGUID = Guid.NewGuid() // Temporary placeholder
             };
@@ -236,7 +236,7 @@ namespace Koine.Application.Services
 
             vocab.Root = wordDto.Content;
             vocab.Gloss = wordDto.Gloss ?? string.Empty;
-            vocab.FrequencyRank = wordDto.Occurances;
+            vocab.Occurrences = wordDto.Occurrences;
 
             await _unitOfWork.Vocabulary.UpdateAsync(vocab);
             await _unitOfWork.SaveChangesAsync();

@@ -2,9 +2,6 @@
 using Koine.Application.DTOs.Common;
 using Koine.Application.DTOs.Vocabulary;
 
-using Koine.Application.DTOs.Common;
-using Koine.Application.DTOs.Vocabulary;
-
 namespace Koine.Application.Interfaces
 {
     public interface IVocabularyService

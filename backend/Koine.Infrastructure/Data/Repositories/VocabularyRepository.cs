@@ -18,11 +18,11 @@ namespace Koine.Infrastructure.Data.Repositories
                 .ToListAsync();
         }
 
-        public async Task<List<Vocabulary>> GetByFrequencyRankAsync(int minRank, int maxRank)
+        public async Task<List<Vocabulary>> GetByOccurrencesAsync(int minOccurrences, int maxOccurrences)
         {
             return await _dbSet
-                .Where(v => v.FrequencyRank >= minRank && v.FrequencyRank <= maxRank)
-                .OrderBy(v => v.FrequencyRank)
+                .Where(v => v.Occurrences >= minOccurrences && v.Occurrences <= maxOccurrences)
+                .OrderBy(v => v.Occurrences)
                 .ToListAsync();
         }
     }

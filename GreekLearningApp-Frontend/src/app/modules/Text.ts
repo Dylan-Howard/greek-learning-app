@@ -65,7 +65,7 @@ export type Vocab = {
   wordId: number;
   content: string;
   gloss: string;
-  occurances: number;
+  occurrences: number;
   gkRef: string;
 };
 

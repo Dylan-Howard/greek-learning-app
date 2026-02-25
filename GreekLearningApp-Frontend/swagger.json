@@ -2037,7 +2037,7 @@
         "operationId": "Vocabulary_GetAll",
         "parameters": [
           {
-            "name": "occurances",
+            "name": "occurrences",
             "in": "query",
             "schema": {
               "type": "integer",
@@ -2400,7 +2400,7 @@
           "content": {
             "type": "string"
           },
-          "occurances": {
+          "occurrences": {
             "type": "integer",
             "format": "int32"
           },
@@ -3321,7 +3321,7 @@
             "type": "string",
             "nullable": true
           },
-          "frequencyRank": {
+          "occurrences": {
             "type": "integer",
             "format": "int32",
             "nullable": true
@@ -3346,7 +3346,7 @@
             "type": "string",
             "nullable": true
           },
-          "frequencyRank": {
+          "occurrences": {
             "type": "integer",
             "format": "int32",
             "nullable": true
@@ -3371,7 +3371,7 @@
             "type": "string",
             "nullable": true
           },
-          "frequencyRank": {
+          "occurrences": {
             "type": "integer",
             "format": "int32",
             "nullable": true

@@ -30,7 +30,7 @@ export default function VocabularyTable({ words }: { words: SimpleWordDto[] }) {
                 {word.content}
               </TableCell>
               <TableCell>{word.gloss}</TableCell>
-              <TableCell align="right">{word.occurances}</TableCell>
+              <TableCell align="right">{word.occurrences}</TableCell>
             </TableRow>
           ))}
         </TableBody>

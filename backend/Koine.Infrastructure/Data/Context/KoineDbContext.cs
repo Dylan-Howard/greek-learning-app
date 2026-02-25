@@ -32,6 +32,7 @@ namespace Koine.Infrastructure.Data.Context
 
             // Apply all configurations from assembly
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(KoineDbContext).Assembly);
+
         }
     }
 }
