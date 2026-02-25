@@ -129,7 +129,7 @@ if (app.Environment.IsDevelopment())
         {
             var context = services.GetRequiredService<KoineDbContext>();
 
-            var hasMigrations = (await context.Database.GetMigrationsAsync()).Any();
+            var hasMigrations = context.Database.GetMigrations().Any();
             if (hasMigrations)
             {
                 try

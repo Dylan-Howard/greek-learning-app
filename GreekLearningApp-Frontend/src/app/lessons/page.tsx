@@ -57,13 +57,13 @@ export default async function LessonsPage() {
             </CardContent>
             <CardActions>
               <Stack direction="row" spacing={2}>
-                <Button component={NextLink} href={`/lessons/tracks/${track.slug}`} variant="contained">
-                  Open Track
-                </Button>
+                <NextLink href={`/lessons/tracks/${track.slug}`}>
+                  <Button variant="contained">Open Track</Button>
+                </NextLink>
                 {track.nextLessonId && (
-                  <Button component={NextLink} href={`/lessons/tracks/${track.slug}/${track.nextLessonId}`}>
-                    Continue
-                  </Button>
+                  <NextLink href={`/lessons/tracks/${track.slug}/${track.nextLessonId}`}>
+                    <Button>Continue</Button>
+                  </NextLink>
                 )}
               </Stack>
             </CardActions>

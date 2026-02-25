@@ -71,13 +71,11 @@ export default async function LessonTrackPage({ params }: LessonTrackPageProps) 
               <Typography variant="h6">{lesson.title}</Typography>
             </CardContent>
             <CardActions>
-              <Button
-                component={NextLink}
-                href={`/lessons/tracks/${track.slug}/${lesson.id}`}
-                variant={lesson.isCompleted ? 'text' : 'contained'}
-              >
-                {lesson.isCompleted ? 'Review Lesson' : 'Start Lesson'}
-              </Button>
+              <NextLink href={`/lessons/tracks/${track.slug}/${lesson.id}`}>
+                <Button variant={lesson.isCompleted ? 'text' : 'contained'}>
+                  {lesson.isCompleted ? 'Review Lesson' : 'Start Lesson'}
+                </Button>
+              </NextLink>
             </CardActions>
           </Card>
         </Grid>

@@ -13,6 +13,7 @@ namespace Koine.Infrastructure.Data.Configurations
             builder.HasKey(i => i.Id);
 
             builder.Property(i => i.MasteryLevel)
+                .ValueGeneratedNever()
                 .HasDefaultValue(0)
                 .IsRequired();
 

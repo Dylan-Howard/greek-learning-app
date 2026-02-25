@@ -317,6 +317,56 @@ namespace Koine.Infrastructure.Data.Seed
                     vocabularyIds: Array.Empty<int>());
             }
 
+            if (lessonIndex == 1)
+            {
+                // Guarantee PoC content exists even if feature tables are empty in legacy/dev databases.
+                await UpsertTrackLessonAsync(
+                    context,
+                    track.Id,
+                    slug: "intro-overview",
+                    title: "Introduction and Learning Workflow",
+                    lessonType: "overview",
+                    lessonIndex: lessonIndex++,
+                    contentMarkdown: """
+                        # Introduction and Learning Workflow
+
+                        This is a placeholder lesson for MVP proof-of-concept.
+
+                        ## Goal
+                        Learn how lessons, progress, and next-step navigation work in this track.
+
+                        ## TODO (Next Phase)
+                        Add practice problems and scored checks.
+                        """,
+                    contentPath: null,
+                    grammaticalFeatureIds: Array.Empty<int>(),
+                    syntacticalFeatureIds: Array.Empty<int>(),
+                    vocabularyIds: Array.Empty<int>());
+
+                await UpsertTrackLessonAsync(
+                    context,
+                    track.Id,
+                    slug: "intro-syntax-basics",
+                    title: "Syntax Basics Walkthrough",
+                    lessonType: "syntax",
+                    lessonIndex: lessonIndex++,
+                    contentMarkdown: """
+                        # Syntax Basics Walkthrough
+
+                        This is a second placeholder lesson to verify ordered track progression.
+
+                        ## Goal
+                        Confirm completion toggles and next lesson behavior.
+
+                        ## TODO (Next Phase)
+                        Add targeted syntax drills.
+                        """,
+                    contentPath: null,
+                    grammaticalFeatureIds: Array.Empty<int>(),
+                    syntacticalFeatureIds: Array.Empty<int>(),
+                    vocabularyIds: Array.Empty<int>());
+            }
+
             logger.LogInformation("Ensured lessons for track {TrackSlug}: {Count} lessons", track.Slug, lessonIndex - 1);
         }
 
@@ -606,6 +656,31 @@ namespace Koine.Infrastructure.Data.Seed
                     WHERE [Slug] IS NULL OR LTRIM(RTRIM([Slug])) = '';
                 END
                 """);
+
+            await context.Database.ExecuteSqlRawAsync(
+                """
+                IF OBJECT_ID(N'[VocabularySetItems]', N'U') IS NOT NULL
+                BEGIN
+                    IF COL_LENGTH('VocabularySetItems', 'MasteryLevel') IS NOT NULL
+                    BEGIN
+                        UPDATE [VocabularySetItems]
+                        SET [MasteryLevel] = COALESCE([MasteryLevel], 0);
+
+                        IF NOT EXISTS (
+                            SELECT 1
+                            FROM sys.default_constraints dc
+                            INNER JOIN sys.columns c
+                                ON c.default_object_id = dc.object_id
+                            WHERE dc.parent_object_id = OBJECT_ID('VocabularySetItems')
+                              AND c.name = 'MasteryLevel'
+                        )
+                        BEGIN
+                            ALTER TABLE [VocabularySetItems]
+                            ADD CONSTRAINT [DF_VocabularySetItems_MasteryLevel] DEFAULT (0) FOR [MasteryLevel];
+                        END
+                    END
+                END
+                """);
         }
 
         private static async Task EnsureLessonSchemaAsync(KoineDbContext context)
@@ -646,6 +721,10 @@ namespace Koine.Infrastructure.Data.Seed
                     BEGIN
                         ALTER TABLE [Lessons] ADD [ContentPath] nvarchar(500) NULL;
                     END
+
+                    UPDATE [Lessons]
+                    SET [Slug] = CONCAT('lesson-', [Id])
+                    WHERE [Slug] IS NULL OR LTRIM(RTRIM([Slug])) = '';
                 END
                 """);
 
@@ -660,7 +739,7 @@ namespace Koine.Infrastructure.Data.Seed
 
                     IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_Lessons_Track_Slug' AND object_id = OBJECT_ID('Lessons'))
                     BEGIN
-                        CREATE UNIQUE INDEX [IX_Lessons_Track_Slug] ON [Lessons]([TrackId], [Slug]);
+                        CREATE INDEX [IX_Lessons_Track_Slug] ON [Lessons]([TrackId], [Slug]);
                     END
                 END
                 """);

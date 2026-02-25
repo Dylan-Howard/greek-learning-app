@@ -92,13 +92,13 @@ export default async function LessonDetailPage({ params }: LessonDetailPageProps
         <LessonCompletionToggle lessonId={lesson.id} initiallyCompleted={lesson.isCompleted} />
 
         <Stack direction="row" spacing={2} sx={{ mt: 4, mb: 8 }}>
-          <Button component={NextLink} href={`/lessons/tracks/${track.slug}`}>
-            Back to Track
-          </Button>
+          <NextLink href={`/lessons/tracks/${track.slug}`}>
+            <Button>Back to Track</Button>
+          </NextLink>
           {nextLesson && nextLesson.id !== lesson.id && (
-            <Button component={NextLink} href={`/lessons/tracks/${track.slug}/${nextLesson.id}`} variant="contained">
-              Next Lesson
-            </Button>
+            <NextLink href={`/lessons/tracks/${track.slug}/${nextLesson.id}`}>
+              <Button variant="contained">Next Lesson</Button>
+            </NextLink>
           )}
         </Stack>
       </Grid>
