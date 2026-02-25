@@ -93,16 +93,14 @@ namespace Koine.Application.Services
                 {
                     Type = "meta",
                     Text = unit.Content,
-                    Marker = unit.Marker
+                    Marker = unit.Marker,
+                    Path = unit.Path
                 };
             }
 
             // Check feature knowledge
             var knowsGrammar = unit.GramFeatureIds?.All(id =>
                 gramProgress.TryGetValue(id, out var prog) && prog.MasteryLevel >= 70) ?? true;
-
-            var knowsSyntax = unit.SynFeatureIds?.All(id =>
-                synProgress.TryGetValue(id, out var prog) && prog.MasteryLevel >= 70) ?? true;
 
             var knowsVocab = unit.VocabId.HasValue
                 ? (vocabProgress.TryGetValue(unit.VocabId.Value, out var vp) && vp.MasteryLevel >= 70)
@@ -114,32 +112,26 @@ namespace Koine.Application.Services
                 (unit.VocabId.HasValue && vocabProgress.TryGetValue(unit.VocabId.Value, out var vpNeeds) && vpNeeds.NeedsPractice);
 
             // Rendering logic
-            if (!knowsSyntax && unit.Children != null && unit.Children.Any())
+            if (unit.Children != null && unit.Children.Any())
             {
-                // Show translation for the whole phrase
+                // Expand children so leaf-level words always remain individually inspectable.
+                var children = unit.Children
+                    .Select(child => RenderUnit(child, translationMap, gramProgress, synProgress, vocabProgress))
+                    .ToList();
+
                 var translatedText = translationMap.TryGetValue(unit.Path!, out var mapping)
                     ? mapping.Text
                     : unit.Translation;
 
                 return new RenderedUnitDto
                 {
-                    Type = "translated",
-                    Text = translatedText,
-                    Original = unit.Root
-                };
-            }
-
-            if (knowsSyntax && unit.Children != null && unit.Children.Any())
-            {
-                // Expand children
-                var children = unit.Children
-                    .Select(child => RenderUnit(child, translationMap, gramProgress, synProgress, vocabProgress))
-                    .ToList();
-
-                return new RenderedUnitDto
-                {
                     Type = "expanded",
-                    Children = children
+                    Children = children,
+                    Path = unit.Path,
+                    Original = unit.Root,
+                    Text = translatedText,
+                    GramFeatureIds = unit.GramFeatureIds,
+                    SynFeatureIds = unit.SynFeatureIds
                 };
             }
 
@@ -150,7 +142,10 @@ namespace Koine.Application.Services
                 {
                     Type = "original",
                     Text = unit.Root,
-                    VocabId = unit.VocabId
+                    VocabId = unit.VocabId,
+                    Path = unit.Path,
+                    GramFeatureIds = unit.GramFeatureIds,
+                    SynFeatureIds = unit.SynFeatureIds
                 };
             }
 
@@ -162,7 +157,10 @@ namespace Koine.Application.Services
                     Type = "original_with_hints",
                     Text = unit.Root,
                     Hints = hints,
-                    VocabId = unit.VocabId
+                    VocabId = unit.VocabId,
+                    Path = unit.Path,
+                    GramFeatureIds = unit.GramFeatureIds,
+                    SynFeatureIds = unit.SynFeatureIds
                 };
             }
 
@@ -175,7 +173,11 @@ namespace Koine.Application.Services
             {
                 Type = "translated",
                 Text = text,
-                Original = unit.Root
+                Original = unit.Root,
+                VocabId = unit.VocabId,
+                Path = unit.Path,
+                GramFeatureIds = unit.GramFeatureIds,
+                SynFeatureIds = unit.SynFeatureIds
             };
         }
 

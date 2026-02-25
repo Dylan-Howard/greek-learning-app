@@ -83,6 +83,18 @@ export type Unitv2 = {
   helpText: string;
   morphologyId: number;
   verseNumber: number;
+  type?: string;
+  path?: string;
+  original?: string;
+  translation?: string;
+  grammarFeatureIds?: number[];
+  syntacticalFeatureIds?: number[];
+  parentPhrases?: {
+    path: string;
+    original: string;
+    translation: string;
+    syntacticalFeatureIds: number[];
+  }[];
 };
 
 export type Verse = {

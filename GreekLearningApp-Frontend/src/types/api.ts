@@ -45,8 +45,11 @@ export interface RenderedUnitDto {
   type: string;
   text?: string | null;
   original?: string | null;
+  path?: string | null;
   hints?: string[] | null;
   vocabId?: number | null;
+  gramFeatureIds?: number[] | null;
+  synFeatureIds?: number[] | null;
   marker?: string | null;
   children?: RenderedUnitDto[] | null;
 }

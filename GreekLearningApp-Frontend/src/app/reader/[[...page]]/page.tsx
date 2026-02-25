@@ -137,7 +137,7 @@ export default async function ReaderPage({ params } : { params: { page: string[]
               <Box sx={{ mb: 4 }}>
                 {
                   text.map((unt) => (
-                    <ReaderPageUnitControl morphologyId={unt.morphologyId}>
+                    <ReaderPageUnitControl unit={unt} key={`reader-unit-${unt.unitId}`}>
                       <ReaderPageUnit>{unt.content}</ReaderPageUnit>
                       <ReaderPageUnitHelp>{unt.helpText}</ReaderPageUnitHelp>
                     </ReaderPageUnitControl>

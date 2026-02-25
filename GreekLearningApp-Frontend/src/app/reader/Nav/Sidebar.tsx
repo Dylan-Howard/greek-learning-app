@@ -73,10 +73,15 @@ export default function Sidebar() {
     { title: 'Lessons', iconName: 'lessons' },
     { title: 'Dictionary', iconName: 'dictionary' },
   ];
-  tabs = !Number.isNaN(page?.morphologyId) ? [...tabs, { title: 'Details', iconName: 'details' }] : tabs;
+  tabs = page?.morphologyId ? [...tabs, { title: 'Details', iconName: 'details' }] : tabs;
   const title = page?.tabId !== undefined && tabs[page.tabId - 1] ? tabs[page.tabId - 1].title : '';
 
-  const handleClose = () => setPage({ ...page, tabId: 0, morphologyId: 0 });
+  const handleClose = () => setPage({
+    ...page,
+    tabId: 0,
+    morphologyId: 0,
+    selectedUnit: undefined,
+  });
 
   return (
     <Box

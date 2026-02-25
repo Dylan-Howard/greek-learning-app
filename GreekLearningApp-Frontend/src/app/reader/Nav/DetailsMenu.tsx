@@ -23,22 +23,37 @@ function DetailsItem({ label, value } : { label: string, value: string }) {
 
 function DetailsMenu() {
   const { page } = useReaderContext();
+  const selectedUnit = page?.selectedUnit;
   const [content, setContent] = useState({
     title: '',
     formDetails: [{ field: '', value: '' }],
     loading: true,
   });
+  const [parentSyntax, setParentSyntax] = useState<Array<{
+    phrase: string;
+    features: string[];
+  }>>([]);
 
   /* Fetch morphology details */
   useEffect(() => {
-    if (!page || !page.morphologyId) {
+    if (!selectedUnit) {
       return;
     }
-    
-    setContent({ ...content, loading: true });
-    AzureTextService.fetchMorphologyDetails(page.morphologyId)
+
+    if (!selectedUnit.morphologyId) {
+      setContent({
+        title: selectedUnit.content,
+        formDetails: [],
+        loading: false,
+      });
+      return;
+    }
+
+    let cancelled = false;
+    setContent((prev) => ({ ...prev, loading: true }));
+    AzureTextService.fetchMorphologyDetails(selectedUnit.morphologyId)
       .then((frm) => {
-        if (!frm) {
+        if (!frm || cancelled) {
           return;
         }
 
@@ -65,9 +80,55 @@ function DetailsMenu() {
 
         setContent(newContent);
       });
-  }, [page?.morphologyId]);
+    return () => { cancelled = true; };
+  }, [selectedUnit]);
 
-  if (!page || !page.morphologyId) {
+  useEffect(() => {
+    if (!selectedUnit) {
+      return;
+    }
+
+    const parentPhrases = selectedUnit.parentPhrases || [];
+    const uniqueFeatureIds = [...new Set(
+      parentPhrases.flatMap((phrase) => phrase.syntacticalFeatureIds || []).filter((id) => id > 0),
+    )];
+
+    if (uniqueFeatureIds.length === 0) {
+      setParentSyntax([]);
+      return;
+    }
+
+    let cancelled = false;
+    Promise.all(uniqueFeatureIds.map((featureId) => AzureTextService.fetchSyntacticalFeatureDetails(featureId)))
+      .then((featureDetails) => {
+        if (cancelled) {
+          return;
+        }
+
+        const detailsById = new Map<number, AzureTextService.SyntacticalFeatureDetails>();
+        featureDetails.forEach((detail) => {
+          if (detail) {
+            detailsById.set(detail.id, detail);
+          }
+        });
+
+        const syntaxRows = parentPhrases
+          .map((phrase) => ({
+            phrase: phrase.original || phrase.translation || phrase.path,
+            features: (phrase.syntacticalFeatureIds || [])
+              .map((id) => detailsById.get(id))
+              .filter((detail): detail is AzureTextService.SyntacticalFeatureDetails => !!detail)
+              .map((detail) => `${detail.code} - ${detail.name}`),
+          }))
+          .filter((row) => row.features.length > 0);
+
+        setParentSyntax(syntaxRows);
+      });
+
+    return () => { cancelled = true; };
+  }, [selectedUnit]);
+
+  if (!selectedUnit) {
     return <DetailsSkeleton />;
   }
 
@@ -82,9 +143,9 @@ function DetailsMenu() {
           variant="h2"
           sx={{ fontSize: 48, fontFamily: 'Noto Serif' }}
         >
-          {content.title}
+          {content.title || selectedUnit.content}
         </Typography>
-        <WordAudioButton word={content.title} />
+        <WordAudioButton word={content.title || selectedUnit.content} />
       </Stack>
       <Grid container>
         {
@@ -95,6 +156,29 @@ function DetailsMenu() {
           ))
         }
       </Grid>
+      {
+        parentSyntax.length > 0
+          ? (
+            <Box sx={{ mt: 2 }}>
+              <Typography sx={{ fontSize: '.8rem', color: 'text.secondary', mb: 1 }}>
+                Parent Syntax
+              </Typography>
+              {
+                parentSyntax.map((row) => (
+                  <Box key={`${row.phrase}-${row.features.join('|')}`} sx={{ mb: 1.5 }}>
+                    <Typography sx={{ color: 'text.primary' }}>
+                      {row.phrase}
+                    </Typography>
+                    <Typography sx={{ fontSize: '.85rem', color: 'text.secondary' }}>
+                      {row.features.join(', ')}
+                    </Typography>
+                  </Box>
+                ))
+              }
+            </Box>
+          )
+          : null
+      }
     </Box>
   );
 }

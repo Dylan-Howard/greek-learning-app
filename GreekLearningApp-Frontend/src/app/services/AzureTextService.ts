@@ -139,3 +139,24 @@ export async function fetchMorphologyAbbreviation(morphologyId: number) {
   const details = await fetchMorphologyDetails(morphologyId);
   return details?.posName || '';
 }
+
+export type SyntacticalFeatureDetails = {
+  id: number;
+  code: string;
+  name: string;
+  definition?: string;
+};
+
+export async function fetchSyntacticalFeatureDetails(featureId: number): Promise<SyntacticalFeatureDetails | undefined> {
+  try {
+    const feature = await apiClient.get<any>(`syntactical-features/${featureId}`);
+    return {
+      id: toNumber(feature.id),
+      code: feature.code || `Feature ${featureId}`,
+      name: feature.name || `Feature ${featureId}`,
+      definition: feature.definition || '',
+    };
+  } catch {
+    return undefined;
+  }
+}

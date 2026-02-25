@@ -5,6 +5,8 @@
 - [ ] Fix text unit rendering
 - [ ] Implement vocab-srs feature
 - [ ] Implement auth and user data tracking (Clerk.js with outbox pattern?)
+- [ ] Offline or guest mode with localstorage
+- [ ] Homepage for public, along with links to helpful resources, privacy policy, terms, and liscensing.
 - [ ] Build admin portal for CRUD operations (including soft-deletes) phrases chatpters, vocabulary sets, lessons, users, etc.
 - [ ] Eventually build editor for chapters.
 - [ ] Eventually include OT texts (then apocrypha?).

@@ -1,16 +1,17 @@
 'use client';
 
 import { ReactNode, useMemo, useState } from 'react';
-import { ReaderContext } from './ReaderPageContext';
+import { ReaderContext, ReaderPage } from './ReaderPageContext';
 
 export default function ReaderInterface(
   { children, bookId, chapterId } : { children: ReactNode, bookId: number, chapterId: number },
 ) {
-  const [page, setPage] = useState({
+  const [page, setPage] = useState<ReaderPage>({
     bookId,
     chapterId,
     tabId: 0,
     morphologyId: 0,
+    selectedUnit: undefined,
   });
 
   return (

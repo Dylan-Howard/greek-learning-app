@@ -7,6 +7,24 @@ export interface ReaderPage {
   chapterId: number;
   tabId: number;
   morphologyId: number;
+  selectedUnit?: {
+    unitId: number;
+    content: string;
+    helpText: string;
+    morphologyId: number;
+    type?: string;
+    path?: string;
+    original?: string;
+    translation?: string;
+    grammarFeatureIds?: number[];
+    syntacticalFeatureIds?: number[];
+    parentPhrases?: {
+      path: string;
+      original: string;
+      translation: string;
+      syntacticalFeatureIds: number[];
+    }[];
+  };
 }
 
 export interface ReaderContextType {
