@@ -4,11 +4,13 @@ import { useEffect, useState } from 'react';
 
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
+import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
 import { DetailsSkeleton } from '../../modules/Skeletons';
 import * as AzureTextService from '../../services/AzureTextService';
 import { useReaderContext } from '../ReaderPage/ReaderPageContext';
+import WordAudioButton from './WordAudioButton';
 
 function DetailsItem({ label, value } : { label: string, value: string }) {
   return (
@@ -75,12 +77,15 @@ function DetailsMenu() {
 
   return (
     <Box>
-      <Typography
-        variant="h2"
-        sx={{ fontSize: 48, mb: 2, fontFamily: 'Noto Serif' }}
-      >
-        {content.title}
-      </Typography>
+      <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ mb: 2 }}>
+        <Typography
+          variant="h2"
+          sx={{ fontSize: 48, fontFamily: 'Noto Serif' }}
+        >
+          {content.title}
+        </Typography>
+        <WordAudioButton word={content.title} />
+      </Stack>
       <Grid container>
         {
           content.formDetails.map(({ field, value }) => (

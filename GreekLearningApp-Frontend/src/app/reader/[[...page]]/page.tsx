@@ -24,6 +24,7 @@ import ReaderSelectionControl from '../ReaderPage/ReaderPageSelect';
 import TextTitle from '../ReaderPage/ReaderPageTitle';
 import ReaderPageUnitControl from '../ReaderPage/ReaderPageUnitControl';
 import { ReaderPageUnit, ReaderPageUnitHelp } from '../ReaderPage/ReaderPageUnit';
+import ReaderPageAudioButton from '../ReaderPage/ReaderPageAudioButton';
 
 const DEFAULT_BOOK_ID = 1;
 const DEFAULT_CHAPTER_ID = 1;
@@ -45,6 +46,7 @@ export default async function ReaderPage({ params } : { params: { page: string[]
   }
 
   const { selection, title, text } = data;
+  const ttsContent = text.map((unt) => unt.content).join(' ');
 
   /* Determines the position of the active chapter within the active text */
   let chapterPosition;
@@ -127,6 +129,7 @@ export default async function ReaderPage({ params } : { params: { page: string[]
                 }
               </ReaderSelectionControl>
             </FormControl>
+            <ReaderPageAudioButton content={ttsContent} />
           </Stack>
           <Box sx={{ height: { xs: 'calc(100% - 160.5px)', sm: 'calc(100% - 88px)' }, overflowY: 'scroll' }}>
             <Container maxWidth="sm">
