@@ -15,8 +15,12 @@ export default function ReaderPageControls(
   const router = useRouter();
 
   const handleChapterChange = async (targetChapterId: number) => {
-    const { textId } = await AzureTextService.fetchChapter(targetChapterId);
-    router.push(`/reader?bookId=${textId}&chapterId=${targetChapterId}`);
+    const chapter = await AzureTextService.fetchChapter(targetChapterId);
+    if (!chapter) {
+      return;
+    }
+
+    router.push(`/reader?bookId=${chapter.bookId}&chapterId=${targetChapterId}`);
   };
 
   return (

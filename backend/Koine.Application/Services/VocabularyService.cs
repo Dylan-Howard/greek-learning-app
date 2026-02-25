@@ -4,6 +4,9 @@ using Koine.Application.DTOs.Common;
 using Koine.Application.DTOs.Vocabulary;
 using Koine.Application.Interfaces;
 using Koine.Domain.Entities;
+using Koine.Domain.ValueObjects;
+using System.Security.Cryptography;
+using System.Text.Json;
 
 namespace Koine.Application.Services
 {
@@ -197,7 +200,7 @@ namespace Koine.Application.Services
                 Content = v.Root,
                 Occurrences = v.Occurrences ?? 0,
                 Gloss = v.Gloss,
-                RootGUID = Guid.NewGuid() // Temporary placeholder
+                RootGUID = CreateDeterministicGuid(v.Id)
             }).ToList();
         }
 
@@ -212,21 +215,61 @@ namespace Koine.Application.Services
                 Content = v.Root,
                 Occurrences = v.Occurrences ?? 0,
                 Gloss = v.Gloss,
-                RootGUID = Guid.NewGuid() // Temporary placeholder
+                RootGUID = CreateDeterministicGuid(v.Id)
             };
         }
 
         public async Task<List<SimpleWordDto>> GetWordsByBookIdAsync(int bookId)
         {
-            // Simplified implementation: returning all words for now
-            // To properly implement this, we'd need to parse all UnitTrees in the book
-            return await GetAllSimpleAsync();
+            var chapters = await _unitOfWork.Chapters.GetByBookIdAsync(bookId);
+            var vocabIds = new HashSet<int>();
+
+            foreach (var chapter in chapters)
+            {
+                foreach (var vocabId in ExtractVocabularyIdsFromUnitTree(chapter.UnitTreeJson))
+                {
+                    vocabIds.Add(vocabId);
+                }
+            }
+
+            if (vocabIds.Count == 0) return new List<SimpleWordDto>();
+
+            var words = await _unitOfWork.Vocabulary.GetByIdsAsync(vocabIds.ToList());
+            return words
+                .OrderByDescending(v => v.Occurrences ?? 0)
+                .ThenBy(v => v.Root)
+                .Select(v => new SimpleWordDto
+                {
+                    RootId = v.Id,
+                    Content = v.Root,
+                    Occurrences = v.Occurrences ?? 0,
+                    Gloss = v.Gloss,
+                    RootGUID = CreateDeterministicGuid(v.Id)
+                })
+                .ToList();
         }
 
         public async Task<List<SimpleWordDto>> GetWordsByChapterIdAsync(int chapterId)
         {
-            // Simplified implementation: returning all words for now
-            return await GetAllSimpleAsync();
+            var chapter = await _unitOfWork.Chapters.GetByIdAsync(chapterId);
+            if (chapter == null) return new List<SimpleWordDto>();
+
+            var vocabIds = ExtractVocabularyIdsFromUnitTree(chapter.UnitTreeJson).Distinct().ToList();
+            if (vocabIds.Count == 0) return new List<SimpleWordDto>();
+
+            var words = await _unitOfWork.Vocabulary.GetByIdsAsync(vocabIds);
+            return words
+                .OrderByDescending(v => v.Occurrences ?? 0)
+                .ThenBy(v => v.Root)
+                .Select(v => new SimpleWordDto
+                {
+                    RootId = v.Id,
+                    Content = v.Root,
+                    Occurrences = v.Occurrences ?? 0,
+                    Gloss = v.Gloss,
+                    RootGUID = CreateDeterministicGuid(v.Id)
+                })
+                .ToList();
         }
 
         public async Task<bool> UpdateSimpleWordAsync(SimpleWordDto wordDto)
@@ -242,6 +285,44 @@ namespace Koine.Application.Services
             await _unitOfWork.SaveChangesAsync();
 
             return true;
+        }
+
+        private static IEnumerable<int> ExtractVocabularyIdsFromUnitTree(string? unitTreeJson)
+        {
+            if (string.IsNullOrWhiteSpace(unitTreeJson))
+            {
+                return Enumerable.Empty<int>();
+            }
+
+            var nodes = JsonSerializer.Deserialize<List<UnitNode>>(unitTreeJson) ?? new List<UnitNode>();
+            var vocabIds = new List<int>();
+
+            foreach (var node in nodes)
+            {
+                TraverseNode(node, vocabIds);
+            }
+
+            return vocabIds;
+        }
+
+        private static void TraverseNode(UnitNode node, ICollection<int> vocabIds)
+        {
+            if (node.VocabId.HasValue)
+            {
+                vocabIds.Add(node.VocabId.Value);
+            }
+
+            if (node.Children == null || node.Children.Count == 0) return;
+            foreach (var child in node.Children)
+            {
+                TraverseNode(child, vocabIds);
+            }
+        }
+
+        private static Guid CreateDeterministicGuid(int value)
+        {
+            var bytes = MD5.HashData(BitConverter.GetBytes(value));
+            return new Guid(bytes);
         }
     }
 }

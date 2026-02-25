@@ -130,7 +130,7 @@ namespace Koine.API.Controllers
 
         private int GetUserIdFromClaimsOrDefault()
         {
-            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var userIdClaim = HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (string.IsNullOrEmpty(userIdClaim) || !int.TryParse(userIdClaim, out var userId))
             {
                 // TODO(next phase): Re-enable strict auth and remove dev fallback.

@@ -144,11 +144,19 @@ export interface ChapterSelectionDto {
 
 export interface VocabularySetDto {
   id: number;
+  ownerUserId?: number | null;
+  isSystem: boolean;
+  slug: string;
+  bookId?: number | null;
   title: string;
   description: string;
   items: VocabularySetItemDto[];
   createdAt: string;
   lastPracticed?: string | null;
+  totalCount: number;
+  knownCount: number;
+  learningCount: number;
+  percentComplete: number;
 }
 
 export interface VocabularySetItemDto {
@@ -158,6 +166,25 @@ export interface VocabularySetItemDto {
   gloss: string;
   masteryLevel: number;
   lastSeen?: string | null;
+}
+
+export interface CreateVocabularySetDto {
+  title: string;
+  description: string;
+  vocabularyIds: number[];
+}
+
+export interface UpdateVocabularySetDto {
+  title: string;
+  description: string;
+}
+
+export interface AddVocabularySetItemDto {
+  vocabularyId: number;
+}
+
+export interface UpdateVocabularySetProgressDto {
+  masteryLevel: number;
 }
 
 export interface RegisterRequestDto {

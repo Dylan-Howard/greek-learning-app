@@ -21,6 +21,7 @@ import * as AzureUserService from '../../services/AzureUserService';
 import { User } from '../../services/User';
 import { Lesson } from '../../modules/Lesson';
 import { Wordv2 } from '../../modules/Word';
+import { SimpleWordDto } from '../../../types/api';
 import transliterateGreek from './Transliterate';
 import OptionCheckbox from './OptionCheckbox';
 import { useReaderContext } from '../ReaderPage/ReaderPageContext';
@@ -43,13 +44,13 @@ function mapLessons(lessons: Lesson[], user: User | undefined, filter: string) {
   }));
 }
 
-function mapVocabulary(vocabulary: Wordv2[], user: User | undefined, filter: string) {
+function mapVocabulary(vocabulary: Array<Wordv2 | SimpleWordDto>, user: User | undefined, filter: string) {
   return vocabulary
-    .filter((vcb: Wordv2) => (
+    .filter((vcb) => (
       filter.toLowerCase() === transliterateGreek(
         vcb.content.substring(0, filter.length),
       ).toLowerCase()
-    )).map((vcb : Wordv2) => ({
+    )).map((vcb) => ({
       id: vcb.rootId,
       name: vcb.content,
       type: 'Word',

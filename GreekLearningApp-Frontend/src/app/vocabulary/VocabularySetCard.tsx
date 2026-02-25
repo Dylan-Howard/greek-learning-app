@@ -16,11 +16,13 @@ export default function VocabularySetCard({
   description,
   link,
   progress,
+  subtitle,
 }: {
   title: string;
   description: string;
   link: string;
   progress: number;
+  subtitle?: string;
 }) {
   return (
     <Card variant="outlined" sx={{ height: '100%' }}>
@@ -31,6 +33,11 @@ export default function VocabularySetCard({
         <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
           {description}
         </Typography>
+        {subtitle && (
+          <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+            {subtitle}
+          </Typography>
+        )}
         <Box sx={{ mt: 2 }}>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <Box sx={{ width: '100%', mr: 1 }}>

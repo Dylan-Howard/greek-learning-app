@@ -15,6 +15,6 @@ namespace Koine.Domain.Entities
         public virtual UserProgress? Progress { get; set; }
         public virtual ICollection<LessonCompletion> LessonCompletions { get; set; } = new List<LessonCompletion>();
         public virtual ICollection<UserSetting> Settings { get; set; } = new List<UserSetting>();
-        public virtual ICollection<VocabularySet> VocabularySets { get; set; } = new List<VocabularySet>();
+        public virtual ICollection<VocabularySet> OwnedVocabularySets { get; set; } = new List<VocabularySet>();
     }
 }

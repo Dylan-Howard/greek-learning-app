@@ -11,10 +11,13 @@ namespace Koine.Infrastructure.Data.Repositories
         {
         }
 
-        public async Task<List<VocabularySet>> GetByUserIdAsync(int userId)
+        public async Task<List<VocabularySet>> GetVisibleToUserAsync(int userId)
         {
             return await _dbSet
-                .Where(vs => vs.UserId == userId)
+                .Include(vs => vs.Items)
+                .Where(vs => vs.IsSystem || vs.OwnerUserId == userId)
+                .OrderByDescending(vs => vs.IsSystem)
+                .ThenBy(vs => vs.Title)
                 .ToListAsync();
         }
 
@@ -24,6 +27,21 @@ namespace Koine.Infrastructure.Data.Repositories
                 .Include(vs => vs.Items)
                 .ThenInclude(i => i.Vocabulary)
                 .FirstOrDefaultAsync(vs => vs.Id == setId);
+        }
+
+        public async Task<VocabularySet?> GetBySlugAsync(string slug)
+        {
+            return await _dbSet
+                .Include(vs => vs.Items)
+                .FirstOrDefaultAsync(vs => vs.Slug == slug);
+        }
+
+        public async Task<List<VocabularySet>> GetSystemSetsAsync()
+        {
+            return await _dbSet
+                .Where(vs => vs.IsSystem)
+                .Include(vs => vs.Items)
+                .ToListAsync();
         }
     }
 }

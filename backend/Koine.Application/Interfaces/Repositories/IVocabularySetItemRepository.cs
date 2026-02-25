@@ -1,7 +1,5 @@
 using Koine.Domain.Entities;
 
-using Koine.Domain.Entities;
-
 namespace Koine.Application.Interfaces.Repositories
 {
     public interface IVocabularySetItemRepository : IRepository<VocabularySetItem>

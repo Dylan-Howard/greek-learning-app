@@ -1,4 +1,5 @@
 import { apiClient } from './apiClient';
+import { ChapterDto, SimpleWordDto } from '../../types/api';
 
 export type SelectionText = { textId: number; title: string };
 export type SelectionChapter = { chapterId: number; chapterNumber: number };
@@ -49,7 +50,7 @@ export async function fetchText(textId: number) {
 
 export async function fetchVocabulary() {
   try {
-    return await apiClient.get<any[]>('words');
+    return await apiClient.get<SimpleWordDto[]>('words');
   } catch {
     return [];
   }
@@ -57,7 +58,7 @@ export async function fetchVocabulary() {
 
 export async function fetchVocabularyByChapter(chapterId: number) {
   try {
-    return await apiClient.get<any[]>(`chapters/${chapterId}/words`);
+    return await apiClient.get<SimpleWordDto[]>(`chapters/${chapterId}/words`);
   } catch {
     return [];
   }
@@ -69,7 +70,7 @@ export async function fetchUnitsByChapter(_chapterId: number) {
 
 export async function fetchChapter(chapterId: number) {
   try {
-    return await apiClient.get<any>(`chapters/${chapterId}`);
+    return await apiClient.get<ChapterDto>(`chapters/${chapterId}`);
   } catch {
     return undefined;
   }

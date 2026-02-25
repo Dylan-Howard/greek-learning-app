@@ -23,6 +23,8 @@ Scope:
 - `TranslationService`
 - `UserService`
 - `LessonService`
+- `StudyService`
+- `VocabularyService`
 
 Output:
 - `backend/Koine.Tests/backend/Koine.Tests/TestResults/coverage-services.cobertura.xml`

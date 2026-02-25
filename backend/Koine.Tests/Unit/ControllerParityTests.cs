@@ -3,6 +3,7 @@ using Koine.Application.DTOs.Books;
 using Koine.Application.DTOs.Chapters;
 using Koine.Application.DTOs.Features;
 using Koine.Application.DTOs.Lessons;
+using Koine.Application.DTOs.Study;
 using Koine.Application.DTOs.Translations;
 using Koine.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -114,5 +115,32 @@ public class ControllerParityTests
         var payload = ok!.Value as List<SimpleGrammaticalFormDto>;
         Assert.That(payload, Has.Count.EqualTo(1));
         Assert.That(payload![0].LessonId, Is.EqualTo(7));
+    }
+
+    [Test]
+    public async Task VocabularySetsController_GetAll_ReturnsOk()
+    {
+        var studyService = new Mock<IStudyService>();
+        var logger = new Mock<ILogger<VocabularySetsController>>();
+
+        studyService.Setup(s => s.GetUserSetsAsync(It.IsAny<int>())).ReturnsAsync(new List<VocabularySetDto>
+        {
+            new() { Id = 1, Title = "All NT Vocabulary", IsSystem = true, Slug = "nt-all-vocab", TotalCount = 100 },
+        });
+
+        var controller = new VocabularySetsController(studyService.Object, logger.Object);
+        var response = await controller.GetAll();
+
+        var payload = response.Value as List<VocabularySetDto>;
+        if (payload == null)
+        {
+            var objectResult = response.Result as ObjectResult;
+            Assert.That(objectResult, Is.Not.Null);
+            Assert.That(objectResult!.StatusCode, Is.Not.EqualTo(500));
+            payload = objectResult.Value as List<VocabularySetDto>;
+        }
+
+        Assert.That(payload, Has.Count.EqualTo(1));
+        Assert.That(payload![0].Slug, Is.EqualTo("nt-all-vocab"));
     }
 }
