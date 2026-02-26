@@ -1,7 +1,7 @@
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 import { ThemeProvider } from '@mui/material';
-import { light } from './Theme';
-import './index.css';
+import { light } from '@/components/layout/Theme';
+import '@/styles/globals.css';
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   return (

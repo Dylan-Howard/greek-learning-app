@@ -1,4 +1,4 @@
-import * as VocabularySetService from '../VocabularySetService';
+import * as VocabularySetService from '@/app/services/VocabularySetService';
 
 describe('VocabularySetService', () => {
   beforeEach(() => {

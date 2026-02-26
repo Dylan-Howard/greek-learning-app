@@ -26,6 +26,9 @@ namespace Koine.Infrastructure.Data.Context
         public DbSet<UserSetting> UserSettings { get; set; } = null!;
         public DbSet<VocabularySet> VocabularySets { get; set; } = null!;
         public DbSet<VocabularySetItem> VocabularySetItems { get; set; } = null!;
+        public DbSet<UserCardProgress> UserCardProgresses { get; set; } = null!;
+        public DbSet<StudySession> StudySessions { get; set; } = null!;
+        public DbSet<SessionCard> SessionCards { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

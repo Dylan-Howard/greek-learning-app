@@ -1,0 +1,22 @@
+'use client';
+
+import { ReactNode, useMemo, useState } from 'react';
+import { ReaderContext, ReaderPage } from '@/components/features/reader/ReaderPageContext';
+
+export default function ReaderInterface(
+  { children, bookId, chapterId } : { children: ReactNode, bookId: number, chapterId: number },
+) {
+  const [page, setPage] = useState<ReaderPage>({
+    bookId,
+    chapterId,
+    tabId: 0,
+    morphologyId: 0,
+    selectedUnit: undefined,
+  });
+
+  return (
+    <ReaderContext.Provider value={useMemo(() => ({ page, setPage }), [page])}>
+      {children}
+    </ReaderContext.Provider>
+  );
+}

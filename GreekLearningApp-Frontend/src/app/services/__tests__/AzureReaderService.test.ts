@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { mapRenderedUnitsToDisplayUnits } from '../AzureReaderService';
+import { mapRenderedUnitsToDisplayUnits } from '@/app/services/AzureReaderService';
 
 describe('mapRenderedUnitsToDisplayUnits', () => {
   it('maps to leaf-level units and preserves parent phrase syntax context', () => {

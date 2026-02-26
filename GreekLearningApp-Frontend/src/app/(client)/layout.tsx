@@ -1,14 +1,14 @@
 'use client';
 
 import { useEffect, useMemo, useState, ReactNode } from 'react';
-import { UserContext } from '../services/User';
-import * as UserService from '../services/AzureUserService';
+import { UserContext } from '@/app/services/User';
+import * as UserService from '@/app/services/AzureUserService';
 import {
   DEV_USER_CHANGED_EVENT,
   getActiveDevUserId,
   setActiveDevUserId,
   sanitizeDevUserId,
-} from '../services/devUserSession';
+} from '@/app/services/devUserSession';
 
 export default function ClientLayout({ children }: { children: ReactNode }) {
   const [activeUser, setActiveUser] = useState(UserService.getDefaultUserState());

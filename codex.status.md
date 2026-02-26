@@ -1,3 +1,0 @@
-koine-ui-fix
-
-https://auth.openai.com/oauth/authorize?response_type=code&client_id=app_EMoamEEZ73f0CkXaXp7hrann&redirect_uri=http%3A%2F%2Flocalhost%3A1455%2Fauth%2Fcallback&scope=openid%20profile%20email%20offline_access&code_challenge=V4Pn25yVHNXMjGSsjTVaYlJInh-gpUbeVcgDB8ijyXY&code_challenge_method=S256&id_token_add_organizations=true&codex_cli_simplified_flow=true&state=DSfDD3Bij6UcXV6Z6NZmWffUAbwOa9_3JuSgMfA2zeI&originator=codex_cli_rs

@@ -17,7 +17,7 @@ import {
   fetchUser,
   getDefaultUserState,
   updateUser,
-} from '../AzureUserService';
+} from '@/app/services/AzureUserService';
 
 describe('AzureUserService', () => {
   beforeEach(() => {

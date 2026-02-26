@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { detectOriginalLanguage, normalizeSpeechText } from '../readerTts';
+import { detectOriginalLanguage, normalizeSpeechText } from '@/app/reader/ReaderPage/readerTts';
 
 describe('readerTts', () => {
   it('normalizes whitespace', () => {
