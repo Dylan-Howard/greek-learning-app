@@ -1,0 +1,1686 @@
+{
+  "book": 42,
+  "book_name": "Luke",
+  "chapter": 1,
+  "start_verse": 65,
+  "end_verse": 72,
+  "verse_count": 8,
+  "token_count": 110,
+  "tokens": [
+    {
+      "verse": 65,
+      "word_num": 1,
+      "greek": "Καὶ",
+      "transliteration": "",
+      "gloss": "and",
+      "grammar_codes": [
+        "CONJ"
+      ],
+      "part_of_speech": "conj",
+      "lemma": "Καὶ",
+      "rmac": "CONJ"
+    },
+    {
+      "verse": 65,
+      "word_num": 2,
+      "greek": "ἐγένετο",
+      "transliteration": "",
+      "gloss": "to be",
+      "grammar_codes": [
+        "V",
+        "2",
+        "ACT",
+        "D",
+        "3P",
+        "S"
+      ],
+      "part_of_speech": "v",
+      "lemma": "ἐγένετο",
+      "rmac": "V-2ADI-3S"
+    },
+    {
+      "verse": 65,
+      "word_num": 3,
+      "greek": "ἐπὶ",
+      "transliteration": "",
+      "gloss": "on",
+      "grammar_codes": [
+        "PREP"
+      ],
+      "part_of_speech": "prep",
+      "lemma": "ἐπὶ",
+      "rmac": "PREP"
+    },
+    {
+      "verse": 65,
+      "word_num": 4,
+      "greek": "πάντας",
+      "transliteration": "",
+      "gloss": "all",
+      "grammar_codes": [
+        "ADJ",
+        "ACC",
+        "M",
+        "P"
+      ],
+      "part_of_speech": "adj",
+      "lemma": "πάντας",
+      "rmac": "A-APM"
+    },
+    {
+      "verse": 65,
+      "word_num": 5,
+      "greek": "φόβος",
+      "transliteration": "",
+      "gloss": "fear",
+      "grammar_codes": [
+        "N",
+        "NOM",
+        "M",
+        "S"
+      ],
+      "part_of_speech": "n",
+      "lemma": "φόβος",
+      "rmac": "N-NSM"
+    },
+    {
+      "verse": 65,
+      "word_num": 6,
+      "greek": "τοὺς",
+      "transliteration": "",
+      "gloss": "the",
+      "grammar_codes": [
+        "ART",
+        "ACC",
+        "M",
+        "P"
+      ],
+      "part_of_speech": "art",
+      "lemma": "τοὺς",
+      "rmac": "T-APM"
+    },
+    {
+      "verse": 65,
+      "word_num": 7,
+      "greek": "περιοικοῦντας",
+      "transliteration": "",
+      "gloss": "to live in a neighborhood",
+      "grammar_codes": [
+        "V",
+        "PRES",
+        "ACT",
+        "PTCP",
+        "AP",
+        "P"
+      ],
+      "part_of_speech": "v",
+      "lemma": "περιοικοῦντας",
+      "rmac": "V-PAP-APM"
+    },
+    {
+      "verse": 65,
+      "word_num": 8,
+      "greek": "αὐτούς",
+      "transliteration": "",
+      "gloss": "he",
+      "grammar_codes": [
+        "PREP"
+      ],
+      "part_of_speech": "prep",
+      "lemma": "αὐτούς",
+      "rmac": "P-APM"
+    },
+    {
+      "verse": 65,
+      "word_num": 9,
+      "greek": "καὶ",
+      "transliteration": "",
+      "gloss": "and",
+      "grammar_codes": [
+        "CONJ"
+      ],
+      "part_of_speech": "conj",
+      "lemma": "καὶ",
+      "rmac": "CONJ"
+    },
+    {
+      "verse": 65,
+      "word_num": 10,
+      "greek": "ἐν",
+      "transliteration": "",
+      "gloss": "in",
+      "grammar_codes": [
+        "PREP"
+      ],
+      "part_of_speech": "prep",
+      "lemma": "ἐν",
+      "rmac": "PREP"
+    },
+    {
+      "verse": 65,
+      "word_num": 11,
+      "greek": "ὅλῃ",
+      "transliteration": "",
+      "gloss": "all",
+      "grammar_codes": [
+        "ADJ",
+        "DAT",
+        "F",
+        "S"
+      ],
+      "part_of_speech": "adj",
+      "lemma": "ὅλῃ",
+      "rmac": "A-DSF"
+    },
+    {
+      "verse": 65,
+      "word_num": 12,
+      "greek": "τῇ",
+      "transliteration": "",
+      "gloss": "the",
+      "grammar_codes": [
+        "ART",
+        "DAT",
+        "F",
+        "S"
+      ],
+      "part_of_speech": "art",
+      "lemma": "τῇ",
+      "rmac": "T-DSF"
+    },
+    {
+      "verse": 65,
+      "word_num": 13,
+      "greek": "ὀρεινῇ",
+      "transliteration": "",
+      "gloss": "hilly",
+      "grammar_codes": [
+        "ADJ",
+        "DAT",
+        "F",
+        "S"
+      ],
+      "part_of_speech": "adj",
+      "lemma": "ὀρεινῇ",
+      "rmac": "A-DSF"
+    },
+    {
+      "verse": 65,
+      "word_num": 14,
+      "greek": "τῆς",
+      "transliteration": "",
+      "gloss": "the",
+      "grammar_codes": [
+        "ART",
+        "GEN",
+        "F",
+        "S"
+      ],
+      "part_of_speech": "art",
+      "lemma": "τῆς",
+      "rmac": "T-GSF"
+    },
+    {
+      "verse": 65,
+      "word_num": 15,
+      "greek": "Ἰουδαίας",
+      "transliteration": "",
+      "gloss": "Judea",
+      "grammar_codes": [
+        "N",
+        "GEN",
+        "F",
+        "S"
+      ],
+      "part_of_speech": "n",
+      "lemma": "Ἰουδαίας",
+      "rmac": "N-GSF-L"
+    },
+    {
+      "verse": 65,
+      "word_num": 16,
+      "greek": "διελαλεῖτο",
+      "transliteration": "",
+      "gloss": "to talk about",
+      "grammar_codes": [
+        "V",
+        "IMPF",
+        "PASS",
+        "IND",
+        "3P",
+        "S"
+      ],
+      "part_of_speech": "v",
+      "lemma": "διελαλεῖτο",
+      "rmac": "V-IPI-3S"
+    },
+    {
+      "verse": 65,
+      "word_num": 17,
+      "greek": "πάντα",
+      "transliteration": "",
+      "gloss": "all",
+      "grammar_codes": [
+        "ADJ",
+        "NOM",
+        "N",
+        "P"
+      ],
+      "part_of_speech": "adj",
+      "lemma": "πάντα",
+      "rmac": "A-NPN"
+    },
+    {
+      "verse": 65,
+      "word_num": 18,
+      "greek": "τὰ",
+      "transliteration": "",
+      "gloss": "the",
+      "grammar_codes": [
+        "ART",
+        "NOM",
+        "N",
+        "P"
+      ],
+      "part_of_speech": "art",
+      "lemma": "τὰ",
+      "rmac": "T-NPN"
+    },
+    {
+      "verse": 65,
+      "word_num": 19,
+      "greek": "ῥήματα",
+      "transliteration": "",
+      "gloss": "word",
+      "grammar_codes": [
+        "N",
+        "NOM",
+        "N",
+        "P"
+      ],
+      "part_of_speech": "n",
+      "lemma": "ῥήματα",
+      "rmac": "N-NPN"
+    },
+    {
+      "verse": 65,
+      "word_num": 20,
+      "greek": "ταῦτα",
+      "transliteration": "",
+      "gloss": "this",
+      "grammar_codes": [
+        "ADV"
+      ],
+      "part_of_speech": "adv",
+      "lemma": "ταῦτα",
+      "rmac": "D-NPN"
+    },
+    {
+      "verse": 66,
+      "word_num": 1,
+      "greek": "καὶ",
+      "transliteration": "",
+      "gloss": "and",
+      "grammar_codes": [
+        "CONJ"
+      ],
+      "part_of_speech": "conj",
+      "lemma": "καὶ",
+      "rmac": "CONJ"
+    },
+    {
+      "verse": 66,
+      "word_num": 2,
+      "greek": "ἔθεντο",
+      "transliteration": "",
+      "gloss": "to place",
+      "grammar_codes": [
+        "V",
+        "2",
+        "ACT",
+        "IMP",
+        "3P",
+        "P"
+      ],
+      "part_of_speech": "v",
+      "lemma": "ἔθεντο",
+      "rmac": "V-2AMI-3P"
+    },
+    {
+      "verse": 66,
+      "word_num": 3,
+      "greek": "πάντες",
+      "transliteration": "",
+      "gloss": "all",
+      "grammar_codes": [
+        "ADJ",
+        "NOM",
+        "M",
+        "P"
+      ],
+      "part_of_speech": "adj",
+      "lemma": "πάντες",
+      "rmac": "A-NPM"
+    },
+    {
+      "verse": 66,
+      "word_num": 4,
+      "greek": "οἱ",
+      "transliteration": "",
+      "gloss": "the",
+      "grammar_codes": [
+        "ART",
+        "NOM",
+        "M",
+        "P"
+      ],
+      "part_of_speech": "art",
+      "lemma": "οἱ",
+      "rmac": "T-NPM"
+    },
+    {
+      "verse": 66,
+      "word_num": 5,
+      "greek": "ἀκούσαντες",
+      "transliteration": "",
+      "gloss": "to hear",
+      "grammar_codes": [
+        "V",
+        "AOR",
+        "ACT",
+        "PTCP",
+        "NP",
+        "P"
+      ],
+      "part_of_speech": "v",
+      "lemma": "ἀκούσαντες",
+      "rmac": "V-AAP-NPM"
+    },
+    {
+      "verse": 66,
+      "word_num": 6,
+      "greek": "ἐν",
+      "transliteration": "",
+      "gloss": "in",
+      "grammar_codes": [
+        "PREP"
+      ],
+      "part_of_speech": "prep",
+      "lemma": "ἐν",
+      "rmac": "PREP"
+    },
+    {
+      "verse": 66,
+      "word_num": 7,
+      "greek": "τῇ",
+      "transliteration": "",
+      "gloss": "the",
+      "grammar_codes": [
+        "ART",
+        "DAT",
+        "F",
+        "S"
+      ],
+      "part_of_speech": "art",
+      "lemma": "τῇ",
+      "rmac": "T-DSF"
+    },
+    {
+      "verse": 66,
+      "word_num": 8,
+      "greek": "καρδίᾳ",
+      "transliteration": "",
+      "gloss": "heart",
+      "grammar_codes": [
+        "N",
+        "DAT",
+        "F",
+        "S"
+      ],
+      "part_of_speech": "n",
+      "lemma": "καρδίᾳ",
+      "rmac": "N-DSF"
+    },
+    {
+      "verse": 66,
+      "word_num": 9,
+      "greek": "αὐτῶν",
+      "transliteration": "",
+      "gloss": "he",
+      "grammar_codes": [
+        "PREP"
+      ],
+      "part_of_speech": "prep",
+      "lemma": "αὐτῶν",
+      "rmac": "P-GPM"
+    },
+    {
+      "verse": 66,
+      "word_num": 10,
+      "greek": "λέγοντες",
+      "transliteration": "",
+      "gloss": "say",
+      "grammar_codes": [
+        "V",
+        "PRES",
+        "ACT",
+        "PTCP",
+        "NP",
+        "P"
+      ],
+      "part_of_speech": "v",
+      "lemma": "λέγοντες",
+      "rmac": "V-PAP-NPM"
+    },
+    {
+      "verse": 66,
+      "word_num": 11,
+      "greek": "τί",
+      "transliteration": "",
+      "gloss": "who?",
+      "grammar_codes": [
+        "INTERJ"
+      ],
+      "part_of_speech": "interj",
+      "lemma": "τί",
+      "rmac": "I-NSN"
+    },
+    {
+      "verse": 66,
+      "word_num": 12,
+      "greek": "ἄρα",
+      "transliteration": "",
+      "gloss": "then",
+      "grammar_codes": [
+        "CONJ"
+      ],
+      "part_of_speech": "conj",
+      "lemma": "ἄρα",
+      "rmac": "CONJ"
+    },
+    {
+      "verse": 66,
+      "word_num": 13,
+      "greek": "τὸ",
+      "transliteration": "",
+      "gloss": "the",
+      "grammar_codes": [
+        "ART",
+        "NOM",
+        "N",
+        "S"
+      ],
+      "part_of_speech": "art",
+      "lemma": "τὸ",
+      "rmac": "T-NSN"
+    },
+    {
+      "verse": 66,
+      "word_num": 14,
+      "greek": "παιδίον",
+      "transliteration": "",
+      "gloss": "child",
+      "grammar_codes": [
+        "N",
+        "NOM",
+        "N",
+        "S"
+      ],
+      "part_of_speech": "n",
+      "lemma": "παιδίον",
+      "rmac": "N-NSN"
+    },
+    {
+      "verse": 66,
+      "word_num": 15,
+      "greek": "τοῦτο",
+      "transliteration": "",
+      "gloss": "this",
+      "grammar_codes": [
+        "ADV"
+      ],
+      "part_of_speech": "adv",
+      "lemma": "τοῦτο",
+      "rmac": "D-NSN"
+    },
+    {
+      "verse": 66,
+      "word_num": 16,
+      "greek": "ἔσται",
+      "transliteration": "",
+      "gloss": "to be",
+      "grammar_codes": [
+        "V",
+        "FUT",
+        "D",
+        "IND",
+        "3P",
+        "S"
+      ],
+      "part_of_speech": "v",
+      "lemma": "ἔσται",
+      "rmac": "V-FDI-3S"
+    },
+    {
+      "verse": 66,
+      "word_num": 17,
+      "greek": "καὶ",
+      "transliteration": "",
+      "gloss": "and",
+      "grammar_codes": [
+        "CONJ"
+      ],
+      "part_of_speech": "conj",
+      "lemma": "καὶ",
+      "rmac": "CONJ"
+    },
+    {
+      "verse": 66,
+      "word_num": 18,
+      "greek": "γὰρ",
+      "transliteration": "",
+      "gloss": "for",
+      "grammar_codes": [
+        "CONJ"
+      ],
+      "part_of_speech": "conj",
+      "lemma": "γὰρ",
+      "rmac": "CONJ"
+    },
+    {
+      "verse": 66,
+      "word_num": 19,
+      "greek": "χεὶρ",
+      "transliteration": "",
+      "gloss": "hand",
+      "grammar_codes": [
+        "N",
+        "NOM",
+        "F",
+        "S"
+      ],
+      "part_of_speech": "n",
+      "lemma": "χεὶρ",
+      "rmac": "N-NSF"
+    },
+    {
+      "verse": 66,
+      "word_num": 20,
+      "greek": "κυρίου",
+      "transliteration": "",
+      "gloss": "lord",
+      "grammar_codes": [
+        "N",
+        "GEN",
+        "M",
+        "S"
+      ],
+      "part_of_speech": "n",
+      "lemma": "κυρίου",
+      "rmac": "N-GSM"
+    },
+    {
+      "verse": 66,
+      "word_num": 21,
+      "greek": "ἦν",
+      "transliteration": "",
+      "gloss": "to be",
+      "grammar_codes": [
+        "V",
+        "IMPF",
+        "ACT",
+        "IND",
+        "3P",
+        "S"
+      ],
+      "part_of_speech": "v",
+      "lemma": "ἦν",
+      "rmac": "V-IAI-3S"
+    },
+    {
+      "verse": 66,
+      "word_num": 22,
+      "greek": "μετ᾽",
+      "transliteration": "",
+      "gloss": "with",
+      "grammar_codes": [
+        "PREP"
+      ],
+      "part_of_speech": "prep",
+      "lemma": "μετ᾽",
+      "rmac": "PREP"
+    },
+    {
+      "verse": 66,
+      "word_num": 23,
+      "greek": "αὐτοῦ",
+      "transliteration": "",
+      "gloss": "he",
+      "grammar_codes": [
+        "PREP"
+      ],
+      "part_of_speech": "prep",
+      "lemma": "αὐτοῦ",
+      "rmac": "P-GSM"
+    },
+    {
+      "verse": 67,
+      "word_num": 1,
+      "greek": "Καὶ",
+      "transliteration": "",
+      "gloss": "and",
+      "grammar_codes": [
+        "CONJ"
+      ],
+      "part_of_speech": "conj",
+      "lemma": "Καὶ",
+      "rmac": "CONJ"
+    },
+    {
+      "verse": 67,
+      "word_num": 2,
+      "greek": "Ζαχαρίας",
+      "transliteration": "",
+      "gloss": "Zechariah",
+      "grammar_codes": [
+        "N",
+        "NOM",
+        "M",
+        "S"
+      ],
+      "part_of_speech": "n",
+      "lemma": "Ζαχαρίας",
+      "rmac": "N-NSM-P"
+    },
+    {
+      "verse": 67,
+      "word_num": 3,
+      "greek": "ὁ",
+      "transliteration": "",
+      "gloss": "the",
+      "grammar_codes": [
+        "ART",
+        "NOM",
+        "M",
+        "S"
+      ],
+      "part_of_speech": "art",
+      "lemma": "ὁ",
+      "rmac": "T-NSM"
+    },
+    {
+      "verse": 67,
+      "word_num": 4,
+      "greek": "πατὴρ",
+      "transliteration": "",
+      "gloss": "father",
+      "grammar_codes": [
+        "N",
+        "NOM",
+        "M",
+        "S"
+      ],
+      "part_of_speech": "n",
+      "lemma": "πατὴρ",
+      "rmac": "N-NSM"
+    },
+    {
+      "verse": 67,
+      "word_num": 5,
+      "greek": "αὐτοῦ",
+      "transliteration": "",
+      "gloss": "he",
+      "grammar_codes": [
+        "PREP"
+      ],
+      "part_of_speech": "prep",
+      "lemma": "αὐτοῦ",
+      "rmac": "P-GSM"
+    },
+    {
+      "verse": 67,
+      "word_num": 6,
+      "greek": "ἐπλήσθη",
+      "transliteration": "",
+      "gloss": "to fill",
+      "grammar_codes": [
+        "V",
+        "AOR",
+        "PASS",
+        "IND",
+        "3P",
+        "S"
+      ],
+      "part_of_speech": "v",
+      "lemma": "ἐπλήσθη",
+      "rmac": "V-API-3S"
+    },
+    {
+      "verse": 67,
+      "word_num": 7,
+      "greek": "πνεύματος",
+      "transliteration": "",
+      "gloss": "wind",
+      "grammar_codes": [
+        "N",
+        "GEN",
+        "N",
+        "S"
+      ],
+      "part_of_speech": "n",
+      "lemma": "πνεύματος",
+      "rmac": "N-GSN"
+    },
+    {
+      "verse": 67,
+      "word_num": 8,
+      "greek": "ἁγίου",
+      "transliteration": "",
+      "gloss": "holy",
+      "grammar_codes": [
+        "ADJ",
+        "GEN",
+        "N",
+        "S"
+      ],
+      "part_of_speech": "adj",
+      "lemma": "ἁγίου",
+      "rmac": "A-GSN"
+    },
+    {
+      "verse": 67,
+      "word_num": 9,
+      "greek": "καὶ",
+      "transliteration": "",
+      "gloss": "and",
+      "grammar_codes": [
+        "CONJ"
+      ],
+      "part_of_speech": "conj",
+      "lemma": "καὶ",
+      "rmac": "CONJ"
+    },
+    {
+      "verse": 67,
+      "word_num": 10,
+      "greek": "ἐπροφήτευσεν",
+      "transliteration": "",
+      "gloss": "to prophesy",
+      "grammar_codes": [
+        "V",
+        "AOR",
+        "ACT",
+        "IND",
+        "3P",
+        "S"
+      ],
+      "part_of_speech": "v",
+      "lemma": "ἐπροφήτευσεν",
+      "rmac": "V-AAI-3S"
+    },
+    {
+      "verse": 67,
+      "word_num": 11,
+      "greek": "λέγων",
+      "transliteration": "",
+      "gloss": "say",
+      "grammar_codes": [
+        "V",
+        "PRES",
+        "ACT",
+        "PTCP",
+        "NP",
+        "S"
+      ],
+      "part_of_speech": "v",
+      "lemma": "λέγων",
+      "rmac": "V-PAP-NSM"
+    },
+    {
+      "verse": 68,
+      "word_num": 1,
+      "greek": "Εὐλογητὸς",
+      "transliteration": "",
+      "gloss": "worthy of being praised",
+      "grammar_codes": [
+        "ADJ",
+        "NOM",
+        "M",
+        "S"
+      ],
+      "part_of_speech": "adj",
+      "lemma": "Εὐλογητὸς",
+      "rmac": "A-NSM"
+    },
+    {
+      "verse": 68,
+      "word_num": 2,
+      "greek": "κύριος",
+      "transliteration": "",
+      "gloss": "lord",
+      "grammar_codes": [
+        "N",
+        "NOM",
+        "M",
+        "S"
+      ],
+      "part_of_speech": "n",
+      "lemma": "κύριος",
+      "rmac": "N-NSM"
+    },
+    {
+      "verse": 68,
+      "word_num": 3,
+      "greek": "ὁ",
+      "transliteration": "",
+      "gloss": "the",
+      "grammar_codes": [
+        "ART",
+        "NOM",
+        "M",
+        "S"
+      ],
+      "part_of_speech": "art",
+      "lemma": "ὁ",
+      "rmac": "T-NSM"
+    },
+    {
+      "verse": 68,
+      "word_num": 4,
+      "greek": "θεὸς",
+      "transliteration": "",
+      "gloss": "God",
+      "grammar_codes": [
+        "N",
+        "NOM",
+        "M",
+        "S"
+      ],
+      "part_of_speech": "n",
+      "lemma": "θεὸς",
+      "rmac": "N-NSM"
+    },
+    {
+      "verse": 68,
+      "word_num": 5,
+      "greek": "τοῦ",
+      "transliteration": "",
+      "gloss": "the",
+      "grammar_codes": [
+        "ART",
+        "GEN",
+        "M",
+        "S"
+      ],
+      "part_of_speech": "art",
+      "lemma": "τοῦ",
+      "rmac": "T-GSM"
+    },
+    {
+      "verse": 68,
+      "word_num": 6,
+      "greek": "Ἰσραήλ",
+      "transliteration": "",
+      "gloss": "Israel",
+      "grammar_codes": [
+        "N",
+        "GEN",
+        "M",
+        "S"
+      ],
+      "part_of_speech": "n",
+      "lemma": "Ἰσραήλ",
+      "rmac": "N-GSM-L"
+    },
+    {
+      "verse": 68,
+      "word_num": 7,
+      "greek": "ὅτι",
+      "transliteration": "",
+      "gloss": "that",
+      "grammar_codes": [
+        "CONJ"
+      ],
+      "part_of_speech": "conj",
+      "lemma": "ὅτι",
+      "rmac": "CONJ"
+    },
+    {
+      "verse": 68,
+      "word_num": 8,
+      "greek": "ἐπεσκέψατο",
+      "transliteration": "",
+      "gloss": "to visit",
+      "grammar_codes": [
+        "V",
+        "AOR",
+        "D",
+        "IND",
+        "3P",
+        "S"
+      ],
+      "part_of_speech": "v",
+      "lemma": "ἐπεσκέψατο",
+      "rmac": "V-ADI-3S"
+    },
+    {
+      "verse": 68,
+      "word_num": 9,
+      "greek": "καὶ",
+      "transliteration": "",
+      "gloss": "and",
+      "grammar_codes": [
+        "CONJ"
+      ],
+      "part_of_speech": "conj",
+      "lemma": "καὶ",
+      "rmac": "CONJ"
+    },
+    {
+      "verse": 68,
+      "word_num": 10,
+      "greek": "ἐποίησεν",
+      "transliteration": "",
+      "gloss": "to do",
+      "grammar_codes": [
+        "V",
+        "AOR",
+        "ACT",
+        "IND",
+        "3P",
+        "S"
+      ],
+      "part_of_speech": "v",
+      "lemma": "ἐποίησεν",
+      "rmac": "V-AAI-3S"
+    },
+    {
+      "verse": 68,
+      "word_num": 11,
+      "greek": "λύτρωσιν",
+      "transliteration": "",
+      "gloss": "redemption",
+      "grammar_codes": [
+        "N",
+        "ACC",
+        "F",
+        "S"
+      ],
+      "part_of_speech": "n",
+      "lemma": "λύτρωσιν",
+      "rmac": "N-ASF"
+    },
+    {
+      "verse": 68,
+      "word_num": 12,
+      "greek": "τῷ",
+      "transliteration": "",
+      "gloss": "the",
+      "grammar_codes": [
+        "ART",
+        "DAT",
+        "M",
+        "S"
+      ],
+      "part_of_speech": "art",
+      "lemma": "τῷ",
+      "rmac": "T-DSM"
+    },
+    {
+      "verse": 68,
+      "word_num": 13,
+      "greek": "λαῷ",
+      "transliteration": "",
+      "gloss": "people",
+      "grammar_codes": [
+        "N",
+        "DAT",
+        "M",
+        "S"
+      ],
+      "part_of_speech": "n",
+      "lemma": "λαῷ",
+      "rmac": "N-DSM"
+    },
+    {
+      "verse": 68,
+      "word_num": 14,
+      "greek": "αὐτοῦ",
+      "transliteration": "",
+      "gloss": "he",
+      "grammar_codes": [
+        "PREP"
+      ],
+      "part_of_speech": "prep",
+      "lemma": "αὐτοῦ",
+      "rmac": "P-GSM"
+    },
+    {
+      "verse": 69,
+      "word_num": 1,
+      "greek": "καὶ",
+      "transliteration": "",
+      "gloss": "and",
+      "grammar_codes": [
+        "CONJ"
+      ],
+      "part_of_speech": "conj",
+      "lemma": "καὶ",
+      "rmac": "CONJ"
+    },
+    {
+      "verse": 69,
+      "word_num": 2,
+      "greek": "ἤγειρεν",
+      "transliteration": "",
+      "gloss": "to arise",
+      "grammar_codes": [
+        "V",
+        "AOR",
+        "ACT",
+        "IND",
+        "3P",
+        "S"
+      ],
+      "part_of_speech": "v",
+      "lemma": "ἤγειρεν",
+      "rmac": "V-AAI-3S"
+    },
+    {
+      "verse": 69,
+      "word_num": 3,
+      "greek": "κέρας",
+      "transliteration": "",
+      "gloss": "horn",
+      "grammar_codes": [
+        "N",
+        "ACC",
+        "N",
+        "S"
+      ],
+      "part_of_speech": "n",
+      "lemma": "κέρας",
+      "rmac": "N-ASN"
+    },
+    {
+      "verse": 69,
+      "word_num": 4,
+      "greek": "σωτηρίας",
+      "transliteration": "",
+      "gloss": "salvation",
+      "grammar_codes": [
+        "N",
+        "GEN",
+        "F",
+        "S"
+      ],
+      "part_of_speech": "n",
+      "lemma": "σωτηρίας",
+      "rmac": "N-GSF"
+    },
+    {
+      "verse": 69,
+      "word_num": 5,
+      "greek": "ἡμῖν",
+      "transliteration": "",
+      "gloss": "I",
+      "grammar_codes": [
+        "PREP"
+      ],
+      "part_of_speech": "prep",
+      "lemma": "ἡμῖν",
+      "rmac": "P-1DP"
+    },
+    {
+      "verse": 69,
+      "word_num": 6,
+      "greek": "ἐν",
+      "transliteration": "",
+      "gloss": "in",
+      "grammar_codes": [
+        "PREP"
+      ],
+      "part_of_speech": "prep",
+      "lemma": "ἐν",
+      "rmac": "PREP"
+    },
+    {
+      "verse": 69,
+      "word_num": 7,
+      "greek": "οἴκῳ",
+      "transliteration": "",
+      "gloss": "house",
+      "grammar_codes": [
+        "N",
+        "DAT",
+        "M",
+        "S"
+      ],
+      "part_of_speech": "n",
+      "lemma": "οἴκῳ",
+      "rmac": "N-DSM"
+    },
+    {
+      "verse": 69,
+      "word_num": 8,
+      "greek": "Δαυὶδ",
+      "transliteration": "",
+      "gloss": "David",
+      "grammar_codes": [
+        "N",
+        "GEN",
+        "M",
+        "S"
+      ],
+      "part_of_speech": "n",
+      "lemma": "Δαυὶδ",
+      "rmac": "N-GSM-P"
+    },
+    {
+      "verse": 69,
+      "word_num": 9,
+      "greek": "παιδὸς",
+      "transliteration": "",
+      "gloss": "boy",
+      "grammar_codes": [
+        "N",
+        "GEN",
+        "M",
+        "S"
+      ],
+      "part_of_speech": "n",
+      "lemma": "παιδὸς",
+      "rmac": "N-GSM"
+    },
+    {
+      "verse": 69,
+      "word_num": 10,
+      "greek": "αὐτοῦ",
+      "transliteration": "",
+      "gloss": "he",
+      "grammar_codes": [
+        "PREP"
+      ],
+      "part_of_speech": "prep",
+      "lemma": "αὐτοῦ",
+      "rmac": "P-GSM"
+    },
+    {
+      "verse": 70,
+      "word_num": 1,
+      "greek": "καθὼς",
+      "transliteration": "",
+      "gloss": "as",
+      "grammar_codes": [
+        "CONJ"
+      ],
+      "part_of_speech": "conj",
+      "lemma": "καθὼς",
+      "rmac": "CONJ"
+    },
+    {
+      "verse": 70,
+      "word_num": 2,
+      "greek": "ἐλάλησεν",
+      "transliteration": "",
+      "gloss": "to speak",
+      "grammar_codes": [
+        "V",
+        "AOR",
+        "ACT",
+        "IND",
+        "3P",
+        "S"
+      ],
+      "part_of_speech": "v",
+      "lemma": "ἐλάλησεν",
+      "rmac": "V-AAI-3S"
+    },
+    {
+      "verse": 70,
+      "word_num": 3,
+      "greek": "διὰ",
+      "transliteration": "",
+      "gloss": "through",
+      "grammar_codes": [
+        "PREP"
+      ],
+      "part_of_speech": "prep",
+      "lemma": "διὰ",
+      "rmac": "PREP"
+    },
+    {
+      "verse": 70,
+      "word_num": 4,
+      "greek": "στόματος",
+      "transliteration": "",
+      "gloss": "mouth",
+      "grammar_codes": [
+        "N",
+        "GEN",
+        "N",
+        "S"
+      ],
+      "part_of_speech": "n",
+      "lemma": "στόματος",
+      "rmac": "N-GSN"
+    },
+    {
+      "verse": 70,
+      "word_num": 5,
+      "greek": "τῶν",
+      "transliteration": "",
+      "gloss": "the",
+      "grammar_codes": [
+        "ART",
+        "GEN",
+        "M",
+        "P"
+      ],
+      "part_of_speech": "art",
+      "lemma": "τῶν",
+      "rmac": "T-GPM"
+    },
+    {
+      "verse": 70,
+      "word_num": 6,
+      "greek": "ἁγίων",
+      "transliteration": "",
+      "gloss": "holy",
+      "grammar_codes": [
+        "ADJ",
+        "GEN",
+        "M",
+        "P"
+      ],
+      "part_of_speech": "adj",
+      "lemma": "ἁγίων",
+      "rmac": "A-GPM"
+    },
+    {
+      "verse": 70,
+      "word_num": 7,
+      "greek": "ἀπ᾽",
+      "transliteration": "",
+      "gloss": "from",
+      "grammar_codes": [
+        "PREP"
+      ],
+      "part_of_speech": "prep",
+      "lemma": "ἀπ᾽",
+      "rmac": "PREP"
+    },
+    {
+      "verse": 70,
+      "word_num": 8,
+      "greek": "αἰῶνος",
+      "transliteration": "",
+      "gloss": "eternity",
+      "grammar_codes": [
+        "N",
+        "GEN",
+        "M",
+        "S"
+      ],
+      "part_of_speech": "n",
+      "lemma": "αἰῶνος",
+      "rmac": "N-GSM"
+    },
+    {
+      "verse": 70,
+      "word_num": 9,
+      "greek": "προφητῶν",
+      "transliteration": "",
+      "gloss": "prophet",
+      "grammar_codes": [
+        "N",
+        "GEN",
+        "M",
+        "P"
+      ],
+      "part_of_speech": "n",
+      "lemma": "προφητῶν",
+      "rmac": "N-GPM"
+    },
+    {
+      "verse": 70,
+      "word_num": 10,
+      "greek": "αὐτοῦ",
+      "transliteration": "",
+      "gloss": "he",
+      "grammar_codes": [
+        "PREP"
+      ],
+      "part_of_speech": "prep",
+      "lemma": "αὐτοῦ",
+      "rmac": "P-GSM"
+    },
+    {
+      "verse": 71,
+      "word_num": 1,
+      "greek": "σωτηρίαν",
+      "transliteration": "",
+      "gloss": "salvation",
+      "grammar_codes": [
+        "N",
+        "ACC",
+        "F",
+        "S"
+      ],
+      "part_of_speech": "n",
+      "lemma": "σωτηρίαν",
+      "rmac": "N-ASF"
+    },
+    {
+      "verse": 71,
+      "word_num": 2,
+      "greek": "ἐξ",
+      "transliteration": "",
+      "gloss": "of",
+      "grammar_codes": [
+        "PREP"
+      ],
+      "part_of_speech": "prep",
+      "lemma": "ἐξ",
+      "rmac": "PREP"
+    },
+    {
+      "verse": 71,
+      "word_num": 3,
+      "greek": "ἐχθρῶν",
+      "transliteration": "",
+      "gloss": "enemy",
+      "grammar_codes": [
+        "ADJ",
+        "GEN",
+        "M",
+        "P"
+      ],
+      "part_of_speech": "adj",
+      "lemma": "ἐχθρῶν",
+      "rmac": "A-GPM"
+    },
+    {
+      "verse": 71,
+      "word_num": 4,
+      "greek": "ἡμῶν",
+      "transliteration": "",
+      "gloss": "I",
+      "grammar_codes": [
+        "PREP"
+      ],
+      "part_of_speech": "prep",
+      "lemma": "ἡμῶν",
+      "rmac": "P-1GP"
+    },
+    {
+      "verse": 71,
+      "word_num": 5,
+      "greek": "καὶ",
+      "transliteration": "",
+      "gloss": "and",
+      "grammar_codes": [
+        "CONJ"
+      ],
+      "part_of_speech": "conj",
+      "lemma": "καὶ",
+      "rmac": "CONJ"
+    },
+    {
+      "verse": 71,
+      "word_num": 6,
+      "greek": "ἐκ",
+      "transliteration": "",
+      "gloss": "of",
+      "grammar_codes": [
+        "PREP"
+      ],
+      "part_of_speech": "prep",
+      "lemma": "ἐκ",
+      "rmac": "PREP"
+    },
+    {
+      "verse": 71,
+      "word_num": 7,
+      "greek": "χειρὸς",
+      "transliteration": "",
+      "gloss": "hand",
+      "grammar_codes": [
+        "N",
+        "GEN",
+        "F",
+        "S"
+      ],
+      "part_of_speech": "n",
+      "lemma": "χειρὸς",
+      "rmac": "N-GSF"
+    },
+    {
+      "verse": 71,
+      "word_num": 8,
+      "greek": "πάντων",
+      "transliteration": "",
+      "gloss": "all",
+      "grammar_codes": [
+        "ADJ",
+        "GEN",
+        "M",
+        "P"
+      ],
+      "part_of_speech": "adj",
+      "lemma": "πάντων",
+      "rmac": "A-GPM"
+    },
+    {
+      "verse": 71,
+      "word_num": 9,
+      "greek": "τῶν",
+      "transliteration": "",
+      "gloss": "the",
+      "grammar_codes": [
+        "ART",
+        "GEN",
+        "M",
+        "P"
+      ],
+      "part_of_speech": "art",
+      "lemma": "τῶν",
+      "rmac": "T-GPM"
+    },
+    {
+      "verse": 71,
+      "word_num": 10,
+      "greek": "μισούντων",
+      "transliteration": "",
+      "gloss": "to hate",
+      "grammar_codes": [
+        "V",
+        "PRES",
+        "ACT",
+        "PTCP",
+        "GP",
+        "P"
+      ],
+      "part_of_speech": "v",
+      "lemma": "μισούντων",
+      "rmac": "V-PAP-GPM"
+    },
+    {
+      "verse": 71,
+      "word_num": 11,
+      "greek": "ἡμᾶς",
+      "transliteration": "",
+      "gloss": "I",
+      "grammar_codes": [
+        "PREP"
+      ],
+      "part_of_speech": "prep",
+      "lemma": "ἡμᾶς",
+      "rmac": "P-1AP"
+    },
+    {
+      "verse": 72,
+      "word_num": 1,
+      "greek": "ποιῆσαι",
+      "transliteration": "",
+      "gloss": "to do",
+      "grammar_codes": [
+        "V",
+        "AOR",
+        "ACT",
+        "INF"
+      ],
+      "part_of_speech": "v",
+      "lemma": "ποιῆσαι",
+      "rmac": "V-AAN"
+    },
+    {
+      "verse": 72,
+      "word_num": 2,
+      "greek": "ἔλεος",
+      "transliteration": "",
+      "gloss": "mercy",
+      "grammar_codes": [
+        "N",
+        "ACC",
+        "N",
+        "S"
+      ],
+      "part_of_speech": "n",
+      "lemma": "ἔλεος",
+      "rmac": "N-ASN"
+    },
+    {
+      "verse": 72,
+      "word_num": 3,
+      "greek": "μετὰ",
+      "transliteration": "",
+      "gloss": "with",
+      "grammar_codes": [
+        "PREP"
+      ],
+      "part_of_speech": "prep",
+      "lemma": "μετὰ",
+      "rmac": "PREP"
+    },
+    {
+      "verse": 72,
+      "word_num": 4,
+      "greek": "τῶν",
+      "transliteration": "",
+      "gloss": "the",
+      "grammar_codes": [
+        "ART",
+        "GEN",
+        "M",
+        "P"
+      ],
+      "part_of_speech": "art",
+      "lemma": "τῶν",
+      "rmac": "T-GPM"
+    },
+    {
+      "verse": 72,
+      "word_num": 5,
+      "greek": "πατέρων",
+      "transliteration": "",
+      "gloss": "father",
+      "grammar_codes": [
+        "N",
+        "GEN",
+        "M",
+        "P"
+      ],
+      "part_of_speech": "n",
+      "lemma": "πατέρων",
+      "rmac": "N-GPM"
+    },
+    {
+      "verse": 72,
+      "word_num": 6,
+      "greek": "ἡμῶν",
+      "transliteration": "",
+      "gloss": "I",
+      "grammar_codes": [
+        "PREP"
+      ],
+      "part_of_speech": "prep",
+      "lemma": "ἡμῶν",
+      "rmac": "P-1GP"
+    },
+    {
+      "verse": 72,
+      "word_num": 7,
+      "greek": "καὶ",
+      "transliteration": "",
+      "gloss": "and",
+      "grammar_codes": [
+        "CONJ"
+      ],
+      "part_of_speech": "conj",
+      "lemma": "καὶ",
+      "rmac": "CONJ"
+    },
+    {
+      "verse": 72,
+      "word_num": 8,
+      "greek": "μνησθῆναι",
+      "transliteration": "",
+      "gloss": "to remember",
+      "grammar_codes": [
+        "V",
+        "AOR",
+        "PASS",
+        "INF"
+      ],
+      "part_of_speech": "v",
+      "lemma": "μνησθῆναι",
+      "rmac": "V-APN"
+    },
+    {
+      "verse": 72,
+      "word_num": 9,
+      "greek": "διαθήκης",
+      "transliteration": "",
+      "gloss": "covenant",
+      "grammar_codes": [
+        "N",
+        "GEN",
+        "F",
+        "S"
+      ],
+      "part_of_speech": "n",
+      "lemma": "διαθήκης",
+      "rmac": "N-GSF"
+    },
+    {
+      "verse": 72,
+      "word_num": 10,
+      "greek": "ἁγίας",
+      "transliteration": "",
+      "gloss": "holy",
+      "grammar_codes": [
+        "ADJ",
+        "GEN",
+        "F",
+        "S"
+      ],
+      "part_of_speech": "adj",
+      "lemma": "ἁγίας",
+      "rmac": "A-GSF"
+    },
+    {
+      "verse": 72,
+      "word_num": 11,
+      "greek": "αὐτοῦ",
+      "transliteration": "",
+      "gloss": "he",
+      "grammar_codes": [
+        "PREP"
+      ],
+      "part_of_speech": "prep",
+      "lemma": "αὐτοῦ",
+      "rmac": "P-GSM"
+    }
+  ]
+}
