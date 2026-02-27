@@ -7,9 +7,9 @@ import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
-import { DetailsSkeleton } from '@/components/features/modules/Skeletons';
-import * as AzureTextService from '@/components/features/services/AzureTextService';
-import { useReaderContext } from '@/components/features/reader/ReaderPage/ReaderPageContext';
+import { DetailsSkeleton } from '@/components/shared/Skeletons';
+import * as AzureTextService from '@/lib/api/rest/text';
+import { useReaderContext } from '@/app/reader/ReaderPage/ReaderPageContext';
 import WordAudioButton from '@/components/features/reader/Navigation/WordAudioButton';
 
 function DetailsItem({ label, value } : { label: string, value: string }) {
@@ -52,7 +52,7 @@ function DetailsMenu() {
     let cancelled = false;
     setContent((prev) => ({ ...prev, loading: true }));
     AzureTextService.fetchMorphologyDetails(selectedUnit.morphologyId)
-      .then((frm) => {
+      .then((frm: Awaited<ReturnType<typeof AzureTextService.fetchMorphologyDetails>>) => {
         if (!frm || cancelled) {
           return;
         }
@@ -90,7 +90,7 @@ function DetailsMenu() {
 
     const parentPhrases = selectedUnit.parentPhrases || [];
     const uniqueFeatureIds = [...new Set(
-      parentPhrases.flatMap((phrase) => phrase.syntacticalFeatureIds || []).filter((id) => id > 0),
+      parentPhrases.flatMap((phrase: { syntacticalFeatureIds: number[] }) => phrase.syntacticalFeatureIds || []).filter((id: number) => id > 0),
     )];
 
     if (uniqueFeatureIds.length === 0) {
@@ -106,21 +106,21 @@ function DetailsMenu() {
         }
 
         const detailsById = new Map<number, AzureTextService.SyntacticalFeatureDetails>();
-        featureDetails.forEach((detail) => {
+        featureDetails.forEach((detail: AzureTextService.SyntacticalFeatureDetails | undefined) => {
           if (detail) {
             detailsById.set(detail.id, detail);
           }
         });
 
         const syntaxRows = parentPhrases
-          .map((phrase) => ({
+          .map((phrase: { original: string, translation: string, path: string, syntacticalFeatureIds: number[] }) => ({
             phrase: phrase.original || phrase.translation || phrase.path,
             features: (phrase.syntacticalFeatureIds || [])
-              .map((id) => detailsById.get(id))
+              .map((id: number) => detailsById.get(id))
               .filter((detail): detail is AzureTextService.SyntacticalFeatureDetails => !!detail)
-              .map((detail) => `${detail.code} - ${detail.name}`),
+              .map((detail: AzureTextService.SyntacticalFeatureDetails) => `${detail.code} - ${detail.name}`),
           }))
-          .filter((row) => row.features.length > 0);
+          .filter((row: { features: string[] }) => row.features.length > 0);
 
         setParentSyntax(syntaxRows);
       });

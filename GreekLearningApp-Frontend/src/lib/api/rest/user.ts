@@ -1,4 +1,4 @@
-import users from '@/lib/api/rest/data/userData.json';
+import users from '@/app/services/data/userData.json';
 import { apiClient } from '@/lib/api/rest/client';
 import { User } from '@/lib/types/domain/user';
 

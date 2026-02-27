@@ -3,7 +3,7 @@
 import React from 'react';
 import { Container, Typography, Box, Paper, Stack, Breadcrumbs, Link } from '@mui/material';
 import NextLink from 'next/link';
-import { useUserContext } from '@/lib/api/rest/user';
+import { useUserContext } from '@/lib/types/domain/user';
 
 export default function ProfilePage() {
   const { user } = useUserContext();

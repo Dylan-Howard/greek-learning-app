@@ -5,7 +5,8 @@ import {
   Typography,
 } from '@mui/material';
 import VocabularySetCard from '@/components/features/vocabulary/VocabularySetCard';
-import { fetchVocabularySets } from '@/app/(auth)/vocabulary/services/VocabularySetService';
+import { fetchVocabularySets } from '@/lib/api/rest/vocabulary';
+import { VocabularySetDto } from '@/lib/types/api';
 
 export const dynamic = 'force-dynamic';
 
@@ -13,8 +14,8 @@ async function VocabularySet() {
   const setsResult = await fetchVocabularySets();
   const setsError = setsResult.ok ? undefined : setsResult.error.message;
   const sets = setsResult.ok ? setsResult.data : [];
-  const systemSets = sets.filter((set) => set.isSystem);
-  const customSets = sets.filter((set) => !set.isSystem);
+  const systemSets = sets.filter((set: VocabularySetDto) => set.isSystem);
+  const customSets = sets.filter((set: VocabularySetDto) => !set.isSystem);
 
   return (
     <Grid container justifyContent="center" sx={{ mt: 4 }}>
@@ -37,7 +38,7 @@ async function VocabularySet() {
           <Typography variant="body1">No system sets are currently available.</Typography>
         </Grid>
       )}
-      {systemSets.map((set) => {
+      {systemSets.map((set: VocabularySetDto) => {
         const progress = set.totalCount > 0
           ? (set.knownCount / set.totalCount) * 100
           : set.percentComplete;
@@ -63,7 +64,7 @@ async function VocabularySet() {
           <Typography variant="body1">Create a custom set from the vocabulary page to start tracking your own list.</Typography>
         </Grid>
       )}
-      {customSets.map((set) => {
+      {customSets.map((set: VocabularySetDto) => {
         const progress = set.totalCount > 0
           ? (set.knownCount / set.totalCount) * 100
           : set.percentComplete;

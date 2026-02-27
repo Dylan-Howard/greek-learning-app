@@ -14,22 +14,22 @@ import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
-import { SettingsMenuTabSkeleton } from '@/components/features/modules/Skeletons';
+import { SettingsMenuTabSkeleton } from '@/components/shared/Skeletons';
 
-import * as AzureTextService from '@/components/features/services/AzureTextService';
-import * as AzureUserService from '@/components/features/services/AzureUserService';
-import { User } from '@/components/features/services/User';
+import * as AzureTextService from '@/lib/api/rest/text';
+import * as AzureUserService from '@/lib/api/rest/user';
+import { User } from '@/lib/types/domain/user';
 import { Lesson } from '@/lib/types/domain/lesson';
 import { Wordv2 } from '@/lib/types/domain/word';
-import { SimpleWordDto } from '@/components/types/api';
-import transliterateGreek from '@/components/features/reader/Navigation/Transliterate';
+import { SimpleWordDto } from '@/lib/types/api';
+import transliterateGreek from '@/lib/services/reader/transliteration';
 import OptionCheckbox from '@/components/features/reader/Navigation/OptionCheckbox';
-import { useReaderContext } from '@/components/features/reader/ReaderPage/ReaderPageContext';
+import { useReaderContext } from '@/app/reader/ReaderPage/ReaderPageContext';
 import {
   DEV_USER_CHANGED_EVENT,
   getActiveDevUserId,
   sanitizeDevUserId,
-} from '@/components/features/services/devUserSession';
+} from '@/lib/services/auth/devSession';
 
 function mapLessons(lessons: Lesson[], user: User | undefined, filter: string) {
   return lessons.filter((lsn: Lesson) => (
@@ -39,7 +39,7 @@ function mapLessons(lessons: Lesson[], user: User | undefined, filter: string) {
     name: lsn.title,
     type: 'Lesson',
     isActive: !!user?.progress.lessons?.find(
-      (prg) => prg.lessonId === lsn.lessonId,
+      (prg: { lessonId: number }) => prg.lessonId === lsn.lessonId,
     )?.isComplete,
   }));
 }
@@ -55,7 +55,7 @@ function mapVocabulary(vocabulary: Array<Wordv2 | SimpleWordDto>, user: User | u
       name: vcb.content,
       type: 'Word',
       isActive: !!user?.progress.vocabulary?.find(
-        (prg) => prg.wordId === vcb.rootId,
+        (prg: { wordId: number }) => prg.wordId === vcb.rootId,
       )?.isComplete,
     }));
 }
@@ -106,7 +106,7 @@ function SettingsMenu({ title } : { title: string }) {
 
     AzureTextService
       .fetchLessons()
-      .then((lessons) => {
+      .then((lessons: Lesson[]) => {
         if (lessons) {
           setOptions(mapLessons(lessons, activeUser, filter));
           setLoading({ ...loading, options: false });
@@ -122,7 +122,7 @@ function SettingsMenu({ title } : { title: string }) {
     const activeChapterId = page?.chapterId || 1;
     AzureTextService
       .fetchVocabularyByChapter(activeChapterId)
-      .then((vocabulary) => {
+      .then((vocabulary: SimpleWordDto[]) => {
         if (vocabulary) {
           setOptions(mapVocabulary(vocabulary, activeUser, filter));
           setLoading({ ...loading, options: false });
@@ -143,7 +143,7 @@ function SettingsMenu({ title } : { title: string }) {
   useEffect(() => {
     const loadUser = (id: string) => {
       setLoading({ ...loading, user: true });
-      AzureUserService.fetchUser(id).then((usr) => {
+      AzureUserService.fetchUser(id).then((usr: User) => {
         setActiveUser(usr);
         setLoading({ ...loading, user: false });
       });
@@ -211,7 +211,7 @@ function SettingsMenu({ title } : { title: string }) {
     /* Handles each type by adding or updating entry */
     if (settingType === 'Lesson') {
       const targetProgressList = updatedUser.progress.lessons;
-      const targetProgressItem = targetProgressList.find((prg) => prg.lessonId === settingId);
+      const targetProgressItem = targetProgressList.find((prg: { lessonId: number }) => prg.lessonId === settingId);
 
       if (!targetProgressItem) {
         targetProgressList.push({ lessonId: settingId, isComplete: e.target.checked });
@@ -220,7 +220,7 @@ function SettingsMenu({ title } : { title: string }) {
       }
     } else {
       const targetProgressList = updatedUser.progress.vocabulary;
-      const targetProgressItem = targetProgressList.find((prg) => prg.wordId === settingId);
+      const targetProgressItem = targetProgressList.find((prg: { wordId: number }) => prg.wordId === settingId);
 
       if (!targetProgressItem) {
         targetProgressList.push({ wordId: settingId, isComplete: e.target.checked });
@@ -246,7 +246,7 @@ function SettingsMenu({ title } : { title: string }) {
     }
 
     AzureUserService.updateUser(activeUser)
-      .then((usr) => setEditing({ updatedUser: usr, isEditing: false }));
+      .then((usr: User) => setEditing({ updatedUser: usr, isEditing: false }));
   };
 
   if (loading.user || loading.options) {

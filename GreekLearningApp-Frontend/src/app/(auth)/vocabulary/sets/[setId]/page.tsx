@@ -7,7 +7,8 @@ import {
   ListItemText,
   Typography,
 } from '@mui/material';
-import { fetchVocabularySetById } from '@/app/(auth)/vocabulary/services/VocabularySetService';
+import { fetchVocabularySetById } from '@/lib/api/rest/vocabulary';
+import { VocabularySetItemDto } from '@/lib/types/api';
 
 export const dynamic = 'force-dynamic';
 
@@ -57,7 +58,7 @@ export default async function VocabularySetDetailsPage({ params }: VocabularySet
         </Typography>
 
         <List>
-          {set.items.map((item) => (
+          {set.items.map((item: VocabularySetItemDto) => (
             <ListItem key={item.id} divider>
               <ListItemText
                 primary={item.root}

@@ -7,7 +7,7 @@ import Stack from '@mui/material/Stack';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
-import * as AzureTextService from '@/components/services/AzureTextService';
+import * as AzureTextService from '@/lib/api/rest/text';
 
 export default function ReaderPageControls(
   { chapterId, chapterPosition }: { chapterId: number, chapterPosition: string | undefined },

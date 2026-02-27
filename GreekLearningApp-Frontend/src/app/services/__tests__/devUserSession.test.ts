@@ -5,7 +5,7 @@ import {
   getActiveDevUserId,
   sanitizeDevUserId,
   setActiveDevUserId,
-} from '@/app/services/devUserSession';
+} from '@/lib/services/auth/devSession';
 
 describe('devUserSession', () => {
   it('sanitizes invalid values to default', () => {

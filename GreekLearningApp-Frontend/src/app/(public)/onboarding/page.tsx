@@ -9,8 +9,8 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
 import WelcomeIllustration from '@/app/(public)/welcome/WelcomeIllustration';
-import * as AzureUserService from '@/app/(public)/services/AzureUserService';
-import { getActiveDevUserId } from '@/app/(public)/services/devUserSession';
+import * as AzureUserService from '@/lib/api/rest/user';
+import { getActiveDevUserId } from '@/lib/services/auth/devSession';
 import completeOnboarding from '@/app/(public)/onboarding/_actions';
 import OnboardingOptionBox from '@/components/shared/OnboardingOptionBox';
 

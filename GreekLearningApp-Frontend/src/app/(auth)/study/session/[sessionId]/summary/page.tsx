@@ -1,26 +1,26 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { Button, Grid, Stack, Typography } from '@mui/material';
 import { completeSession } from '@/lib/api/rest/study';
 import { SessionSummaryDto } from '@/lib/types/api';
 
-interface SummaryPageProps {
-  params: { sessionId: string };
-}
-
-export default function SummaryPage({ params }: SummaryPageProps) {
+export default function SummaryPage() {
   const router = useRouter();
+  const params = useParams();
+  const sessionIdParam = params?.sessionId;
+  const sessionId = Array.isArray(sessionIdParam) ? sessionIdParam[0] : sessionIdParam;
   const [summary, setSummary] = useState<SessionSummaryDto | null>(null);
 
   useEffect(() => {
-    completeSession(params.sessionId).then((result) => {
+    if (!sessionId) return;
+    completeSession(sessionId).then((result) => {
       if (result.ok) {
         setSummary(result.data);
       }
     });
-  }, [params.sessionId]);
+  }, [sessionId]);
 
   return (
     <Grid container justifyContent="center" sx={{ mt: 4 }}>

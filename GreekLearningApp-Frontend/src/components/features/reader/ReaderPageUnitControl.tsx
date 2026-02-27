@@ -2,7 +2,7 @@
 
 import { ReactNode } from 'react';
 import Box from '@mui/material/Box';
-import { useReaderContext } from '@/components/features/reader/ReaderPageContext';
+import { useReaderContext } from '@/app/reader/ReaderPage/ReaderPageContext';
 import { Unitv2 } from '@/lib/types/domain/text';
 
 export default function ReaderTextUnit(

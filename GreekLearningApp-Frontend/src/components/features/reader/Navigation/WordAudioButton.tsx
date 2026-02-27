@@ -5,7 +5,7 @@ import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import StopIcon from '@mui/icons-material/Stop';
-import { detectOriginalLanguage, isSpeechSynthesisSupported, speakText, stopSpeech } from '@/components/features/reader/ReaderPage/readerTts';
+import { detectOriginalLanguage, isSpeechSynthesisSupported, speakText, stopSpeech } from '@/lib/services/reader/tts';
 
 export default function WordAudioButton({ word }: { word: string }) {
   const [isSupported, setIsSupported] = useState(false);

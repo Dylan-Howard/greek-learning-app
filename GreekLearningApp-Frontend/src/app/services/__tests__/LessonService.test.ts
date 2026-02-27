@@ -1,4 +1,4 @@
-import * as LessonService from '@/app/services/LessonService';
+import * as LessonService from '@/lib/api/rest/lessons';
 
 describe('LessonService', () => {
   beforeEach(() => {

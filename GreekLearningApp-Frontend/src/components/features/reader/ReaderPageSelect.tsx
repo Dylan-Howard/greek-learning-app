@@ -4,7 +4,7 @@ import { ReactNode } from 'react';
 import { useRouter } from 'next/navigation';
 
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import * as AzureTextService from '@/components/services/AzureTextService';
+import * as AzureTextService from '@/lib/api/rest/text';
 
 export default function ReaderPageSelect({
   children,

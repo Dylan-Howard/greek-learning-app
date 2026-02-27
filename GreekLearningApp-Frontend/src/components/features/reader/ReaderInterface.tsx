@@ -1,7 +1,7 @@
 'use client';
 
 import { ReactNode, useMemo, useState } from 'react';
-import { ReaderContext, ReaderPage } from '@/components/features/reader/ReaderPageContext';
+import { ReaderContext, ReaderPage } from '@/app/reader/ReaderPage/ReaderPageContext';
 
 export default function ReaderInterface(
   { children, bookId, chapterId } : { children: ReactNode, bookId: number, chapterId: number },

@@ -3,8 +3,8 @@
 import NextLink from 'next/link';
 import { cookies } from 'next/headers';
 
-import * as AzureReaderService from '@/app/(auth)/services/AzureReaderService';
-import { DEFAULT_DEV_USER_ID, DEV_USER_COOKIE_KEY, sanitizeDevUserId } from '@/app/(auth)/services/devUserSession';
+import * as AzureReaderService from '@/lib/api/rest/reader';
+import { DEFAULT_DEV_USER_ID, DEV_USER_COOKIE_KEY, sanitizeDevUserId } from '@/lib/services/auth/devSession';
 
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
@@ -17,14 +17,14 @@ import Stack from '@mui/material/Stack';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
-import ReaderInterface from '@/app/(auth)/reader/ReaderPage/ReaderInterface';
-import Nav from '@/app/(auth)/reader/Nav/Nav';
-import Sidebar from '@/app/(auth)/reader/Nav/Sidebar';
-import ReaderSelectionControl from '@/app/(auth)/reader/ReaderPage/ReaderPageSelect';
-import TextTitle from '@/app/(auth)/reader/ReaderPage/ReaderPageTitle';
-import ReaderPageUnitControl from '@/app/(auth)/reader/ReaderPage/ReaderPageUnitControl';
-import { ReaderPageUnit, ReaderPageUnitHelp } from '@/app/(auth)/reader/ReaderPage/ReaderPageUnit';
-import ReaderPageAudioButton from '@/app/(auth)/reader/ReaderPage/ReaderPageAudioButton';
+import ReaderInterface from '@/components/features/reader/ReaderInterface';
+import Nav from '@/components/features/reader/Navigation/Nav';
+import Sidebar from '@/components/features/reader/Navigation/Sidebar';
+import ReaderSelectionControl from '@/components/features/reader/ReaderPageSelect';
+import TextTitle from '@/components/features/reader/ReaderPageTitle';
+import ReaderPageUnitControl from '@/components/features/reader/ReaderPageUnitControl';
+import { ReaderPageUnit, ReaderPageUnitHelp } from '@/components/features/reader/ReaderPageUnit';
+import ReaderPageAudioButton from '@/components/features/reader/ReaderPageAudioButton';
 
 const DEFAULT_BOOK_ID = 1;
 const DEFAULT_CHAPTER_ID = 1;

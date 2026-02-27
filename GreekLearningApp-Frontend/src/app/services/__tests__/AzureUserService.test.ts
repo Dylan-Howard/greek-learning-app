@@ -4,7 +4,7 @@ const getMock = vi.fn();
 const postMock = vi.fn();
 const putMock = vi.fn();
 
-vi.mock('../apiClient', () => ({
+vi.mock('@/lib/api/rest/client', () => ({
   apiClient: {
     get: (...args: unknown[]) => getMock(...args),
     post: (...args: unknown[]) => postMock(...args),
@@ -17,7 +17,7 @@ import {
   fetchUser,
   getDefaultUserState,
   updateUser,
-} from '@/app/services/AzureUserService';
+} from '@/lib/api/rest/user';
 
 describe('AzureUserService', () => {
   beforeEach(() => {

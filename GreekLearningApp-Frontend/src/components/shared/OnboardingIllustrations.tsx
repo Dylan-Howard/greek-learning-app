@@ -1,4 +1,4 @@
-import '@/components/shared/OnboardingIllustration.css';
+// import '@/components/shared/OnboardingIllustration.css';
 
 export function OnboardingIllustration1() {
   return (

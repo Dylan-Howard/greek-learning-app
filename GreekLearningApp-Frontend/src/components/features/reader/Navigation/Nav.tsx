@@ -12,7 +12,7 @@ import {
   DEV_USER_OPTIONS,
   getActiveDevUserId,
   setActiveDevUserId,
-} from '@/components/features/services/devUserSession';
+} from '@/lib/services/auth/devSession';
 
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
@@ -21,7 +21,7 @@ import AbcIcon from '@mui/icons-material/Abc';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import PersonIcon from '@mui/icons-material/Person';
 
-import { useReaderContext } from '@/components/features/reader/ReaderPage/ReaderPageContext';
+import { useReaderContext } from '@/app/reader/ReaderPage/ReaderPageContext';
 
 export default function Nav() {
   const { page, setPage } = useReaderContext();
@@ -53,7 +53,7 @@ export default function Nav() {
     >
       <FormControl size="small" sx={{ p: 1 }}>
         <Select value={devUserId} onChange={(evt) => handleUserChange(`${evt.target.value}`)}>
-          {DEV_USER_OPTIONS.map((id) => (
+          {DEV_USER_OPTIONS.map((id: string) => (
             <MenuItem value={id} key={`dev-user-${id}`}>{`Dev User ${id}`}</MenuItem>
           ))}
         </Select>

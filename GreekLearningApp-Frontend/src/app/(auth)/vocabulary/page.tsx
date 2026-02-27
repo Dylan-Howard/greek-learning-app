@@ -6,11 +6,11 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-import * as AzureTextService from '@/app/(auth)/services/AzureTextService';
-import * as VocabularySetService from '@/app/(auth)/services/VocabularySetService';
+import * as AzureTextService from '@/lib/api/rest/text';
+import * as VocabularySetService from '@/lib/api/rest/vocabulary';
 import VocabularySetCard from '@/components/features/vocabulary/VocabularySetCard';
 import VocabularyTable from '@/components/features/vocabulary/VocabularyTable';
-import { SimpleWordDto } from '@/lib/types/api';
+import { SimpleWordDto, VocabularySetDto } from '@/lib/types/api';
 
 export const dynamic = 'force-dynamic';
 
@@ -24,8 +24,8 @@ export default async function Vocabulary() {
   const setsError = setsResult.ok ? undefined : setsResult.error.message;
   const sets = setsResult.ok ? setsResult.data : [];
   const featuredSets = sets
-    .filter((set) => set.isSystem)
-    .sort((a, b) => b.totalCount - a.totalCount)
+    .filter((set: VocabularySetDto) => set.isSystem)
+    .sort((a: VocabularySetDto, b: VocabularySetDto) => b.totalCount - a.totalCount)
     .slice(0, 3);
 
   return (

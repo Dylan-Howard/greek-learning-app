@@ -19,7 +19,7 @@ import Container from '@mui/material/Container';
 // import { SettingsMenuTabSkeleton } from 'app/modules/Skeletons';
 import DetailsMenu from '@/components/features/reader/Navigation/DetailsMenu';
 import SettingsMenu from '@/components/features/reader/Navigation/SettingsMenu';
-import { useReaderContext } from '@/components/features/reader/ReaderPage/ReaderPageContext';
+import { useReaderContext } from '@/app/reader/ReaderPage/ReaderPageContext';
 
 function MenuHandle({ onTouchClose }: { onTouchClose: TouchEventHandler }) {
   const [swipe, setSwipe] = useState({ start: 0 });

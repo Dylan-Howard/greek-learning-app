@@ -1,4 +1,4 @@
-import { apiClient } from '@/app/services/apiClient';
+import { apiClient } from '@/lib/api/rest/client';
 
 describe('apiClient', () => {
   beforeEach(() => {

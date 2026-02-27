@@ -1,26 +1,26 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { Box, Grid, LinearProgress, Stack, Typography } from '@mui/material';
 import FlashCard from '@/components/features/study/FlashCard';
 import MultipleChoiceCard from '@/components/features/study/MultipleChoiceCard';
 import { getNextCard, rateCard } from '@/lib/api/rest/study';
 import { CardDto, Rating } from '@/lib/types/api';
 
-interface ActiveSessionPageProps {
-  params: { sessionId: string };
-}
-
-export default function ActiveSessionPage({ params }: ActiveSessionPageProps) {
+export default function ActiveSessionPage() {
   const router = useRouter();
+  const params = useParams();
+  const sessionIdParam = params?.sessionId;
+  const sessionId = Array.isArray(sessionIdParam) ? sessionIdParam[0] : sessionIdParam;
   const [card, setCard] = useState<CardDto | null>(null);
   const [revealed, setRevealed] = useState(false);
   const [loading, setLoading] = useState(true);
 
   const loadNext = async () => {
+    if (!sessionId) return;
     setLoading(true);
-    const result = await getNextCard(params.sessionId);
+    const result = await getNextCard(sessionId);
     if (result.ok) {
       setCard(result.data);
       setRevealed(false);
@@ -31,14 +31,17 @@ export default function ActiveSessionPage({ params }: ActiveSessionPageProps) {
   };
 
   useEffect(() => {
-    loadNext();
-  }, [params.sessionId]);
+    if (sessionId) {
+      loadNext();
+    }
+  }, [sessionId]);
 
   const handleRate = async (rating: Rating) => {
     if (!card) return;
-    const result = await rateCard(params.sessionId, card.vocabularyId, { rating });
+    if (!sessionId) return;
+    const result = await rateCard(sessionId, card.vocabularyId, { rating });
     if (result.ok && result.data.sessionComplete) {
-      router.push(`/study/session/${params.sessionId}/summary`);
+      router.push(`/study/session/${sessionId}/summary`);
       return;
     }
     await loadNext();
