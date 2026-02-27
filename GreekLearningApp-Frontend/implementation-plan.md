@@ -1,79 +1,62 @@
-# Design System Migration Implementation Plan
+# Implementation Plan: Design System Migration (MUI v7)
 
-This plan outlines the methodical implementation of the Material UI v7 design system into the Koine Greek Learning App.
+## 1. Pre-Implementation Analysis
 
-## 1. Pre-Implementation Analysis Summary
+### Current State Assessment
+- **MUI Version**: 7.3.8 (Upgraded)
+- **Theme**: New theme with CSS variable support (`colorSchemes`) implemented in `src/theme/theme.ts`.
+- **Global Styles**: Modern MD3/Primer-inspired styles implemented in `src/styles/globals.css`.
+- **Components**: UI components have been split into `src/components/ui/` but are currently failing compilation due to TypeScript errors.
+- **Root Configuration**: `src/app/layout.tsx` is updated to use the new `ThemeProvider` and `InitColorSchemeScript`.
 
-- **Current MUI Version:** ^7.3.8 (Already on v7)
-- **Current Theme:** Defined in `src/components/layout/Theme.tsx` (Light/Dark themes)
-- **Current Global Styles:** `src/styles/globals.css`
-- **MUI Usage:** Approximately 28 files use `@mui/material` components.
-- **Styling Patterns:** Heavy use of `sx` prop and some custom typography settings in the current theme.
+### Component Usage Mapping
+- **UI Components**: Located in `src/components/ui/`.
+- **Existing Usage**: Core app pages (e.g., `src/app/(auth)/lessons/page.tsx`) still use standard MUI imports or old theme references.
+- **Showcase**: `src/app/showcase/page.tsx` exists to verify component rendering.
 
-## 2. Risk Assessment & Prioritization
+### Breaking Change Analysis
+- **Grid Migration**: `Grid2` is removed/renamed to `Grid` in MUI v7, but code still references `Grid2`.
+- **Theme Variables**: `theme.vars` is used but requires TypeScript augmentation to be recognized as defined.
+- **Prop Conflicts**: `DialogComponentProps` redefines `content` which conflicts with base `DialogProps`. `IconButton` is missing `href` in its interface.
 
-### LOW Risk (Simple components, minimal custom logic)
-- `src/app/(public)/about/page.tsx`
-- `src/app/(public)/welcome/page.tsx`
-- `src/components/features/study/DashboardStats.tsx`
-- `src/components/features/vocabulary/VocabularySetCard.tsx`
+### Risk Assessment
+- **LOW**: UI components in `src/components/ui/`, `src/app/showcase/`.
+- **MEDIUM**: Auth forms (`SignInForm`, `SignUpForm`), Navigation rail (`NavRail`), Layout (`AppShell`).
+- **HIGH**: Feature pages (`lessons`, `vocabulary`, `study`) that rely on complex layouts and state.
 
-### MEDIUM Risk (Moderate complexity, interactive elements)
-- `src/components/features/study/FlashCard.tsx`
-- `src/components/features/study/MultipleChoiceCard.tsx`
-- `src/components/features/study/RatingButtons.tsx`
-- `src/components/features/study/SessionConfig.tsx`
-- `src/components/features/vocabulary/VocabularyTable.tsx`
-- `src/app/(auth)/lessons/tracks/[trackSlug]/[lessonId]/LessonCompletionToggle.tsx`
+---
 
-### HIGH Risk (Critical paths, complex layouts, routing integration)
-- `src/app/layout.tsx` (Root layout & Theme Provider)
-- `src/app/(auth)/study/session/[sessionId]/page.tsx`
-- `src/app/(auth)/lessons/tracks/[trackSlug]/[lessonId]/page.tsx`
-- `src/components/features/reader/Navigation/Nav.tsx`
+## 2. Implementation Phases
 
-## 3. Implementation Phases
+### Phase 1: Foundation Fixes (Current Priority)
+1. **Fix Grid Imports**: Replace `Grid2 as Grid` with `Grid` in all UI components and feature pages.
+2. **Augment Theme Types**: Update `src/theme/theme.ts` with type declarations for `theme.vars`.
+3. **Resolve Component Prop Errors**:
+   - Rename `content` to `dialogContent` in `DialogComponent`.
+   - Add `href` to `IconButtonProps`.
+4. **Validation**: Run `npx tsc --noEmit` until error count is 0.
 
-### Phase 0: Preparation & Setup
-- [ ] Create directory structure:
-  - `src/theme/`
-  - `src/components/ui/` (categorized: inputs, display, feedback, navigation, layout)
-- [ ] Backup current state (git commit recommended).
+### Phase 2: Core Layout Migration
+1. Update `AppShell` and `NavRail` in `src/app/(auth)` to use the new UI components.
+2. Verify responsive behavior and dark mode switching.
 
-### Phase 1: Foundation Installation
-- [ ] Install new theme to `src/theme/theme.ts`.
-- [ ] Install global styles to `src/styles/globals.css`.
-- [ ] Split `design-system/components.tsx` into individual files in `src/components/ui/`.
-- [ ] Setup barrel exports (`index.ts`) for easy importing.
-- [ ] Update `src/app/layout.tsx` to use the new `ThemeProvider` and `colorSchemes`.
-- [ ] Create a showcase page at `src/app/showcase/page.tsx` for verification.
+### Phase 3: Feature Page Migration (Incremental)
+1. **Lessons & Tracks**: Update lesson pages to use new `ProseBlock`, `KoineCard`, and `AcknowledgementButton`.
+2. **Vocabulary**: Update tables and cards to use new `Card` and `ProgressCard`.
+3. **Study Session**: Update study interface to use new `MultipleChoice` and `GreekTextUnit`.
 
-### Phase 2: Core Layout & Navigation Migration
-- [ ] Migrate `src/app/layout.tsx` (High Risk).
-- [ ] Migrate navigation components (`Nav.tsx`, `NavRail.tsx` if applicable).
+### Phase 4: Cleanup & Optimization
+1. Remove old theme files in `src/components/layout/Theme.tsx`.
+2. Final visual audit and performance check.
 
-### Phase 3: Low-Risk Migration
-- [ ] Migrate Public pages (About, Welcome).
-- [ ] Migrate simple dashboard components.
+---
 
-### Phase 4: Medium-Risk Migration
-- [ ] Migrate Study components (FlashCard, MultipleChoiceCard, etc.).
-- [ ] Migrate Vocabulary components.
-
-### Phase 5: High-Risk Migration
-- [ ] Migrate Session and Lesson pages.
-- [ ] Finalize reader components.
-
-### Phase 6: Cleanup & Validation
-- [ ] Remove `src/components/layout/Theme.tsx`.
-- [ ] Remove unused styles and old MUI component direct imports where applicable.
-- [ ] Full application audit (Light/Dark mode, responsive).
+## 3. Testing & Validation Strategy
+- **Type Safety**: Continuous monitoring with `tsc`.
+- **Visual Regression**: Use the `/showcase` page as a reference for all UI components.
+- **Light/Dark Mode**: Verify all color tokens correctly resolve in both modes.
 
 ## 4. Rollback Strategy
-- Use `git checkout .` to revert changes in the current branch.
-- Revert to the `pre-migration` tag if necessary.
-
-## 5. Testing Checkpoints
-- **After Phase 1:** Verify showcase page renders all components correctly in both modes.
-- **After Phase 2:** Ensure the application shell and navigation work across all pages.
-- **After each component migration:** Verify visual parity and functionality.
+- Branch: `feature/design-system-migration`
+- Backup Tag: `pre-design-system-migration`
+- Use `git restore` or `git checkout` to revert specific file changes if regressions occur.

@@ -1,27 +1,596 @@
-body {
+/*
+ * CSS Reset and Global Styles
+ * Includes Material Design 3 animations and Primer-inspired customizations
+ */
+
+/* ============================================
+ * CSS RESET
+ * ============================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  padding: 0;
+}
+
+html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  
-  height: calc(100vh);
-  max-height: -webkit-fill-available;
-  overflow: visible;
+  text-rendering: optimizeLegibility;
 }
 
-body div::-webkit-scrollbar {
-  width: 8px; /* Mostly for vertical scrollbars */
-  height: 8px; /* Mostly for horizontal scrollbars */
-}
-body div::-webkit-scrollbar-thumb { /* Foreground */
-  background: #424242;
-  border-radius: 8px;
-}
-body div::-webkit-scrollbar-track { /* Background */
-  background-color: #DBDBF0;
-  border-radius: 8px;
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
 }
 
-#root { height: 100%; }
+/* ============================================
+ * MATERIAL DESIGN 3 ANIMATIONS
+ * ============================================ */
+
+/* Emphasized Easing - Default for most transitions */
+@keyframes emphasized-enter {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes emphasized-exit {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+/* Slide animations */
+@keyframes slide-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-in-down {
+  from {
+    opacity: 0;
+    transform: translateY(-24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Fade animations */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* Pulse animation for loading states */
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Shimmer animation for skeletons */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+/* Success checkmark animation */
+@keyframes check-draw {
+  0% {
+    stroke-dashoffset: 100;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Ripple effect */
+@keyframes ripple {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* ============================================
+ * UTILITY CLASSES
+ * ============================================ */
+
+/* Animation utilities */
+.animate-emphasized-enter {
+  animation: emphasized-enter 300ms cubic-bezier(0.2, 0, 0, 1) forwards;
+}
+
+.animate-emphasized-exit {
+  animation: emphasized-exit 200ms cubic-bezier(0.4, 0, 1, 1) forwards;
+}
+
+.animate-slide-in-up {
+  animation: slide-in-up 250ms cubic-bezier(0, 0, 0.2, 1) forwards;
+}
+
+.animate-slide-in-down {
+  animation: slide-in-down 250ms cubic-bezier(0, 0, 0.2, 1) forwards;
+}
+
+.animate-slide-in-left {
+  animation: slide-in-left 250ms cubic-bezier(0, 0, 0.2, 1) forwards;
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 250ms cubic-bezier(0, 0, 0.2, 1) forwards;
+}
+
+.animate-fade-in {
+  animation: fade-in 200ms cubic-bezier(0, 0, 0.2, 1) forwards;
+}
+
+.animate-fade-out {
+  animation: fade-out 150ms cubic-bezier(0.4, 0, 1, 1) forwards;
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Safe area insets for mobile */
+.safe-area-inset-top {
+  padding-top: env(safe-area-inset-top);
+}
+
+.safe-area-inset-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.safe-area-inset-left {
+  padding-left: env(safe-area-inset-left);
+}
+
+.safe-area-inset-right {
+  padding-right: env(safe-area-inset-right);
+}
+
+/* Accessibility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Focus visible */
+.focus-visible:focus {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+/* No select */
+.no-select {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+/* ============================================
+ * PRIMER-INSPIRED CUSTOMIZATIONS
+ * ============================================ */
+
+/* Custom scrollbar for light mode */
+:root {
+  scrollbar-width: thin;
+  scrollbar-color: #959da5 #f6f8fa;
+}
+
+:root::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+:root::-webkit-scrollbar-track {
+  background: #f6f8fa;
+}
+
+:root::-webkit-scrollbar-thumb {
+  background: #959da5;
+  border-radius: 6px;
+  border: 3px solid #f6f8fa;
+}
+
+:root::-webkit-scrollbar-thumb:hover {
+  background: #6e7781;
+}
+
+/* Custom scrollbar for dark mode */
+[data-mui-color-scheme='dark'] {
+  scrollbar-color: #6e7681 #161b22;
+}
+
+[data-mui-color-scheme='dark']::-webkit-scrollbar-track {
+  background: #161b22;
+}
+
+[data-mui-color-scheme='dark']::-webkit-scrollbar-thumb {
+  background: #6e7681;
+  border-color: #161b22;
+}
+
+[data-mui-color-scheme='dark']::-webkit-scrollbar-thumb:hover {
+  background: #8b949e;
+}
+
+/* Selection styling */
+::selection {
+  background-color: rgba(9, 105, 218, 0.2);
+  color: inherit;
+}
+
+[data-mui-color-scheme='dark']::selection {
+  background-color: rgba(88, 166, 255, 0.3);
+}
+
+/* ============================================
+ * TYPOGRAPHY ENHANCEMENTS
+ * ============================================ */
+
+/* Greek font loading optimization */
+@font-face {
+  font-family: 'Noto Serif';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Noto Serif'), local('NotoSerif-Regular');
+}
+
+@font-face {
+  font-family: 'Noto Serif';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Noto Serif Bold'), local('NotoSerif-Bold');
+}
+
+/* Ensure Greek characters render properly */
+.greek-text {
+  font-family: 'Noto Serif', Georgia, serif;
+  font-feature-settings: 'kern' 1, 'liga' 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================
+ * RESPONSIVE UTILITIES
+ * ============================================ */
+
+/* Hide on mobile */
+@media (max-width: 640px) {
+  .hide-mobile {
+    display: none !important;
+  }
+}
+
+/* Hide on tablet and up */
+@media (min-width: 641px) {
+  .hide-tablet-up {
+    display: none !important;
+  }
+}
+
+/* Hide on desktop and up */
+@media (min-width: 1024px) {
+  .hide-desktop-up {
+    display: none !important;
+  }
+}
+
+/* ============================================
+ * PRINT STYLES
+ * ============================================ */
+
+@media print {
+  *,
+  *::before,
+  *::after {
+    background: transparent !important;
+    color: #000 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  a,
+  a:visited {
+    text-decoration: underline;
+  }
+
+  a[href]::after {
+    content: ' (' attr(href) ')';
+  }
+
+  abbr[title]::after {
+    content: ' (' attr(title) ')';
+  }
+
+  pre,
+  blockquote {
+    border: 1px solid #999;
+    page-break-inside: avoid;
+  }
+
+  thead {
+    display: table-header-group;
+  }
+
+  tr,
+  img {
+    page-break-inside: avoid;
+  }
+
+  img {
+    max-width: 100% !important;
+  }
+
+  p,
+  h2,
+  h3 {
+    orphans: 3;
+    widows: 3;
+  }
+
+  h2,
+  h3 {
+    page-break-after: avoid;
+  }
+}
+
+/* ============================================
+ * PERFORMANCE OPTIMIZATIONS
+ * ============================================ */
+
+/* GPU acceleration for animations */
+.gpu-accelerated {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ============================================
+ * COMPONENT-SPECIFIC OVERRIDES
+ * ============================================ */
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Focus ring improvements */
+:focus-visible {
+  outline: 2px solid #0969da;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+[data-mui-color-scheme='dark'] :focus-visible {
+  outline-color: #58a6ff;
+}
+
+/* Link styles */
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 150ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Button reset */
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Input and textarea consistency */
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+/* Remove spinners from number inputs */
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+/* ============================================
+ * LOADING STATES
+ * ============================================ */
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.06) 25%,
+    rgba(0, 0, 0, 0.15) 37%,
+    rgba(0, 0, 0, 0.06) 63%
+  );
+  background-size: 1000px 100%;
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+[data-mui-color-scheme='dark'] .skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.04) 25%,
+    rgba(255, 255, 255, 0.08) 37%,
+    rgba(255, 255, 255, 0.04) 63%
+  );
+  background-size: 1000px 100%;
+}
+
+/* ============================================
+ * MOBILE-SPECIFIC
+ * ============================================ */
+
+/* Prevent zoom on input focus in iOS */
+@media screen and (max-width: 640px) {
+  input[type='text'],
+  input[type='email'],
+  input[type='password'],
+  input[type='number'],
+  input[type='tel'],
+  input[type='url'],
+  textarea,
+  select {
+    font-size: 16px !important;
+  }
+}
+
+/* iOS safe area adjustments */
+@supports (padding: max(0px)) {
+  .safe-area {
+    padding-left: max(16px, env(safe-area-inset-left));
+    padding-right: max(16px, env(safe-area-inset-right));
+    padding-bottom: max(16px, env(safe-area-inset-bottom));
+  }
+}
+
+/* Touch target sizing for accessibility */
+.touch-target {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* ============================================
+ * UTILITY SPACING
+ * ============================================ */
+
+/* Following the 8px grid system */
+.mt-1 { margin-top: 8px; }
+.mt-2 { margin-top: 16px; }
+.mt-3 { margin-top: 24px; }
+.mt-4 { margin-top: 32px; }
+.mt-5 { margin-top: 40px; }
+.mt-6 { margin-top: 48px; }
+
+.mb-1 { margin-bottom: 8px; }
+.mb-2 { margin-bottom: 16px; }
+.mb-3 { margin-bottom: 24px; }
+.mb-4 { margin-bottom: 32px; }
+.mb-5 { margin-bottom: 40px; }
+.mb-6 { margin-bottom: 48px; }
+
+.pt-1 { padding-top: 8px; }
+.pt-2 { padding-top: 16px; }
+.pt-3 { padding-top: 24px; }
+.pt-4 { padding-top: 32px; }
+.pt-5 { padding-top: 40px; }
+.pt-6 { padding-top: 48px; }
+
+.pb-1 { padding-bottom: 8px; }
+.pb-2 { padding-bottom: 16px; }
+.pb-3 { padding-bottom: 24px; }
+.pb-4 { padding-bottom: 32px; }
+.pb-5 { padding-bottom: 40px; }
+.pb-6 { padding-bottom: 48px; }

@@ -1,14 +1,16 @@
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
-import { ThemeProvider } from '@mui/material';
-import { light } from '@/components/layout/Theme';
+import { ThemeProvider, CssBaseline } from '@mui/material';
+import InitColorSchemeScript from '@mui/material/InitColorSchemeScript';
+import theme from '@/theme/theme';
 import '@/styles/globals.css';
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
-        <meta name="theme-color" content="#F1F1F9" media="(prefers-color-scheme: light)" />
-        <meta name="theme-color" content="#1B2021" media="(prefers-color-scheme: dark)" />
+        <InitColorSchemeScript defaultMode="light" />
+        <meta name="theme-color" content="#0969da" media="(prefers-color-scheme: light)" />
+        <meta name="theme-color" content="#0d1117" media="(prefers-color-scheme: dark)" />
         <meta
           name="description"
           content="Koine: Your Companion to Reading the Bible in its Original Languages"
@@ -19,7 +21,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <noscript>You need to enable JavaScript to run this app.</noscript>
         <div id="root">
           <AppRouterCacheProvider>
-            <ThemeProvider theme={light}>
+            <ThemeProvider theme={theme}>
+              <CssBaseline />
               {children}
             </ThemeProvider>
           </AppRouterCacheProvider>
