@@ -42,12 +42,15 @@ export interface FooterProps {
   }>;
 }
 
-const FooterRoot = styled(Box)(({ theme }) => ({
-  backgroundColor: theme.vars.palette.canvas.subtle,
-  borderTop: `1px solid ${theme.vars.palette.border.default}`,
-  padding: theme.spacing(6, 0, 3),
-  marginTop: 'auto',
-}));
+const FooterRoot = styled(Box)(({ theme }) => {
+  const palette = theme.vars?.palette ?? theme.palette;
+  return {
+    backgroundColor: palette.canvas.subtle,
+    borderTop: `1px solid ${palette.border.default}`,
+    padding: theme.spacing(6, 0, 3),
+    marginTop: 'auto',
+  };
+});
 
 /**
  * Footer with links and copyright

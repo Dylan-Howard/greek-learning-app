@@ -1,7 +1,6 @@
 import NextLink from 'next/link';
 import {
   Breadcrumbs,
-  Button,
   Card,
   CardActions,
   CardContent,
@@ -12,6 +11,7 @@ import {
   Typography,
 } from '@mui/material';
 import { fetchLessonTrack } from '@/lib/api/rest/lessons';
+import { Button } from '@/components/ui';
 
 export const dynamic = 'force-dynamic';
 

@@ -8,7 +8,6 @@ import { DEFAULT_DEV_USER_ID, DEV_USER_COOKIE_KEY, sanitizeDevUserId } from '@/l
 
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
-import Fab from '@mui/material/Fab';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -25,6 +24,7 @@ import TextTitle from '@/components/features/reader/ReaderPageTitle';
 import ReaderPageUnitControl from '@/components/features/reader/ReaderPageUnitControl';
 import { ReaderPageUnit, ReaderPageUnitHelp } from '@/components/features/reader/ReaderPageUnit';
 import ReaderPageAudioButton from '@/components/features/reader/ReaderPageAudioButton';
+import { Fab } from '@/components/ui';
 
 const DEFAULT_BOOK_ID = 1;
 const DEFAULT_CHAPTER_ID = 1;

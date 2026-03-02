@@ -1,7 +1,8 @@
 'use client';
 
 import React from 'react';
-import { Button, Stack } from '@mui/material';
+import { Stack } from '@mui/material';
+import { Button } from '@/components/ui';
 import { Rating } from '@/lib/types/api';
 
 interface RatingButtonsProps {

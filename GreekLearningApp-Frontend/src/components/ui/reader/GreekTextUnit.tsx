@@ -33,7 +33,9 @@ export interface GreekTextUnitProps {
 
 const GreekTextRoot = styled(Box, {
   shouldForwardProp: (prop) => prop !== 'highlighted' && prop !== 'clickable',
-})<{ highlighted?: boolean; clickable?: boolean }>(({ theme, highlighted, clickable }) => ({
+})<{ highlighted?: boolean; clickable?: boolean }>(({ theme, highlighted, clickable }) => {
+  const palette = theme.vars?.palette ?? theme.palette;
+  return {
   display: 'inline-flex',
   flexDirection: 'column',
   alignItems: 'center',
@@ -46,13 +48,14 @@ const GreekTextRoot = styled(Box, {
   }),
   ...(clickable && {
     '&:hover': {
-      backgroundColor: theme.vars.palette.neutral.subtle,
+      backgroundColor: palette.neutral.subtle,
     },
   }),
   ...(highlighted && {
-    backgroundColor: alpha(theme.vars.palette.primary.main, 0.1),
+    backgroundColor: alpha(palette.primary.main, 0.1),
   }),
-}));
+  };
+});
 
 /**
  * Interactive Greek text unit with optional interlinear help

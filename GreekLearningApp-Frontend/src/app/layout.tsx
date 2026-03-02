@@ -1,7 +1,6 @@
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
-import { ThemeProvider, CssBaseline } from '@mui/material';
 import InitColorSchemeScript from '@mui/material/InitColorSchemeScript';
-import theme from '@/theme/theme';
+import AppThemeProvider from '@/components/layout/AppThemeProvider';
 import '@/styles/globals.css';
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
@@ -21,10 +20,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <noscript>You need to enable JavaScript to run this app.</noscript>
         <div id="root">
           <AppRouterCacheProvider>
-            <ThemeProvider theme={theme}>
-              <CssBaseline />
-              {children}
-            </ThemeProvider>
+            <AppThemeProvider>{children}</AppThemeProvider>
           </AppRouterCacheProvider>
         </div>
       </body>

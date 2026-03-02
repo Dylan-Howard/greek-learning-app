@@ -63,13 +63,14 @@ export const AppShell: React.FC<AppShellProps> = ({
 }) => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const theme = useTheme();
+  const palette = theme.vars?.palette ?? theme.palette;
 
   const drawer = navItems && (
     <Box
       sx={{
         width: 240,
         height: '100%',
-        borderRight: `1px solid ${theme.vars.palette.border.default}`,
+        borderRight: `1px solid ${palette.border.default}`,
         bgcolor: 'canvas.default',
       }}
     >
@@ -132,7 +133,7 @@ export const AppShell: React.FC<AppShellProps> = ({
             sx={{
               bgcolor: 'canvas.default',
               color: 'text.primary',
-              borderBottom: `1px solid ${theme.vars.palette.border.default}`,
+              borderBottom: `1px solid ${palette.border.default}`,
             }}
           >
             <Toolbar>

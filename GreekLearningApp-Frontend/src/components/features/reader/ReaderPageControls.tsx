@@ -2,10 +2,10 @@
 
 import { useRouter } from 'next/navigation';
 
-import Fab from '@mui/material/Fab';
 import Stack from '@mui/material/Stack';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import { Fab } from '@/components/ui';
 
 import * as AzureTextService from '@/lib/api/rest/text';
 

@@ -3,10 +3,10 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
+import { Button } from '@/components/ui';
 
 import WelcomeIllustration from '@/app/(public)/welcome/WelcomeIllustration';
 import * as AzureUserService from '@/lib/api/rest/user';
@@ -63,11 +63,11 @@ export default function OnboardingPage() {
   };
 
   return (
-    <Grid container sx={{ backgroundColor: '#F5E4CC' }}>
+    <Grid container sx={{ backgroundColor: 'background.tertiary' }}>
       <Grid
         size={{ sm: 6 }}
         sx={{
-          background: '#F8F8FC',
+          background: 'background.default',
           borderTopRightRadius: { xs: 0, sm: '1rem' },
           borderBottomRightRadius: { xs: 0, sm: '1rem' },
           boxShadow: 3,
@@ -79,12 +79,7 @@ export default function OnboardingPage() {
         <form action={handleSubmit}>
           <Typography
             variant="h2"
-            sx={{
-              fontSize: 42,
-              textAlign: 'center',
-              mt: 8,
-              mb: 2,
-            }}
+            sx={{ textAlign: 'center', mt: 8, mb: 2 }}
           >
             Welcome, Scholar!
           </Typography>

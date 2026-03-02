@@ -470,7 +470,7 @@ const ShowcaseContent: React.FC = () => {
               open={dialogOpen}
               onClose={() => setDialogOpen(false)}
               title="Dialog Title"
-              content={
+              dialogContent={
                 <Typography>
                   This is a dialog. It can contain any content you need.
                 </Typography>

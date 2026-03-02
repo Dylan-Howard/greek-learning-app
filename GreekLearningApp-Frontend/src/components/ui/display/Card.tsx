@@ -35,7 +35,9 @@ export interface CardProps extends MuiCardProps {
 
 const HoverableCard = styled(MuiCard, {
   shouldForwardProp: (prop) => prop !== 'hoverable',
-})<{ hoverable?: boolean }>(({ theme, hoverable }) => ({
+})<{ hoverable?: boolean }>(({ theme, hoverable }) => {
+  const palette = theme.vars?.palette ?? theme.palette;
+  return {
   transition: theme.transitions.create(['transform', 'border-color'], {
     duration: theme.transitions.duration.shorter,
   }),
@@ -43,10 +45,11 @@ const HoverableCard = styled(MuiCard, {
     cursor: 'pointer',
     '&:hover': {
       transform: 'translateY(-2px)',
-      borderColor: theme.vars.palette.primary.main,
+      borderColor: palette.primary.main,
     },
   }),
-}));
+  };
+});
 
 /**
  * Versatile card component

@@ -2,23 +2,23 @@ import NextLink from 'next/link';
 import NextImage from 'next/image';
 import {
   Box,
-  Button,
   Link,
   Grid,
   Stack,
   Typography,
 } from '@mui/material';
+import { Button } from '@/components/ui';
 
 import '@/app/(public)/welcome/Onboarding.css';
 import WelcomeIllustration from '@/app/(public)/welcome/WelcomeIllustration';
 
 export default function WelcomePage() {
   return (
-    <Grid container sx={{ backgroundColor: '#F5E4CC' }}>
+    <Grid container sx={{ backgroundColor: 'background.tertiary' }}>
       <Grid
         size={{ sm: 6 }}
         sx={{
-          background: '#F8F8FC',
+          background: 'background.default',
           borderTopRightRadius: { xs: 0, sm: '1rem' },
           borderBottomRightRadius: { xs: 0, sm: '1rem' },
           boxShadow: 3,
@@ -40,7 +40,7 @@ export default function WelcomePage() {
             >
               <NextImage src="/static/img/koine-logo.svg" alt="Koine Logo" width={128} height={128} />
             </Box>
-            <Typography variant="h2" sx={{ fontSize: 42, textAlign: 'center', mb: 2 }}>Welcome, Scholar!</Typography>
+            <Typography variant="h2" sx={{ textAlign: 'center', mb: 2 }}>Welcome, Scholar!</Typography>
             <Typography variant="body1" sx={{ textAlign: 'center', mb: 6 }}>
               Authentication is disabled for MVP development. Use the dev user switcher in the reader nav.
             </Typography>
@@ -52,7 +52,7 @@ export default function WelcomePage() {
             </Stack>
             <Stack flexDirection="row" justifyContent="center">
               <Link href="/onboarding">
-                <Button type="button" size="small" sx={{ color: '#333' }}>Run Onboarding</Button>
+                <Button type="button" size="small" color="secondary">Run Onboarding</Button>
               </Link>
             </Stack>
           </Box>

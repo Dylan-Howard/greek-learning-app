@@ -32,14 +32,16 @@ export interface NavRailProps {
   showLabels?: boolean;
 }
 
-const NavRailRoot = styled(Box)(({ theme }) => ({
+const NavRailRoot = styled(Box)(({ theme }) => {
+  const palette = theme.vars?.palette ?? theme.palette;
+  return {
   width: 80,
   height: '100vh',
   position: 'fixed',
   left: 0,
   top: 0,
-  backgroundColor: theme.vars.palette.canvas.subtle,
-  borderRight: `1px solid ${theme.vars.palette.border.default}`,
+  backgroundColor: palette.canvas.subtle,
+  borderRight: `1px solid ${palette.border.default}`,
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
@@ -58,23 +60,27 @@ const NavRailRoot = styled(Box)(({ theme }) => ({
     paddingTop: theme.spacing(1),
     paddingBottom: theme.spacing(1),
     borderRight: 'none',
-    borderTop: `1px solid ${theme.vars.palette.border.default}`,
+    borderTop: `1px solid ${palette.border.default}`,
   },
-}));
+  };
+});
 
 const NavRailButton = styled(IconButton, {
   shouldForwardProp: (prop) => prop !== 'isActive',
-})<{ isActive?: boolean }>(({ theme, isActive }) => ({
+})<{ isActive?: boolean }>(({ theme, isActive }) => {
+  const palette = theme.vars?.palette ?? theme.palette;
+  return {
   width: 56,
   height: 56,
   borderRadius: 12,
   flexDirection: 'column',
   gap: theme.spacing(0.5),
   ...(isActive && {
-    backgroundColor: alpha(theme.vars.palette.primary.main, 0.1),
-    color: theme.vars.palette.primary.main,
+    backgroundColor: alpha(palette.primary.main, 0.1),
+    color: palette.primary.main,
   }),
-}));
+  };
+});
 
 /**
  * Vertical navigation rail for primary navigation
@@ -84,11 +90,15 @@ export const NavRail: React.FC<NavRailProps> = ({
   activeIndex,
   showLabels = false,
 }) => {
+  const handleNavigate = (href: string) => () => {
+    window.location.assign(href);
+  };
+
   return (
     <NavRailRoot>
       {items.map((item, index) => (
         <MuiTooltip key={index} title={item.label} placement="right">
-          <NavRailButton href={item.href} isActive={activeIndex === index}>
+          <NavRailButton isActive={activeIndex === index} onClick={handleNavigate(item.href)}>
             <Box sx={{ position: 'relative' }}>
               {item.icon}
               {item.badge !== undefined && item.badge > 0 && (

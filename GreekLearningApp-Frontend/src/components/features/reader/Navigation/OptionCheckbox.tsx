@@ -15,13 +15,13 @@ const OptionSwitch = styled(Switch)(({ theme }) => ({
     transform: 'translateX(4px)',
     '&.Mui-checked': {
       backgroundColor: theme.palette.primary.main,
-      color: '#fff',
+      color: theme.palette.common.white,
       transform: 'translateX(24px)',
       '& .MuiSwitch-thumb': {
         backgroundColor: theme.palette.primary.main,
       },
       '& .MuiSwitch-thumb:before': {
-        backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="18" width="18" viewBox="0 -960 960 960"><path fill="${encodeURIComponent('#fff')}" d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg>')`,
+        backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="18" width="18" viewBox="0 -960 960 960"><path fill="${encodeURIComponent(theme.palette.common.white)}" d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg>')`,
       },
       '& + .MuiSwitch-track': {
         opacity: 1,
@@ -43,7 +43,7 @@ const OptionSwitch = styled(Switch)(({ theme }) => ({
       backgroundRepeat: 'no-repeat',
       backgroundPosition: 'center',
       backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="18" width="18" viewBox="0 -960 960 960"><path fill="${encodeURIComponent(
-        '#fff',
+        theme.palette.common.white,
       )}" d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>')`,
     },
   },

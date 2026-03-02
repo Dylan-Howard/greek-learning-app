@@ -1,7 +1,6 @@
 import NextLink from 'next/link';
 import {
   Breadcrumbs,
-  Button,
   Chip,
   Divider,
   Grid,
@@ -10,6 +9,7 @@ import {
 } from '@mui/material';
 import { fetchLesson, fetchLessonTrack, fetchNextLesson } from '@/lib/api/rest/lessons';
 import LessonCompletionToggle from '@/app/(auth)/lessons/tracks/[trackSlug]/[lessonId]/LessonCompletionToggle';
+import { Button } from '@/components/ui';
 
 export const dynamic = 'force-dynamic';
 

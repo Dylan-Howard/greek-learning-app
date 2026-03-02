@@ -1,11 +1,10 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
-import IconButton from '@mui/material/IconButton';
-import Tooltip from '@mui/material/Tooltip';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import StopIcon from '@mui/icons-material/Stop';
 import { detectOriginalLanguage, isSpeechSynthesisSupported, speakText, stopSpeech } from '@/lib/services/reader/tts';
+import { IconButton } from '@/components/ui';
 
 export default function WordAudioButton({ word }: { word: string }) {
   const [isSupported, setIsSupported] = useState(false);
@@ -43,18 +42,17 @@ export default function WordAudioButton({ word }: { word: string }) {
   const label = isSpeaking ? 'Stop word audio' : 'Play word audio';
 
   return (
-    <Tooltip title={isSupported ? label : 'Speech not supported in this browser'}>
-      <span>
-        <IconButton
-          aria-label={label}
-          onClick={handleToggle}
-          disabled={!isSupported || !cleanedWord}
-          color="primary"
-          size="large"
-        >
-          {isSpeaking ? <StopIcon /> : <VolumeUpIcon />}
-        </IconButton>
-      </span>
-    </Tooltip>
+    <span>
+      <IconButton
+        aria-label={label}
+        tooltip={isSupported ? label : 'Speech not supported in this browser'}
+        onClick={handleToggle}
+        disabled={!isSupported || !cleanedWord}
+        color="primary"
+        size="large"
+      >
+        {isSpeaking ? <StopIcon /> : <VolumeUpIcon />}
+      </IconButton>
+    </span>
   );
 }

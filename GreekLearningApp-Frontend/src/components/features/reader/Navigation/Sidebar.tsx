@@ -12,9 +12,9 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Slide from '@mui/material/Slide';
 import Stack from '@mui/material/Stack';
-import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Container from '@mui/material/Container';
+import { IconButton } from '@/components/ui';
 
 // import { SettingsMenuTabSkeleton } from 'app/modules/Skeletons';
 import DetailsMenu from '@/components/features/reader/Navigation/DetailsMenu';
@@ -46,8 +46,8 @@ function MenuHandle({ onTouchClose }: { onTouchClose: TouchEventHandler }) {
     >
       <Box
         sx={{
-          border: '#333 1px solid',
-          borderColor: 'text.primary',
+          border: '1px solid',
+          borderColor: 'divider',
           width: 48,
         }}
       />

@@ -3,7 +3,7 @@
 // Suggested file: src/theme/theme.ts
 // ============================================
 
-import { createTheme, alpha, Theme as MuiTheme, ThemeOptions as MuiThemeOptions } from '@mui/material/styles';
+import { createTheme, alpha, Theme as MuiTheme } from '@mui/material/styles';
 
 declare module '@mui/material/styles' {
   interface Palette {
@@ -59,9 +59,6 @@ declare module '@mui/material/styles' {
     vars: Omit<MuiTheme, 'vars'> & {
       palette: Palette;
     };
-  }
-  interface ThemeOptions extends MuiThemeOptions {
-    vars?: unknown;
   }
 }
 
@@ -425,11 +422,14 @@ const theme = createTheme({
         elevation: 0,
       },
       styleOverrides: {
-        root: ({ theme }) => ({
-          borderRadius: 6,
-          border: `1px solid ${theme.vars.palette.border.default}`,
-          backgroundColor: theme.vars.palette.canvas.default,
-        }),
+        root: ({ theme }) => {
+          const palette = theme.vars?.palette ?? theme.palette;
+          return {
+            borderRadius: 6,
+            border: `1px solid ${palette.border.default}`,
+            backgroundColor: palette.canvas.default,
+          };
+        },
       },
     },
     MuiPaper: {
@@ -437,14 +437,20 @@ const theme = createTheme({
         elevation: 0,
       },
       styleOverrides: {
-        root: ({ theme }) => ({
-          borderRadius: 6,
-          border: `1px solid ${theme.vars.palette.border.default}`,
-          backgroundColor: theme.vars.palette.canvas.default,
-        }),
-        outlined: ({ theme }) => ({
-          border: `1px solid ${theme.vars.palette.border.default}`,
-        }),
+        root: ({ theme }) => {
+          const palette = theme.vars?.palette ?? theme.palette;
+          return {
+            borderRadius: 6,
+            border: `1px solid ${palette.border.default}`,
+            backgroundColor: palette.canvas.default,
+          };
+        },
+        outlined: ({ theme }) => {
+          const palette = theme.vars?.palette ?? theme.palette;
+          return {
+            border: `1px solid ${palette.border.default}`,
+          };
+        },
       },
     },
     MuiTextField: {
@@ -454,20 +460,26 @@ const theme = createTheme({
     },
     MuiOutlinedInput: {
       styleOverrides: {
-        root: ({ theme }) => ({
-          borderRadius: 6,
-          backgroundColor: theme.vars.palette.canvas.inset,
-          transition: 'border-color 150ms cubic-bezier(0, 0, 0.2, 1)',
-          '&:hover .MuiOutlinedInput-notchedOutline': {
-            borderColor: theme.vars.palette.border.default,
-          },
-          '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-            borderWidth: '2px',
-          },
-        }),
-        notchedOutline: ({ theme }) => ({
-          borderColor: theme.vars.palette.border.muted,
-        }),
+        root: ({ theme }) => {
+          const palette = theme.vars?.palette ?? theme.palette;
+          return {
+            borderRadius: 6,
+            backgroundColor: palette.canvas.inset,
+            transition: 'border-color 150ms cubic-bezier(0, 0, 0.2, 1)',
+            '&:hover .MuiOutlinedInput-notchedOutline': {
+              borderColor: palette.border.default,
+            },
+            '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+              borderWidth: '2px',
+            },
+          };
+        },
+        notchedOutline: ({ theme }) => {
+          const palette = theme.vars?.palette ?? theme.palette;
+          return {
+            borderColor: palette.border.muted,
+          };
+        },
       },
     },
     MuiChip: {
@@ -483,26 +495,38 @@ const theme = createTheme({
         root: {
           borderRadius: 6,
         },
-        standardSuccess: ({ theme }) => ({
-          backgroundColor: alpha(theme.vars.palette.success.main, 0.1),
-          color: theme.vars.palette.success.dark,
-          border: `1px solid ${alpha(theme.vars.palette.success.main, 0.3)}`,
-        }),
-        standardError: ({ theme }) => ({
-          backgroundColor: alpha(theme.vars.palette.error.main, 0.1),
-          color: theme.vars.palette.error.dark,
-          border: `1px solid ${alpha(theme.vars.palette.error.main, 0.3)}`,
-        }),
-        standardWarning: ({ theme }) => ({
-          backgroundColor: alpha(theme.vars.palette.warning.main, 0.1),
-          color: theme.vars.palette.warning.dark,
-          border: `1px solid ${alpha(theme.vars.palette.warning.main, 0.3)}`,
-        }),
-        standardInfo: ({ theme }) => ({
-          backgroundColor: alpha(theme.vars.palette.info.main, 0.1),
-          color: theme.vars.palette.info.dark,
-          border: `1px solid ${alpha(theme.vars.palette.info.main, 0.3)}`,
-        }),
+        standardSuccess: ({ theme }) => {
+          const palette = theme.vars?.palette ?? theme.palette;
+          return {
+            backgroundColor: alpha(palette.success.main, 0.1),
+            color: palette.success.dark,
+            border: `1px solid ${alpha(palette.success.main, 0.3)}`,
+          };
+        },
+        standardError: ({ theme }) => {
+          const palette = theme.vars?.palette ?? theme.palette;
+          return {
+            backgroundColor: alpha(palette.error.main, 0.1),
+            color: palette.error.dark,
+            border: `1px solid ${alpha(palette.error.main, 0.3)}`,
+          };
+        },
+        standardWarning: ({ theme }) => {
+          const palette = theme.vars?.palette ?? theme.palette;
+          return {
+            backgroundColor: alpha(palette.warning.main, 0.1),
+            color: palette.warning.dark,
+            border: `1px solid ${alpha(palette.warning.main, 0.3)}`,
+          };
+        },
+        standardInfo: ({ theme }) => {
+          const palette = theme.vars?.palette ?? theme.palette;
+          return {
+            backgroundColor: alpha(palette.info.main, 0.1),
+            color: palette.info.dark,
+            border: `1px solid ${alpha(palette.info.main, 0.3)}`,
+          };
+        },
       },
     },
     MuiDialog: {

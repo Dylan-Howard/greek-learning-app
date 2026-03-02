@@ -70,7 +70,7 @@ export const FeatureSection: React.FC<FeatureSectionProps> = ({
                     alignItems: 'center',
                     justifyContent: 'center',
                     bgcolor: (theme) =>
-                      alpha(theme.vars.palette.primary.main, 0.1),
+                      alpha(theme.vars?.palette.primary.main ?? theme.palette.primary.main, 0.1),
                     color: 'primary.main',
                   }}
                 >

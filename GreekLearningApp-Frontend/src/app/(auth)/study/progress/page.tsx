@@ -12,11 +12,11 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  TextField,
   Typography,
 } from '@mui/material';
 import { getProgress } from '@/lib/api/rest/study';
 import { CardProgressDto, CardState } from '@/lib/types/api';
+import { TextField } from '@/components/ui';
 
 const stateColor = (state: CardState) => {
   switch (state) {

@@ -34,7 +34,16 @@ export default function OnboardingOptionBox({
         onChange={onChange}
         checked={checked}
       />
-      <Box className="OptionContent" sx={{ p: 2, border: '1px solid #ccc', cursor: 'pointer', opacity: checked ? 1 : 0.6 }}>
+      <Box
+        className="OptionContent"
+        sx={{
+          p: 2,
+          border: '1px solid',
+          borderColor: 'border.default',
+          cursor: 'pointer',
+          opacity: checked ? 1 : 0.6,
+        }}
+      >
         <Illustration />
         <Typography variant="h6" align="center">{title}</Typography>
       </Box>

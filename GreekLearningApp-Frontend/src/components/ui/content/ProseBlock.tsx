@@ -17,7 +17,9 @@ export interface ProseBlockProps {
   maxWidth?: 'sm' | 'md' | 'lg';
 }
 
-const ProseRoot = styled(Box)(({ theme }) => ({
+const ProseRoot = styled(Box)(({ theme }) => {
+  const palette = theme.vars?.palette ?? theme.palette;
+  return {
   '& h1, & h2, & h3, & h4, & h5, & h6': {
     marginTop: theme.spacing(4),
     marginBottom: theme.spacing(2),
@@ -45,34 +47,35 @@ const ProseRoot = styled(Box)(({ theme }) => ({
     marginBottom: theme.spacing(1),
   },
   '& a': {
-    color: theme.vars.palette.primary.main,
+    color: palette.primary.main,
     textDecoration: 'none',
     '&:hover': {
       textDecoration: 'underline',
     },
   },
   '& code': {
-    backgroundColor: theme.vars.palette.neutral.subtle,
+    backgroundColor: palette.neutral.subtle,
     padding: '2px 6px',
     borderRadius: 4,
     fontSize: '0.875em',
     fontFamily: 'monospace',
   },
   '& pre': {
-    backgroundColor: theme.vars.palette.canvas.inset,
+    backgroundColor: palette.canvas.inset,
     padding: theme.spacing(2),
     borderRadius: 6,
     overflow: 'auto',
     marginBottom: theme.spacing(2),
   },
   '& blockquote': {
-    borderLeft: `4px solid ${theme.vars.palette.border.default}`,
+    borderLeft: `4px solid ${palette.border.default}`,
     paddingLeft: theme.spacing(2),
     marginLeft: 0,
     fontStyle: 'italic',
-    color: theme.vars.palette.text.secondary,
+    color: palette.text.secondary,
   },
-}));
+  };
+});
 
 /**
  * Styled prose container for content pages

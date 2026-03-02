@@ -31,19 +31,22 @@ export interface AcknowledgementButtonProps {
 
 const AckButton = styled(Button, {
   shouldForwardProp: (prop) => prop !== 'acknowledged',
-})<{ acknowledged?: boolean }>(({ theme, acknowledged }) => ({
+})<{ acknowledged?: boolean }>(({ theme, acknowledged }) => {
+  const palette = theme.vars?.palette ?? theme.palette;
+  return {
   transition: theme.transitions.create(['background-color', 'border-color'], {
     duration: theme.transitions.duration.standard,
   }),
   ...(acknowledged && {
-    backgroundColor: alpha(theme.vars.palette.success.main, 0.1),
-    borderColor: theme.vars.palette.success.main,
-    color: theme.vars.palette.success.dark,
+    backgroundColor: alpha(palette.success.main, 0.1),
+    borderColor: palette.success.main,
+    color: palette.success.dark,
     '&:hover': {
-      backgroundColor: alpha(theme.vars.palette.success.main, 0.2),
+      backgroundColor: alpha(palette.success.main, 0.2),
     },
   }),
-}));
+  };
+});
 
 /**
  * Button for confirming user acknowledgement of information

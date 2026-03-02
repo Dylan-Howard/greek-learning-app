@@ -1,7 +1,6 @@
 import NextLink from 'next/link';
 import {
   Breadcrumbs,
-  Button,
   Grid,
   Stack,
   Typography,
@@ -11,6 +10,7 @@ import * as VocabularySetService from '@/lib/api/rest/vocabulary';
 import VocabularySetCard from '@/components/features/vocabulary/VocabularySetCard';
 import VocabularyTable from '@/components/features/vocabulary/VocabularyTable';
 import { SimpleWordDto, VocabularySetDto } from '@/lib/types/api';
+import { Button } from '@/components/ui';
 
 export const dynamic = 'force-dynamic';
 
@@ -55,7 +55,7 @@ export default async function Vocabulary() {
             <VocabularySetCard
               title={set.title}
               description={set.description}
-              link={`/sets/${set.id}`}
+              link={`/vocabulary/sets/${set.id}`}
               progress={clampedProgress}
               subtitle={`${set.knownCount}/${set.totalCount} known`}
             />
@@ -70,7 +70,7 @@ export default async function Vocabulary() {
       <Grid  size={{ xs: 12 }}>
         <Stack direction="row" justifyContent="center">
           <Button sx={{ mb: 8 }}>
-            <NextLink href="/sets">See More</NextLink>
+            <NextLink href="/vocabulary/sets">See More</NextLink>
           </Button>
         </Stack>
       </Grid>

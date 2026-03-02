@@ -10,12 +10,10 @@ export function ReaderPageUnitHelp({ children } : { children: ReactNode }) {
 
   return (
     <Typography
+      variant="greekHelp"
       sx={{
         display: 'inline-block',
         color: theme.palette.text.primary,
-        fontFamily: 'Noto Serif, serif',
-        fontSize: theme.typography.readerHelp.fontSize,
-        lineHeight: theme.typography.readerHelp.lineHeight,
         mr: 1,
       }}
     >
@@ -29,12 +27,10 @@ export function ReaderPageUnit({ children } : { children: ReactNode }) {
 
   return (
     <Typography
+      variant="greekBody"
       sx={{
         color: theme.palette.text.primary,
         cursor: 'pointer',
-        fontFamily: 'Noto Serif, serif',
-        fontSize: theme.typography.readerBody.fontSize,
-        lineHeight: theme.typography.readerBody.lineHeight,
         mr: 1,
         '&:hover': { color: theme.palette.primary.main },
       }}

@@ -1,7 +1,6 @@
 import NextLink from 'next/link';
 import {
   Breadcrumbs,
-  Button,
   Grid,
   Skeleton,
   Stack,
@@ -9,6 +8,7 @@ import {
 } from '@mui/material';
 import DashboardStats from '@/components/features/study/DashboardStats';
 import { getDashboard } from '@/lib/api/rest/study';
+import { Button } from '@/components/ui';
 
 export const dynamic = 'force-dynamic';
 

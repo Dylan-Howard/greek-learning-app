@@ -5,6 +5,8 @@ import { Container, Typography, Box, Paper, Stack, Breadcrumbs, Link } from '@mu
 import NextLink from 'next/link';
 import { useUserContext } from '@/lib/types/domain/user';
 
+export const dynamic = 'force-dynamic';
+
 export default function ProfilePage() {
   const { user } = useUserContext();
 

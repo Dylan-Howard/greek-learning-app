@@ -13,6 +13,10 @@ export interface IconButtonProps extends MuiIconButtonProps {
    * Tooltip text to show on hover
    */
   tooltip?: string;
+  /**
+   * Optional href to render as an anchor-style button
+   */
+  href?: string;
 }
 
 const StyledIconButton = styled(MuiIconButton)(({ theme }) => ({
@@ -32,10 +36,26 @@ const StyledIconButton = styled(MuiIconButton)(({ theme }) => ({
  */
 export const IconButton: React.FC<IconButtonProps> = ({
   tooltip,
+  href,
   children,
+  onClick,
   ...props
 }) => {
-  const button = <StyledIconButton {...props}>{children}</StyledIconButton>;
+  const handleClick: React.MouseEventHandler<HTMLButtonElement> = (event) => {
+    onClick?.(event);
+    if (!event.defaultPrevented && href) {
+      window.location.assign(href);
+    }
+  };
+
+  const button = (
+    <StyledIconButton
+      {...props}
+      onClick={href || onClick ? handleClick : undefined}
+    >
+      {children}
+    </StyledIconButton>
+  );
 
   if (tooltip) {
     return <MuiTooltip title={tooltip}>{button}</MuiTooltip>;

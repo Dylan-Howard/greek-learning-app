@@ -2,9 +2,10 @@
 
 import React, { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { Button, Grid, Stack, Typography } from '@mui/material';
+import { Grid, Stack, Typography } from '@mui/material';
 import { completeSession } from '@/lib/api/rest/study';
 import { SessionSummaryDto } from '@/lib/types/api';
+import { Button } from '@/components/ui';
 
 export default function SummaryPage() {
   const router = useRouter();

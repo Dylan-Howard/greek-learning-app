@@ -8,10 +8,8 @@ import {
 import Link from 'next/link';
 
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
-import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
 import { SettingsMenuTabSkeleton } from '@/components/shared/Skeletons';
@@ -25,6 +23,7 @@ import { SimpleWordDto } from '@/lib/types/api';
 import transliterateGreek from '@/lib/services/reader/transliteration';
 import OptionCheckbox from '@/components/features/reader/Navigation/OptionCheckbox';
 import { useReaderContext } from '@/app/reader/ReaderPage/ReaderPageContext';
+import { Button, TextField } from '@/components/ui';
 import {
   DEV_USER_CHANGED_EVENT,
   getActiveDevUserId,
@@ -270,7 +269,6 @@ function SettingsMenu({ title } : { title: string }) {
       <TextField
         label="Search"
         type="search"
-        variant="outlined"
         onChange={(e) => handleTextboxChange(e)}
         size="small"
         sx={{ bgcolor: 'background.default', mb: 2 }}

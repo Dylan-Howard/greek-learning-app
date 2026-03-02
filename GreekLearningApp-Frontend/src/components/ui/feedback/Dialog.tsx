@@ -20,7 +20,7 @@ export interface DialogComponentProps extends DialogProps {
   /**
    * Content
    */
-  content: React.ReactNode;
+  dialogContent: React.ReactNode;
   /**
    * Actions (buttons)
    */
@@ -40,7 +40,7 @@ export interface DialogComponentProps extends DialogProps {
  */
 export const DialogComponent: React.FC<DialogComponentProps> = ({
   title,
-  content,
+  dialogContent,
   actions,
   showClose,
   onClose,
@@ -58,7 +58,7 @@ export const DialogComponent: React.FC<DialogComponentProps> = ({
           )}
         </Box>
       </DialogTitle>
-      <DialogContent>{content}</DialogContent>
+      <DialogContent>{dialogContent}</DialogContent>
       {actions && <DialogActions>{actions}</DialogActions>}
     </MuiDialog>
   );
