@@ -39,13 +39,6 @@
 - [ ] Create system-overview.md with architecture diagrams
 - [ ] Document feature specifications (reader, flashcards, lessons, practice)
 
-### Codebase Restructuring
-- [ ] Run restructure-frontend.sh script
-- [ ] Run fix-imports.js script
-- [ ] Test all existing routes work correctly
-- [ ] Update tsconfig.json paths if needed
-- [ ] Commit restructured code
-
 ### Backend Organization
 - [ ] Create feature folders in Domain (Text, Flashcards, Lessons, Practice)
 - [ ] Move existing entities into Text/ folder
