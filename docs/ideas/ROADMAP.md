@@ -32,12 +32,12 @@
 
 ### Documentation
 - [x] Create PROJECT_STRUCTURE.md (current vs goal)
-- [ ] Write ADR-001: Hexagonal Architecture
-- [ ] Write ADR-002: GraphQL Strategy
-- [ ] Write ADR-003: Clerk Authentication
-- [ ] Write ADR-004: Azure SQL Database
-- [ ] Create system-overview.md with architecture diagrams
-- [ ] Document feature specifications (reader, flashcards, lessons, practice)
+- [x] Write ADR-001: Hexagonal Architecture
+- [x] Write ADR-002: GraphQL Strategy
+- [x] Write ADR-003: Clerk Authentication
+- [x] Write ADR-004: Azure SQL Database
+- [x] Create system-overview.md with architecture diagrams
+- [x] Document feature specifications (reader, flashcards, lessons, practice)
 
 ### Backend Organization
 - [ ] Create feature folders in Domain (Text, Flashcards, Lessons, Practice)
