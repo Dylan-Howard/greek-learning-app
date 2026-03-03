@@ -48,3 +48,46 @@ The application is built using a robust technology stack to ensure optimal perfo
   <img src="https://raw.githubusercontent.com/Dylan-Howard/Greek-Learning-App/master/GreekLearningApp-Illustrations/icon-golang.svg" height=64 />
   <img src="https://raw.githubusercontent.com/Dylan-Howard/Greek-Learning-App/master/GreekLearningApp-Illustrations/icon-azure.svg" height=64 />
 </div>
+
+## Developer Notes: Seed Data Wrapper Compilation
+
+Book-level C# seed classes can be generated from chapter-range snippets in
+`data/output/csharp` using:
+
+```bash
+python3 data/scripts/compile_book_wrappers.py \
+  --input-dir data/output/csharp \
+  --fallback-log-dir data/output/logs \
+  --book 1John \
+  --output backend/Koine.Infrastructure/Data/Seed/FirstJohnTextData.cs \
+  --namespace Koine.Infrastructure.Data.Seed \
+  --class-name FirstJohnTextData
+```
+
+Use `--dry-run` to validate input snippet quality without writing output.
+The compiler reports malformed snippet files and verse-range gaps so they can
+be regenerated before seeding.
+
+For full data-generation details, see [`data/README.md`](data/README.md).
+
+## Developer Notes: Refresh DB and Reseed
+
+To reset the Docker SQL database and rerun backend seeding end-to-end:
+
+```bash
+./scripts/refresh-db-and-reseed.sh
+```
+
+What it does:
+- Ensures `sqlserver` is running.
+- Stops `backend`.
+- Drops and recreates the `Koine` database.
+- Recreates `backend` so startup seeding runs.
+- Waits until logs contain `Database seeding completed successfully!`.
+
+Optional environment overrides:
+- `DB_CONTAINER` (default: `koine-db`)
+- `DB_NAME` (default: `Koine`)
+- `SA_USER` (default: `sa`)
+- `SA_PASSWORD` (default: `YourStrong@Passw0rd`)
+- `SEED_TIMEOUT_SECONDS` (default: `180`)

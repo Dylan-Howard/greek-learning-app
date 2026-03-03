@@ -27,66 +27,39 @@ namespace Koine.Infrastructure.Data.Seed
                 // Check if already seeded
                 if (await context.Books.AnyAsync())
                 {
-                    logger.LogInformation("Database already seeded. Ensuring system data is synchronized.");
-                    await EnsureSystemVocabularySetsAsync(context);
-                    await EnsureLessonTracksAndLessonsAsync(context, logger);
-                    return;
+                    logger.LogInformation("Database already seeded. Clearing old data for fresh re-seed.");
+                    context.Chapters.RemoveRange(context.Chapters);
+                    context.Books.RemoveRange(context.Books);
+                    context.Vocabularies.RemoveRange(context.Vocabularies);
+                    context.TranslationUnits.RemoveRange(context.TranslationUnits);
+                    await context.SaveChangesAsync();
                 }
+
+                var chapters = FirstJohnTextData.GetChapters();
 
                 // 1. Seed Grammatical Features
                 logger.LogInformation("Seeding grammatical features...");
                 var gramFeatures = GrammaticalFeaturesData.GetFeatures();
-                foreach (var (code, name, category, definition, sortOrder) in gramFeatures)
-                {
-                    context.GrammaticalFeatures.Add(new GrammaticalFeature
-                    {
-                        Code = code,
-                        Name = name,
-                        Category = category,
-                        Definition = definition,
-                        SortOrder = sortOrder
-                    });
-                }
-                await context.SaveChangesAsync();
+                await UpsertGrammaticalFeaturesAsync(context, gramFeatures);
 
                 // 2. Seed Syntactical Features
                 logger.LogInformation("Seeding syntactical features...");
                 var synFeatures = SyntacticalFeaturesData.GetFeatures();
-                foreach (var (code, name, definition, sortOrder) in synFeatures)
-                {
-                    context.SyntacticalFeatures.Add(new SyntacticalFeature
-                    {
-                        Code = code,
-                        Name = name,
-                        Definition = definition,
-                        SortOrder = sortOrder
-                    });
-                }
-                await context.SaveChangesAsync();
+                await UpsertSyntacticalFeaturesAsync(context, synFeatures);
+
+                // Ensure every grammar/syntax code used in chapter seed data has a backing feature row.
+                await EnsureFeatureCoverageForSeedDataAsync(context, chapters, logger);
 
                 // 3. Seed Vocabulary
                 logger.LogInformation("Seeding vocabulary...");
                 var vocabulary = FirstJohnTextData.GetVocabulary();
                 var occurrencesByRoot = GreekNtOccurrencesData.Load();
-                foreach (var (root, transliteration, gloss, partOfSpeech, fallbackOccurrences) in vocabulary)
-                {
-                    var occurrences = occurrencesByRoot.GetValueOrDefault(root, fallbackOccurrences);
-                    context.Vocabularies.Add(new Vocabulary
-                    {
-                        Root = root,
-                        Transliteration = transliteration,
-                        Gloss = gloss,
-                        PartOfSpeech = partOfSpeech,
-                        Occurrences = occurrences,
-                        CreatedAt = DateTime.UtcNow
-                    });
-                }
-                await context.SaveChangesAsync();
+                await UpsertVocabularyAsync(context, vocabulary, occurrencesByRoot);
 
-                // Get ID mappings for text seeding
-                var gramCodeToId = await context.GrammaticalFeatures.ToDictionaryAsync(f => f.Code, f => f.Id);
-                var synCodeToId = await context.SyntacticalFeatures.ToDictionaryAsync(f => f.Code, f => f.Id);
-                var vocabToId = await context.Vocabularies.ToDictionaryAsync(v => v.Root, v => v.Id);
+                // Get ID mappings for text seeding (duplicate-safe)
+                var gramCodeToId = await BuildGrammaticalFeatureCodeMapAsync(context);
+                var synCodeToId = await BuildSyntacticalFeatureCodeMapAsync(context);
+                var vocabToId = await BuildVocabularyRootMapAsync(context);
 
                 // 4. Create Book
                 logger.LogInformation("Creating book: 1 John...");
@@ -101,11 +74,10 @@ namespace Koine.Infrastructure.Data.Seed
 
                 // 5. Create Chapters
                 logger.LogInformation("Creating chapters...");
-                var chapters = FirstJohnTextData.GetChapters();
                 foreach (var (index, seedUnits) in chapters)
                 {
-                    // Map SeedUnitNodes to Domain UnitNodes
-                    var unitNodes = seedUnits.Select((u, i) => MapToUnitNode(u, gramCodeToId, synCodeToId, vocabToId, i.ToString())).ToList();
+                    // Map objects (Phrase/Word) to Domain UnitNodes
+                    var unitNodes = seedUnits.Select((u, i) => MapObjectToUnitNode(u, gramCodeToId, synCodeToId, vocabToId, i.ToString())).ToList();
                     
                     context.Chapters.Add(new Chapter
                     {
@@ -194,10 +166,344 @@ namespace Koine.Infrastructure.Data.Seed
             return node;
         }
 
+        private static UnitNode MapObjectToUnitNode(
+            object seedObj,
+            Dictionary<string, int> gramCodeToId,
+            Dictionary<string, int> synCodeToId,
+            Dictionary<string, int> vocabToId,
+            string path)
+        {
+            if (seedObj is Phrase phrase)
+            {
+                return new UnitNode
+                {
+                    Type = "unit",
+                    Path = path,
+                    Translation = phrase.Translation,
+                    SynFeatureIds = phrase.SyntaxCodes?
+                        .Select(c => synCodeToId.TryGetValue(c, out var id) ? id : 0)
+                        .Where(id => id != 0)
+                        .ToList(),
+                    Children = phrase.Content?
+                        .Select((c, i) => MapObjectToUnitNode(c, gramCodeToId, synCodeToId, vocabToId, $"{path}.{i}"))
+                        .ToList()
+                };
+            }
+            else if (seedObj is Word word)
+            {
+                var node = new UnitNode
+                {
+                    Type = "word",
+                    Path = path,
+                    Root = word.Greek,
+                    Content = word.Gloss,
+                    Marker = word.Transliteration,
+                    GramFeatureIds = word.GrammarCodes?
+                        .Select(c => gramCodeToId.TryGetValue(c, out var id) ? id : 0)
+                        .Where(id => id != 0)
+                        .ToList(),
+                    VocabId = word.Greek != null && vocabToId.TryGetValue(word.Greek, out var vid) ? vid : null
+                };
+                return node;
+            }
+
+            return new UnitNode { Type = "unknown", Path = path };
+        }
+
         private static string HashPassword(string password)
         {
             // TODO: Use proper password hashing (BCrypt, Argon2, etc.)
             return Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(password));
+        }
+
+        private static async Task UpsertGrammaticalFeaturesAsync(
+            KoineDbContext context,
+            IEnumerable<(string Code, string Name, string Category, string Definition, int SortOrder)> features)
+        {
+            var existing = await context.GrammaticalFeatures
+                .OrderBy(f => f.Id)
+                .ToListAsync();
+            var duplicateRows = existing
+                .GroupBy(f => f.Code)
+                .SelectMany(g => g.Skip(1))
+                .ToList();
+            if (duplicateRows.Count > 0)
+            {
+                context.GrammaticalFeatures.RemoveRange(duplicateRows);
+            }
+            var byCode = existing
+                .GroupBy(f => f.Code)
+                .ToDictionary(g => g.Key, g => g.First());
+
+            foreach (var (code, name, category, definition, sortOrder) in features)
+            {
+                if (byCode.TryGetValue(code, out var current))
+                {
+                    current.Name = name;
+                    current.Category = category;
+                    current.Definition = definition;
+                    current.SortOrder = sortOrder;
+                }
+                else
+                {
+                    var created = new GrammaticalFeature
+                    {
+                        Code = code,
+                        Name = name,
+                        Category = category,
+                        Definition = definition,
+                        SortOrder = sortOrder
+                    };
+                    context.GrammaticalFeatures.Add(created);
+                    byCode[code] = created;
+                }
+            }
+
+            await context.SaveChangesAsync();
+        }
+
+        private static async Task UpsertSyntacticalFeaturesAsync(
+            KoineDbContext context,
+            IEnumerable<(string Code, string Name, string Definition, int SortOrder)> features)
+        {
+            var existing = await context.SyntacticalFeatures
+                .OrderBy(f => f.Id)
+                .ToListAsync();
+            var duplicateRows = existing
+                .GroupBy(f => f.Code)
+                .SelectMany(g => g.Skip(1))
+                .ToList();
+            if (duplicateRows.Count > 0)
+            {
+                context.SyntacticalFeatures.RemoveRange(duplicateRows);
+            }
+            var byCode = existing
+                .GroupBy(f => f.Code)
+                .ToDictionary(g => g.Key, g => g.First());
+
+            foreach (var (code, name, definition, sortOrder) in features)
+            {
+                if (byCode.TryGetValue(code, out var current))
+                {
+                    current.Name = name;
+                    current.Definition = definition;
+                    current.SortOrder = sortOrder;
+                }
+                else
+                {
+                    var created = new SyntacticalFeature
+                    {
+                        Code = code,
+                        Name = name,
+                        Definition = definition,
+                        SortOrder = sortOrder
+                    };
+                    context.SyntacticalFeatures.Add(created);
+                    byCode[code] = created;
+                }
+            }
+
+            await context.SaveChangesAsync();
+        }
+
+        private static async Task UpsertVocabularyAsync(
+            KoineDbContext context,
+            IEnumerable<(string Root, string Transliteration, string Gloss, string PartOfSpeech, int Occurrences)> vocabulary,
+            IReadOnlyDictionary<string, int> occurrencesByRoot)
+        {
+            var existing = await context.Vocabularies
+                .OrderBy(v => v.Id)
+                .ToListAsync();
+            var duplicateRows = existing
+                .Where(v => !string.IsNullOrWhiteSpace(v.Root))
+                .GroupBy(v => v.Root)
+                .SelectMany(g => g.Skip(1))
+                .ToList();
+            if (duplicateRows.Count > 0)
+            {
+                context.Vocabularies.RemoveRange(duplicateRows);
+            }
+            var byRoot = existing
+                .Where(v => !string.IsNullOrWhiteSpace(v.Root))
+                .GroupBy(v => v.Root)
+                .ToDictionary(g => g.Key, g => g.First());
+
+            foreach (var (root, transliteration, gloss, partOfSpeech, fallbackOccurrences) in vocabulary)
+            {
+                var occurrences = occurrencesByRoot.GetValueOrDefault(root, fallbackOccurrences);
+                if (byRoot.TryGetValue(root, out var current))
+                {
+                    current.Transliteration = transliteration;
+                    current.Gloss = gloss;
+                    current.PartOfSpeech = partOfSpeech;
+                    current.Occurrences = occurrences;
+                }
+                else
+                {
+                    var created = new Vocabulary
+                    {
+                        Root = root,
+                        Transliteration = transliteration,
+                        Gloss = gloss,
+                        PartOfSpeech = partOfSpeech,
+                        Occurrences = occurrences,
+                        CreatedAt = DateTime.UtcNow
+                    };
+                    context.Vocabularies.Add(created);
+                    byRoot[root] = created;
+                }
+            }
+
+            await context.SaveChangesAsync();
+        }
+
+        private static async Task EnsureFeatureCoverageForSeedDataAsync(
+            KoineDbContext context,
+            Dictionary<int, List<object>> chapters,
+            ILogger logger)
+        {
+            var (usedGrammarCodes, usedSyntaxCodes) = CollectFeatureCodes(chapters);
+            var knownGrammarCodes = await context.GrammaticalFeatures
+                .Select(f => f.Code)
+                .Distinct()
+                .ToListAsync();
+            var knownSyntaxCodes = await context.SyntacticalFeatures
+                .Select(f => f.Code)
+                .Distinct()
+                .ToListAsync();
+
+            var missingGrammar = usedGrammarCodes
+                .Where(code => !knownGrammarCodes.Contains(code))
+                .OrderBy(code => code)
+                .ToList();
+            var missingSyntax = usedSyntaxCodes
+                .Where(code => !knownSyntaxCodes.Contains(code))
+                .OrderBy(code => code)
+                .ToList();
+
+            if (missingGrammar.Count == 0 && missingSyntax.Count == 0)
+            {
+                return;
+            }
+
+            var maxGrammarSortOrder = await context.GrammaticalFeatures
+                .Select(f => (int?)f.SortOrder)
+                .MaxAsync() ?? 0;
+            var maxSyntaxSortOrder = await context.SyntacticalFeatures
+                .Select(f => (int?)f.SortOrder)
+                .MaxAsync() ?? 0;
+
+            foreach (var code in missingGrammar)
+            {
+                context.GrammaticalFeatures.Add(new GrammaticalFeature
+                {
+                    Code = code,
+                    Name = code,
+                    Category = "generated",
+                    Definition = $"Auto-generated from seed data for grammar code '{code}'.",
+                    SortOrder = ++maxGrammarSortOrder
+                });
+            }
+
+            foreach (var code in missingSyntax)
+            {
+                context.SyntacticalFeatures.Add(new SyntacticalFeature
+                {
+                    Code = code,
+                    Name = code.Replace('_', ' '),
+                    Definition = $"Auto-generated from seed data for syntax code '{code}'.",
+                    SortOrder = ++maxSyntaxSortOrder
+                });
+            }
+
+            await context.SaveChangesAsync();
+            logger.LogWarning(
+                "Auto-generated missing seed feature definitions. Grammar: {GrammarCodes}. Syntax: {SyntaxCodes}.",
+                string.Join(", ", missingGrammar),
+                string.Join(", ", missingSyntax));
+        }
+
+        private static (HashSet<string> GrammarCodes, HashSet<string> SyntaxCodes) CollectFeatureCodes(
+            IReadOnlyDictionary<int, List<object>> chapters)
+        {
+            var grammarCodes = new HashSet<string>(StringComparer.Ordinal);
+            var syntaxCodes = new HashSet<string>(StringComparer.Ordinal);
+
+            foreach (var (_, nodes) in chapters)
+            {
+                foreach (var node in nodes)
+                {
+                    CollectFeatureCodesFromNode(node, grammarCodes, syntaxCodes);
+                }
+            }
+
+            return (grammarCodes, syntaxCodes);
+        }
+
+        private static void CollectFeatureCodesFromNode(
+            object node,
+            ISet<string> grammarCodes,
+            ISet<string> syntaxCodes)
+        {
+            if (node is Word word)
+            {
+                foreach (var code in word.GrammarCodes.Where(c => !string.IsNullOrWhiteSpace(c)))
+                {
+                    grammarCodes.Add(code);
+                }
+
+                return;
+            }
+
+            if (node is Phrase phrase)
+            {
+                foreach (var code in phrase.SyntaxCodes.Where(c => !string.IsNullOrWhiteSpace(c)))
+                {
+                    syntaxCodes.Add(code);
+                }
+
+                foreach (var child in phrase.Content)
+                {
+                    CollectFeatureCodesFromNode(child, grammarCodes, syntaxCodes);
+                }
+            }
+        }
+
+        private static async Task<Dictionary<string, int>> BuildGrammaticalFeatureCodeMapAsync(KoineDbContext context)
+        {
+            var features = await context.GrammaticalFeatures
+                .AsNoTracking()
+                .OrderBy(f => f.Id)
+                .ToListAsync();
+
+            return features
+                .GroupBy(f => f.Code)
+                .ToDictionary(g => g.Key, g => g.First().Id);
+        }
+
+        private static async Task<Dictionary<string, int>> BuildSyntacticalFeatureCodeMapAsync(KoineDbContext context)
+        {
+            var features = await context.SyntacticalFeatures
+                .AsNoTracking()
+                .OrderBy(f => f.Id)
+                .ToListAsync();
+
+            return features
+                .GroupBy(f => f.Code)
+                .ToDictionary(g => g.Key, g => g.First().Id);
+        }
+
+        private static async Task<Dictionary<string, int>> BuildVocabularyRootMapAsync(KoineDbContext context)
+        {
+            var vocabulary = await context.Vocabularies
+                .AsNoTracking()
+                .OrderBy(v => v.Id)
+                .ToListAsync();
+
+            return vocabulary
+                .Where(v => !string.IsNullOrWhiteSpace(v.Root))
+                .GroupBy(v => v.Root)
+                .ToDictionary(g => g.Key, g => g.First().Id);
         }
 
         private static async Task EnsureLessonTracksAndLessonsAsync(KoineDbContext context, ILogger logger)
@@ -267,9 +573,11 @@ namespace Koine.Infrastructure.Data.Seed
                 .ToListAsync();
 
             var lessonIndex = 1;
+            var expectedLessonSlugs = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             foreach (var feature in grammarFeatures)
             {
                 var lessonSlug = $"grammar-{feature.Code.ToLowerInvariant()}";
+                expectedLessonSlugs.Add(lessonSlug);
                 var contentPath = "Data/Seed/Lessons/grammar-template.mdx";
                 var content = await BuildFeatureLessonContentAsync(
                     fallbackHeading: $"Grammar: {feature.Name}",
@@ -295,6 +603,7 @@ namespace Koine.Infrastructure.Data.Seed
             foreach (var feature in syntaxFeatures)
             {
                 var lessonSlug = $"syntax-{feature.Code.ToLowerInvariant()}";
+                expectedLessonSlugs.Add(lessonSlug);
                 var contentPath = "Data/Seed/Lessons/syntax-template.mdx";
                 var content = await BuildFeatureLessonContentAsync(
                     fallbackHeading: $"Syntax: {feature.Name}",
@@ -342,6 +651,7 @@ namespace Koine.Infrastructure.Data.Seed
                     grammaticalFeatureIds: Array.Empty<int>(),
                     syntacticalFeatureIds: Array.Empty<int>(),
                     vocabularyIds: Array.Empty<int>());
+                expectedLessonSlugs.Add("intro-overview");
 
                 await UpsertTrackLessonAsync(
                     context,
@@ -365,6 +675,16 @@ namespace Koine.Infrastructure.Data.Seed
                     grammaticalFeatureIds: Array.Empty<int>(),
                     syntacticalFeatureIds: Array.Empty<int>(),
                     vocabularyIds: Array.Empty<int>());
+                expectedLessonSlugs.Add("intro-syntax-basics");
+            }
+
+            var staleLessons = await context.Lessons
+                .Where(l => l.TrackId == track.Id && !expectedLessonSlugs.Contains(l.Slug))
+                .ToListAsync();
+            if (staleLessons.Count > 0)
+            {
+                context.Lessons.RemoveRange(staleLessons);
+                await context.SaveChangesAsync();
             }
 
             logger.LogInformation("Ensured lessons for track {TrackSlug}: {Count} lessons", track.Slug, lessonIndex - 1);
@@ -765,8 +1085,10 @@ namespace Koine.Infrastructure.Data.Seed
                 BEGIN
                     IF COL_LENGTH('Vocabularies', 'FrequencyRank') IS NOT NULL
                     BEGIN
-                        UPDATE [Vocabularies]
-                        SET [Occurrences] = COALESCE([Occurrences], [FrequencyRank]);
+                        EXEC sp_executesql N'
+                            UPDATE [Vocabularies]
+                            SET [Occurrences] = COALESCE([Occurrences], [FrequencyRank]);
+                        ';
                     END
                 END
                 """);

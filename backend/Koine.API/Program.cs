@@ -10,6 +10,7 @@ using Koine.Application.Services;
 using NSwag;
 using NSwag.Generation.Processors.Security;
 using Microsoft.Data.SqlClient;
+using System.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -46,6 +47,7 @@ builder.Services.AddDbContext<KoineDbContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection"),
         b => b.MigrationsAssembly("Koine.Infrastructure")
+              .EnableRetryOnFailure()
     ));
 
 // Unit of Work & Repositories
@@ -150,10 +152,23 @@ if (app.Environment.IsDevelopment())
                     logger.LogWarning(ex,
                         "Migration attempted to create existing objects; continuing with schema compatibility seeding.");
                 }
+                catch (Exception ex)
+                {
+                    logger.LogWarning(ex,
+                        "Migration failed in development; rebuilding database using EnsureDeleted/EnsureCreated so seeding can continue.");
+                    await RebuildDevelopmentDatabaseAsync(context, logger);
+                }
             }
             else
             {
                 await context.Database.EnsureCreatedAsync();
+            }
+
+            if (!await TableExistsAsync(context, "Books"))
+            {
+                logger.LogWarning(
+                    "Table 'Books' is missing after migration/create in development; rebuilding database using EnsureDeleted/EnsureCreated.");
+                await RebuildDevelopmentDatabaseAsync(context, logger);
             }
 
             await Koine.Infrastructure.Data.Seed.DatabaseSeeder.SeedAsync(services);
@@ -171,4 +186,40 @@ static bool IsDuplicateObjectMigrationError(SqlException ex)
 {
     // SQL Server 2714: "There is already an object named ... in the database."
     return ex.Number == 2714;
+}
+
+static async Task RebuildDevelopmentDatabaseAsync(KoineDbContext context, ILogger logger)
+{
+    await context.Database.EnsureDeletedAsync();
+    await context.Database.EnsureCreatedAsync();
+    logger.LogInformation("Development database was rebuilt with EnsureDeleted/EnsureCreated.");
+}
+
+static async Task<bool> TableExistsAsync(KoineDbContext context, string tableName)
+{
+    var connection = context.Database.GetDbConnection();
+    var shouldClose = connection.State != ConnectionState.Open;
+    if (shouldClose)
+    {
+        await connection.OpenAsync();
+    }
+
+    try
+    {
+        await using var command = connection.CreateCommand();
+        command.CommandText = "SELECT CASE WHEN OBJECT_ID(@tableName, 'U') IS NULL THEN 0 ELSE 1 END;";
+        var parameter = command.CreateParameter();
+        parameter.ParameterName = "@tableName";
+        parameter.Value = tableName;
+        command.Parameters.Add(parameter);
+        var result = await command.ExecuteScalarAsync();
+        return Convert.ToInt32(result) == 1;
+    }
+    finally
+    {
+        if (shouldClose)
+        {
+            await connection.CloseAsync();
+        }
+    }
 }

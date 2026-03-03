@@ -59,13 +59,41 @@ Add to the prompt: *"Generate only verses 1–10 of this chapter."*
 
 ---
 
-### Step 3 — Assemble the Full Class
+### Step 3 — Compile Book-Level Wrappers Deterministically
 
-Once you have all chapter methods, ask Claude:
+Use the wrapper compiler to merge chapter-range snippets into a single
+book seed class (no AI wrapper prompt needed):
 
-> "Given these chapter method signatures: GetChapter1() through
-> GetChapter5(), write the full `FirstJohnTextData` class wrapper
-> with a `GetChapters()` dispatcher, matching the reference style."
+```bash
+python3 data/scripts/compile_book_wrappers.py \
+  --input-dir data/output/csharp \
+  --fallback-log-dir data/output/logs \
+  --book 1John \
+  --output backend/Koine.Infrastructure/Data/Seed/FirstJohnTextData.cs \
+  --namespace Koine.Infrastructure.Data.Seed \
+  --class-name FirstJohnTextData
+```
+
+What it does:
+- Finds `BookChapter{N}_v{start}-{end}.cs` snippets.
+- Sorts/merges them into `GetChapter{N}()` methods.
+- Builds `GetChapters()` automatically.
+- Generates `GetVocabulary()` from unique `new Word { Greek = ... }` entries.
+- Uses `*_response.txt` fallback snippets when a `.cs` snippet is malformed.
+
+Optional validation mode:
+
+```bash
+python3 data/scripts/compile_book_wrappers.py \
+  --input-dir data/output/csharp \
+  --fallback-log-dir data/output/logs \
+  --book 1John \
+  --output /tmp/FirstJohnTextData.generated.cs \
+  --dry-run
+```
+
+If malformed snippets are found, the script warns and skips those ranges.
+Use the warning output to regenerate/fix the affected chapter files.
 
 ---
 

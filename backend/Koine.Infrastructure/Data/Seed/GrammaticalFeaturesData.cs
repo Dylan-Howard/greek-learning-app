@@ -42,11 +42,13 @@ namespace Koine.Infrastructure.Data.Seed
                 ("AOR", "Aorist", "tense", "Aorist tense", 53),
                 ("PERF", "Perfect", "tense", "Perfect tense", 54),
                 ("PLUP", "Pluperfect", "tense", "Pluperfect tense", 55),
+                ("PLPF", "Pluperfect", "tense", "Pluperfect tense (alternate code)", 56),
 
                 // Voice
                 ("ACT", "Active", "voice", "Active voice", 60),
                 ("MID", "Middle", "voice", "Middle voice", 61),
                 ("PASS", "Passive", "voice", "Passive voice", 62),
+                ("MP", "Middle/Passive", "voice", "Middle-passive voice", 63),
 
                 // Mood
                 ("IND", "Indicative", "mood", "Indicative mood", 70),
@@ -69,4 +71,3 @@ namespace Koine.Infrastructure.Data.Seed
         }
     }
 }
-
