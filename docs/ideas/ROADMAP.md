@@ -47,9 +47,11 @@
 - [ ] Verify build succeeds
 
 ### Development Environment
+- [x] Set up local MSSQL container for development (temp, before Azure)
+- [ ] Rename frontend directory
+- [ ] Generate high-level smoke tests for all API routes
 - [ ] Create .env.local.example for frontend
 - [ ] Document environment variables needed
-- [ ] Set up local PostgreSQL for development (temp, before Azure)
 - [ ] Verify all services start correctly
 - [ ] Update README with setup instructions
 

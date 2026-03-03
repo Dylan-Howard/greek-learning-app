@@ -785,7 +785,7 @@ export const Alert: React.FC<AlertProps> = ({
 // Suggested file: src/components/feedback/Dialog.tsx
 // ============================================
 
-export interface DialogComponentProps extends DialogProps {
+export interface DialogComponentProps extends Omit<DialogProps, 'content'> {
   /**
    * Dialog title
    */
