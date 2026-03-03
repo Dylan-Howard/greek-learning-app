@@ -30,7 +30,7 @@ export default function ReaderPageSelect({
     if (reference === 'book') {
       targetBook = parseInt(event.target.value, 10);
       const chapters = await AzureTextService.fetchChaptersByText(targetBook);
-      targetChapter = chapters[0].chapterId;
+      targetChapter = chapters[0]?.chapterNumber ?? 1;
     } else {
       targetChapter = parseInt(event.target.value, 10);
     }

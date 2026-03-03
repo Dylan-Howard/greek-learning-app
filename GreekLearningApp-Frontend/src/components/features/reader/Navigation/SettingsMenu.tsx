@@ -118,9 +118,16 @@ function SettingsMenu({ title } : { title: string }) {
       return;
     }
 
-    const activeChapterId = page?.chapterId || 1;
+    const activeBookId = page?.bookId || 1;
+    const activeChapterNumber = page?.chapterId || 1;
+
     AzureTextService
-      .fetchVocabularyByChapter(activeChapterId)
+      .fetchChaptersByText(activeBookId)
+      .then((chapters) => {
+        const matchedChapter = chapters.find((ch) => ch.chapterNumber === activeChapterNumber);
+        const activeChapterId = matchedChapter?.chapterId ?? activeChapterNumber;
+        return AzureTextService.fetchVocabularyByChapter(activeChapterId);
+      })
       .then((vocabulary: SimpleWordDto[]) => {
         if (vocabulary) {
           setOptions(mapVocabulary(vocabulary, activeUser, filter));

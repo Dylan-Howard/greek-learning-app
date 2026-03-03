@@ -118,7 +118,7 @@ export function mapRenderedUnitsToDisplayUnits(units: RawRenderedUnitDto[] = [])
   return flattened;
 }
 
-export async function fetchPage(chapterId: number, _userId: string, bookId = 1): Promise<{
+export async function fetchPage(chapterNumber: number, _userId: string, bookId = 1): Promise<{
   selection: {
     texts: { textId: number; title: string }[];
     chapters: { chapterId: number; chapterNumber: number }[];
@@ -127,7 +127,7 @@ export async function fetchPage(chapterId: number, _userId: string, bookId = 1):
   text: Unitv2[];
 }> {
   const [rendered, selections] = await Promise.all([
-    apiClient.get<{ chapterId: number; title: string; units: RawRenderedUnitDto[] }>(`reader?book=${bookId}&chapter=${chapterId}`),
+    apiClient.get<{ chapterId: number; title: string; units: RawRenderedUnitDto[] }>(`reader?book=${bookId}&chapter=${chapterNumber}`),
     AzureTextService.fetchTextSelectionOptions(bookId),
   ]);
 
