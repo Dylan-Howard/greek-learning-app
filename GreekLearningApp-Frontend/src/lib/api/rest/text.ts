@@ -128,7 +128,8 @@ export async function fetchMorphologyDetails(morphologyId: number) {
       genderName: '',
       patternName: '',
       degreeName: '',
-      rootName: word.gloss || '',
+      rootName: word.content || '',
+      glossName: word.gloss || '',
     };
   } catch {
     return undefined;
@@ -146,6 +147,27 @@ export type SyntacticalFeatureDetails = {
   name: string;
   definition?: string;
 };
+
+export type GrammaticalFeatureDetails = {
+  id: number;
+  code: string;
+  name: string;
+  lessonId?: number;
+};
+
+export async function fetchGrammaticalFeatureDetails(featureId: number): Promise<GrammaticalFeatureDetails | undefined> {
+  try {
+    const feature = await apiClient.get<any>(`grammaticalForms/${featureId}`);
+    return {
+      id: toNumber(feature.grammarId, featureId),
+      code: feature.abbreviation || `Feature ${featureId}`,
+      name: feature.name || `Feature ${featureId}`,
+      lessonId: toNumber(feature.lessonId),
+    };
+  } catch {
+    return undefined;
+  }
+}
 
 export async function fetchSyntacticalFeatureDetails(featureId: number): Promise<SyntacticalFeatureDetails | undefined> {
   try {

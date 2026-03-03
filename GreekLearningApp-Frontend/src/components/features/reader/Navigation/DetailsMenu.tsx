@@ -12,6 +12,61 @@ import * as AzureTextService from '@/lib/api/rest/text';
 import { useReaderContext } from '@/app/reader/ReaderPage/ReaderPageContext';
 import WordAudioButton from '@/components/features/reader/Navigation/WordAudioButton';
 
+const POS_CODES = new Set(['N', 'V', 'ADJ', 'ART', 'PRON', 'PREP', 'CONJ', 'ADV', 'PART', 'INTERJ']);
+const CASE_CODES = new Set(['NOM', 'GEN', 'DAT', 'ACC', 'VOC']);
+const GENDER_CODES = new Set(['M', 'F', 'NEUT']);
+const NUMBER_CODES = new Set(['S', 'P']);
+const TENSE_CODES = new Set(['PRES', 'IMPF', 'FUT', 'AOR', 'PERF', 'PLUP', 'PLPF']);
+const VOICE_CODES = new Set(['ACT', 'MID', 'PASS', 'MP']);
+const MOOD_CODES = new Set(['IND', 'SUBJ', 'OPT', 'IMP', 'INF', 'PTCP']);
+const PERSON_CODES = new Set(['1P', '2P', '3P']);
+const DEGREE_CODES = new Set(['POS', 'COMP', 'SUPER']);
+
+function pickFeatureName(
+  features: AzureTextService.GrammaticalFeatureDetails[],
+  codeSet: Set<string>,
+) {
+  return features.find((feature) => codeSet.has(feature.code))?.name || '';
+}
+
+function buildMorphologyDetails(
+  features: AzureTextService.GrammaticalFeatureDetails[],
+  morphology: Awaited<ReturnType<typeof AzureTextService.fetchMorphologyDetails>> | undefined,
+): { field: string, value: string }[] {
+  const details: { field: string, value: string }[] = [];
+  const partOfSpeech = pickFeatureName(features, POS_CODES);
+  const grammaticalCase = pickFeatureName(features, CASE_CODES);
+  const tense = pickFeatureName(features, TENSE_CODES);
+  const voice = pickFeatureName(features, VOICE_CODES);
+  const mood = pickFeatureName(features, MOOD_CODES);
+  const person = pickFeatureName(features, PERSON_CODES);
+  const number = pickFeatureName(features, NUMBER_CODES);
+  const gender = pickFeatureName(features, GENDER_CODES);
+  const degree = pickFeatureName(features, DEGREE_CODES);
+
+  if (partOfSpeech) { details.push({ field: 'Part of Speech', value: partOfSpeech }); }
+  if (grammaticalCase) { details.push({ field: 'Case', value: grammaticalCase }); }
+  if (tense) { details.push({ field: 'Tense', value: tense }); }
+  if (voice) { details.push({ field: 'Voice', value: voice }); }
+  if (mood) { details.push({ field: 'Mood', value: mood }); }
+  if (person) { details.push({ field: 'Person', value: person }); }
+  if (number) { details.push({ field: 'Number', value: number }); }
+  if (gender) { details.push({ field: 'Gender', value: gender }); }
+  if (degree) { details.push({ field: 'Degree', value: degree }); }
+  if (features.length > 0) {
+    details.push({ field: 'Grammar Tags', value: features.map((feature) => feature.code).join(', ') });
+  }
+
+  if (morphology?.rootName) {
+    details.push({ field: 'Root', value: morphology.rootName });
+  }
+  if (morphology?.glossName) {
+    details.push({ field: 'Gloss', value: morphology.glossName });
+  }
+
+  return details;
+}
+
 function DetailsItem({ label, value } : { label: string, value: string }) {
   return (
     <Box sx={{ mr: 2, mb: 2 }}>
@@ -40,46 +95,32 @@ function DetailsMenu() {
       return;
     }
 
-    if (!selectedUnit.morphologyId) {
-      setContent({
-        title: selectedUnit.content,
-        formDetails: [],
-        loading: false,
-      });
-      return;
-    }
-
     let cancelled = false;
     setContent((prev) => ({ ...prev, loading: true }));
-    AzureTextService.fetchMorphologyDetails(selectedUnit.morphologyId)
-      .then((frm: Awaited<ReturnType<typeof AzureTextService.fetchMorphologyDetails>>) => {
-        if (!frm || cancelled) {
-          return;
-        }
+    const grammarFeatureIds = (selectedUnit.grammarFeatureIds || []).filter((id: number) => id > 0);
+    Promise.all([
+      selectedUnit.morphologyId
+        ? AzureTextService.fetchMorphologyDetails(selectedUnit.morphologyId)
+        : Promise.resolve(undefined),
+      Promise.all(grammarFeatureIds.map((featureId: number) => AzureTextService.fetchGrammaticalFeatureDetails(featureId))),
+    ]).then(([morphology, grammarFeatures]) => {
+      if (cancelled) {
+        return;
+      }
 
-        const newContent: {
-          title: string,
-          formDetails: { field: string, value: string }[],
-          loading: boolean,
-        } = {
-          title: frm.content || '',
-          formDetails: [],
-          loading: false,
-        };
-        newContent.formDetails.push({ field: 'Part of Speech', value: frm.posName });
-        if (frm.caseName) { newContent.formDetails.push({ field: 'Case', value: frm.caseName }); }
-        if (frm.tenseName) { newContent.formDetails.push({ field: 'Tense', value: frm.tenseName }); }
-        if (frm.voiceName) { newContent.formDetails.push({ field: 'Voice', value: frm.voiceName }); }
-        if (frm.moodName) { newContent.formDetails.push({ field: 'Mood', value: frm.moodName }); }
-        if (frm.personName) { newContent.formDetails.push({ field: 'Person', value: frm.personName }); }
-        if (frm.numberName) { newContent.formDetails.push({ field: 'Number', value: frm.numberName }); }
-        if (frm.genderName) { newContent.formDetails.push({ field: 'Gender', value: frm.genderName }); }
-        if (frm.patternName) { newContent.formDetails.push({ field: 'Pattern', value: frm.patternName }); }
-        if (frm.degreeName) { newContent.formDetails.push({ field: 'Degree', value: frm.degreeName }); }
-        newContent.formDetails.push({ field: 'Root', value: frm.rootName });
+      const validGrammarFeatures = grammarFeatures.filter(
+        (feature): feature is AzureTextService.GrammaticalFeatureDetails => !!feature,
+      );
+      const title = selectedUnit.original || selectedUnit.content || morphology?.content || '';
+      const formDetails = buildMorphologyDetails(validGrammarFeatures, morphology);
 
-        setContent(newContent);
+      setContent({
+        title,
+        formDetails,
+        loading: false,
       });
+    });
+
     return () => { cancelled = true; };
   }, [selectedUnit]);
 
