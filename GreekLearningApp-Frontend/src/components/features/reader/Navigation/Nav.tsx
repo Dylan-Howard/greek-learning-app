@@ -24,6 +24,13 @@ import PersonIcon from '@mui/icons-material/Person';
 import { useReaderContext } from '@/app/reader/ReaderPage/ReaderPageContext';
 
 export default function Nav() {
+  const devUserLabel: Record<string, string> = {
+    '1': 'Dev Novice',
+    '2': 'Dev 100+',
+    '3': 'Dev 50+',
+    '4': 'Dev 15+',
+    '5': 'Dev Mastered',
+  };
   const { page, setPage } = useReaderContext();
   const [devUserId, setDevUserId] = useState('1');
 
@@ -54,7 +61,7 @@ export default function Nav() {
       <FormControl size="small" sx={{ p: 1 }}>
         <Select value={devUserId} onChange={(evt) => handleUserChange(`${evt.target.value}`)}>
           {DEV_USER_OPTIONS.map((id: string) => (
-            <MenuItem value={id} key={`dev-user-${id}`}>{`Dev User ${id}`}</MenuItem>
+            <MenuItem value={id} key={`dev-user-${id}`}>{devUserLabel[id] || `Dev User ${id}`}</MenuItem>
           ))}
         </Select>
       </FormControl>

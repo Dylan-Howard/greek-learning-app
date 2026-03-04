@@ -90,10 +90,6 @@ namespace Koine.Infrastructure.Data.Seed
                 }
                 await context.SaveChangesAsync();
 
-                // 6. Seed system vocabulary sets
-                logger.LogInformation("Creating system vocabulary sets...");
-                await EnsureSystemVocabularySetsAsync(context);
-
                 // 6. Create Translation
                 logger.LogInformation("Creating translation...");
                 var translation = new Translation
@@ -110,21 +106,13 @@ namespace Koine.Infrastructure.Data.Seed
                 logger.LogInformation("Creating lesson tracks and lessons...");
                 await EnsureLessonTracksAndLessonsAsync(context, logger);
 
-                // 8. Create Test Users
-                logger.LogInformation("Creating test users...");
-                var testUsers = new[]
-                {
-                    new User { Email = "beginner@test.com", Username = "beginner", PasswordHash = HashPassword("password123"), CreatedAt = DateTime.UtcNow },
-                    new User { Email = "intermediate@test.com", Username = "intermediate", PasswordHash = HashPassword("password123"), CreatedAt = DateTime.UtcNow },
-                    new User { Email = "advanced@test.com", Username = "advanced", PasswordHash = HashPassword("password123"), CreatedAt = DateTime.UtcNow },
-                    new User { Email = "struggling@test.com", Username = "struggling", PasswordHash = HashPassword("password123"), CreatedAt = DateTime.UtcNow }
-                };
+                // 8. Create development users and progression profiles for reader/SRS validation.
+                logger.LogInformation("Creating development users and vocabulary mastery profiles...");
+                await EnsureDevelopmentUsersAndProfilesAsync(context, logger);
 
-                foreach (var user in testUsers)
-                {
-                    context.Users.Add(user);
-                }
-                await context.SaveChangesAsync();
+                // 9. Seed system vocabulary sets
+                logger.LogInformation("Creating system vocabulary sets...");
+                await EnsureSystemVocabularySetsAsync(context);
 
                 logger.LogInformation("Database seeding completed successfully!");
             }
@@ -214,6 +202,194 @@ namespace Koine.Infrastructure.Data.Seed
         {
             // TODO: Use proper password hashing (BCrypt, Argon2, etc.)
             return Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(password));
+        }
+
+        private static async Task EnsureDevelopmentUsersAndProfilesAsync(KoineDbContext context, ILogger logger)
+        {
+            var now = DateTime.UtcNow;
+            var userSeeds = new[]
+            {
+                new { Username = "novice", Email = "novice@test.com", DisplayName = "Dev Novice", Profile = "none" },
+                new { Username = "freq100", Email = "freq100@test.com", DisplayName = "Dev 100+", Profile = "gt100" },
+                new { Username = "freq50", Email = "freq50@test.com", DisplayName = "Dev 50+", Profile = "gt50" },
+                new { Username = "freq15", Email = "freq15@test.com", DisplayName = "Dev 15+", Profile = "gt15" },
+                new { Username = "mastered", Email = "mastered@test.com", DisplayName = "Dev Mastered", Profile = "all" },
+            };
+
+            var usersByProfile = new Dictionary<string, User>(StringComparer.Ordinal);
+            foreach (var seed in userSeeds)
+            {
+                var user = await context.Users.FirstOrDefaultAsync(u => u.Username == seed.Username);
+                if (user == null)
+                {
+                    user = new User
+                    {
+                        Email = seed.Email,
+                        Username = seed.Username,
+                        DisplayName = seed.DisplayName,
+                        PasswordHash = HashPassword("password123"),
+                        CreatedAt = now
+                    };
+                    context.Users.Add(user);
+                }
+                else
+                {
+                    user.Email = seed.Email;
+                    user.DisplayName = seed.DisplayName;
+                    user.PasswordHash = HashPassword("password123");
+                    context.Users.Update(user);
+                }
+
+                usersByProfile[seed.Profile] = user;
+            }
+
+            await context.SaveChangesAsync();
+
+            var vocabMeta = await context.Vocabularies
+                .AsNoTracking()
+                .Select(v => new { v.Id, Occurrences = v.Occurrences ?? 0 })
+                .ToListAsync();
+            var grammarIds = await context.GrammaticalFeatures
+                .AsNoTracking()
+                .Select(g => g.Id)
+                .ToListAsync();
+            var syntaxIds = await context.SyntacticalFeatures
+                .AsNoTracking()
+                .Select(s => s.Id)
+                .ToListAsync();
+
+            var masteredGrammar = grammarIds.ToDictionary(
+                id => id,
+                _ => new FeatureProgress
+                {
+                    MasteryLevel = 100,
+                    NeedsPractice = false,
+                    LastPracticed = now.AddDays(-1)
+                });
+            var masteredSyntax = syntaxIds.ToDictionary(
+                id => id,
+                _ => new FeatureProgress
+                {
+                    MasteryLevel = 100,
+                    NeedsPractice = false,
+                    LastPracticed = now.AddDays(-1)
+                });
+
+            Dictionary<int, VocabularyProgress> BuildVocabularyProfile(Func<int, bool> isMastered)
+            {
+                return vocabMeta.ToDictionary(
+                    v => v.Id,
+                    v =>
+                    {
+                        var mastered = isMastered(v.Occurrences);
+                        return new VocabularyProgress
+                        {
+                            MasteryLevel = mastered ? 95 : 45,
+                            NeedsPractice = !mastered,
+                            LastPracticed = now.AddDays(mastered ? -2 : -10),
+                            TimesSeen = mastered ? 24 : 4
+                        };
+                    });
+            }
+
+            HashSet<int> ResolveMasteredIds(int thresholdExclusive, double fallbackPercentile)
+            {
+                var direct = vocabMeta
+                    .Where(v => v.Occurrences > thresholdExclusive)
+                    .Select(v => v.Id)
+                    .ToHashSet();
+                if (direct.Count > 0)
+                {
+                    return direct;
+                }
+
+                if (vocabMeta.Count == 0)
+                {
+                    return new HashSet<int>();
+                }
+
+                var takeCount = Math.Max(1, (int)Math.Ceiling(vocabMeta.Count * fallbackPercentile));
+                return vocabMeta
+                    .OrderByDescending(v => v.Occurrences)
+                    .ThenBy(v => v.Id)
+                    .Take(takeCount)
+                    .Select(v => v.Id)
+                    .ToHashSet();
+            }
+
+            var gt100MasteredIds = ResolveMasteredIds(100, 0.10);
+            var gt50MasteredIds = ResolveMasteredIds(50, 0.25);
+            var gt15MasteredIds = ResolveMasteredIds(15, 0.50);
+
+            var profileProgress = new Dictionary<string, Dictionary<int, VocabularyProgress>>(StringComparer.Ordinal)
+            {
+                ["none"] = BuildVocabularyProfile(_ => false),
+                ["gt100"] = BuildVocabularyProfile(_ => false),
+                ["gt50"] = BuildVocabularyProfile(_ => false),
+                ["gt15"] = BuildVocabularyProfile(_ => false),
+                ["all"] = BuildVocabularyProfile(_ => true),
+            };
+            foreach (var vocabId in gt100MasteredIds)
+            {
+                profileProgress["gt100"][vocabId] = new VocabularyProgress
+                {
+                    MasteryLevel = 95,
+                    NeedsPractice = false,
+                    LastPracticed = now.AddDays(-2),
+                    TimesSeen = 24
+                };
+            }
+            foreach (var vocabId in gt50MasteredIds)
+            {
+                profileProgress["gt50"][vocabId] = new VocabularyProgress
+                {
+                    MasteryLevel = 95,
+                    NeedsPractice = false,
+                    LastPracticed = now.AddDays(-2),
+                    TimesSeen = 24
+                };
+            }
+            foreach (var vocabId in gt15MasteredIds)
+            {
+                profileProgress["gt15"][vocabId] = new VocabularyProgress
+                {
+                    MasteryLevel = 95,
+                    NeedsPractice = false,
+                    LastPracticed = now.AddDays(-2),
+                    TimesSeen = 24
+                };
+            }
+
+            foreach (var (profile, user) in usersByProfile)
+            {
+                var userProgress = await context.UserProgresses.FirstOrDefaultAsync(up => up.UserId == user.Id);
+                if (userProgress == null)
+                {
+                    userProgress = new UserProgress
+                    {
+                        UserId = user.Id,
+                        CompletedLessonIdsJson = "[]",
+                        UpdatedAt = now
+                    };
+                    context.UserProgresses.Add(userProgress);
+                }
+
+                userProgress.GrammaticalFeatureProgressJson = JsonSerializer.Serialize(masteredGrammar);
+                userProgress.SyntacticalFeatureProgressJson = JsonSerializer.Serialize(masteredSyntax);
+                userProgress.VocabularyProgressJson = JsonSerializer.Serialize(profileProgress[profile]);
+                userProgress.UpdatedAt = now;
+            }
+
+            await context.SaveChangesAsync();
+
+            logger.LogInformation(
+                "Ensured development reader profiles: novice(0), freq100(>100), freq50(>50), freq15(>15), mastered(all).");
+            logger.LogInformation(
+                "Development profile coverage counts: gt100={Gt100}, gt50={Gt50}, gt15={Gt15}, totalVocab={Total}.",
+                gt100MasteredIds.Count,
+                gt50MasteredIds.Count,
+                gt15MasteredIds.Count,
+                vocabMeta.Count);
         }
 
         private static async Task UpsertGrammaticalFeaturesAsync(
