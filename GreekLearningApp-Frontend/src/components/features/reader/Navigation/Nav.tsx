@@ -20,6 +20,7 @@ import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import AbcIcon from '@mui/icons-material/Abc';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import PersonIcon from '@mui/icons-material/Person';
+import SchoolIcon from '@mui/icons-material/School';
 
 import { useReaderContext } from '@/app/reader/ReaderPage/ReaderPageContext';
 
@@ -39,7 +40,7 @@ export default function Nav() {
   }, []);
 
   const handleChange = (_e: any, newTab: number) => {
-    if (newTab === 4) {
+    if (newTab === 5) {
       return;
     }
     setPage({ ...page, tabId: newTab });
@@ -101,6 +102,11 @@ export default function Nav() {
         }
         <BottomNavigationAction
           value={4}
+          label="Study"
+          icon={<SchoolIcon />}
+        />
+        <BottomNavigationAction
+          value={5}
           label="Profile"
           icon={<PersonIcon />}
           href="/profile"

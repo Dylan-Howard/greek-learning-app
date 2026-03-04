@@ -22,12 +22,12 @@ namespace Koine.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<UserProgressDto>> Get()
+        public async Task<ActionResult<UserProgressDto>> Get([FromQuery] int? userId = null)
         {
             try
             {
-                var userId = GetUserIdFromClaimsOrDefault();
-                var progress = await _progressService.GetUserProgressAsync(userId);
+                var resolvedUserId = GetUserIdFromClaimsOrDefault(userId);
+                var progress = await _progressService.GetUserProgressAsync(resolvedUserId);
                 
                 if (progress == null)
                     return NotFound(new { message = "Progress not found" });
@@ -42,12 +42,12 @@ namespace Koine.API.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> Update([FromBody] UserProgressDto progressDto)
+        public async Task<ActionResult> Update([FromBody] UserProgressDto progressDto, [FromQuery] int? userId = null)
         {
             try
             {
-                var userId = GetUserIdFromClaimsOrDefault();
-                var success = await _progressService.UpdateProgressAsync(userId, progressDto);
+                var resolvedUserId = GetUserIdFromClaimsOrDefault(userId);
+                var success = await _progressService.UpdateProgressAsync(resolvedUserId, progressDto);
                 
                 if (!success)
                     return BadRequest(new { message = "Failed to update progress" });
@@ -61,12 +61,15 @@ namespace Koine.API.Controllers
             }
         }
 
-        private int GetUserIdFromClaimsOrDefault()
+        private int GetUserIdFromClaimsOrDefault(int? fallbackUserId = null)
         {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (string.IsNullOrEmpty(userIdClaim) || !int.TryParse(userIdClaim, out var userId))
             {
-                // TODO(next phase): Re-enable strict auth and remove dev fallback.
+                if (fallbackUserId.HasValue && fallbackUserId.Value > 0)
+                {
+                    return fallbackUserId.Value;
+                }
                 return 1;
             }
             return userId;

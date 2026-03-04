@@ -52,6 +52,7 @@ builder.Services.AddDbContext<KoineDbContext>(options =>
 
 // Unit of Work & Repositories
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddHttpContextAccessor();
 
 // Application Services
 builder.Services.AddScoped<IReaderService, ReaderService>();
@@ -68,7 +69,7 @@ builder.Services.AddScoped<ITranslationUnitService, TranslationUnitService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IStudyService, StudyService>();
 builder.Services.AddScoped<Koine.Application.Study.Services.StudySessionService>();
-builder.Services.AddScoped<Koine.Application.Study.Ports.ICurrentUserProvider, Koine.Infrastructure.Study.HardcodedUserProvider>();
+builder.Services.AddScoped<Koine.Application.Study.Ports.ICurrentUserProvider, Koine.API.Providers.HttpContextCurrentUserProvider>();
 builder.Services.AddScoped<Koine.Application.Study.Ports.IUserCardProgressRepository, Koine.Infrastructure.Study.Repositories.UserCardProgressRepository>();
 builder.Services.AddScoped<Koine.Application.Study.Ports.IStudySessionRepository, Koine.Infrastructure.Study.Repositories.StudySessionRepository>();
 builder.Services.AddScoped<Koine.Application.Study.Ports.IVocabularyRepository, Koine.Infrastructure.Study.Repositories.StudyVocabularyRepository>();

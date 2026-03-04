@@ -213,6 +213,7 @@ export interface StartSessionRequest {
   direction: StudyDirection;
   mode: InteractionMode;
   vocabularySetId?: number | null;
+  vocabularyIds?: number[] | null;
 }
 
 export interface SessionDto {

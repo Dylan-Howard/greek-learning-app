@@ -2,6 +2,7 @@
 
 import {
   ChangeEvent,
+  useMemo,
   useEffect,
   useState,
 } from 'react';
@@ -44,11 +45,11 @@ function mapLessons(lessons: Lesson[], user: User | undefined, filter: string) {
 }
 
 function mapVocabulary(vocabulary: Array<Wordv2 | SimpleWordDto>, user: User | undefined, filter: string) {
+  const normalizedFilter = filter.trim().toLowerCase();
   return vocabulary
     .filter((vcb) => (
-      filter.toLowerCase() === transliterateGreek(
-        vcb.content.substring(0, filter.length),
-      ).toLowerCase()
+      normalizedFilter.length === 0
+      || transliterateGreek(vcb.content).toLowerCase().startsWith(normalizedFilter)
     )).map((vcb) => ({
       id: vcb.rootId,
       name: vcb.content,
@@ -74,12 +75,8 @@ function SettingsMenu({ title } : { title: string }) {
   const [activeUser, setActiveUser] = useState(AzureUserService.getDefaultUserState());
 
   const [filter, setFilter] = useState('');
-  const [options, setOptions] = useState([{
-    id: 0,
-    type: '',
-    name: '',
-    isActive: false,
-  }]);
+  const [lessonOptions, setLessonOptions] = useState<Lesson[]>([]);
+  const [vocabularyOptions, setVocabularyOptions] = useState<SimpleWordDto[]>([]);
   const [loading, setLoading] = useState({
     user: true,
     options: true,
@@ -106,10 +103,10 @@ function SettingsMenu({ title } : { title: string }) {
     AzureTextService
       .fetchLessons()
       .then((lessons: Lesson[]) => {
-        if (lessons) {
-          setOptions(mapLessons(lessons, activeUser, filter));
-          setLoading({ ...loading, options: false });
-        }
+        setLessonOptions(lessons || []);
+      })
+      .finally(() => {
+        setLoading((prev) => ({ ...prev, options: false }));
       });
   };
 
@@ -129,29 +126,23 @@ function SettingsMenu({ title } : { title: string }) {
         return AzureTextService.fetchVocabularyByChapter(activeChapterId);
       })
       .then((vocabulary: SimpleWordDto[]) => {
-        if (vocabulary) {
-          setOptions(mapVocabulary(vocabulary, activeUser, filter));
-          setLoading({ ...loading, options: false });
-        }
+        setVocabularyOptions(vocabulary || []);
+      })
+      .finally(() => {
+        setLoading((prev) => ({ ...prev, options: false }));
       });
   };
 
   const handleDetailsFetch = () => {
-    setOptions([{
-      id: 1,
-      type: 'Details',
-      name: page && page.morphologyId ? `${page.morphologyId}` : '',
-      isActive: true,
-    }]);
-    setLoading({ ...loading, options: false });
+    setLoading((prev) => ({ ...prev, options: false }));
   };
 
   useEffect(() => {
     const loadUser = (id: string) => {
-      setLoading({ ...loading, user: true });
+      setLoading((prev) => ({ ...prev, user: true }));
       AzureUserService.fetchUser(id).then((usr: User) => {
         setActiveUser(usr);
-        setLoading({ ...loading, user: false });
+        setLoading((prev) => ({ ...prev, user: false }));
       });
     };
 
@@ -168,7 +159,7 @@ function SettingsMenu({ title } : { title: string }) {
 
   /* Loads the settings */
   useEffect(() => {
-    setLoading({ ...loading, options: true });
+    setLoading((prev) => ({ ...prev, options: true }));
     if (title === 'Lessons') {
       handleLessonsFetch();
     }
@@ -178,7 +169,25 @@ function SettingsMenu({ title } : { title: string }) {
     if (title === 'Details') {
       handleDetailsFetch();
     }
-  }, [title, filter, activeUser]);
+  }, [title, activeUser.id, page?.bookId, page?.chapterId]);
+
+  const options = useMemo(() => {
+    if (title === 'Lessons') {
+      return mapLessons(lessonOptions, activeUser, filter);
+    }
+    if (title === 'Dictionary') {
+      return mapVocabulary(vocabularyOptions, activeUser, filter);
+    }
+    if (title === 'Details') {
+      return [{
+        id: 1,
+        type: 'Details',
+        name: page && page.morphologyId ? `${page.morphologyId}` : '',
+        isActive: true,
+      }];
+    }
+    return [];
+  }, [title, lessonOptions, vocabularyOptions, activeUser, filter, page?.morphologyId]);
 
   const handleTextboxChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFilter(e.target.value);
@@ -276,6 +285,7 @@ function SettingsMenu({ title } : { title: string }) {
       <TextField
         label="Search"
         type="search"
+        value={filter}
         onChange={(e) => handleTextboxChange(e)}
         size="small"
         sx={{ bgcolor: 'background.default', mb: 2 }}

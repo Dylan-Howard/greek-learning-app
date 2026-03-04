@@ -1,12 +1,27 @@
 'use client';
 
 import { createContext, useContext } from 'react';
+import { Unitv2 } from '@/lib/types/domain/text';
+
+export type ReaderRatedWordState = 'accepted' | 'rejected';
+
+export interface ReaderStudyState {
+  queueWordIds: number[];
+  currentWordId?: number;
+  currentIndex: number;
+  sessionId?: string;
+  ratedStates: Record<number, ReaderRatedWordState>;
+  completed: boolean;
+}
 
 export interface ReaderPage {
   bookId: number;
   chapterId: number;
   tabId: number;
   morphologyId: number;
+  chapterUnits?: Unitv2[];
+  studyFocusWordId?: number;
+  study?: ReaderStudyState;
   selectedUnit?: {
     unitId: number;
     content: string;

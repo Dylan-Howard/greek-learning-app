@@ -258,36 +258,63 @@ namespace Koine.Infrastructure.Data.Seed
                 .Select(s => s.Id)
                 .ToListAsync();
 
-            var masteredGrammar = grammarIds.ToDictionary(
-                id => id,
-                _ => new FeatureProgress
-                {
-                    MasteryLevel = 100,
-                    NeedsPractice = false,
-                    LastPracticed = now.AddDays(-1)
-                });
-            var masteredSyntax = syntaxIds.ToDictionary(
-                id => id,
-                _ => new FeatureProgress
-                {
-                    MasteryLevel = 100,
-                    NeedsPractice = false,
-                    LastPracticed = now.AddDays(-1)
-                });
-
-            Dictionary<int, VocabularyProgress> BuildVocabularyProfile(Func<int, bool> isMastered)
+            Dictionary<int, FeatureProgress> BuildFeatureProfile(int mastery)
             {
+                return grammarIds.ToDictionary(
+                    id => id,
+                    _ => new FeatureProgress
+                    {
+                        MasteryLevel = mastery,
+                        NeedsPractice = false,
+                        LastPracticed = now.AddDays(-1)
+                    });
+            }
+
+            Dictionary<int, FeatureProgress> BuildSyntaxProfile(int mastery)
+            {
+                return syntaxIds.ToDictionary(
+                    id => id,
+                    _ => new FeatureProgress
+                    {
+                        MasteryLevel = mastery,
+                        NeedsPractice = false,
+                        LastPracticed = now.AddDays(-1)
+                    });
+            }
+
+            Dictionary<int, VocabularyProgress> BuildVocabularyProfile(
+                HashSet<int> masteredIds,
+                double practicingFractionOfRemaining = 0.35,
+                Func<int, bool>? forcePracticingPredicate = null)
+            {
+                var remainingByFrequency = vocabMeta
+                    .Where(v => !masteredIds.Contains(v.Id))
+                    .OrderByDescending(v => v.Occurrences)
+                    .ThenBy(v => v.Id)
+                    .Select(v => v.Id)
+                    .ToList();
+                var practicingCount = remainingByFrequency.Count == 0
+                    ? 0
+                    : practicingFractionOfRemaining <= 0
+                        ? 0
+                        : Math.Max(1, (int)Math.Ceiling(remainingByFrequency.Count * practicingFractionOfRemaining));
+                var practicingIds = remainingByFrequency
+                    .Take(practicingCount)
+                    .ToHashSet();
+
                 return vocabMeta.ToDictionary(
                     v => v.Id,
                     v =>
                     {
-                        var mastered = isMastered(v.Occurrences);
+                        var forcePracticing = forcePracticingPredicate?.Invoke(v.Id) == true;
+                        var mastered = masteredIds.Contains(v.Id) && !forcePracticing;
+                        var practicing = !mastered && (forcePracticing || practicingIds.Contains(v.Id));
                         return new VocabularyProgress
                         {
-                            MasteryLevel = mastered ? 95 : 45,
-                            NeedsPractice = !mastered,
-                            LastPracticed = now.AddDays(mastered ? -2 : -10),
-                            TimesSeen = mastered ? 24 : 4
+                            MasteryLevel = mastered ? 95 : practicing ? 60 : 0,
+                            NeedsPractice = practicing,
+                            LastPracticed = now.AddDays(mastered ? -2 : practicing ? -5 : -14),
+                            TimesSeen = mastered ? 24 : practicing ? 8 : 0
                         };
                     });
             }
@@ -317,48 +344,61 @@ namespace Koine.Infrastructure.Data.Seed
                     .ToHashSet();
             }
 
+            HashSet<int> CapMasteredIds(HashSet<int> masteredIds, double maxFraction)
+            {
+                if (vocabMeta.Count == 0)
+                {
+                    return masteredIds;
+                }
+
+                var maxCount = Math.Max(1, (int)Math.Floor(vocabMeta.Count * maxFraction));
+                if (masteredIds.Count <= maxCount)
+                {
+                    return masteredIds;
+                }
+
+                return vocabMeta
+                    .Where(v => masteredIds.Contains(v.Id))
+                    .OrderByDescending(v => v.Occurrences)
+                    .ThenBy(v => v.Id)
+                    .Take(maxCount)
+                    .Select(v => v.Id)
+                    .ToHashSet();
+            }
+
             var gt100MasteredIds = ResolveMasteredIds(100, 0.10);
-            var gt50MasteredIds = ResolveMasteredIds(50, 0.25);
-            var gt15MasteredIds = ResolveMasteredIds(15, 0.50);
+            var gt50MasteredIds = CapMasteredIds(ResolveMasteredIds(50, 0.25), maxFraction: 0.80);
+            var gt15MasteredIds = CapMasteredIds(ResolveMasteredIds(15, 0.50), maxFraction: 0.92);
 
             var profileProgress = new Dictionary<string, Dictionary<int, VocabularyProgress>>(StringComparer.Ordinal)
             {
-                ["none"] = BuildVocabularyProfile(_ => false),
-                ["gt100"] = BuildVocabularyProfile(_ => false),
-                ["gt50"] = BuildVocabularyProfile(_ => false),
-                ["gt15"] = BuildVocabularyProfile(_ => false),
-                ["all"] = BuildVocabularyProfile(_ => true),
+                // Novice: unknown vocabulary to force translated rendering.
+                ["none"] = BuildVocabularyProfile(new HashSet<int>(), practicingFractionOfRemaining: 0.0),
+                ["gt100"] = BuildVocabularyProfile(gt100MasteredIds),
+                ["gt50"] = BuildVocabularyProfile(gt50MasteredIds, forcePracticingPredicate: id => id % 5 == 0),
+                ["gt15"] = BuildVocabularyProfile(gt15MasteredIds, forcePracticingPredicate: id => id % 11 == 0),
+                ["all"] = BuildVocabularyProfile(vocabMeta.Select(v => v.Id).ToHashSet(), practicingFractionOfRemaining: 0.0),
             };
-            foreach (var vocabId in gt100MasteredIds)
+
+            var profileGrammar = new Dictionary<string, Dictionary<int, FeatureProgress>>(StringComparer.Ordinal)
             {
-                profileProgress["gt100"][vocabId] = new VocabularyProgress
-                {
-                    MasteryLevel = 95,
-                    NeedsPractice = false,
-                    LastPracticed = now.AddDays(-2),
-                    TimesSeen = 24
-                };
-            }
-            foreach (var vocabId in gt50MasteredIds)
+                ["none"] = BuildFeatureProfile(30),
+                // gt100 keeps grammar below threshold to exercise parsing-help state.
+                ["gt100"] = BuildFeatureProfile(55),
+                // gt50+ should be grammar-capable so non-mastered vocab can render as amber practice.
+                ["gt50"] = BuildFeatureProfile(85),
+                ["gt15"] = BuildFeatureProfile(95),
+                ["all"] = BuildFeatureProfile(100),
+            };
+
+            var profileSyntax = new Dictionary<string, Dictionary<int, FeatureProgress>>(StringComparer.Ordinal)
             {
-                profileProgress["gt50"][vocabId] = new VocabularyProgress
-                {
-                    MasteryLevel = 95,
-                    NeedsPractice = false,
-                    LastPracticed = now.AddDays(-2),
-                    TimesSeen = 24
-                };
-            }
-            foreach (var vocabId in gt15MasteredIds)
-            {
-                profileProgress["gt15"][vocabId] = new VocabularyProgress
-                {
-                    MasteryLevel = 95,
-                    NeedsPractice = false,
-                    LastPracticed = now.AddDays(-2),
-                    TimesSeen = 24
-                };
-            }
+                ["none"] = BuildSyntaxProfile(30),
+                ["gt100"] = BuildSyntaxProfile(55),
+                ["gt50"] = BuildSyntaxProfile(85),
+                ["gt15"] = BuildSyntaxProfile(95),
+                ["all"] = BuildSyntaxProfile(100),
+            };
 
             foreach (var (profile, user) in usersByProfile)
             {
@@ -374,8 +414,8 @@ namespace Koine.Infrastructure.Data.Seed
                     context.UserProgresses.Add(userProgress);
                 }
 
-                userProgress.GrammaticalFeatureProgressJson = JsonSerializer.Serialize(masteredGrammar);
-                userProgress.SyntacticalFeatureProgressJson = JsonSerializer.Serialize(masteredSyntax);
+                userProgress.GrammaticalFeatureProgressJson = JsonSerializer.Serialize(profileGrammar[profile]);
+                userProgress.SyntacticalFeatureProgressJson = JsonSerializer.Serialize(profileSyntax[profile]);
                 userProgress.VocabularyProgressJson = JsonSerializer.Serialize(profileProgress[profile]);
                 userProgress.UpdatedAt = now;
             }

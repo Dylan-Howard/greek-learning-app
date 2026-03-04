@@ -24,5 +24,6 @@ namespace Koine.Application.Study.DTOs
         public InteractionMode Mode { get; init; } = InteractionMode.Mix;
 
         public int? VocabularySetId { get; init; }
+        public List<int>? VocabularyIds { get; init; }
     }
 }

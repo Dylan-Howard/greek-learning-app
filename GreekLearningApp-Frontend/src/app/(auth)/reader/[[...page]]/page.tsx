@@ -22,7 +22,7 @@ import Sidebar from '@/components/features/reader/Navigation/Sidebar';
 import ReaderSelectionControl from '@/components/features/reader/ReaderPageSelect';
 import TextTitle from '@/components/features/reader/ReaderPageTitle';
 import ReaderPageUnitControl from '@/components/features/reader/ReaderPageUnitControl';
-import { ReaderPageUnit, ReaderPageUnitHelp } from '@/components/features/reader/ReaderPageUnit';
+import { ReaderPageUnitHelp, ReaderPageUnitText } from '@/components/features/reader/ReaderPageUnit';
 import ReaderPageAudioButton from '@/components/features/reader/ReaderPageAudioButton';
 import { Fab } from '@/components/ui';
 
@@ -67,7 +67,7 @@ export default async function ReaderPage({ params } : { params: { page: string[]
         overflow: 'hidden',
       }}
     >
-      <ReaderInterface bookId={page.bookId} chapterId={page.chapterId}>
+      <ReaderInterface bookId={page.bookId} chapterId={page.chapterId} chapterUnits={text}>
         {/* Navigation */}
         <Box
           component="nav"
@@ -137,12 +137,28 @@ export default async function ReaderPage({ params } : { params: { page: string[]
               <TextTitle>{title}</TextTitle>
               <Box sx={{ mb: 4 }}>
                 {
-                  text.map((unt) => (
-                    <ReaderPageUnitControl unit={unt} key={`reader-unit-${unt.unitId}`}>
-                      <ReaderPageUnit>{unt.content}</ReaderPageUnit>
-                      <ReaderPageUnitHelp>{unt.helpText}</ReaderPageUnitHelp>
-                    </ReaderPageUnitControl>
-                  ))
+                  text.map((unt, index) => {
+                    const previousVerse = index > 0 ? text[index - 1].verseNumber : null;
+                    const showVerse = unt.verseNumber > 0 && unt.verseNumber !== previousVerse;
+
+                    return (
+                      <ReaderPageUnitControl unit={unt} key={`reader-unit-${unt.unitId}`}>
+                        {
+                          showVerse
+                            ? (
+                              <ReaderPageUnitText type="translated">
+                                {`${unt.verseNumber}`}
+                              </ReaderPageUnitText>
+                            )
+                            : null
+                        }
+                        <ReaderPageUnitText type={unt.type} morphologyId={unt.morphologyId}>
+                          {unt.content}
+                        </ReaderPageUnitText>
+                        <ReaderPageUnitHelp>{unt.helpText}</ReaderPageUnitHelp>
+                      </ReaderPageUnitControl>
+                    );
+                  })
                 }
               </Box>
               <Stack

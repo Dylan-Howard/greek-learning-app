@@ -17,30 +17,60 @@ namespace Koine.Application.Study.Services
         public async Task<SessionDto> StartSessionAsync(StartSessionRequest request, CancellationToken ct)
         {
             var userId = userProvider.GetUserId();
-            var vocabScope = await ResolveVocabularyScopeAsync(request.VocabularySetId, ct);
+            var explicitVocabularyIds = request.VocabularyIds?
+                .Where(id => id > 0)
+                .Distinct()
+                .ToList();
+            var vocabScope = explicitVocabularyIds != null && explicitVocabularyIds.Count > 0
+                ? explicitVocabularyIds
+                : await ResolveVocabularyScopeAsync(request.VocabularySetId, ct);
 
             var limit = request.CardCount <= 0 ? int.MaxValue : request.CardCount;
             var cards = new List<UserCardProgress>();
 
-            if (request.Pool is CardPool.DueOnly or CardPool.Mixed)
+            if (explicitVocabularyIds != null && explicitVocabularyIds.Count > 0)
             {
-                var due = await progressRepo.GetDueCardsAsync(userId, limit, vocabScope, ct);
-                cards.AddRange(due);
-            }
-
-            if (request.Pool is CardPool.NewOnly or CardPool.Mixed)
-            {
-                var remaining = limit == int.MaxValue ? int.MaxValue : Math.Max(limit - cards.Count, 0);
-                if (remaining > 0)
+                foreach (var vocabId in explicitVocabularyIds.Take(limit))
                 {
-                    var newCards = await progressRepo.GetNewCardsAsync(userId, remaining, vocabScope, ct);
-                    cards.AddRange(newCards);
+                    var progress = await progressRepo.GetByVocabularyIdAsync(userId, vocabId, ct)
+                        ?? new UserCardProgress
+                        {
+                            UserId = userId,
+                            VocabularyId = vocabId,
+                            Stability = 0f,
+                            Difficulty = 5f,
+                            ElapsedDays = 0f,
+                            ScheduledDays = 0f,
+                            ReviewCount = 0,
+                            Lapses = 0,
+                            State = CardState.New,
+                            NextReviewDate = DateTime.UtcNow
+                        };
+                    cards.Add(progress);
                 }
             }
-
-            if (limit != int.MaxValue)
+            else
             {
-                cards = cards.Take(limit).ToList();
+                if (request.Pool is CardPool.DueOnly or CardPool.Mixed)
+                {
+                    var due = await progressRepo.GetDueCardsAsync(userId, limit, vocabScope, ct);
+                    cards.AddRange(due);
+                }
+
+                if (request.Pool is CardPool.NewOnly or CardPool.Mixed)
+                {
+                    var remaining = limit == int.MaxValue ? int.MaxValue : Math.Max(limit - cards.Count, 0);
+                    if (remaining > 0)
+                    {
+                        var newCards = await progressRepo.GetNewCardsAsync(userId, remaining, vocabScope, ct);
+                        cards.AddRange(newCards);
+                    }
+                }
+
+                if (limit != int.MaxValue)
+                {
+                    cards = cards.Take(limit).ToList();
+                }
             }
 
             var session = new StudySession
@@ -58,12 +88,14 @@ namespace Koine.Application.Study.Services
                 }
             };
 
-            var rng = new Random();
             var position = 1;
-            foreach (var card in cards.OrderBy(_ => rng.Next()))
+            var cardSequence = explicitVocabularyIds != null && explicitVocabularyIds.Count > 0
+                ? cards
+                : cards.OrderBy(_ => Random.Shared.Next()).ToList();
+            foreach (var card in cardSequence)
             {
                 var interactionMode = ResolveInteractionMode(request.Mode, position);
-                var direction = ResolveDirection(request.Direction, rng);
+                var direction = ResolveDirection(request.Direction, Random.Shared);
                 var choicesJson = interactionMode == InteractionMode.MultipleChoice
                     ? await BuildChoicesJsonAsync(card.VocabularyId, direction, ct)
                     : null;

@@ -86,10 +86,10 @@
 - [ ] Test vocabulary set endpoints
 
 #### Reader Service Optimization
+- [ ] Set the `study` sidebar panel as default and open on desktop.
 - [ ] Review ReaderService performance
-- [ ] Add caching for frequently accessed chapters
+- [ ] Implement caching strategy
 - [ ] Optimize database queries (add indexes if needed)
-- [ ] Add pagination for long chapters
 - [ ] Write comprehensive unit tests
 
 ### Frontend Work

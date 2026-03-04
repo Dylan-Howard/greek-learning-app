@@ -18,6 +18,7 @@ import { IconButton } from '@/components/ui';
 
 // import { SettingsMenuTabSkeleton } from 'app/modules/Skeletons';
 import DetailsMenu from '@/components/features/reader/Navigation/DetailsMenu';
+import ReaderStudyMenu from '@/components/features/reader/Navigation/ReaderStudyMenu';
 import SettingsMenu from '@/components/features/reader/Navigation/SettingsMenu';
 import { useReaderContext } from '@/app/reader/ReaderPage/ReaderPageContext';
 
@@ -69,12 +70,13 @@ export default function Sidebar() {
   const { page, setPage } = useReaderContext();
   const gt600px = useMediaQuery('(min-width:600px)');
 
-  let tabs = [
-    { title: 'Lessons', iconName: 'lessons' },
-    { title: 'Dictionary', iconName: 'dictionary' },
-  ];
-  tabs = page?.morphologyId ? [...tabs, { title: 'Details', iconName: 'details' }] : tabs;
-  const title = page?.tabId !== undefined && tabs[page.tabId - 1] ? tabs[page.tabId - 1].title : '';
+  const titleByTab: Record<number, string> = {
+    1: 'Lessons',
+    2: 'Dictionary',
+    3: 'Details',
+    4: 'Study',
+  };
+  const title = titleByTab[page?.tabId || 0] || '';
 
   const handleClose = () => setPage({
     ...page,
@@ -126,7 +128,9 @@ export default function Sidebar() {
             {
                 page?.tabId === 3
                   ? <DetailsMenu />
-                  : <SettingsMenu title={title} />
+                  : page?.tabId === 4
+                    ? <ReaderStudyMenu />
+                    : <SettingsMenu title={title} />
               }
           </Container>
         </Paper>

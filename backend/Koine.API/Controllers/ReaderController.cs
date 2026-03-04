@@ -25,12 +25,13 @@ namespace Koine.API.Controllers
         public async Task<ActionResult<RenderedChapterDto>> GetChapter(
             [FromQuery] int book,
             [FromQuery] int chapter,
-            [FromQuery] string lang = "en")
+            [FromQuery] string lang = "en",
+            [FromQuery] int? userId = null)
         {
             try
             {
-                var userId = GetUserIdFromClaimsOrDefault();
-                var result = await _readerService.RenderChapterAsync(userId, book, chapter, lang);
+                var resolvedUserId = GetUserIdFromClaimsOrDefault(userId);
+                var result = await _readerService.RenderChapterAsync(resolvedUserId, book, chapter, lang);
                 return Ok(result);
             }
             catch (KeyNotFoundException ex)
@@ -45,13 +46,18 @@ namespace Koine.API.Controllers
             }
         }
 
-        private int GetUserIdFromClaimsOrDefault()
+        private int GetUserIdFromClaimsOrDefault(int? fallbackUserId = null)
         {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (string.IsNullOrEmpty(userIdClaim) || !int.TryParse(userIdClaim, out var userId))
             {
                 // TODO: For production, enforce authentication. 
-                // Using User ID 1 (beginner) as default for MVP development.
+                // For development without auth, allow explicit query user override.
+                if (fallbackUserId.HasValue && fallbackUserId.Value > 0)
+                {
+                    return fallbackUserId.Value;
+                }
+
                 return 1;
             }
             return userId;

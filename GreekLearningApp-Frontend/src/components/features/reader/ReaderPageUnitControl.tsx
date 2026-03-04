@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode } from 'react';
+import { KeyboardEvent, ReactNode } from 'react';
 import Box from '@mui/material/Box';
 import { useReaderContext } from '@/app/reader/ReaderPage/ReaderPageContext';
 import { Unitv2 } from '@/lib/types/domain/text';
@@ -23,26 +23,33 @@ export default function ReaderTextUnit(
     parentPhrases: unit.parentPhrases || [],
   };
 
-  const handleHover = () => setPage({
+  const handleClick = () => setPage({
     ...page,
+    tabId: unit.type === 'original_practice' ? 4 : 3,
     morphologyId: unit.morphologyId,
+    studyFocusWordId: unit.type === 'original_practice' ? unit.morphologyId : page.studyFocusWordId,
     selectedUnit,
   });
 
-  const handleClick = () => setPage({
-    ...page,
-    tabId: 3,
-    morphologyId: unit.morphologyId,
-    selectedUnit,
-  });
+  const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      handleClick();
+    }
+  };
 
   return (
     <Box
       role="button"
       tabIndex={0}
-      onMouseEnter={handleHover}
       onClick={() => handleClick()}
-      sx={{ display: 'inline-block' }}
+      onKeyDown={handleKeyDown}
+      sx={{
+        display: 'inline-block',
+        borderRadius: 0.5,
+        transition: 'background-color 120ms ease',
+        '&:hover': { backgroundColor: 'action.hover' },
+      }}
     >
       {children}
     </Box>
