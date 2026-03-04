@@ -87,6 +87,7 @@
 
 #### Reader Service Optimization
 - [ ] Set the `study` sidebar panel as default and open on desktop.
+- [ ] Implement copywrite information store and display in reader footer (muted, small text)
 - [ ] Review ReaderService performance
 - [ ] Implement caching strategy
 - [ ] Optimize database queries (add indexes if needed)
