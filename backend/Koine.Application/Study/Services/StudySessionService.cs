@@ -1,5 +1,6 @@
 // Koine.Application/Study/Services/StudySessionService.cs
 using System.Text.Json;
+using Koine.Application.Interfaces;
 using Koine.Application.Study.DTOs;
 using Koine.Application.Study.Ports;
 using Koine.Domain.Entities;
@@ -8,6 +9,7 @@ using Koine.Domain.ValueObjects;
 namespace Koine.Application.Study.Services
 {
     public class StudySessionService(
+        IUnitOfWork unitOfWork,
         ICurrentUserProvider userProvider,
         IUserCardProgressRepository progressRepo,
         IStudySessionRepository sessionRepo,
@@ -84,7 +86,8 @@ namespace Koine.Application.Study.Services
                     Pool = request.Pool,
                     Direction = request.Direction,
                     Mode = request.Mode,
-                    VocabularySetId = request.VocabularySetId
+                    VocabularySetId = request.VocabularySetId,
+                    Source = request.Source
                 }
             };
 
@@ -238,7 +241,6 @@ namespace Koine.Application.Study.Services
             if (session == null) return null;
 
             session.CompletedAt = DateTime.UtcNow;
-            await sessionRepo.SaveAsync(session, ct);
 
             var rated = session.Cards.Where(c => c.GivenRating != null).ToList();
             var total = rated.Count;
@@ -248,13 +250,44 @@ namespace Koine.Application.Study.Services
                 .ToDictionary(g => g.Key, g => g.Count());
 
             var percentage = total == 0 ? 0 : (double)correct / total * 100.0;
+            var firstCompletionReward = session.ExperienceAwarded == 0;
+            var xpGained = 0;
+            var totalExperience = 0;
+
+            if (firstCompletionReward)
+            {
+                var baseXp = session.Config.Source == SessionSource.ReaderMini ? 30 : 60;
+                var maxBonus = session.Config.Source == SessionSource.ReaderMini ? 20 : 40;
+                var bonus = (int)Math.Floor(percentage / 100.0 * maxBonus);
+                xpGained = baseXp + bonus;
+                session.ExperienceAwarded = xpGained;
+
+                var user = await unitOfWork.Users.GetByIdAsync(session.UserId);
+                if (user != null)
+                {
+                    user.TotalExperience += xpGained;
+                    totalExperience = user.TotalExperience;
+                    await unitOfWork.Users.UpdateAsync(user);
+                }
+            }
+            else
+            {
+                var user = await unitOfWork.Users.GetByIdAsync(session.UserId);
+                totalExperience = user?.TotalExperience ?? 0;
+            }
+
+            await sessionRepo.SaveAsync(session, ct);
+            await unitOfWork.SaveChangesAsync();
 
             return new SessionSummaryDto
             {
                 TotalReviewed = total,
                 CorrectCount = correct,
                 CorrectPercentage = percentage,
-                Ratings = ratings
+                Ratings = ratings,
+                XpGained = xpGained,
+                TotalExperience = totalExperience,
+                FirstCompletionReward = firstCompletionReward
             };
         }
 

@@ -173,12 +173,19 @@ namespace Koine.API.Controllers
         private int GetUserIdFromClaimsOrDefault()
         {
             var userIdClaim = HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            if (string.IsNullOrEmpty(userIdClaim) || !int.TryParse(userIdClaim, out var userId))
+            if (!string.IsNullOrEmpty(userIdClaim) && int.TryParse(userIdClaim, out var claimUserId))
             {
-                // TODO(next phase): Re-enable strict auth and remove dev fallback.
-                return 1;
+                return claimUserId;
             }
-            return userId;
+
+            var headerValue = HttpContext?.Request?.Headers["X-Dev-User-Id"].FirstOrDefault();
+            if (!string.IsNullOrWhiteSpace(headerValue) && int.TryParse(headerValue, out var headerUserId) && headerUserId > 0)
+            {
+                return headerUserId;
+            }
+
+            // TODO(next phase): Re-enable strict auth and remove dev fallback.
+            return 1;
         }
     }
 }

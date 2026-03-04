@@ -60,17 +60,19 @@ public class LessonServiceTests
         var lessonRepo = new Mock<ILessonRepository>();
         var completionRepo = new Mock<ILessonCompletionRepository>();
         var userProgressRepo = new Mock<IUserProgressRepository>();
+        var userRepo = new Mock<IUserRepository>();
         var uow = new Mock<IUnitOfWork>();
 
         lessonRepo.Setup(r => r.GetByIdAsync(123)).ReturnsAsync((Lesson?)null);
         uow.SetupGet(x => x.Lessons).Returns(lessonRepo.Object);
         uow.SetupGet(x => x.LessonCompletions).Returns(completionRepo.Object);
         uow.SetupGet(x => x.UserProgress).Returns(userProgressRepo.Object);
+        uow.SetupGet(x => x.Users).Returns(userRepo.Object);
 
         var service = new LessonService(uow.Object);
         var result = await service.CompleteLessonAsync(1, new CompleteLessonDto { LessonId = 123, Score = 90 });
 
-        Assert.That(result, Is.False);
+        Assert.That(result, Is.Null);
     }
 
     [Test]
@@ -79,6 +81,7 @@ public class LessonServiceTests
         var lessonRepo = new Mock<ILessonRepository>();
         var completionRepo = new Mock<ILessonCompletionRepository>();
         var userProgressRepo = new Mock<IUserProgressRepository>();
+        var userRepo = new Mock<IUserRepository>();
         var uow = new Mock<IUnitOfWork>();
 
         lessonRepo.Setup(r => r.GetByIdAsync(5)).ReturnsAsync(new Lesson
@@ -97,17 +100,21 @@ public class LessonServiceTests
             SyntacticalFeatureProgressJson = "{}",
             VocabularyProgressJson = "{}",
         });
+        userRepo.Setup(r => r.GetByIdAsync(7)).ReturnsAsync(new User { Id = 7, TotalExperience = 0 });
         uow.SetupGet(x => x.Lessons).Returns(lessonRepo.Object);
         uow.SetupGet(x => x.LessonCompletions).Returns(completionRepo.Object);
         uow.SetupGet(x => x.UserProgress).Returns(userProgressRepo.Object);
+        uow.SetupGet(x => x.Users).Returns(userRepo.Object);
         uow.Setup(x => x.SaveChangesAsync()).ReturnsAsync(1);
 
         var service = new LessonService(uow.Object);
         var result = await service.CompleteLessonAsync(7, new CompleteLessonDto { LessonId = 5, Score = 100 });
 
-        Assert.That(result, Is.True);
+        Assert.That(result, Is.Not.Null);
+        Assert.That(result!.XpGained, Is.EqualTo(100));
         completionRepo.Verify(r => r.AddAsync(It.IsAny<LessonCompletion>()), Times.Once);
         userProgressRepo.Verify(r => r.UpdateAsync(It.Is<UserProgress>(p => p.CompletedLessonIdsJson.Contains("5"))), Times.Once);
+        userRepo.Verify(r => r.UpdateAsync(It.Is<User>(u => u.TotalExperience == 100)), Times.Once);
     }
 
     [Test]
@@ -163,6 +170,7 @@ public class LessonServiceTests
         var lessonRepo = new Mock<ILessonRepository>();
         var completionRepo = new Mock<ILessonCompletionRepository>();
         var userProgressRepo = new Mock<IUserProgressRepository>();
+        var userRepo = new Mock<IUserRepository>();
         var uow = new Mock<IUnitOfWork>();
 
         var existing = new LessonCompletion { UserId = 1, LessonId = 2, Score = 10 };
@@ -182,16 +190,20 @@ public class LessonServiceTests
             SyntacticalFeatureProgressJson = "{}",
             VocabularyProgressJson = "{}",
         });
+        userRepo.Setup(r => r.GetByIdAsync(1)).ReturnsAsync(new User { Id = 1, TotalExperience = 40 });
 
         uow.SetupGet(x => x.Lessons).Returns(lessonRepo.Object);
         uow.SetupGet(x => x.LessonCompletions).Returns(completionRepo.Object);
         uow.SetupGet(x => x.UserProgress).Returns(userProgressRepo.Object);
+        uow.SetupGet(x => x.Users).Returns(userRepo.Object);
         uow.Setup(x => x.SaveChangesAsync()).ReturnsAsync(1);
 
         var service = new LessonService(uow.Object);
         var result = await service.CompleteLessonAsync(1, new CompleteLessonDto { LessonId = 2, Score = 99 });
 
-        Assert.That(result, Is.True);
+        Assert.That(result, Is.Not.Null);
+        Assert.That(result!.XpGained, Is.EqualTo(0));
+        Assert.That(result.TotalExperience, Is.EqualTo(40));
         Assert.That(existing.Score, Is.EqualTo(99));
         completionRepo.Verify(r => r.UpdateAsync(existing), Times.Once);
     }

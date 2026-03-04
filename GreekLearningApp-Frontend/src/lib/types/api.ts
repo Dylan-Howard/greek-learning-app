@@ -76,6 +76,7 @@ export interface UserDto {
   email: string;
   username: string;
   displayName?: string | null;
+  totalExperience?: number;
   settings?: UserSettingDto[] | null;
 }
 
@@ -133,11 +134,19 @@ export interface CompleteLessonDto {
   score?: number | null;
 }
 
+export interface LessonCompletionResponseDto {
+  message: string;
+  xpGained: number;
+  totalExperience: number;
+  firstCompletion: boolean;
+}
+
 export interface UserProgressDto {
   completedLessonIds: number[];
   grammaticalFeatureProgress: { [key: string]: FeatureProgressDto };
   syntacticalFeatureProgress: { [key: string]: FeatureProgressDto };
   vocabularyProgress: { [key: string]: VocabularyProgressDto };
+  totalExperience?: number;
   updatedAt: string;
 }
 
@@ -206,12 +215,14 @@ export type StudyDirection = 'GreekToEnglish' | 'EnglishToGreek' | 'Random';
 export type InteractionMode = 'Flip' | 'MultipleChoice' | 'Mix';
 export type Rating = 'Again' | 'Hard' | 'Good' | 'Easy';
 export type CardState = 'New' | 'Learning' | 'Review' | 'Relearning';
+export type SessionSource = 'StandardStudy' | 'ReaderMini';
 
 export interface StartSessionRequest {
   cardCount: number;
   pool: CardPool;
   direction: StudyDirection;
   mode: InteractionMode;
+  source?: SessionSource;
   vocabularySetId?: number | null;
   vocabularyIds?: number[] | null;
 }
@@ -279,6 +290,9 @@ export interface SessionSummaryDto {
   correctCount: number;
   correctPercentage: number;
   ratings: Record<Rating, number>;
+  xpGained: number;
+  totalExperience: number;
+  firstCompletionReward: boolean;
 }
 
 export interface CardProgressDto {

@@ -12,6 +12,7 @@ export interface ReaderStudyState {
   sessionId?: string;
   ratedStates: Record<number, ReaderRatedWordState>;
   completed: boolean;
+  completionXpApplied?: boolean;
 }
 
 export interface ReaderPage {

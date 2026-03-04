@@ -211,6 +211,7 @@ function SettingsMenu({ title } : { title: string }) {
     const updatedUser = {
       id: activeUser.id,
       name: activeUser.name,
+      totalExp: activeUser.totalExp,
       progress: {
         ...activeUser.progress,
       },

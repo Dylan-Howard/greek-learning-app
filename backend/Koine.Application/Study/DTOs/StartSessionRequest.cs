@@ -23,6 +23,10 @@ namespace Koine.Application.Study.DTOs
         [Required]
         public InteractionMode Mode { get; init; } = InteractionMode.Mix;
 
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        [Required]
+        public SessionSource Source { get; init; } = SessionSource.StandardStudy;
+
         public int? VocabularySetId { get; init; }
         public List<int>? VocabularyIds { get; init; }
     }

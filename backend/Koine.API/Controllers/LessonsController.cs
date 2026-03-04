@@ -141,19 +141,22 @@ namespace Koine.API.Controllers
 
         [AllowAnonymous]
         [HttpPost("{id}/complete")]
-        public async Task<ActionResult> CompleteLesson(int id, [FromBody] CompleteLessonDto completionDto)
+        public async Task<ActionResult<LessonCompletionResponseDto>> CompleteLesson(
+            int id,
+            [FromBody] CompleteLessonDto completionDto,
+            [FromHeader(Name = "X-Dev-User-Id")] string? devUserId = null)
         {
             try
             {
-                var userId = GetUserIdFromClaimsOrDefault();
+                var userId = GetUserIdFromClaimsOrDefault(devUserId);
                 completionDto.LessonId = id;
                 
-                var success = await _lessonService.CompleteLessonAsync(userId, completionDto);
+                var response = await _lessonService.CompleteLessonAsync(userId, completionDto);
                 
-                if (!success)
+                if (response == null)
                     return BadRequest(new { message = "Failed to complete lesson" });
                 
-                return Ok(new { message = "Lesson completed successfully" });
+                return Ok(response);
             }
             catch (Exception ex)
             {
@@ -162,14 +165,20 @@ namespace Koine.API.Controllers
             }
         }
 
-        private int GetUserIdFromClaimsOrDefault()
+        private int GetUserIdFromClaimsOrDefault(string? devUserId = null)
         {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            if (string.IsNullOrEmpty(userIdClaim) || !int.TryParse(userIdClaim, out var userId))
+            if (!string.IsNullOrEmpty(userIdClaim) && int.TryParse(userIdClaim, out var claimUserId))
             {
-                return 1; // Default for MVP development.
+                return claimUserId;
             }
-            return userId;
+
+            if (!string.IsNullOrWhiteSpace(devUserId) && int.TryParse(devUserId, out var headerUserId) && headerUserId > 0)
+            {
+                return headerUserId;
+            }
+
+            return 1; // Default for MVP development.
         }
     }
 }

@@ -12,13 +12,14 @@ import {
 } from '@/app/reader/ReaderPage/ReaderPageContext';
 import RatingButtons from '@/components/features/study/RatingButtons';
 import { fetchProgress, updateProgress } from '@/lib/api/rest/progress';
-import { rateCard, startSession } from '@/lib/api/rest/study';
+import { completeSession, rateCard, startSession } from '@/lib/api/rest/study';
 import {
   DEV_USER_CHANGED_EVENT,
   getActiveDevUserId,
   sanitizeDevUserId,
 } from '@/lib/services/auth/devSession';
 import { Rating, UserProgressDto } from '@/lib/types/api';
+import { useUserContext } from '@/lib/types/domain/user';
 
 function applyReaderRatingToProgress(progress: UserProgressDto, vocabId: number, rating: Rating): UserProgressDto {
   const now = new Date().toISOString();
@@ -61,6 +62,7 @@ function applyReaderRatingToProgress(progress: UserProgressDto, vocabId: number,
 }
 
 export default function ReaderStudyMenu() {
+  const { awardExp, syncUser } = useUserContext();
   const { page, setPage } = useReaderContext();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -128,6 +130,7 @@ export default function ReaderStudyMenu() {
           currentIndex: 0,
           ratedStates: {},
           completed: true,
+          completionXpApplied: false,
         },
       });
       return;
@@ -138,10 +141,12 @@ export default function ReaderStudyMenu() {
     setError('');
 
     startSession({
-      cardCount: amberQueue.length,
+      // Use -1 to indicate "all selected cards" and avoid API max-card validation (<=100).
+      cardCount: -1,
       pool: 'Mixed',
       direction: 'GreekToEnglish',
       mode: 'Flip',
+      source: 'ReaderMini',
       vocabularyIds: amberQueue,
     }, devUserId).then((result) => {
       if (cancelled) {
@@ -167,6 +172,7 @@ export default function ReaderStudyMenu() {
           sessionId: result.data.id,
           ratedStates: {},
           completed: false,
+          completionXpApplied: false,
         },
       });
     }).finally(() => {
@@ -217,11 +223,49 @@ export default function ReaderStudyMenu() {
         currentIndex: completed ? activeStudy.currentIndex : nextIndex,
         currentWordId: nextWordId,
         completed,
+        completionXpApplied: completed ? activeStudy.completionXpApplied : false,
       },
     });
 
     setLoading(false);
   };
+
+  useEffect(() => {
+    if (!activeStudy?.completed || !activeStudy.sessionId || activeStudy.completionXpApplied) {
+      return;
+    }
+
+    let cancelled = false;
+    completeSession(activeStudy.sessionId, devUserId).then(async (result) => {
+      if (cancelled || !result.ok) {
+        return;
+      }
+
+      awardExp(result.data.xpGained, result.data.totalExperience);
+      await syncUser(devUserId);
+
+      setPage({
+        ...page,
+        study: {
+          ...activeStudy,
+          completionXpApplied: true,
+        },
+      });
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [
+    activeStudy?.completed,
+    activeStudy?.sessionId,
+    activeStudy?.completionXpApplied,
+    awardExp,
+    devUserId,
+    page,
+    setPage,
+    syncUser,
+  ]);
 
   if (loading && !activeStudy?.sessionId) {
     return (

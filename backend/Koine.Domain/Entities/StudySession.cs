@@ -13,6 +13,8 @@ namespace Koine.Domain.Entities
         public DateTime StartedAt { get; set; }
         /// <summary>Session completion timestamp.</summary>
         public DateTime? CompletedAt { get; set; }
+        /// <summary>XP already awarded for this session completion (idempotency).</summary>
+        public int ExperienceAwarded { get; set; }
         /// <summary>Session configuration.</summary>
         public SessionConfig Config { get; set; } = null!;
         /// <summary>Ordered cards in this session.</summary>

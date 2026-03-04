@@ -22,13 +22,27 @@ export interface UserSettings {
 export type User = {
   id: string,
   name: string,
+  totalExp: number,
   progress: UserProgress,
   settings: UserSettings,
 };
 
-export const UserContext = createContext<{ user: User | undefined, setUser: Function }>({
+export interface UserContextValue {
+  user: User | undefined;
+  setUser: (user: User) => void;
+  syncUser: (userId?: string) => Promise<void>;
+  awardExp: (xp: number, totalExpFromServer?: number) => void;
+  expQueue: number[];
+  consumeExp: () => void;
+}
+
+export const UserContext = createContext<UserContextValue>({
   user: undefined,
   setUser: () => {},
+  syncUser: async () => {},
+  awardExp: () => {},
+  expQueue: [],
+  consumeExp: () => {},
 });
 
 export function useUserContext() {

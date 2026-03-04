@@ -29,6 +29,7 @@ describe('AzureUserService', () => {
   it('returns default guest state', () => {
     const guest = getDefaultUserState();
     expect(guest.id).toBe('guest');
+    expect(guest.totalExp).toBe(0);
     expect(guest.settings.translation).toBe('esv');
   });
 
@@ -40,7 +41,7 @@ describe('AzureUserService', () => {
 
   it('fetchUser maps backend payloads for numeric IDs', async () => {
     getMock
-      .mockResolvedValueOnce({ id: 3, username: 'andrew', displayName: 'Andrew' })
+      .mockResolvedValueOnce({ id: 3, username: 'andrew', displayName: 'Andrew', totalExperience: 320 })
       .mockResolvedValueOnce([{ lessonId: 2, isComplete: true }])
       .mockResolvedValueOnce([{ wordId: 9, knowledgeLevel: 2 }])
       .mockResolvedValueOnce([
@@ -52,6 +53,7 @@ describe('AzureUserService', () => {
 
     expect(user.id).toBe('3');
     expect(user.name).toBe('Andrew');
+    expect(user.totalExp).toBe(320);
     expect(user.progress.lessons).toEqual([{ lessonId: 2, isComplete: true }]);
     expect(user.progress.vocabulary).toEqual([{ wordId: 9, isComplete: true }]);
     expect(user.settings).toEqual({ prefersDarkMode: true, translation: 'niv' });
@@ -69,6 +71,7 @@ describe('AzureUserService', () => {
     const updated = await updateUser({
       id: '4',
       name: 'Theo',
+      totalExp: 0,
       progress: { lessons: [], vocabulary: [] },
       settings: { prefersDarkMode: false, translation: 'esv' },
     });

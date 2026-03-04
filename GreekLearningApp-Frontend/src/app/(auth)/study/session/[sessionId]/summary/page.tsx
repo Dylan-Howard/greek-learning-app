@@ -6,8 +6,11 @@ import { Grid, Stack, Typography } from '@mui/material';
 import { completeSession } from '@/lib/api/rest/study';
 import { SessionSummaryDto } from '@/lib/types/api';
 import { Button } from '@/components/ui';
+import { getActiveDevUserId } from '@/lib/services/auth/devSession';
+import { useUserContext } from '@/lib/types/domain/user';
 
 export default function SummaryPage() {
+  const { awardExp, syncUser } = useUserContext();
   const router = useRouter();
   const params = useParams();
   const sessionIdParam = params?.sessionId;
@@ -16,12 +19,15 @@ export default function SummaryPage() {
 
   useEffect(() => {
     if (!sessionId) return;
-    completeSession(sessionId).then((result) => {
+    const userId = getActiveDevUserId();
+    completeSession(sessionId, userId).then(async (result) => {
       if (result.ok) {
         setSummary(result.data);
+        awardExp(result.data.xpGained, result.data.totalExperience);
+        await syncUser(userId);
       }
     });
-  }, [sessionId]);
+  }, [awardExp, sessionId, syncUser]);
 
   return (
     <Grid container justifyContent="center" sx={{ mt: 4 }}>

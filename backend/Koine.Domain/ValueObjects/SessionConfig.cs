@@ -15,6 +15,8 @@ namespace Koine.Domain.ValueObjects
         public InteractionMode Mode { get; set; }
         /// <summary>Optional vocabulary set id to scope cards.</summary>
         public int? VocabularySetId { get; set; }
+        /// <summary>Session source to drive completion reward policy.</summary>
+        public SessionSource Source { get; set; } = SessionSource.StandardStudy;
     }
 
     public enum CardPool
@@ -29,5 +31,11 @@ namespace Koine.Domain.ValueObjects
         GreekToEnglish = 0,
         EnglishToGreek = 1,
         Random = 2
+    }
+
+    public enum SessionSource
+    {
+        StandardStudy = 0,
+        ReaderMini = 1
     }
 }

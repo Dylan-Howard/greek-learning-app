@@ -7,6 +7,7 @@ namespace Koine.Application.DTOs.Progress
         public Dictionary<int, FeatureProgressDto> GrammaticalFeatureProgress { get; set; } = new();
         public Dictionary<int, FeatureProgressDto> SyntacticalFeatureProgress { get; set; } = new();
         public Dictionary<int, VocabularyProgressDto> VocabularyProgress { get; set; } = new();
+        public int TotalExperience { get; set; }
         public DateTime UpdatedAt { get; set; }
     }
 }

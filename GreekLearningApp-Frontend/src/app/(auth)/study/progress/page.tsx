@@ -17,6 +17,7 @@ import {
 import { getProgress } from '@/lib/api/rest/study';
 import { CardProgressDto, CardState } from '@/lib/types/api';
 import { TextField } from '@/components/ui';
+import { getActiveDevUserId } from '@/lib/services/auth/devSession';
 
 const stateColor = (state: CardState) => {
   switch (state) {
@@ -36,7 +37,7 @@ export default function ProgressPage() {
   const [query, setQuery] = useState('');
 
   useEffect(() => {
-    getProgress().then((result) => {
+    getProgress(getActiveDevUserId()).then((result) => {
       if (result.ok) {
         setProgress(result.data);
       }

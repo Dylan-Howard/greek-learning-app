@@ -6,14 +6,18 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
+import { cookies } from 'next/headers';
 import DashboardStats from '@/components/features/study/DashboardStats';
 import { getDashboard } from '@/lib/api/rest/study';
 import { Button } from '@/components/ui';
+import { DEFAULT_DEV_USER_ID, DEV_USER_COOKIE_KEY, sanitizeDevUserId } from '@/lib/services/auth/devSession';
 
 export const dynamic = 'force-dynamic';
 
 export default async function StudyDashboardPage() {
-  const dashboardResult = await getDashboard();
+  const cookieStore = await cookies();
+  const userId = sanitizeDevUserId(cookieStore.get(DEV_USER_COOKIE_KEY)?.value || DEFAULT_DEV_USER_ID);
+  const dashboardResult = await getDashboard(userId);
   const error = dashboardResult.ok ? undefined : dashboardResult.error.message;
   const dashboard = dashboardResult.ok ? dashboardResult.data : null;
 

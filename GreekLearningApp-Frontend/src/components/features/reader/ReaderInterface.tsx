@@ -23,6 +23,7 @@ export default function ReaderInterface(
       currentIndex: 0,
       ratedStates: {},
       completed: false,
+      completionXpApplied: false,
     },
     selectedUnit: undefined,
   });

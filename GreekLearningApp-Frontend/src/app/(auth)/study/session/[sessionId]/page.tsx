@@ -7,6 +7,7 @@ import FlashCard from '@/components/features/study/FlashCard';
 import MultipleChoiceCard from '@/components/features/study/MultipleChoiceCard';
 import { getNextCard, rateCard } from '@/lib/api/rest/study';
 import { CardDto, Rating } from '@/lib/types/api';
+import { getActiveDevUserId } from '@/lib/services/auth/devSession';
 
 export default function ActiveSessionPage() {
   const router = useRouter();
@@ -20,7 +21,7 @@ export default function ActiveSessionPage() {
   const loadNext = async () => {
     if (!sessionId) return;
     setLoading(true);
-    const result = await getNextCard(sessionId);
+    const result = await getNextCard(sessionId, getActiveDevUserId());
     if (result.ok) {
       setCard(result.data);
       setRevealed(false);
@@ -39,7 +40,7 @@ export default function ActiveSessionPage() {
   const handleRate = async (rating: Rating) => {
     if (!card) return;
     if (!sessionId) return;
-    const result = await rateCard(sessionId, card.vocabularyId, { rating });
+    const result = await rateCard(sessionId, card.vocabularyId, { rating }, getActiveDevUserId());
     if (result.ok && result.data.sessionComplete) {
       router.push(`/study/session/${sessionId}/summary`);
       return;

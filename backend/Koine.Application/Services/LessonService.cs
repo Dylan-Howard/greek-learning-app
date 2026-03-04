@@ -159,12 +159,13 @@ namespace Koine.Application.Services
             return MapLesson(lesson, completion != null, trackSlug);
         }
 
-        public async Task<bool> CompleteLessonAsync(int userId, CompleteLessonDto completionDto)
+        public async Task<LessonCompletionResponseDto?> CompleteLessonAsync(int userId, CompleteLessonDto completionDto)
         {
             var lesson = await _unitOfWork.Lessons.GetByIdAsync(completionDto.LessonId);
-            if (lesson == null) return false;
+            if (lesson == null) return null;
 
             var existingCompletion = await _unitOfWork.LessonCompletions.GetByUserAndLessonAsync(userId, completionDto.LessonId);
+            var firstCompletion = existingCompletion == null;
             if (existingCompletion != null)
             {
                 existingCompletion.Score = completionDto.Score;
@@ -184,6 +185,11 @@ namespace Koine.Application.Services
             }
 
             var userProgress = await _unitOfWork.UserProgress.GetOrCreateByUserIdAsync(userId);
+            var user = await _unitOfWork.Users.GetByIdAsync(userId);
+            if (user == null)
+            {
+                return null;
+            }
 
             var completedLessonIds = JsonSerializer.Deserialize<List<int>>(userProgress.CompletedLessonIdsJson) ?? new();
             if (!completedLessonIds.Contains(completionDto.LessonId))
@@ -240,9 +246,24 @@ namespace Koine.Application.Services
             userProgress.UpdatedAt = DateTime.UtcNow;
 
             await _unitOfWork.UserProgress.UpdateAsync(userProgress);
+
+            const int lessonCompletionXp = 100;
+            var xpGained = firstCompletion ? lessonCompletionXp : 0;
+            if (xpGained > 0)
+            {
+                user.TotalExperience += xpGained;
+                await _unitOfWork.Users.UpdateAsync(user);
+            }
+
             await _unitOfWork.SaveChangesAsync();
 
-            return true;
+            return new LessonCompletionResponseDto
+            {
+                Message = "Lesson completed successfully",
+                XpGained = xpGained,
+                TotalExperience = user.TotalExperience,
+                FirstCompletion = firstCompletion
+            };
         }
 
         public async Task<LessonDto> CreateLessonAsync(CreateLessonDto createDto)

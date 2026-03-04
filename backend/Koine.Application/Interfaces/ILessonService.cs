@@ -11,7 +11,7 @@ namespace Koine.Application.Interfaces
         Task<List<LessonDto>> GetAllLessonsAsync(int userId);
         Task<List<LessonDto>> GetLessonsByTrackAsync(int userId, string trackSlug);
         Task<LessonDto?> GetLessonByIdAsync(int lessonId, int userId);
-        Task<bool> CompleteLessonAsync(int userId, CompleteLessonDto completionDto);
+        Task<LessonCompletionResponseDto?> CompleteLessonAsync(int userId, CompleteLessonDto completionDto);
         Task<LessonDto> CreateLessonAsync(CreateLessonDto createDto);
         Task<LessonDto?> UpdateLessonAsync(int lessonId, UpdateLessonDto updateDto);
         Task<bool> DeleteLessonAsync(int lessonId);

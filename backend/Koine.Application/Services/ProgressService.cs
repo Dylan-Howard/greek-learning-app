@@ -19,6 +19,7 @@ namespace Koine.Application.Services
         {
             var progress = await _unitOfWork.UserProgress.GetByUserIdAsync(userId);
             if (progress == null) return null;
+            var user = await _unitOfWork.Users.GetByIdAsync(userId);
 
             var gramProgress = JsonSerializer.Deserialize<Dictionary<int, Domain.ValueObjects.FeatureProgress>>(
                 progress.GrammaticalFeatureProgressJson) ?? new();
@@ -57,6 +58,7 @@ namespace Koine.Application.Services
                         LastPracticed = kvp.Value.LastPracticed,
                         TimesSeen = kvp.Value.TimesSeen
                     }),
+                TotalExperience = user?.TotalExperience ?? 0,
                 UpdatedAt = progress.UpdatedAt
             };
         }

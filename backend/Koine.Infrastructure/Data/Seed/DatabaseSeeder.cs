@@ -227,6 +227,7 @@ namespace Koine.Infrastructure.Data.Seed
                         Email = seed.Email,
                         Username = seed.Username,
                         DisplayName = seed.DisplayName,
+                        TotalExperience = 0,
                         PasswordHash = HashPassword("password123"),
                         CreatedAt = now
                     };
@@ -236,6 +237,7 @@ namespace Koine.Infrastructure.Data.Seed
                 {
                     user.Email = seed.Email;
                     user.DisplayName = seed.DisplayName;
+                    user.TotalExperience = 0;
                     user.PasswordHash = HashPassword("password123");
                     context.Users.Update(user);
                 }
@@ -243,6 +245,20 @@ namespace Koine.Infrastructure.Data.Seed
                 usersByProfile[seed.Profile] = user;
             }
 
+            await context.SaveChangesAsync();
+
+            var profileExperience = new Dictionary<string, int>(StringComparer.Ordinal)
+            {
+                ["none"] = 120,
+                ["gt100"] = 1350,
+                ["gt50"] = 2850,
+                ["gt15"] = 5200,
+                ["all"] = 9800,
+            };
+            foreach (var (profile, user) in usersByProfile)
+            {
+                user.TotalExperience = profileExperience.TryGetValue(profile, out var xp) ? xp : 0;
+            }
             await context.SaveChangesAsync();
 
             var vocabMeta = await context.Vocabularies
@@ -1020,6 +1036,7 @@ namespace Koine.Infrastructure.Data.Seed
                 {
                     Email = "system@test.com",
                     Username = "system",
+                    TotalExperience = 0,
                     PasswordHash = HashPassword("password123"),
                     CreatedAt = now
                 };

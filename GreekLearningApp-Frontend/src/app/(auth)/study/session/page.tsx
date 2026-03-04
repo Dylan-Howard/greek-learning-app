@@ -7,6 +7,7 @@ import SessionConfig from '@/components/features/study/SessionConfig';
 import { startSession } from '@/lib/api/rest/study';
 import { fetchVocabularySets } from '@/lib/api/rest/vocabulary';
 import { StartSessionRequest, VocabularySetDto } from '@/lib/types/api';
+import { getActiveDevUserId } from '@/lib/services/auth/devSession';
 
 export default function SessionConfigPage() {
   const router = useRouter();
@@ -17,20 +18,33 @@ export default function SessionConfigPage() {
     pool: 'Mixed',
     direction: 'GreekToEnglish',
     mode: 'Mix',
+    source: 'StandardStudy',
     vocabularySetId: null,
   });
 
   useEffect(() => {
-    fetchVocabularySets().then((result) => {
+    fetchVocabularySets(getActiveDevUserId()).then((result) => {
       if (result.ok) {
         setSets(result.data);
       }
     });
   }, []);
 
+  useEffect(() => {
+    const setIdParam = new URLSearchParams(window.location.search).get('setId');
+    if (!setIdParam) {
+      return;
+    }
+    const parsed = Number.parseInt(setIdParam, 10);
+    if (Number.isNaN(parsed)) {
+      return;
+    }
+    setConfig((prev) => ({ ...prev, vocabularySetId: parsed }));
+  }, []);
+
   const handleStart = async () => {
     setLoading(true);
-    const result = await startSession(config);
+    const result = await startSession(config, getActiveDevUserId());
     setLoading(false);
     if (result.ok) {
       router.push(`/study/session/${result.data.id}`);

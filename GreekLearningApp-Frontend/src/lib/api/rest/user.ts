@@ -6,6 +6,7 @@ type ApiUser = {
   id: number;
   username?: string;
   displayName?: string | null;
+  totalExperience?: number | null;
 };
 
 type ApiUserLesson = {
@@ -50,6 +51,7 @@ const settingsFromApi = (settings: ApiUserSetting[] = []): User['settings'] => {
 export const getDefaultUserState = (): User => ({
   id: 'guest',
   name: 'Guest',
+  totalExp: 0,
   progress: {
     lessons: [],
     vocabulary: [],
@@ -66,6 +68,7 @@ export async function createUser(id: string, name: string, userLevel: number): P
     return {
       id,
       name,
+      totalExp: 0,
       progress: fallbackProgressByLevel(userLevel),
       settings: {
         prefersDarkMode: false,
@@ -108,6 +111,7 @@ export async function fetchUser(id: string): Promise<User> {
       ...getDefaultUserState(),
       id,
       name: 'Scholar',
+      totalExp: 0,
     };
   }
 
@@ -122,6 +126,7 @@ export async function fetchUser(id: string): Promise<User> {
     return {
       id: `${userDto.id}`,
       name: userDto.displayName || userDto.username || 'Scholar',
+      totalExp: userDto.totalExperience ?? 0,
       progress: {
         lessons: (lessons || []).map((l) => ({
           lessonId: l.lessonId,
@@ -139,6 +144,7 @@ export async function fetchUser(id: string): Promise<User> {
       ...getDefaultUserState(),
       id,
       name: 'Scholar',
+      totalExp: 0,
     };
   }
 }

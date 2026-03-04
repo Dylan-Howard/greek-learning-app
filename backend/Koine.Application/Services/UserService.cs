@@ -25,7 +25,8 @@ namespace Koine.Application.Services
                 Id = u.Id,
                 Email = u.Email,
                 Username = u.Username,
-                DisplayName = u.DisplayName
+                DisplayName = u.DisplayName,
+                TotalExperience = u.TotalExperience
             }).ToList();
         }
 
@@ -39,7 +40,8 @@ namespace Koine.Application.Services
                 Id = user.Id,
                 Email = user.Email,
                 Username = user.Username,
-                DisplayName = user.DisplayName
+                DisplayName = user.DisplayName,
+                TotalExperience = user.TotalExperience
             };
         }
 
@@ -60,6 +62,7 @@ namespace Koine.Application.Services
                 Email = createDto.Email,
                 Username = createDto.Username,
                 PasswordHash = HashPassword(createDto.Password),
+                TotalExperience = 0,
                 CreatedAt = DateTime.UtcNow
             };
 
@@ -74,7 +77,8 @@ namespace Koine.Application.Services
                 Id = user.Id,
                 Email = user.Email,
                 Username = user.Username,
-                DisplayName = user.DisplayName
+                DisplayName = user.DisplayName,
+                TotalExperience = user.TotalExperience
             };
         }
 
@@ -100,7 +104,8 @@ namespace Koine.Application.Services
                 Id = user.Id,
                 Email = user.Email,
                 Username = user.Username,
-                DisplayName = user.DisplayName
+                DisplayName = user.DisplayName,
+                TotalExperience = user.TotalExperience
             };
         }
 

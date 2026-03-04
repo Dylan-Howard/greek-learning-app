@@ -12,6 +12,8 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Slide from '@mui/material/Slide';
 import Stack from '@mui/material/Stack';
+import Avatar from '@mui/material/Avatar';
+import Typography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
 import Container from '@mui/material/Container';
 import { IconButton } from '@/components/ui';
@@ -21,6 +23,14 @@ import DetailsMenu from '@/components/features/reader/Navigation/DetailsMenu';
 import ReaderStudyMenu from '@/components/features/reader/Navigation/ReaderStudyMenu';
 import SettingsMenu from '@/components/features/reader/Navigation/SettingsMenu';
 import { useReaderContext } from '@/app/reader/ReaderPage/ReaderPageContext';
+import { useUserContext } from '@/lib/types/domain/user';
+import {
+  avatarColorFromUserId,
+  avatarInitial,
+  inLevelExperience,
+  levelFromExperience,
+  XP_PER_LEVEL,
+} from '@/lib/services/user/gamification';
 
 function MenuHandle({ onTouchClose }: { onTouchClose: TouchEventHandler }) {
   const [swipe, setSwipe] = useState({ start: 0 });
@@ -67,6 +77,7 @@ function MenuCloseButton({ onClose }: { onClose: MouseEventHandler<HTMLButtonEle
 }
 
 export default function Sidebar() {
+  const { user } = useUserContext();
   const { page, setPage } = useReaderContext();
   const gt600px = useMediaQuery('(min-width:600px)');
 
@@ -125,6 +136,27 @@ export default function Sidebar() {
                 ? <MenuCloseButton onClose={() => handleClose()} />
                 : <MenuHandle onTouchClose={() => handleClose()} />
             }
+            <Stack direction="row" spacing={1.5} alignItems="center" sx={{ pb: 2 }}>
+              <Avatar
+                sx={{
+                  width: 36,
+                  height: 36,
+                  bgcolor: avatarColorFromUserId(user?.id),
+                  fontSize: 14,
+                  fontWeight: 700,
+                }}
+              >
+                {avatarInitial(user?.name)}
+              </Avatar>
+              <Box>
+                <Typography variant="body2" sx={{ fontWeight: 700 }}>
+                  {user?.name || 'Scholar'}
+                </Typography>
+                <Typography variant="caption" color="text.secondary">
+                  {`Lv ${levelFromExperience(user?.totalExp ?? 0)} · ${inLevelExperience(user?.totalExp ?? 0)}/${XP_PER_LEVEL} XP`}
+                </Typography>
+              </Box>
+            </Stack>
             {
                 page?.tabId === 3
                   ? <DetailsMenu />

@@ -4,6 +4,8 @@ import { useState, useTransition } from 'react';
 import { Stack, Typography } from '@mui/material';
 import { completeLesson } from '@/lib/api/rest/lessons';
 import { Checkbox } from '@/components/ui';
+import { useUserContext } from '@/lib/types/domain/user';
+import { getActiveDevUserId } from '@/lib/services/auth/devSession';
 
 interface LessonCompletionToggleProps {
   lessonId: number;
@@ -11,16 +13,20 @@ interface LessonCompletionToggleProps {
 }
 
 export default function LessonCompletionToggle({ lessonId, initiallyCompleted }: LessonCompletionToggleProps) {
+  const { awardExp, syncUser } = useUserContext();
   const [isCompleted, setIsCompleted] = useState(initiallyCompleted);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
   const onToggle = (_checked: boolean) => {
     startTransition(async () => {
-      const result = await completeLesson(lessonId);
+      const userId = getActiveDevUserId();
+      const result = await completeLesson(lessonId, undefined, userId);
       if (result.ok) {
         setIsCompleted(true);
         setErrorMessage(null);
+        awardExp(result.data.xpGained, result.data.totalExperience);
+        await syncUser(userId);
         return;
       }
 

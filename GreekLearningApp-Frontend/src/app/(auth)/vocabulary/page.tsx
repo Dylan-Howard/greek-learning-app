@@ -5,19 +5,23 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
+import { cookies } from 'next/headers';
 import * as AzureTextService from '@/lib/api/rest/text';
 import * as VocabularySetService from '@/lib/api/rest/vocabulary';
 import VocabularySetCard from '@/components/features/vocabulary/VocabularySetCard';
 import VocabularyTable from '@/components/features/vocabulary/VocabularyTable';
 import { SimpleWordDto, VocabularySetDto } from '@/lib/types/api';
 import { Button } from '@/components/ui';
+import { DEFAULT_DEV_USER_ID, DEV_USER_COOKIE_KEY, sanitizeDevUserId } from '@/lib/services/auth/devSession';
 
 export const dynamic = 'force-dynamic';
 
 export default async function Vocabulary() {
+  const cookieStore = await cookies();
+  const userId = sanitizeDevUserId(cookieStore.get(DEV_USER_COOKIE_KEY)?.value || DEFAULT_DEV_USER_ID);
   const [data, setsResult] = await Promise.all([
     AzureTextService.fetchVocabulary(),
-    VocabularySetService.fetchVocabularySets(),
+    VocabularySetService.fetchVocabularySets(userId),
   ]);
   const words: SimpleWordDto[] = data;
 
