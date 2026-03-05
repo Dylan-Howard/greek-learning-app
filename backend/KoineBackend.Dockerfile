@@ -8,19 +8,19 @@ FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 
 # Copy csproj files
-COPY ["Koine.API/Koine.API.csproj", "Koine.API/"]
-COPY ["Koine.Application/Koine.Application.csproj", "Koine.Application/"]
-COPY ["Koine.Domain/Koine.Domain.csproj", "Koine.Domain/"]
-COPY ["Koine.Infrastructure/Koine.Infrastructure.csproj", "Koine.Infrastructure/"]
+COPY ["src/Koine.API/Koine.API.csproj", "src/Koine.API/"]
+COPY ["src/Koine.Application/Koine.Application.csproj", "src/Koine.Application/"]
+COPY ["src/Koine.Domain/Koine.Domain.csproj", "src/Koine.Domain/"]
+COPY ["src/Koine.Infrastructure/Koine.Infrastructure.csproj", "src/Koine.Infrastructure/"]
 
 # Restore dependencies
-RUN dotnet restore "Koine.API/Koine.API.csproj"
+RUN dotnet restore "src/Koine.API/Koine.API.csproj"
 
 # Copy everything else
 COPY . .
 
 # Build
-WORKDIR "/src/Koine.API"
+WORKDIR "/src/src/Koine.API"
 RUN dotnet build "Koine.API.csproj" -c Release -o /app/build
 
 FROM build AS publish

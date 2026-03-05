@@ -9,7 +9,7 @@ Use these from the repository root.
 ```
 
 Output:
-- `backend/Koine.Tests/backend/Koine.Tests/TestResults/coverage-current.cobertura.xml`
+- `backend/tests/Koine.Tests/TestResults/coverage-current.cobertura.xml`
 
 ## Backend (focused MVP parity services, 70% enforced)
 
@@ -27,7 +27,7 @@ Scope:
 - `VocabularyService`
 
 Output:
-- `backend/Koine.Tests/backend/Koine.Tests/TestResults/coverage-services.cobertura.xml`
+- `backend/tests/Koine.Tests/TestResults/coverage-services.cobertura.xml`
 
 This command fails if line coverage is below 70% for the focused scope.
 
@@ -38,7 +38,7 @@ This command fails if line coverage is below 70% for the focused scope.
 ```
 
 This runs:
-- `npm run test:coverage` in `GreekLearningApp-Frontend/`
+- `npm run test:coverage` in `frontend/`
 
 ## All coverage scripts
 

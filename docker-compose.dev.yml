@@ -42,20 +42,20 @@ services:
     entrypoint: >
       sh -c "
         export PATH=\"$PATH:/root/.dotnet/tools\" &&
-        dotnet ef database update --project Koine.Infrastructure --startup-project Koine.API &&
+        dotnet ef database update --project src/Koine.Infrastructure --startup-project src/Koine.API &&
         dotnet Koine.API.dll
       "
 
   frontend:
     build:
-      context: ./GreekLearningApp-Frontend
+      context: ./frontend
       dockerfile: Dockerfile
       args:
         - NEXT_PUBLIC_API_URL=http://localhost:5001/api
         - NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_b25lLW1vY2Nhc2luLTIwLmNsZXJrLmFjY291bnRzLmRldiQ
     container_name: koine-frontend-dev
     env_file:
-      - ./GreekLearningApp-Frontend/.env.local
+      - ./frontend/.env.local
     environment:
       - NEXT_PUBLIC_API_URL=http://localhost:5001/api
       - INTERNAL_API_URL=http://backend/api

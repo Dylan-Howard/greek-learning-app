@@ -9,10 +9,10 @@ docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=YourStrong@Passw0rd" \
 # 2. Update connection string in appsettings.Development.json
 
 # 3. Apply migrations
-dotnet ef database update --project Koine.Infrastructure --startup-project Koine.API
+dotnet ef database update --project src/Koine.Infrastructure --startup-project src/Koine.API
 
 # 4. Run the API
-cd Koine.API
+cd src/Koine.API
 dotnet run
 
 # API will be available at http://localhost:5000

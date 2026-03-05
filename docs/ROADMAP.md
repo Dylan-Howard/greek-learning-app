@@ -71,9 +71,11 @@
 
 ### Remaining
 
-- [ ] Complete backend folder/namespace cleanup per target structure.
-- [ ] Finalize environment variable docs and setup docs consistency.
-- [ ] Resolve remaining documentation drift across `README.md`, steering docs, and roadmap.
+- [x] Complete backend folder/namespace cleanup per target structure.
+- [x] Complete frontend folder/namespace cleanup per target structure.
+- [x] Finalize environment variable docs and setup docs consistency.
+- [x] Resolve remaining documentation drift across `README.md`, steering docs, and roadmap.
+- [x] Dead code inventory created; removals deferred to next sprint by policy.
 
 **Exit Criteria:** Foundational docs reflect current architecture and no longer conflict with implementation reality.
 

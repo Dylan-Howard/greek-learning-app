@@ -395,7 +395,7 @@
   - Refactor src/components/features/reader/
     Navigation/OptionCheckbox.tsx to use a
     shared Primer-style switch from src/
-    components/ui/inputs/Switch.tsx.
+    components/shared/inputs/Switch.tsx.
 
   2. Update high-impact surfaces for Primer
      consistency:

@@ -22,7 +22,7 @@ Koine is a comprehensive web application designed to help users master Koine Gre
 
 ## Logic Preservation & Migration
 **Adaptive Text Logic (`RenderChapter`):**
-The "Adaptive Interlinear Text" feature relies on specific logic currently implemented in `GreekLearningApp-ReaderService/handler.go`. This logic MUST be preserved during the migration to Supabase.
+The "Adaptive Interlinear Text" feature relies on logic originally implemented in `legacy-reader-service/reader/handler.go` and now represented in the monolith reader pipeline. This logic MUST be preserved as reader behavior evolves.
 - **Input:** User progress (completed lessons, known vocabulary) and text morphology.
 - **Logic:** Checks if the user "recognizes" the word's root and grammatical form.
 - **Output:**

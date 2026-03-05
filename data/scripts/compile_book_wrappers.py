@@ -56,7 +56,7 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--occurrences-json",
-        default="backend/Koine.Infrastructure/Data/Seed/greeknt-occurrences.json",
+        default="backend/src/Koine.Infrastructure/Data/Seed/greeknt-occurrences.json",
         help="Optional JSON dictionary of root -> occurrences for vocabulary fallback values.",
     )
     parser.add_argument(

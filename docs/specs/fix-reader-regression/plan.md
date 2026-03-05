@@ -14,7 +14,7 @@ The legacy service (`legacy-reader-service/handler.go`) used a flat, binary reco
 *   **Regression:** The legacy service possessed a robust `GetAbbreviation` engine that the current system lacks, resulting in a loss of pedagogical value for the student.
 
 ### 1.2 Current System (.NET Monolith)
-The current service (`backend/Koine.Application/Services/ReaderService.cs`) uses a hierarchical `UnitNode` tree and a mastery-based approach:
+The current service (`backend/src/Koine.Application/Services/ReaderService.cs`) uses a hierarchical `UnitNode` tree and a mastery-based approach:
 *   **Logic:** Mastery is calculated as a level (0–100). The current threshold is hardcoded at 70%.
 *   **Divergence:** It supports "Expanded" nodes, allowing phrases to be broken down into individual words or rendered as unified translated blocks.
 *   **Regression:** `BuildParsingHints` is currently a placeholder returning strings like `"Feature{id}"` instead of linguistic data.

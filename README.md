@@ -1,93 +1,83 @@
 # Koine
-Welcome to Koine, your comprehensive learning companion for mastering Koine Greek!
 
-This application is designed to be accessible for beginners and experienced learners alike. With our adaptive interlinear text, you can start reading the New Testament in its original language right away, no matter your starting point.
+Koine is a full-stack Greek learning platform centered on adaptive reading, vocabulary study, and lesson progression.
 
-Below are the key goals that this project is being developed to accomplish.
+## Current Architecture
 
-## Key Features:
-* *Adaptive interlinear text:* A tool that adjusts to your knowledge, gradually revealing more Greek as you learn, allowing you to transition from relying on translations to reading independently.
-* *Interactive learning activities:* Engage with flashcards, video lectures, and drag-and-drop translation exercises to solidify your vocabulary and grammar comprehension.
-* *Personalized learning path:* Track your progress and unlock new content based on your achievements, keeping you motivated and engaged.
-* *Comprehensive curriculum:* Dive deep into all the essential aspects of Koine Greek grammar with clear explanations and ample practice opportunities.
+- Frontend: Next.js + React + TypeScript (`frontend/`)
+- Backend: .NET monolith (`backend/src/Koine.API`, `Koine.Application`, `Koine.Domain`, `Koine.Infrastructure`)
+- Database: SQL Server (Docker for local development)
+- Auth: Clerk integration (development fallbacks still being hardened)
 
-## With Koine, you can:
-* Read the New Testament in its original language with greater understanding and appreciation.
-* Deepen your theological understanding by discovering the nuances and complexities in the original language.
-* Strengthen your analytical and critical thinking skills.
+## Repository Layout
 
-Get started today and embark on your journey to fluency in Koine Greek!
+- `frontend/`: Next.js app
+- `backend/`: .NET solution (`src/` + `tests/`)
+- `data/`: seed/data transformation scripts
+- `docs/`: ADRs, roadmap, architecture notes
+- `scripts/`: coverage and local utility scripts
+- `legacy-reader-service/`: legacy reference service
 
-<img src="https://raw.githubusercontent.com/Dylan-Howard/Greek-Learning-App/master/GreekLearningApp-Illustrations/Logo/koine-logo.svg" height=128 />
+## Quick Start
 
-# Koine: Ancient Greek Learning Platform
-Koine is a web application to empower Ancient Greek language learners. The platform provides interactive tools to enhance language acquisition and provide a tailored reading experience.
+### 1. Start stack
 
-# Demo
-<img src="https://raw.githubusercontent.com/Dylan-Howard/Greek-Learning-App/master/GreekLearningApp-Illustrations/koine-demo.gif" height=256 />
+```bash
+docker compose up --build
+```
 
-[Live Demo](https://dylan-howard.github.io/Greek-Learning-App/)
+- Frontend: `http://localhost:3000`
+- Backend: `http://localhost:5001`
 
-# Key Features
-* Real-time translation aids: Offers immediate lemma and parsing information for Greek words, customizable based on user proficiency.
-* In-depth word analysis: Provides detailed explanations and examples for comprehensive language exploration.
-* Adaptive learning: Tailors the level of support to the user's Greek language skills through adjustable interface settings.
-* Future enhancements: Planned integration of flashcards and interactive grammar lessons for a holistic learning experience.
+### 2. Run tests
 
-# Technology Stack
-The application is built using a robust technology stack to ensure optimal performance and scalability.
-* Frontend: React and TypeScript for a dynamic and user-friendly interface.
-* Backend: Microservices architecture with C# and .NET for Text and User services, along with Go for the Reader service.
-* Databases: Azure SQL Database for textual data and Azure CosmosDB (NoSQL) for user data.
-* Cloud Platform: Azure Functions for serverless backend execution and Azure API Management for unified API access.
+```bash
+dotnet test backend/tests/Koine.Tests/Koine.Tests.csproj -m:1
+cd frontend && npm run test -- --run
+```
 
-<div>
-  <img src="https://raw.githubusercontent.com/Dylan-Howard/Greek-Learning-App/master/GreekLearningApp-Illustrations/icon-react.svg" height=64 />
-  <img src="https://raw.githubusercontent.com/Dylan-Howard/Greek-Learning-App/master/GreekLearningApp-Illustrations/icon-csharp.svg" height=64 />
-  <img src="https://raw.githubusercontent.com/Dylan-Howard/Greek-Learning-App/master/GreekLearningApp-Illustrations/icon-dotnet.svg" height=64 />
-  <img src="https://raw.githubusercontent.com/Dylan-Howard/Greek-Learning-App/master/GreekLearningApp-Illustrations/icon-golang.svg" height=64 />
-  <img src="https://raw.githubusercontent.com/Dylan-Howard/Greek-Learning-App/master/GreekLearningApp-Illustrations/icon-azure.svg" height=64 />
-</div>
+## Environment Variables
 
-## Developer Notes: Seed Data Wrapper Compilation
+### Frontend (`frontend/.env.local`)
 
-Book-level C# seed classes can be generated from chapter-range snippets in
-`data/output/csharp` using:
+- `NEXT_PUBLIC_API_URL`: public API base URL (required)
+- `INTERNAL_API_URL`: internal server-side API base URL (Docker/local)
+- `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`: Clerk publishable key
+- `CLERK_SECRET_KEY`: Clerk secret key
+- `NEXT_PUBLIC_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL`
+- `NEXT_PUBLIC_CLERK_SIGN_UP_FORCE_REDIRECT_URL`
+
+Template: `frontend/.env.local.example`
+
+### Backend
+
+Configured via `appsettings*.json` or environment variables:
+
+- `ConnectionStrings__DefaultConnection`
+- `JwtSettings__SecretKey`
+- `JwtSettings__Issuer`
+- `JwtSettings__Audience`
+- `ASPNETCORE_ENVIRONMENT`
+
+## Common Commands
+
+```bash
+./scripts/coverage-backend-focused.sh
+./scripts/coverage-backend.sh
+./scripts/coverage-frontend.sh
+./scripts/coverage-all.sh
+```
+
+## Data Utility Notes
+
+Book-level C# seed wrappers can be generated via:
 
 ```bash
 python3 data/scripts/compile_book_wrappers.py \
   --input-dir data/output/csharp \
   --fallback-log-dir data/output/logs \
   --book 1John \
-  --output backend/Koine.Infrastructure/Data/Seed/FirstJohnTextData.cs \
+  --output backend/src/Koine.Infrastructure/Data/Seed/FirstJohnTextData.cs \
   --namespace Koine.Infrastructure.Data.Seed \
   --class-name FirstJohnTextData
 ```
-
-Use `--dry-run` to validate input snippet quality without writing output.
-The compiler reports malformed snippet files and verse-range gaps so they can
-be regenerated before seeding.
-
-For full data-generation details, see [`data/README.md`](data/README.md).
-
-## Developer Notes: Refresh DB and Reseed
-
-To reset the Docker SQL database and rerun backend seeding end-to-end:
-
-```bash
-./scripts/refresh-db-and-reseed.sh
-```
-
-What it does:
-- Ensures `sqlserver` is running.
-- Stops `backend`.
-- Drops and recreates the `Koine` database.
-- Recreates `backend` so startup seeding runs.
-- Waits until logs contain `Database seeding completed successfully!`.
-
-Optional environment overrides:
-- `DB_CONTAINER` (default: `koine-db`)
-- `DB_NAME` (default: `Koine`)
-- `SA_USER` (default: `sa`)
-- `SA_PASSWORD` (default: `YourStrong@Passw0rd`)
-- `SEED_TIMEOUT_SECONDS` (default: `180`)

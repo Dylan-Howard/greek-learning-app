@@ -1,66 +1,67 @@
 # System Overview: Greek Learning App (Koine)
 
 ## Architecture Overview
-The Koine system is designed as a modern, full-stack application for studying Ancient Greek. It transitions from a microservices architecture to a consolidated monolith for improved developer productivity and simplified deployment.
+Koine is a full-stack monolith deployment model: Next.js frontend plus a layered .NET backend.
 
 ```mermaid
 graph TD
-    subgraph Frontend [GreekLearningApp-Frontend]
+    subgraph Frontend [frontend]
         UI[Next.js / React]
-        Apollo[Apollo Client / REST Fetch]
+        Client[REST Client]
     end
 
     subgraph Auth [Identity Provider]
         Clerk[Clerk]
     end
 
-    subgraph Backend [Koine Monolith - Koine.API]
-        Controllers[REST Controllers]
-        GQL[GraphQL Resolvers]
-        AppServices[Application Services]
-        Infrastructure[Infrastructure / Adapters]
+    subgraph Backend [Koine Monolith]
+        API[Koine.API Controllers]
+        App[Koine.Application Services]
+        Domain[Koine.Domain]
+        Infra[Koine.Infrastructure]
     end
 
     subgraph Storage [Persistence]
-        DB[(Azure SQL Database)]
+        DB[(SQL Server)]
     end
 
-    UI --> Apollo
-    Apollo -- REST/GraphQL --> Controllers
-    Apollo -- GraphQL --> GQL
-    Controllers --> AppServices
-    GQL --> AppServices
-    AppServices --> Infrastructure
-    Infrastructure --> DB
+    UI --> Client
+    Client --> API
+    API --> App
+    App --> Domain
+    App --> Infra
+    Infra --> DB
     UI -- Auth Token --> Clerk
-    Clerk -- Validates --> Backend
+    API -- Token Validation --> Clerk
 ```
 
 ## Core Components
 
-### 1. Frontend (Next.js)
-The frontend is built with Next.js 14+, leveraging React components, Tailwind CSS (or Vanilla CSS per local preference), and Clerk for authentication. It handles the rendering of Greek text with complex formatting and interactive learning features.
+### 1. Frontend
+- Next.js app in `frontend/`
+- Reader, study, vocabulary, lessons routes
+- Shared API utilities under `src/lib`
 
-### 2. Backend Monolith (.NET 10)
-The backend is a C# .NET 10 application organized using Hexagonal Architecture.
-- **Koine.API**: Handles HTTP requests, GraphQL queries, and JWT validation.
-- **Koine.Application**: Contains the business logic for reading, lessons, and vocabulary.
-- **Koine.Domain**: Defines the core entities (Books, Chapters, Words, Users).
-- **Koine.Infrastructure**: Manages database access via Entity Framework Core.
+### 2. Backend
+- .NET 10 solution in `backend/`
+- `Koine.API`: HTTP API and middleware
+- `Koine.Application`: use-case/services orchestration
+- `Koine.Domain`: entities/value objects
+- `Koine.Infrastructure`: EF Core data access and external adapters
 
-### 3. Database (Azure SQL)
-A relational database stores the Greek text data (parsed from OpenGNT or similar sources), user profiles, progress tracking, and lesson content.
+### 3. Data Layer
+- SQL Server for text, progress, study sessions, and lessons
+- Seed pipeline driven by backend seeding + `data/` scripts
 
 ## Key Data Flows
 
 ### Reading a Text
-1. User selects a Book and Chapter in the UI.
-2. Frontend requests Chapter data (Words, Morphology, Translations).
-3. Backend fetches data from SQL, applies business logic (e.g., highlighting learned words), and returns the payload.
-4. Frontend renders the interactive Greek text.
+1. Frontend requests chapter/reader data.
+2. API delegates to application reader services.
+3. Infrastructure queries SQL and returns DTOs.
+4. Frontend renders adaptive content.
 
-### Study Session (Flashcards)
-1. User starts a practice session for a Vocabulary Set.
-2. Frontend requests due cards from the backend.
-3. User interacts with cards (Flip, Rate).
-4. Results are sent to the backend to update Spaced Repetition (SRS) data in the database.
+### Study Session
+1. Frontend requests due items/session state.
+2. API updates progress through study services.
+3. Scheduler state persists in SQL via infrastructure repositories.

@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Koine.Domain", "Koine.Domain\Koine.Domain.csproj", "{08157AD8-066E-4A3D-AAD3-CDB167606DFF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Koine.Domain", "src\Koine.Domain\Koine.Domain.csproj", "{08157AD8-066E-4A3D-AAD3-CDB167606DFF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Koine.Application", "Koine.Application\Koine.Application.csproj", "{1DAD3FE0-81E5-4871-BDFD-23451450641A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Koine.Application", "src\Koine.Application\Koine.Application.csproj", "{1DAD3FE0-81E5-4871-BDFD-23451450641A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Koine.Infrastructure", "Koine.Infrastructure\Koine.Infrastructure.csproj", "{67B9AEF2-AD75-4293-AC54-9F9B387F5FA3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Koine.Infrastructure", "src\Koine.Infrastructure\Koine.Infrastructure.csproj", "{67B9AEF2-AD75-4293-AC54-9F9B387F5FA3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Koine.API", "Koine.API\Koine.API.csproj", "{E68C28B5-5BC6-45AD-9C35-99609CF896D0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Koine.API", "src\Koine.API\Koine.API.csproj", "{E68C28B5-5BC6-45AD-9C35-99609CF896D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Koine.Tests", "Koine.Tests\Koine.Tests.csproj", "{950A9D75-AB96-4B30-B014-715DFFFF8DF1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Koine.Tests", "tests\Koine.Tests\Koine.Tests.csproj", "{950A9D75-AB96-4B30-B014-715DFFFF8DF1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
