@@ -1,0 +1,275 @@
+```csharp
+private static List<object> GetChapter5()
+{
+    // 1 Timothy 5:17-20
+    return new List<object>
+    {
+        // Verse 17
+        new Phrase
+        {
+            SyntaxCodes = new List<string> { "INDEP_CLAUSE" },
+            Translation = "Let the elders who rule well be considered worthy of double honor, especially those who labor in preaching and teaching.",
+            Content = new List<object>
+            {
+                new Phrase
+                {
+                    SyntaxCodes = new List<string> { "NOUN_PHRASE", "SUBJ" },
+                    Translation = "The elders who rule well",
+                    Content = new List<object>
+                    {
+                        new Word { Greek = "Οἱ", Transliteration = "", Gloss = "the", GrammarCodes = new List<string> { "ART", "NOM", "M", "P" }, PartOfSpeech = "article" },
+                        new Phrase
+                        {
+                            SyntaxCodes = new List<string> { "PTCP" },
+                            Translation = "ruling well",
+                            Content = new List<object>
+                            {
+                                new Word { Greek = "καλῶς", Transliteration = "", Gloss = "rightly", GrammarCodes = new List<string> { "ADJ" }, PartOfSpeech = "adjective" }, // Functions as ADV
+                                new Word { Greek = "προεστῶτες", Transliteration = "", Gloss = "to manage", GrammarCodes = new List<string> { "V", "PERF", "ACT", "PTCP", "NOM", "M", "P" }, PartOfSpeech = "verb" }
+                            }
+                        },
+                        new Word { Greek = "πρεσβύτεροι", Transliteration = "", Gloss = "older", GrammarCodes = new List<string> { "ADJ", "NOM", "M", "P" }, PartOfSpeech = "adjective" }
+                    }
+                },
+                new Phrase
+                {
+                    SyntaxCodes = new List<string> { "NOUN_PHRASE", "GEN_DESC" },
+                    Translation = "of double honor",
+                    Content = new List<object>
+                    {
+                        new Word { Greek = "διπλῆς", Transliteration = "", Gloss = "double", GrammarCodes = new List<string> { "ADJ", "GEN", "F", "S" }, PartOfSpeech = "adjective" },
+                        new Word { Greek = "τιμῆς", Transliteration = "", Gloss = "honor", GrammarCodes = new List<string> { "N", "GEN", "F", "S" }, PartOfSpeech = "noun" }
+                    }
+                },
+                new Word { Greek = "ἀξιούσθωσαν", Transliteration = "", Gloss = "to consider worthy", GrammarCodes = new List<string> { "V", "PRES", "PASS", "IMP", "3P", "P" }, PartOfSpeech = "verb" },
+                new Phrase
+                {
+                    SyntaxCodes = new List<string> { "APPOS" },
+                    Translation = "especially those who labor in word and teaching",
+                    Content = new List<object>
+                    {
+                        new Word { Greek = "μάλιστα", Transliteration = "", Gloss = "especially", GrammarCodes = new List<string> { "ADJ" }, PartOfSpeech = "adjective" }, // ADV
+                        new Phrase
+                        {
+                            SyntaxCodes = new List<string> { "NOUN_PHRASE" },
+                            Translation = "the ones laboring",
+                            Content = new List<object>
+                            {
+                                new Word { Greek = "οἱ", Transliteration = "", Gloss = "the", GrammarCodes = new List<string> { "ART", "NOM", "M", "P" }, PartOfSpeech = "article" },
+                                new Word { Greek = "κοπιῶντες", Transliteration = "", Gloss = "to work", GrammarCodes = new List<string> { "V", "PRES", "ACT", "PTCP", "NOM", "M", "P" }, PartOfSpeech = "verb" },
+                                new Phrase
+                                {
+                                    SyntaxCodes = new List<string> { "PREP_PHRASE" },
+                                    Translation = "in word and teaching",
+                                    Content = new List<object>
+                                    {
+                                        new Word { Greek = "ἐν", Transliteration = "", Gloss = "in", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "preposition" },
+                                        new Word { Greek = "λόγῳ", Transliteration = "", Gloss = "word", GrammarCodes = new List<string> { "N", "DAT", "M", "S" }, PartOfSpeech = "noun" },
+                                        new Word { Greek = "καὶ", Transliteration = "", Gloss = "and", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conjunction" },
+                                        new Word { Greek = "διδασκαλίᾳ", Transliteration = "", Gloss = "teaching", GrammarCodes = new List<string> { "N", "DAT", "F", "S" }, PartOfSpeech = "noun" }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        // Verse 18
+        new Phrase
+        {
+            SyntaxCodes = new List<string> { "INDEP_CLAUSE" },
+            Translation = "For the Scripture says, \"You shall not muzzle an ox when it treads out the grain,\" and, \"The laborer deserves his wages.\"",
+            Content = new List<object>
+            {
+                new Word { Greek = "λέγει", Transliteration = "", Gloss = "say", GrammarCodes = new List<string> { "V", "PRES", "ACT", "IND", "3P", "S" }, PartOfSpeech = "verb" },
+                new Word { Greek = "γὰρ", Transliteration = "", Gloss = "for", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conjunction" },
+                new Phrase
+                {
+                    SyntaxCodes = new List<string> { "NOUN_PHRASE", "SUBJ" },
+                    Translation = "the Scripture",
+                    Content = new List<object>
+                    {
+                        new Word { Greek = "ἡ", Transliteration = "", Gloss = "the", GrammarCodes = new List<string> { "ART", "NOM", "F", "S" }, PartOfSpeech = "article" },
+                        new Word { Greek = "γραφή", Transliteration = "", Gloss = "a passage of Scripture", GrammarCodes = new List<string> { "N", "NOM", "F", "S" }, PartOfSpeech = "noun" }
+                    }
+                },
+                new Phrase
+                {
+                    SyntaxCodes = new List<string> { "INDEP_CLAUSE" }, // Quote 1
+                    Translation = "You shall not muzzle an ox treading out the grain",
+                    Content = new List<object>
+                    {
+                        new Phrase
+                        {
+                            SyntaxCodes = new List<string> { "NOUN_PHRASE", "OBJ" },
+                            Translation = "an ox treading",
+                            Content = new List<object>
+                            {
+                                new Word { Greek = "βοῦν", Transliteration = "", Gloss = "ox", GrammarCodes = new List<string> { "N", "ACC", "M", "S" }, PartOfSpeech = "noun" },
+                                new Word { Greek = "ἀλοῶντα", Transliteration = "", Gloss = "to tread", GrammarCodes = new List<string> { "V", "PRES", "ACT", "PTCP", "ACC", "M", "S" }, PartOfSpeech = "verb" }
+                            }
+                        },
+                        new Word { Greek = "οὐ", Transliteration = "", Gloss = "no", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "preposition" }, // Particle
+                        new Word { Greek = "φιμώσεις", Transliteration = "", Gloss = "to muzzle", GrammarCodes = new List<string> { "V", "FUT", "ACT", "IND", "2P", "S" }, PartOfSpeech = "verb" }
+                    }
+                },
+                new Word { Greek = "καί", Transliteration = "", Gloss = "and", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conjunction" },
+                new Phrase
+                {
+                    SyntaxCodes = new List<string> { "INDEP_CLAUSE" }, // Quote 2
+                    Translation = "The laborer is worthy of his wage",
+                    Content = new List<object>
+                    {
+                        new Word { Greek = "ἄξιος", Transliteration = "", Gloss = "worthy", GrammarCodes = new List<string> { "ADJ", "NOM", "M", "S" }, PartOfSpeech = "adjective" },
+                        new Phrase
+                        {
+                            SyntaxCodes = new List<string> { "NOUN_PHRASE", "SUBJ" },
+                            Translation = "the laborer",
+                            Content = new List<object>
+                            {
+                                new Word { Greek = "ὁ", Transliteration = "", Gloss = "the", GrammarCodes = new List<string> { "ART", "NOM", "M", "S" }, PartOfSpeech = "article" },
+                                new Word { Greek = "ἐργάτης", Transliteration = "", Gloss = "worker", GrammarCodes = new List<string> { "N", "NOM", "M", "S" }, PartOfSpeech = "noun" }
+                            }
+                        },
+                        new Phrase
+                        {
+                            SyntaxCodes = new List<string> { "NOUN_PHRASE", "GEN_DESC" },
+                            Translation = "of his wage",
+                            Content = new List<object>
+                            {
+                                new Word { Greek = "τοῦ", Transliteration = "", Gloss = "the", GrammarCodes = new List<string> { "ART", "GEN", "M", "S" }, PartOfSpeech = "article" },
+                                new Word { Greek = "μισθοῦ", Transliteration = "", Gloss = "wage", GrammarCodes = new List<string> { "N", "GEN", "M", "S" }, PartOfSpeech = "noun" },
+                                new Word { Greek = "αὐτοῦ", Transliteration = "", Gloss = "he", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "preposition" } // Pronoun
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        // Verse 19
+        new Phrase
+        {
+            SyntaxCodes = new List<string> { "INDEP_CLAUSE" },
+            Translation = "Do not admit a charge against an elder except on the evidence of two or three witnesses.",
+            Content = new List<object>
+            {
+                new Phrase
+                {
+                    SyntaxCodes = new List<string> { "PREP_PHRASE" },
+                    Translation = "against an elder",
+                    Content = new List<object>
+                    {
+                        new Word { Greek = "κατὰ", Transliteration = "", Gloss = "against", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "preposition" },
+                        new Word { Greek = "πρεσβυτέρου", Transliteration = "", Gloss = "older", GrammarCodes = new List<string> { "ADJ", "GEN", "M", "S" }, PartOfSpeech = "adjective" }
+                    }
+                },
+                new Phrase
+                {
+                    SyntaxCodes = new List<string> { "NOUN_PHRASE", "OBJ" },
+                    Translation = "a charge",
+                    Content = new List<object>
+                    {
+                        new Word { Greek = "κατηγορίαν", Transliteration = "", Gloss = "charge", GrammarCodes = new List<string> { "N", "ACC", "F", "S" }, PartOfSpeech = "noun" }
+                    }
+                },
+                new Word { Greek = "μὴ", Transliteration = "", Gloss = "no", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "preposition" }, // Particle
+                new Word { Greek = "παραδέχου", Transliteration = "", Gloss = "to accept", GrammarCodes = new List<string> { "V", "PRES", "MID", "IMP", "2P", "S" }, PartOfSpeech = "verb" },
+                new Phrase
+                {
+                    SyntaxCodes = new List<string> { "COND_CLAUSE" },
+                    Translation = "except on the basis of two or three witnesses",
+                    Content = new List<object>
+                    {
+                        new Word { Greek = "ἐκτὸς", Transliteration = "", Gloss = "outside", GrammarCodes = new List<string> { "ADJ" }, PartOfSpeech = "adjective" }, // ADV
+                        new Word { Greek = "εἰ", Transliteration = "", Gloss = "if", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conjunction" },
+                        new Word { Greek = "μὴ", Transliteration = "", Gloss = "no", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "preposition" }, // Particle
+                        new Phrase
+                        {
+                            SyntaxCodes = new List<string> { "PREP_PHRASE" },
+                            Translation = "on two or three witnesses",
+                            Content = new List<object>
+                            {
+                                new Word { Greek = "ἐπὶ", Transliteration = "", Gloss = "on", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "preposition" },
+                                new Word { Greek = "δύο", Transliteration = "", Gloss = "two", GrammarCodes = new List<string> { "ADJ", "GEN", "M", "P" }, PartOfSpeech = "adjective" },
+                                new Word { Greek = "ἢ", Transliteration = "", Gloss = "either...or", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conjunction" },
+                                new Word { Greek = "τριῶν", Transliteration = "", Gloss = "three", GrammarCodes = new List<string> { "ADJ", "GEN", "M", "P" }, PartOfSpeech = "adjective" },
+                                new Word { Greek = "μαρτύρων", Transliteration = "", Gloss = "witness", GrammarCodes = new List<string> { "N", "GEN", "M", "P" }, PartOfSpeech = "noun" }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        // Verse 20
+        new Phrase
+        {
+            SyntaxCodes = new List<string> { "INDEP_CLAUSE" },
+            Translation = "As for those who persist in sin, rebuke them in the presence of all, so that the rest may stand in fear.",
+            Content = new List<object>
+            {
+                new Phrase
+                {
+                    SyntaxCodes = new List<string> { "NOUN_PHRASE", "OBJ" },
+                    Translation = "The ones sinning",
+                    Content = new List<object>
+                    {
+                        new Word { Greek = "Τοὺς", Transliteration = "", Gloss = "the", GrammarCodes = new List<string> { "ART", "ACC", "M", "P" }, PartOfSpeech = "article" },
+                        new Word { Greek = "ἁμαρτάνοντας", Transliteration = "", Gloss = "to sin", GrammarCodes = new List<string> { "V", "PRES", "ACT", "PTCP", "ACC", "M", "P" }, PartOfSpeech = "verb" }
+                    }
+                },
+                new Phrase
+                {
+                    SyntaxCodes = new List<string> { "PREP_PHRASE" },
+                    Translation = "before all",
+                    Content = new List<object>
+                    {
+                        new Word { Greek = "ἐνώπιον", Transliteration = "", Gloss = "before", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "preposition" },
+                        new Word { Greek = "πάντων", Transliteration = "", Gloss = "all", GrammarCodes = new List<string> { "ADJ", "GEN", "M", "P" }, PartOfSpeech = "adjective" }
+                    }
+                },
+                new Word { Greek = "ἔλεγχε", Transliteration = "", Gloss = "to expose", GrammarCodes = new List<string> { "V", "PRES", "ACT", "IMP", "2P", "S" }, PartOfSpeech = "verb" },
+                new Phrase
+                {
+                    SyntaxCodes = new List<string> { "PURPOSE_CLAUSE" },
+                    Translation = "so that the rest also may have fear",
+                    Content = new List<object>
+                    {
+                        new Word { Greek = "ἵνα", Transliteration = "", Gloss = "in order that", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conjunction" },
+                        new Word { Greek = "καὶ", Transliteration = "", Gloss = "and", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conjunction" },
+                        new Phrase
+                        {
+                            SyntaxCodes = new List<string> { "NOUN_PHRASE", "SUBJ" },
+                            Translation = "the rest",
+                            Content = new List<object>
+                            {
+                                new Word { Greek = "οἱ", Transliteration = "", Gloss = "the", GrammarCodes = new List<string> { "ART", "NOM", "M", "P" }, PartOfSpeech = "article" },
+                                new Word { Greek = "λοιποὶ", Transliteration = "", Gloss = "remaining", GrammarCodes = new List<string> { "ADJ", "NOM", "M", "P" }, PartOfSpeech = "adjective" }
+                            }
+                        },
+                        new Phrase
+                        {
+                            SyntaxCodes = new List<string> { "NOUN_PHRASE", "OBJ" },
+                            Translation = "fear",
+                            Content = new List<object>
+                            {
+                                new Word { Greek = "φόβον", Transliteration = "", Gloss = "fear", GrammarCodes = new List<string> { "N", "ACC", "M", "S" }, PartOfSpeech = "noun" }
+                            }
+                        },
+                        new Word { Greek = "ἔχωσιν", Transliteration = "", Gloss = "to have", GrammarCodes = new List<string> { "V", "PRES", "ACT", "SUBJ", "3P", "P" }, PartOfSpeech = "verb" }
+                    }
+                }
+            }
+        }
+    };
+}
+
+/*
+Constructions identified:
+- Verse 17: Substantival Participle (οἱ καλῶς προεστῶτες, οἱ κοπιῶντες)
+- Verse 18: Scriptural Citation
+- Verse 19: ἐκτὸς εἰ μὴ (Except if not / Pleonastic)
+- Verse 20: Substantival Participle (Τοὺς ἁμαρτάνοντας)
+- Verse 20: Purpose Clause (ἵνα ... ἔχωσιν)
+*/
+```

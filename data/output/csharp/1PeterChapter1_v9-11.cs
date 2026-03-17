@@ -1,0 +1,230 @@
+private static List<object> GetChapter1()
+{
+    // 1 Peter 1:9-11
+    return new List<object>
+    {
+        // Verse 9
+        new Phrase
+        {
+            SyntaxCodes = new List<string> { "DEP_CLAUSE", "PTCP" },
+            Content = new List<object>
+            {
+                new Word { Greek = "κομιζόμενοι", Transliteration = "", Gloss = "receiving", GrammarCodes = new List<string> { "V", "PRES", "MID", "PTCP", "NOM", "M", "P" }, PartOfSpeech = "v" },
+                new Phrase
+                {
+                    SyntaxCodes = new List<string> { "NOUN_PHRASE", "OBJ" },
+                    Content = new List<object>
+                    {
+                        new Word { Greek = "τὸ", Transliteration = "", Gloss = "the", GrammarCodes = new List<string> { "ART", "ACC", "N", "S" }, PartOfSpeech = "art" },
+                        new Word { Greek = "τέλος", Transliteration = "", Gloss = "end", GrammarCodes = new List<string> { "N", "ACC", "N", "S" }, PartOfSpeech = "n" },
+                        new Phrase
+                        {
+                            SyntaxCodes = new List<string> { "NOUN_PHRASE", "GEN_DESC" },
+                            Content = new List<object>
+                            {
+                                new Word { Greek = "τῆς", Transliteration = "", Gloss = "the", GrammarCodes = new List<string> { "ART", "GEN", "F", "S" }, PartOfSpeech = "art" },
+                                new Word { Greek = "πίστεως", Transliteration = "", Gloss = "faith", GrammarCodes = new List<string> { "N", "GEN", "F", "S" }, PartOfSpeech = "n" },
+                                new Word { Greek = "ὑμῶν", Transliteration = "", Gloss = "your", GrammarCodes = new List<string> { "PRON", "GEN", "2P", "P" }, PartOfSpeech = "pron" }
+                            },
+                            Translation = "of your faith"
+                        }
+                    },
+                    Translation = "the outcome of your faith"
+                },
+                new Phrase
+                {
+                    SyntaxCodes = new List<string> { "NOUN_PHRASE", "APPOS" },
+                    Content = new List<object>
+                    {
+                        new Word { Greek = "σωτηρίαν", Transliteration = "", Gloss = "salvation", GrammarCodes = new List<string> { "N", "ACC", "F", "S" }, PartOfSpeech = "n" },
+                        new Word { Greek = "ψυχῶν", Transliteration = "", Gloss = "of souls", GrammarCodes = new List<string> { "N", "GEN", "F", "P" }, PartOfSpeech = "n" }
+                    },
+                    Translation = "the salvation of your souls"
+                }
+            },
+            Translation = "obtaining the outcome of your faith, the salvation of your souls."
+        },
+        // Verse 10
+        new Phrase
+        {
+            SyntaxCodes = new List<string> { "INDEP_CLAUSE" },
+            Content = new List<object>
+            {
+                new Phrase
+                {
+                    SyntaxCodes = new List<string> { "PREP_PHRASE", "DAT_REF" },
+                    Content = new List<object>
+                    {
+                        new Word { Greek = "περὶ", Transliteration = "", Gloss = "about", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "prep" },
+                        new Phrase
+                        {
+                            SyntaxCodes = new List<string> { "NOUN_PHRASE" },
+                            Content = new List<object>
+                            {
+                                new Word { Greek = "ἧς", Transliteration = "", Gloss = "which", GrammarCodes = new List<string> { "PRON", "GEN", "F", "S" }, PartOfSpeech = "pron" },
+                                new Word { Greek = "σωτηρίας", Transliteration = "", Gloss = "salvation", GrammarCodes = new List<string> { "N", "GEN", "F", "S" }, PartOfSpeech = "n" }
+                            },
+                            Translation = "which salvation"
+                        }
+                    },
+                    Translation = "Concerning this salvation"
+                },
+                new Phrase
+                {
+                    SyntaxCodes = new List<string> { "VERB_PHRASE" },
+                    Content = new List<object>
+                    {
+                        new Word { Greek = "ἐξεζήτησαν", Transliteration = "", Gloss = "sought out", GrammarCodes = new List<string> { "V", "AOR", "ACT", "IND", "3P", "P" }, PartOfSpeech = "v" },
+                        new Word { Greek = "καὶ", Transliteration = "", Gloss = "and", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
+                        new Word { Greek = "ἐξηραύνησαν", Transliteration = "", Gloss = "searched intently", GrammarCodes = new List<string> { "V", "AOR", "ACT", "IND", "3P", "P" }, PartOfSpeech = "v" }
+                    },
+                    Translation = "sought out and searched intently"
+                },
+                new Phrase
+                {
+                    SyntaxCodes = new List<string> { "NOUN_PHRASE", "SUBJ" },
+                    Content = new List<object>
+                    {
+                        new Word { Greek = "προφῆται", Transliteration = "", Gloss = "prophets", GrammarCodes = new List<string> { "N", "NOM", "M", "P" }, PartOfSpeech = "n" },
+                        new Phrase
+                        {
+                            SyntaxCodes = new List<string> { "PTCP", "APPOS" },
+                            Content = new List<object>
+                            {
+                                new Word { Greek = "οἱ", Transliteration = "", Gloss = "the", GrammarCodes = new List<string> { "ART", "NOM", "M", "P" }, PartOfSpeech = "art" },
+                                new Phrase
+                                {
+                                    SyntaxCodes = new List<string> { "PREP_PHRASE" },
+                                    Content = new List<object>
+                                    {
+                                        new Word { Greek = "περὶ", Transliteration = "", Gloss = "about", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "prep" },
+                                        new Word { Greek = "τῆς", Transliteration = "", Gloss = "the", GrammarCodes = new List<string> { "ART", "GEN", "F", "S" }, PartOfSpeech = "art" },
+                                        new Phrase
+                                        {
+                                            SyntaxCodes = new List<string> { "PREP_PHRASE" },
+                                            Content = new List<object>
+                                            {
+                                                new Word { Greek = "εἰς", Transliteration = "", Gloss = "to", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "prep" },
+                                                new Word { Greek = "ὑμᾶς", Transliteration = "", Gloss = "you", GrammarCodes = new List<string> { "PRON", "ACC", "2P", "P" }, PartOfSpeech = "pron" }
+                                            },
+                                            Translation = "to you"
+                                        },
+                                        new Word { Greek = "χάριτος", Transliteration = "", Gloss = "grace", GrammarCodes = new List<string> { "N", "GEN", "F", "S" }, PartOfSpeech = "n" }
+                                    },
+                                    Translation = "concerning the grace to you"
+                                },
+                                new Word { Greek = "προφητεύσαντες", Transliteration = "", Gloss = "prophesied", GrammarCodes = new List<string> { "V", "AOR", "ACT", "PTCP", "NOM", "M", "P" }, PartOfSpeech = "v" }
+                            },
+                            Translation = "who prophesied concerning the grace that was to be yours"
+                        }
+                    },
+                    Translation = "the prophets who prophesied"
+                },
+                // Verse 11 (continues verse 10)
+                new Phrase
+                {
+                    SyntaxCodes = new List<string> { "PTCP", "ADV" },
+                    Content = new List<object>
+                    {
+                        new Word { Greek = "ἐραυνῶντες", Transliteration = "", Gloss = "searching", GrammarCodes = new List<string> { "V", "PRES", "ACT", "PTCP", "NOM", "M", "P" }, PartOfSpeech = "v" },
+                        new Phrase
+                        {
+                            SyntaxCodes = new List<string> { "DEP_CLAUSE" },
+                            Content = new List<object>
+                            {
+                                new Phrase
+                                {
+                                    SyntaxCodes = new List<string> { "PREP_PHRASE" },
+                                    Content = new List<object>
+                                    {
+                                        new Word { Greek = "εἰς", Transliteration = "", Gloss = "to", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "prep" },
+                                        new Word { Greek = "τίνα", Transliteration = "", Gloss = "who", GrammarCodes = new List<string> { "PRON", "ACC", "M", "S" }, PartOfSpeech = "pron" },
+                                        new Word { Greek = "ἢ", Transliteration = "", Gloss = "or", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
+                                        new Word { Greek = "ποῖον", Transliteration = "", Gloss = "what kind", GrammarCodes = new List<string> { "PRON", "ACC", "M", "S" }, PartOfSpeech = "pron" },
+                                        new Word { Greek = "καιρὸν", Transliteration = "", Gloss = "time", GrammarCodes = new List<string> { "N", "ACC", "M", "S" }, PartOfSpeech = "n" }
+                                    },
+                                    Translation = "what person or time"
+                                },
+                                new Word { Greek = "ἐδήλου", Transliteration = "", Gloss = "was indicating", GrammarCodes = new List<string> { "V", "IMPF", "ACT", "IND", "3P", "S" }, PartOfSpeech = "v" },
+                                new Phrase
+                                {
+                                    SyntaxCodes = new List<string> { "NOUN_PHRASE", "SUBJ" },
+                                    Content = new List<object>
+                                    {
+                                        new Word { Greek = "τὸ", Transliteration = "", Gloss = "the", GrammarCodes = new List<string> { "ART", "NOM", "N", "S" }, PartOfSpeech = "art" },
+                                        new Phrase
+                                        {
+                                            SyntaxCodes = new List<string> { "PREP_PHRASE" },
+                                            Content = new List<object>
+                                            {
+                                                new Word { Greek = "ἐν", Transliteration = "", Gloss = "in", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "prep" },
+                                                new Word { Greek = "αὐτοῖς", Transliteration = "", Gloss = "them", GrammarCodes = new List<string> { "PRON", "DAT", "M", "P" }, PartOfSpeech = "pron" }
+                                            },
+                                            Translation = "within them"
+                                        },
+                                        new Word { Greek = "πνεῦμα", Transliteration = "", Gloss = "Spirit", GrammarCodes = new List<string> { "N", "NOM", "N", "S" }, PartOfSpeech = "n" },
+                                        new Word { Greek = "Χριστοῦ", Transliteration = "", Gloss = "of Christ", GrammarCodes = new List<string> { "N", "GEN", "M", "S" }, PartOfSpeech = "n" }
+                                    },
+                                    Translation = "the Spirit of Christ within them"
+                                },
+                                new Phrase
+                                {
+                                    SyntaxCodes = new List<string> { "PTCP" },
+                                    Content = new List<object>
+                                    {
+                                        new Word { Greek = "προμαρτυρόμενον", Transliteration = "", Gloss = "predicting", GrammarCodes = new List<string> { "V", "PRES", "MID", "PTCP", "NOM", "N", "S" }, PartOfSpeech = "v" },
+                                        new Phrase
+                                        {
+                                            SyntaxCodes = new List<string> { "NOUN_PHRASE", "OBJ" },
+                                            Content = new List<object>
+                                            {
+                                                new Word { Greek = "τὰ", Transliteration = "", Gloss = "the", GrammarCodes = new List<string> { "ART", "ACC", "N", "P" }, PartOfSpeech = "art" },
+                                                new Phrase
+                                                {
+                                                    SyntaxCodes = new List<string> { "PREP_PHRASE" },
+                                                    Content = new List<object>
+                                                    {
+                                                        new Word { Greek = "εἰς", Transliteration = "", Gloss = "to", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "prep" },
+                                                        new Word { Greek = "Χριστὸν", Transliteration = "", Gloss = "Christ", GrammarCodes = new List<string> { "N", "ACC", "M", "S" }, PartOfSpeech = "n" }
+                                                    },
+                                                    Translation = "of Christ"
+                                                },
+                                                new Word { Greek = "παθήματα", Transliteration = "", Gloss = "sufferings", GrammarCodes = new List<string> { "N", "ACC", "N", "P" }, PartOfSpeech = "n" },
+                                                new Word { Greek = "καὶ", Transliteration = "", Gloss = "and", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
+                                                new Phrase
+                                                {
+                                                    SyntaxCodes = new List<string> { "NOUN_PHRASE" },
+                                                    Content = new List<object>
+                                                    {
+                                                        new Word { Greek = "τὰς", Transliteration = "", Gloss = "the", GrammarCodes = new List<string> { "ART", "ACC", "F", "P" }, PartOfSpeech = "art" },
+                                                        new Phrase
+                                                        {
+                                                            SyntaxCodes = new List<string> { "PREP_PHRASE" },
+                                                            Content = new List<object>
+                                                            {
+                                                                new Word { Greek = "μετὰ", Transliteration = "", Gloss = "after", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "prep" },
+                                                                new Word { Greek = "ταῦτα", Transliteration = "", Gloss = "these things", GrammarCodes = new List<string> { "PRON", "ACC", "N", "P" }, PartOfSpeech = "pron" }
+                                                            },
+                                                            Translation = "subsequent"
+                                                        },
+                                                        new Word { Greek = "δόξας", Transliteration = "", Gloss = "glories", GrammarCodes = new List<string> { "N", "ACC", "F", "P" }, PartOfSpeech = "n" }
+                                                    },
+                                                    Translation = "the subsequent glories"
+                                                }
+                                            },
+                                            Translation = "the sufferings of Christ and the subsequent glories"
+                                        }
+                                    },
+                                    Translation = "predicting the sufferings of Christ and the subsequent glories"
+                                }
+                            },
+                            Translation = "what person or time the Spirit of Christ in them was indicating when he predicted..."
+                        }
+                    },
+                    Translation = "inquiring what person or time the Spirit of Christ in them was indicating when he predicted the sufferings of Christ and the subsequent glories"
+                }
+            },
+            Translation = "Concerning this salvation, the prophets who prophesied about the grace that was to be yours searched and inquired carefully, inquiring what person or time..."
+        }
+    };
+}

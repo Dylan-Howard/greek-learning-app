@@ -1,0 +1,272 @@
+```csharp
+private static List<object> GetChapter5()
+{
+    // Galatians 5:13-16
+    return new List<object>
+    {
+        // Verse 13
+        new Phrase
+        {
+            SyntaxCodes = new List<string> { "INDEP_CLAUSE" },
+            Content = new List<object>
+            {
+                new Word { Greek = "Ὑμεῖς", Transliteration = "Hymeis", Gloss = "you", GrammarCodes = new List<string> { "PRON", "NOM", "2P", "P" }, PartOfSpeech = "pronoun" },
+                new Word { Greek = "γὰρ", Transliteration = "gar", Gloss = "for", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conjunction" },
+                new Phrase
+                {
+                    SyntaxCodes = new List<string> { "PREP_PHRASE" },
+                    Content = new List<object>
+                    {
+                        new Word { Greek = "ἐπ᾽", Transliteration = "ep'", Gloss = "on", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "preposition" },
+                        new Word { Greek = "ἐλευθερίᾳ", Transliteration = "eleutheria", Gloss = "freedom", GrammarCodes = new List<string> { "N", "DAT", "F", "S" }, PartOfSpeech = "noun" }
+                    },
+                    Translation = "for freedom"
+                },
+                new Word { Greek = "ἐκλήθητε", Transliteration = "eklēthēte", Gloss = "you were called", GrammarCodes = new List<string> { "V", "AOR", "PASS", "IND", "2P", "P" }, PartOfSpeech = "verb" },
+                new Word { Greek = "ἀδελφοί", Transliteration = "adelphoi", Gloss = "brothers", GrammarCodes = new List<string> { "N", "VOC", "M", "P", "VOC" }, PartOfSpeech = "noun" }
+            },
+            Translation = "For you were called to freedom, brothers."
+        },
+        new Phrase
+        {
+            SyntaxCodes = new List<string> { "INDEP_CLAUSE" }, // Elliptical imperative
+            Content = new List<object>
+            {
+                new Word { Greek = "μόνον", Transliteration = "monon", Gloss = "only", GrammarCodes = new List<string> { "ADV" }, PartOfSpeech = "adverb" },
+                new Word { Greek = "μὴ", Transliteration = "mē", Gloss = "not", GrammarCodes = new List<string> { "PART" }, PartOfSpeech = "particle" },
+                new Phrase
+                {
+                    SyntaxCodes = new List<string> { "NOUN_PHRASE", "OBJ" },
+                    Content = new List<object>
+                    {
+                        new Word { Greek = "τὴν", Transliteration = "tēn", Gloss = "the", GrammarCodes = new List<string> { "ART", "ACC", "F", "S" }, PartOfSpeech = "article" },
+                        new Word { Greek = "ἐλευθερίαν", Transliteration = "eleutherian", Gloss = "freedom", GrammarCodes = new List<string> { "N", "ACC", "F", "S" }, PartOfSpeech = "noun" }
+                    },
+                    Translation = "the freedom"
+                },
+                new Phrase
+                {
+                    SyntaxCodes = new List<string> { "PREP_PHRASE" }, // Functioning as predicate or result
+                    Content = new List<object>
+                    {
+                        new Word { Greek = "εἰς", Transliteration = "eis", Gloss = "into", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "preposition" },
+                        new Word { Greek = "ἀφορμὴν", Transliteration = "aphormēn", Gloss = "opportunity", GrammarCodes = new List<string> { "N", "ACC", "F", "S" }, PartOfSpeech = "noun" }
+                    },
+                    Translation = "as an opportunity"
+                },
+                new Phrase
+                {
+                    SyntaxCodes = new List<string> { "NOUN_PHRASE", "DAT_REF" },
+                    Content = new List<object>
+                    {
+                        new Word { Greek = "τῇ", Transliteration = "tē", Gloss = "the", GrammarCodes = new List<string> { "ART", "DAT", "F", "S" }, PartOfSpeech = "article" },
+                        new Word { Greek = "σαρκί", Transliteration = "sarki", Gloss = "flesh", GrammarCodes = new List<string> { "N", "DAT", "F", "S" }, PartOfSpeech = "noun" }
+                    },
+                    Translation = "for the flesh"
+                }
+            },
+            Translation = "Only do not use your freedom as an opportunity for the flesh,"
+        },
+        new Phrase
+        {
+            SyntaxCodes = new List<string> { "INDEP_CLAUSE" },
+            Content = new List<object>
+            {
+                new Word { Greek = "ἀλλὰ", Transliteration = "alla", Gloss = "but", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conjunction" },
+                new Phrase
+                {
+                    SyntaxCodes = new List<string> { "PREP_PHRASE", "DAT_INSTR" }, // Functionally instrumental
+                    Content = new List<object>
+                    {
+                        new Word { Greek = "διὰ", Transliteration = "dia", Gloss = "through", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "preposition" },
+                        new Phrase
+                        {
+                            SyntaxCodes = new List<string> { "NOUN_PHRASE" },
+                            Content = new List<object>
+                            {
+                                new Word { Greek = "τῆς", Transliteration = "tēs", Gloss = "the", GrammarCodes = new List<string> { "ART", "GEN", "F", "S" }, PartOfSpeech = "article" },
+                                new Word { Greek = "ἀγάπης", Transliteration = "agapēs", Gloss = "love", GrammarCodes = new List<string> { "N", "GEN", "F", "S" }, PartOfSpeech = "noun" }
+                            },
+                            Translation = "love"
+                        }
+                    },
+                    Translation = "through love"
+                },
+                new Word { Greek = "δουλεύετε", Transliteration = "douleuete", Gloss = "serve", GrammarCodes = new List<string> { "V", "PRES", "ACT", "IMP", "2P", "P" }, PartOfSpeech = "verb" },
+                new Word { Greek = "ἀλλήλοις", Transliteration = "allēlois", Gloss = "one another", GrammarCodes = new List<string> { "PRON", "DAT", "M", "P" }, PartOfSpeech = "pronoun" }
+            },
+            Translation = "but through love serve one another."
+        },
+
+        // Verse 14
+        new Phrase
+        {
+            SyntaxCodes = new List<string> { "INDEP_CLAUSE" },
+            Content = new List<object>
+            {
+                new Phrase
+                {
+                    SyntaxCodes = new List<string> { "NOUN_PHRASE", "SUBJ" },
+                    Content = new List<object>
+                    {
+                        new Word { Greek = "ὁ", Transliteration = "ho", Gloss = "the", GrammarCodes = new List<string> { "ART", "NOM", "M", "S" }, PartOfSpeech = "article" },
+                        new Word { Greek = "γὰρ", Transliteration = "gar", Gloss = "for", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conjunction" },
+                        new Word { Greek = "πᾶς", Transliteration = "pas", Gloss = "whole", GrammarCodes = new List<string> { "ADJ", "NOM", "M", "S" }, PartOfSpeech = "adjective" },
+                        new Word { Greek = "νόμος", Transliteration = "nomos", Gloss = "law", GrammarCodes = new List<string> { "N", "NOM", "M", "S" }, PartOfSpeech = "noun" }
+                    },
+                    Translation = "For the whole law"
+                },
+                new Phrase
+                {
+                    SyntaxCodes = new List<string> { "PREP_PHRASE" },
+                    Content = new List<object>
+                    {
+                        new Word { Greek = "ἐν", Transliteration = "en", Gloss = "in", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "preposition" },
+                        new Phrase
+                        {
+                            SyntaxCodes = new List<string> { "NOUN_PHRASE" },
+                            Content = new List<object>
+                            {
+                                new Word { Greek = "ἑνὶ", Transliteration = "heni", Gloss = "one", GrammarCodes = new List<string> { "ADJ", "DAT", "M", "S" }, PartOfSpeech = "adjective" },
+                                new Word { Greek = "λόγῳ", Transliteration = "logō", Gloss = "word", GrammarCodes = new List<string> { "N", "DAT", "M", "S" }, PartOfSpeech = "noun" }
+                            },
+                            Translation = "one word"
+                        }
+                    },
+                    Translation = "in one word"
+                },
+                new Word { Greek = "πεπλήρωται", Transliteration = "peplērōtai", Gloss = "is fulfilled", GrammarCodes = new List<string> { "V", "PERF", "PASS", "IND", "3P", "S" }, PartOfSpeech = "verb" },
+                new Phrase
+                {
+                    SyntaxCodes = new List<string> { "PREP_PHRASE" },
+                    Content = new List<object>
+                    {
+                        new Word { Greek = "ἐν", Transliteration = "en", Gloss = "in", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "preposition" },
+                        new Word { Greek = "τῷ", Transliteration = "tō", Gloss = "the", GrammarCodes = new List<string> { "ART", "DAT", "M", "S" }, PartOfSpeech = "article" }, // functioning as substantivizer for the quote
+                        new Phrase
+                        {
+                            SyntaxCodes = new List<string> { "INDEP_CLAUSE" }, // Quoted content
+                            Content = new List<object>
+                            {
+                                new Word { Greek = "ἀγαπήσεις", Transliteration = "agapēseis", Gloss = "You shall love", GrammarCodes = new List<string> { "V", "FUT", "ACT", "IND", "2P", "S" }, PartOfSpeech = "verb" },
+                                new Phrase
+                                {
+                                    SyntaxCodes = new List<string> { "NOUN_PHRASE", "OBJ" },
+                                    Content = new List<object>
+                                    {
+                                        new Word { Greek = "τὸν", Transliteration = "ton", Gloss = "the", GrammarCodes = new List<string> { "ART", "ACC", "M", "S" }, PartOfSpeech = "article" },
+                                        new Word { Greek = "πλησίον", Transliteration = "plēsion", Gloss = "neighbor", GrammarCodes = new List<string> { "ADV" }, PartOfSpeech = "adverb" }, // Functioning substantively
+                                        new Word { Greek = "σου", Transliteration = "sou", Gloss = "your", GrammarCodes = new List<string> { "PRON", "GEN", "2P", "S" }, PartOfSpeech = "pronoun" }
+                                    },
+                                    Translation = "your neighbor"
+                                },
+                                new Word { Greek = "ὡς", Transliteration = "hōs", Gloss = "as", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conjunction" },
+                                new Word { Greek = "σεαυτόν", Transliteration = "seauton", Gloss = "yourself", GrammarCodes = new List<string> { "PRON", "ACC", "2P", "M", "S" }, PartOfSpeech = "pronoun" }
+                            },
+                            Translation = "You shall love your neighbor as yourself"
+                        }
+                    },
+                    Translation = "in the statement: You shall love your neighbor as yourself."
+                }
+            },
+            Translation = "For the whole law is fulfilled in one word, in the statement: \"You shall love your neighbor as yourself.\""
+        },
+
+        // Verse 15
+        new Phrase
+        {
+            SyntaxCodes = new List<string> { "COND_CLAUSE" },
+            Content = new List<object>
+            {
+                new Word { Greek = "εἰ", Transliteration = "ei", Gloss = "if", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conjunction" },
+                new Word { Greek = "δὲ", Transliteration = "de", Gloss = "but", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conjunction" },
+                new Word { Greek = "ἀλλήλους", Transliteration = "allēlous", Gloss = "one another", GrammarCodes = new List<string> { "PRON", "ACC", "M", "P" }, PartOfSpeech = "pronoun" },
+                new Word { Greek = "δάκνετε", Transliteration = "daknete", Gloss = "you bite", GrammarCodes = new List<string> { "V", "PRES", "ACT", "IND", "2P", "P" }, PartOfSpeech = "verb" },
+                new Word { Greek = "καὶ", Transliteration = "kai", Gloss = "and", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conjunction" },
+                new Word { Greek = "κατεσθίετε", Transliteration = "katesthiete", Gloss = "devour", GrammarCodes = new List<string> { "V", "PRES", "ACT", "IND", "2P", "P" }, PartOfSpeech = "verb" }
+            },
+            Translation = "But if you bite and devour one another,"
+        },
+        new Phrase
+        {
+            SyntaxCodes = new List<string> { "INDEP_CLAUSE" },
+            Content = new List<object>
+            {
+                new Word { Greek = "βλέπετε", Transliteration = "blepete", Gloss = "watch out", GrammarCodes = new List<string> { "V", "PRES", "ACT", "IMP", "2P", "P" }, PartOfSpeech = "verb" },
+                new Phrase
+                {
+                    SyntaxCodes = new List<string> { "DEP_CLAUSE" }, // Fear/Caution clause
+                    Content = new List<object>
+                    {
+                        new Word { Greek = "μὴ", Transliteration = "mē", Gloss = "lest", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conjunction" },
+                        new Phrase
+                        {
+                            SyntaxCodes = new List<string> { "PREP_PHRASE", "AGENCY" },
+                            Content = new List<object>
+                            {
+                                new Word { Greek = "ὑπ᾽", Transliteration = "hyp'", Gloss = "by", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "preposition" },
+                                new Word { Greek = "ἀλλήλων", Transliteration = "allēlōn", Gloss = "one another", GrammarCodes = new List<string> { "PRON", "GEN", "M", "P" }, PartOfSpeech = "pronoun" }
+                            },
+                            Translation = "by one another"
+                        },
+                        new Word { Greek = "ἀναλωθῆτε", Transliteration = "analōthēte", Gloss = "you be consumed", GrammarCodes = new List<string> { "V", "AOR", "PASS", "SUBJ", "2P", "P" }, PartOfSpeech = "verb" }
+                    },
+                    Translation = "that you are not consumed by one another"
+                }
+            },
+            Translation = "watch out that you are not consumed by one another."
+        },
+
+        // Verse 16
+        new Phrase
+        {
+            SyntaxCodes = new List<string> { "INDEP_CLAUSE" },
+            Content = new List<object>
+            {
+                new Word { Greek = "Λέγω", Transliteration = "Legō", Gloss = "I say", GrammarCodes = new List<string> { "V", "PRES", "ACT", "IND", "1P", "S" }, PartOfSpeech = "verb" },
+                new Word { Greek = "δέ", Transliteration = "de", Gloss = "But", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conjunction" }
+            },
+            Translation = "But I say,"
+        },
+        new Phrase
+        {
+            SyntaxCodes = new List<string> { "INDEP_CLAUSE" },
+            Content = new List<object>
+            {
+                new Word { Greek = "πνεύματι", Transliteration = "pneumati", Gloss = "by the Spirit", GrammarCodes = new List<string> { "N", "DAT", "N", "S" }, PartOfSpeech = "noun" },
+                new Word { Greek = "περιπατεῖτε", Transliteration = "peripateite", Gloss = "walk", GrammarCodes = new List<string> { "V", "PRES", "ACT", "IMP", "2P", "P" }, PartOfSpeech = "verb" },
+                new Word { Greek = "καὶ", Transliteration = "kai", Gloss = "and", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conjunction" },
+                new Phrase
+                {
+                    SyntaxCodes = new List<string> { "NOUN_PHRASE", "OBJ" },
+                    Content = new List<object>
+                    {
+                        new Word { Greek = "ἐπιθυμίαν", Transliteration = "epithymian", Gloss = "desire", GrammarCodes = new List<string> { "N", "ACC", "F", "S" }, PartOfSpeech = "noun" },
+                        new Phrase
+                        {
+                            SyntaxCodes = new List<string> { "NOUN_PHRASE", "GEN_DESC" },
+                            Content = new List<object>
+                            {
+                                new Word { Greek = "σαρκὸς", Transliteration = "sarkos", Gloss = "of the flesh", GrammarCodes = new List<string> { "N", "GEN", "F", "S" }, PartOfSpeech = "noun" }
+                            },
+                            Translation = "of the flesh"
+                        }
+                    },
+                    Translation = "the desire of the flesh"
+                },
+                new Word { Greek = "οὐ", Transliteration = "ou", Gloss = "not", GrammarCodes = new List<string> { "PART" }, PartOfSpeech = "particle" },
+                new Word { Greek = "μὴ", Transliteration = "mē", Gloss = "not", GrammarCodes = new List<string> { "PART" }, PartOfSpeech = "particle" },
+                new Word { Greek = "τελέσητε", Transliteration = "telesēte", Gloss = "you will gratify", GrammarCodes = new List<string> { "V", "AOR", "ACT", "SUBJ", "2P", "P" }, PartOfSpeech = "verb" }
+            },
+            Translation = "walk by the Spirit, and you will not gratify the desires of the flesh."
+        }
+    };
+}
+
+/*
+Constructions identified:
+- Verse 13: Elliptical Imperative (implied verb with "only do not use...")
+- Verse 16: Emphatic Negation / Predictive Future (οὐ μὴ + Subjunctive: "οὐ μὴ τελέσητε")
+- Verse 16: Dative of Means/Manner ("πνεύματι")
+*/
+```

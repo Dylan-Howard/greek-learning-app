@@ -63,6 +63,8 @@
 
 **Goal:** Keep architecture/docs aligned with actual implementation.
 
+**complete-phase-0**
+
 ### Completed
 
 - [x] Core architecture ADRs and system docs authored.
