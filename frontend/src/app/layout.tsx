@@ -20,7 +20,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <body>
         <noscript>You need to enable JavaScript to run this app.</noscript>
         <div id="root">
-          <AppRouterCacheProvider>
+          <AppRouterCacheProvider options={{ enableCssLayer: true }}>
             <AppThemeProvider>
               <ClientProviders>{children}</ClientProviders>
             </AppThemeProvider>

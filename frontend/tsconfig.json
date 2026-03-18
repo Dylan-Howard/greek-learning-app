@@ -27,7 +27,8 @@
     ],
     "strictNullChecks": true,
     "paths": {
-      "@/*": [ "./src/*" ]
+      "@/*": [ "./src/*" ],
+      "@/design-system-v2/*": [ "./src/design-system-v2/*" ]
     },
     "types": ["vitest/globals"]
   },
