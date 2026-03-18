@@ -28,11 +28,23 @@ namespace Koine.Infrastructure.Data.Seed
                 if (await context.Books.AnyAsync())
                 {
                     logger.LogInformation("Database already seeded. Clearing old data for fresh re-seed.");
-                    context.Chapters.RemoveRange(context.Chapters);
-                    context.Books.RemoveRange(context.Books);
-                    context.Vocabularies.RemoveRange(context.Vocabularies);
                     context.TranslationUnits.RemoveRange(context.TranslationUnits);
+                    context.VocabularySetItems.RemoveRange(context.VocabularySetItems);
+                    context.VocabularySets.RemoveRange(context.VocabularySets);
+                    context.Chapters.RemoveRange(context.Chapters);
+                    context.Translations.RemoveRange(context.Translations);
+                    context.Vocabularies.RemoveRange(context.Vocabularies);
+                    context.Books.RemoveRange(context.Books);
                     await context.SaveChangesAsync();
+
+                    await ResetIdentityAsync(context, logger,
+                        "TranslationUnits",
+                        "VocabularySetItems",
+                        "VocabularySets",
+                        "Chapters",
+                        "Translations",
+                        "Vocabularies",
+                        "Books");
                 }
 
                 var chapters = FirstJohnTextData.GetChapters();
@@ -1374,5 +1386,21 @@ namespace Koine.Infrastructure.Data.Seed
 
             return normalized.Trim('-');
         }
+
+        private static async Task ResetIdentityAsync(KoineDbContext context, ILogger logger, params string[] tables)
+        {
+            foreach (var table in tables)
+            {
+                try
+                {
+                    await context.Database.ExecuteSqlRawAsync($"DBCC CHECKIDENT ('[{table}]', RESEED, 0);");
+                }
+                catch (Exception ex)
+                {
+                    logger.LogWarning(ex, "Failed to reseed identity for {Table}", table);
+                }
+            }
+        }
+
     }
 }
