@@ -2,10 +2,10 @@
 
 import { useRouter } from 'next/navigation';
 
+import Fab from '@mui/material/Fab';
 import Stack from '@mui/material/Stack';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import { Fab } from '@/components/shared';
 
 import * as AzureTextService from '@/lib/api/rest/text';
 
@@ -33,7 +33,7 @@ export default function ReaderPageControls(
         ? (
           <Fab
             color="primary"
-            aria-label="navigate-back"
+            aria-label="Previous chapter"
             onClick={() => handleChapterChange(chapterId - 1)}
           >
             <ChevronLeftIcon />
@@ -44,7 +44,7 @@ export default function ReaderPageControls(
         ? (
           <Fab
             color="primary"
-            aria-label="navigate-back"
+            aria-label="Next chapter"
             onClick={() => handleChapterChange(chapterId + 1)}
           >
             <ChevronRightIcon />

@@ -15,7 +15,7 @@ import SchoolOutlinedIcon    from '@mui/icons-material/SchoolOutlined';
 import PersonOutlineIcon     from '@mui/icons-material/PersonOutline';
 
 const NAV_ITEMS = [
-  { label: 'Read',       icon: <MenuBookOutlinedIcon />,  path: '/read' },
+  { label: 'Read',       icon: <MenuBookOutlinedIcon />,  path: '/reader' },
   { label: 'Study',      icon: <StyleOutlinedIcon />,     path: '/study' },
   { label: 'Vocabulary', icon: <ListAltOutlinedIcon />,   path: '/vocabulary' },
   { label: 'Lessons',    icon: <SchoolOutlinedIcon />,    path: '/lessons' },

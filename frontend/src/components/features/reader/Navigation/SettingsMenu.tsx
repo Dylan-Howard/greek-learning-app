@@ -13,7 +13,7 @@ import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
-import { SettingsMenuTabSkeleton } from '@/components/shared/Skeletons';
+import { SettingsMenuTabSkeleton } from '@/design-system-v2/components/shared/LoadingSkeleton';
 
 import * as AzureTextService from '@/lib/api/rest/text';
 import * as AzureUserService from '@/lib/api/rest/user';
@@ -24,7 +24,8 @@ import { SimpleWordDto } from '@/lib/types/api';
 import transliterateGreek from '@/lib/services/reader/transliteration';
 import OptionCheckbox from '@/components/features/reader/Navigation/OptionCheckbox';
 import { useReaderContext } from '@/app/reader/ReaderPage/ReaderPageContext';
-import { Button, TextField } from '@/components/shared';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
 import {
   DEV_USER_CHANGED_EVENT,
   getActiveDevUserId,

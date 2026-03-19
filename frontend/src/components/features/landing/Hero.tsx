@@ -3,12 +3,12 @@
 import React from 'react';
 import {
   Box,
+  Button,
   Container as MuiContainer,
   Stack,
   Typography,
   styled,
 } from '@mui/material';
-import Button from '@/components/shared/inputs/Button';
 
 export interface HeroProps {
   /**

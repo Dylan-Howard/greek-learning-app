@@ -2,12 +2,13 @@
 
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Grid, Typography } from '@mui/material';
-import SessionConfig from '@/components/features/study/SessionConfig';
+import { Box, Grid, Typography } from '@mui/material';
+import SessionConfigPanel from '@/design-system-v2/components/srs/SessionConfigPanel';
 import { startSession } from '@/lib/api/rest/study';
 import { fetchVocabularySets } from '@/lib/api/rest/vocabulary';
 import { StartSessionRequest, VocabularySetDto } from '@/lib/types/api';
 import { getActiveDevUserId } from '@/lib/services/auth/devSession';
+import { AppShell } from '@/components/layout/AppShell';
 
 export default function SessionConfigPage() {
   const router = useRouter();
@@ -52,17 +53,21 @@ export default function SessionConfigPage() {
   };
 
   return (
-    <Grid container justifyContent="center" sx={{ mt: 4 }}>
-      <Grid size={{ xs: 11, sm: 7 }}>
-        <Typography variant="h2" sx={{ mb: 4 }}>Study Session</Typography>
-        <SessionConfig
-          sets={sets}
-          config={config}
-          onChange={setConfig}
-          onStart={handleStart}
-          disabled={loading}
-        />
-      </Grid>
-    </Grid>
+    <AppShell>
+      <Box sx={{ px: { xs: 3, md: 6 }, py: 4 }}>
+        <Grid container justifyContent="center">
+          <Grid size={{ xs: 12, sm: 8, md: 6 }}>
+            <Typography variant="h2" sx={{ mb: 4 }}>Study Session</Typography>
+            <SessionConfigPanel
+              sets={sets}
+              config={config}
+              onChange={setConfig}
+              onStart={handleStart}
+              disabled={loading}
+            />
+          </Grid>
+        </Grid>
+      </Box>
+    </AppShell>
   );
 }

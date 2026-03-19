@@ -1,81 +1,87 @@
+'use client';
+
 import NextLink from 'next/link';
 import {
+  Box,
   Breadcrumbs,
-  Card,
-  CardActions,
-  CardContent,
+  Button,
   Grid,
-  LinearProgress,
   Stack,
   Typography,
 } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { AppShell } from '@/components/layout/AppShell';
+import { LessonTrackCard } from '@/design-system-v2/components/lessons/LessonTrackCard';
 import { fetchLessonTracks } from '@/lib/api/rest/lessons';
-import { Button } from '@/components/shared';
 
 export const dynamic = 'force-dynamic';
 
-export default async function LessonsPage() {
-  const tracksResult = await fetchLessonTracks(false);
-  const tracksError = tracksResult.ok ? undefined : tracksResult.error.message;
-  const tracks = tracksResult.ok ? tracksResult.data : [];
+export default function LessonsPage() {
+  const [tracks, setTracks] = useState<any[]>([]);
+  const [tracksError, setTracksError] = useState<string | undefined>();
+
+  useEffect(() => {
+    fetchLessonTracks(false).then((result) => {
+      if (result.ok) {
+        setTracks(result.data);
+        setTracksError(undefined);
+      } else {
+        setTracks([]);
+        setTracksError(result.error.message);
+      }
+    });
+  }, []);
 
   return (
-    <Grid container justifyContent="center" sx={{ mt: 4 }}>
-      <Grid size={{ sm: 11 }} sx={{ mb: 8 }}>
-        <Breadcrumbs aria-label="breadcrumb">
+    <AppShell>
+      <Box sx={{ px: { xs: 3, md: 6 }, py: 4 }}>
+        <Breadcrumbs aria-label="breadcrumb" sx={{ mb: 4 }}>
           <NextLink href="/reader">Koine Reader</NextLink>
           <Typography color="primary.main">Lessons</Typography>
         </Breadcrumbs>
-      </Grid>
 
-      <Grid size={{ xs: 11 }} sx={{ mb: 4 }}>
         <Typography variant="h2" sx={{ mb: 1 }}>Lesson Tracks</Typography>
-        <Typography variant="body1">
+        <Typography variant="body1" sx={{ mb: 3 }}>
           Lessons are ordered in each track. Complete lessons to unlock your next item.
         </Typography>
-      </Grid>
 
-      {tracksError && (
-        <Grid size={{ xs: 11 }} sx={{ mb: 3 }}>
-          <Typography color="error.main">Unable to load lesson tracks: {tracksError}</Typography>
-        </Grid>
-      )}
+        {tracksError && (
+          <Typography color="error.main" sx={{ mb: 3 }}>
+            Unable to load lesson tracks: {tracksError}
+          </Typography>
+        )}
 
-      {tracks.map((track) => (
-        <Grid key={track.id} size={{ xs: 11, md: 6 }} sx={{ mb: 4 }}>
-          <Card variant="outlined">
-            <CardContent>
-              <Typography variant="h5" sx={{ mb: 1 }}>{track.title}</Typography>
-              <Typography variant="body2" sx={{ mb: 2 }}>{track.description}</Typography>
-              <Typography variant="body2" sx={{ mb: 1 }}>
-                Progress: {track.completedLessons}/{track.totalLessons}
-              </Typography>
-              <LinearProgress value={Number(track.percentComplete)} variant="determinate" sx={{ mb: 2 }} />
-              <Typography variant="body2" sx={{ mb: 1 }}>
-                Next: {track.nextLessonTitle ?? 'Track completed'}
-              </Typography>
-            </CardContent>
-            <CardActions>
-              <Stack direction="row" spacing={2}>
-                <NextLink href={`/lessons/tracks/${track.slug}`}>
-                  <Button variant="contained">Open Track</Button>
-                </NextLink>
-                {track.nextLessonId && (
-                  <NextLink href={`/lessons/tracks/${track.slug}/${track.nextLessonId}`}>
-                    <Button>Continue</Button>
-                  </NextLink>
+        <Grid container spacing={2}>
+          {tracks.map((track) => (
+            <Grid key={track.id} size={{ xs: 12, md: 6 }}>
+              <LessonTrackCard
+                title={track.title}
+                description={track.description}
+                completedLessons={track.completedLessons}
+                totalLessons={track.totalLessons}
+                percentComplete={Number(track.percentComplete)}
+                nextLessonTitle={track.nextLessonTitle}
+                actions={(
+                  <Stack direction="row" spacing={2}>
+                    <Button component={NextLink} href={`/lessons/tracks/${track.slug}`} variant="contained">
+                      Open Track
+                    </Button>
+                    {track.nextLessonId && (
+                      <Button component={NextLink} href={`/lessons/tracks/${track.slug}/${track.nextLessonId}`}>
+                        Continue
+                      </Button>
+                    )}
+                  </Stack>
                 )}
-              </Stack>
-            </CardActions>
-          </Card>
+              />
+            </Grid>
+          ))}
         </Grid>
-      ))}
 
-      {!tracksError && tracks.length === 0 && (
-        <Grid size={{ xs: 11 }} sx={{ mb: 8 }}>
-          <Typography>No lesson tracks are currently available.</Typography>
-        </Grid>
-      )}
-    </Grid>
+        {!tracksError && tracks.length === 0 && (
+          <Typography sx={{ mt: 4 }}>No lesson tracks are currently available.</Typography>
+        )}
+      </Box>
+    </AppShell>
   );
 }

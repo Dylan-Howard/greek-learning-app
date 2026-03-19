@@ -6,13 +6,13 @@ import { useRouter } from 'next/navigation';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import { Button } from '@/components/shared';
+import Button from '@mui/material/Button';
 
 import WelcomeIllustration from '@/app/(public)/welcome/WelcomeIllustration';
 import * as AzureUserService from '@/lib/api/rest/user';
 import { getActiveDevUserId } from '@/lib/services/auth/devSession';
 import completeOnboarding from '@/app/(public)/onboarding/_actions';
-import OnboardingOptionBox from '@/components/shared/OnboardingOptionBox';
+import { OnboardingOptionBox } from '@/design-system-v2/components/onboarding/OnboardingOptionBox';
 
 const userLevelContent = [
   {

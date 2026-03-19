@@ -96,3 +96,24 @@ export function SidebarSkeleton() {
     </Box>
   );
 }
+
+// ── Reader settings tab skeleton ─────────────────────────────────────────────
+export function SettingsMenuTabSkeleton() {
+  return (
+    <Box sx={{ p: 2 }}>
+      <Skeleton variant="text" width="60%" height={40} />
+      <Skeleton variant="rounded" width="100%" height={100} sx={{ mt: 2 }} />
+    </Box>
+  );
+}
+
+// ── Reader details skeleton ──────────────────────────────────────────────────
+export function DetailsSkeleton() {
+  return (
+    <Box sx={{ p: 2 }}>
+      <Skeleton variant="circular" width={40} height={40} />
+      <Skeleton variant="text" width="80%" height={60} sx={{ mt: 2 }} />
+      <Skeleton variant="rounded" width="100%" height={200} sx={{ mt: 2 }} />
+    </Box>
+  );
+}

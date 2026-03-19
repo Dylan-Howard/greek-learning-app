@@ -2,27 +2,23 @@
 
 import React from 'react';
 import {
-  Avatar,
   Box,
   Breadcrumbs,
-  Chip,
-  Container,
-  LinearProgress,
-  Link,
-  Paper,
-  Stack,
+  Grid,
   Typography,
 } from '@mui/material';
 import NextLink from 'next/link';
+import { AppShell } from '@/components/layout/AppShell';
+import StatCard from '@/design-system-v2/components/profile/StatCard';
+import ActivityHeatmap from '@/design-system-v2/components/profile/ActivityHeatmap';
 import { useUserContext } from '@/lib/types/domain/user';
 import {
-  avatarColorFromUserId,
-  avatarInitial,
   experienceProgressPercent,
-  inLevelExperience,
   levelFromExperience,
-  XP_PER_LEVEL,
 } from '@/lib/services/user/gamification';
+import MenuBookOutlinedIcon from '@mui/icons-material/MenuBookOutlined';
+import StyleOutlinedIcon from '@mui/icons-material/StyleOutlined';
+import StarOutlineIcon from '@mui/icons-material/StarOutline';
 
 export const dynamic = 'force-dynamic';
 
@@ -31,57 +27,34 @@ export default function ProfilePage() {
 
   const totalExp = user?.totalExp ?? 0;
   const level = levelFromExperience(totalExp);
-  const inLevelExp = inLevelExperience(totalExp);
   const progress = experienceProgressPercent(totalExp);
 
   return (
-    <Container maxWidth="md" sx={{ py: 4 }}>
-      <Breadcrumbs aria-label="breadcrumb" sx={{ mb: 4 }}>
-        <Link component={NextLink} href="/reader" color="inherit">
-          Reader
-        </Link>
-        <Typography color="text.primary">Profile</Typography>
-      </Breadcrumbs>
+    <AppShell>
+      <Box sx={{ px: { xs: 3, md: 6 }, py: 4 }}>
+        <Breadcrumbs aria-label="breadcrumb" sx={{ mb: 4 }}>
+          <NextLink href="/reader">Reader</NextLink>
+          <Typography color="text.primary">Profile</Typography>
+        </Breadcrumbs>
 
-      <Typography variant="h2" gutterBottom>
-        Profile
-      </Typography>
+        <Typography variant="h2" sx={{ mb: 3 }}>
+          {user?.name || 'Scholar'}
+        </Typography>
 
-      <Paper sx={{ p: 4, mt: 4 }}>
-        <Stack spacing={3}>
-          <Stack direction="row" spacing={2} alignItems="center">
-            <Avatar
-              sx={{
-                width: 56,
-                height: 56,
-                bgcolor: avatarColorFromUserId(user?.id),
-                fontWeight: 700,
-              }}
-            >
-              {avatarInitial(user?.name)}
-            </Avatar>
-            <Box>
-              <Typography variant="h5">{user?.name || 'Scholar'}</Typography>
-              <Typography variant="body2" color="text.secondary">
-                {`Development User ${user?.id || 'guest'}`}
-              </Typography>
-            </Box>
-          </Stack>
+        <Grid container spacing={2} sx={{ mb: 4 }}>
+          <Grid size={{ xs: 12, sm: 4 }}>
+            <StatCard value={`Lv ${level}`} label="Current Level" icon={<StarOutlineIcon />} />
+          </Grid>
+          <Grid size={{ xs: 12, sm: 4 }}>
+            <StatCard value={`${totalExp}`} label="Total XP" icon={<StyleOutlinedIcon />} />
+          </Grid>
+          <Grid size={{ xs: 12, sm: 4 }}>
+            <StatCard value={`${Math.round(progress)}%`} label="Progress to Next" icon={<MenuBookOutlinedIcon />} />
+          </Grid>
+        </Grid>
 
-          <Stack direction="row" spacing={1} alignItems="center">
-            <Chip label={`Level ${level}`} color="primary" />
-            <Chip label={`${totalExp} XP`} variant="outlined" />
-          </Stack>
-
-          <Box>
-            <Typography variant="overline">Progress to Next Level</Typography>
-            <LinearProgress variant="determinate" value={progress} sx={{ mt: 1, height: 8, borderRadius: 999 }} />
-            <Typography variant="caption" color="text.secondary" sx={{ mt: 1, display: 'block' }}>
-              {`${inLevelExp} / ${XP_PER_LEVEL} XP`}
-            </Typography>
-          </Box>
-        </Stack>
-      </Paper>
-    </Container>
+        <ActivityHeatmap data={[]} />
+      </Box>
+    </AppShell>
   );
 }

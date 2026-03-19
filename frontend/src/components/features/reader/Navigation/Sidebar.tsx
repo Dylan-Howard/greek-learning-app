@@ -16,7 +16,7 @@ import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
 import Container from '@mui/material/Container';
-import { IconButton } from '@/components/shared';
+import IconButton from '@mui/material/IconButton';
 
 // import { SettingsMenuTabSkeleton } from 'app/modules/Skeletons';
 import DetailsMenu from '@/components/features/reader/Navigation/DetailsMenu';

@@ -2,12 +2,12 @@
 
 import React, { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { Grid, Stack, Typography } from '@mui/material';
+import { Box, Button, Grid, Stack, Typography } from '@mui/material';
 import { completeSession } from '@/lib/api/rest/study';
 import { SessionSummaryDto } from '@/lib/types/api';
-import { Button } from '@/components/shared';
 import { getActiveDevUserId } from '@/lib/services/auth/devSession';
 import { useUserContext } from '@/lib/types/domain/user';
+import { AppShell } from '@/components/layout/AppShell';
 
 export default function SummaryPage() {
   const { awardExp, syncUser } = useUserContext();
@@ -30,37 +30,41 @@ export default function SummaryPage() {
   }, [awardExp, sessionId, syncUser]);
 
   return (
-    <Grid container justifyContent="center" sx={{ mt: 4 }}>
-      <Grid size={{ xs: 11, sm: 7 }}>
-        <Stack spacing={3}>
-          <Typography variant="h2">Session Summary</Typography>
+    <AppShell>
+      <Box sx={{ px: { xs: 3, md: 6 }, py: 4 }}>
+        <Grid container justifyContent="center">
+          <Grid size={{ xs: 12, sm: 8, md: 6 }}>
+            <Stack spacing={3}>
+              <Typography variant="h2">Session Summary</Typography>
 
-          {!summary && <Typography>Loading summary...</Typography>}
+              {!summary && <Typography>Loading summary...</Typography>}
 
-          {summary && (
-            <>
-              <Typography variant="h4">
-                Correct: {summary.correctCount} / {summary.totalReviewed}
-              </Typography>
-              <Typography variant="body1">
-                Accuracy: {summary.correctPercentage.toFixed(1)}%
-              </Typography>
-              <Typography variant="body2">
-                Again: {summary.ratings.Again ?? 0} • Hard: {summary.ratings.Hard ?? 0} • Good: {summary.ratings.Good ?? 0} • Easy: {summary.ratings.Easy ?? 0}
-              </Typography>
-            </>
-          )}
+              {summary && (
+                <>
+                  <Typography variant="h4">
+                    Correct: {summary.correctCount} / {summary.totalReviewed}
+                  </Typography>
+                  <Typography variant="body1">
+                    Accuracy: {summary.correctPercentage.toFixed(1)}%
+                  </Typography>
+                  <Typography variant="body2">
+                    Again: {summary.ratings.Again ?? 0} • Hard: {summary.ratings.Hard ?? 0} • Good: {summary.ratings.Good ?? 0} • Easy: {summary.ratings.Easy ?? 0}
+                  </Typography>
+                </>
+              )}
 
-          <Stack direction="row" spacing={2}>
-            <Button variant="contained" onClick={() => router.push('/study/session')}>
-              Study Again
-            </Button>
-            <Button onClick={() => router.push('/study')}>
-              Back to Dashboard
-            </Button>
-          </Stack>
-        </Stack>
-      </Grid>
-    </Grid>
+              <Stack direction="row" spacing={2}>
+                <Button variant="contained" onClick={() => router.push('/study/session')}>
+                  Study Again
+                </Button>
+                <Button onClick={() => router.push('/study')}>
+                  Back to Dashboard
+                </Button>
+              </Stack>
+            </Stack>
+          </Grid>
+        </Grid>
+      </Box>
+    </AppShell>
   );
 }

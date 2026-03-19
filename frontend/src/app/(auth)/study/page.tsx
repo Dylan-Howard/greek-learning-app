@@ -1,59 +1,78 @@
+'use client';
+
 import NextLink from 'next/link';
 import {
+  Box,
   Breadcrumbs,
+  Button,
   Grid,
   Skeleton,
   Stack,
   Typography,
 } from '@mui/material';
-import { cookies } from 'next/headers';
-import DashboardStats from '@/components/features/study/DashboardStats';
+import { useEffect, useState } from 'react';
+import { AppShell } from '@/components/layout/AppShell';
+import StudyDashboardStats from '@/design-system-v2/components/srs/StudyDashboardStats';
 import { getDashboard } from '@/lib/api/rest/study';
-import { Button } from '@/components/shared';
-import { DEFAULT_DEV_USER_ID, DEV_USER_COOKIE_KEY, sanitizeDevUserId } from '@/lib/services/auth/devSession';
+import { getActiveDevUserId } from '@/lib/services/auth/devSession';
+import { type DashboardDto } from '@/lib/types/api';
 
 export const dynamic = 'force-dynamic';
 
-export default async function StudyDashboardPage() {
-  const cookieStore = await cookies();
-  const userId = sanitizeDevUserId(cookieStore.get(DEV_USER_COOKIE_KEY)?.value || DEFAULT_DEV_USER_ID);
-  const dashboardResult = await getDashboard(userId);
-  const error = dashboardResult.ok ? undefined : dashboardResult.error.message;
-  const dashboard = dashboardResult.ok ? dashboardResult.data : null;
+export default function StudyDashboardPage() {
+  const [dashboard, setDashboard] = useState<DashboardDto | null>(null);
+  const [error, setError] = useState<string | undefined>();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const userId = getActiveDevUserId();
+    getDashboard(userId).then((result) => {
+      if (result.ok) {
+        setDashboard(result.data);
+        setError(undefined);
+      } else {
+        setDashboard(null);
+        setError(result.error.message);
+      }
+      setLoading(false);
+    });
+  }, []);
 
   return (
-    <Grid container justifyContent="center" sx={{ mt: 4 }}>
-      <Grid size={{ sm: 11 }} sx={{ mb: 4 }}>
-        <Breadcrumbs aria-label="breadcrumb">
+    <AppShell>
+      <Box sx={{ px: { xs: 3, md: 6 }, py: 4 }}>
+        <Breadcrumbs aria-label="breadcrumb" sx={{ mb: 4 }}>
           <NextLink href="/reader">Koine Reader</NextLink>
           <Typography color="primary.main">Study</Typography>
         </Breadcrumbs>
-      </Grid>
 
-      <Grid size={{ xs: 11 }} sx={{ mb: 4 }}>
-        <Stack direction="row" justifyContent="space-between" alignItems="center">
-          <Typography variant="h2">Study Dashboard</Typography>
-          <NextLink href="/study/session">
-            <Button variant="contained">Start Study Session</Button>
-          </NextLink>
-        </Stack>
-      </Grid>
-
-      {error && (
-        <Grid size={{ xs: 11 }} sx={{ mb: 3 }}>
-          <Typography color="error.main">Unable to load dashboard: {error}</Typography>
+        <Grid container spacing={2} sx={{ mb: 3 }}>
+          <Grid size={{ xs: 12 }}>
+            <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" alignItems={{ xs: 'flex-start', sm: 'center' }} spacing={2}>
+              <Typography variant="h2">Study Dashboard</Typography>
+              <Button component={NextLink} href="/study/session" variant="contained">
+                Start Study Session
+              </Button>
+            </Stack>
+          </Grid>
         </Grid>
-      )}
 
-      <Grid size={{ xs: 11 }}>
-        {!dashboard && !error && (
-          <Stack spacing={2}>
-            <Skeleton variant="rectangular" height={120} />
-            <Skeleton variant="rectangular" height={120} />
-          </Stack>
+        {error && (
+          <Box sx={{ mb: 3 }}>
+            <Typography color="error.main">Unable to load dashboard: {error}</Typography>
+          </Box>
         )}
-        {dashboard && <DashboardStats data={dashboard} />}
-      </Grid>
-    </Grid>
+
+        <Box>
+          {loading && (
+            <Stack spacing={2}>
+              <Skeleton variant="rectangular" height={120} />
+              <Skeleton variant="rectangular" height={120} />
+            </Stack>
+          )}
+          {!loading && dashboard && <StudyDashboardStats data={dashboard} />}
+        </Box>
+      </Box>
+    </AppShell>
   );
 }

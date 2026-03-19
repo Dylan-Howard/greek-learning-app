@@ -1,13 +1,14 @@
+'use client';
+
 import NextLink from 'next/link';
 import NextImage from 'next/image';
 import {
   Box,
-  Link,
+  Button,
   Grid,
   Stack,
   Typography,
 } from '@mui/material';
-import { Button } from '@/components/shared';
 
 import '@/app/(public)/welcome/Onboarding.css';
 import WelcomeIllustration from '@/app/(public)/welcome/WelcomeIllustration';
@@ -46,19 +47,19 @@ export default function WelcomePage() {
             </Typography>
 
             <Stack flexDirection="row" justifyContent="center" sx={{ mb: 2 }}>
-              <NextLink href="/reader">
-                <Button variant="contained" type="button">Start Reading</Button>
-              </NextLink>
+              <Button component={NextLink} href="/reader" variant="contained" type="button">
+                Start Reading
+              </Button>
             </Stack>
             <Stack flexDirection="row" justifyContent="center">
-              <Link href="/onboarding">
-                <Button type="button" size="small" color="secondary">Run Onboarding</Button>
-              </Link>
+              <Button component={NextLink} href="/onboarding" type="button" size="small" color="secondary">
+                Run Onboarding
+              </Button>
             </Stack>
           </Box>
-          <NextLink href="/about">
-            <Button fullWidth size="small" sx={{ color: 'text.primary' }}>About Koine</Button>
-          </NextLink>
+          <Button component={NextLink} href="/about" fullWidth size="small" sx={{ color: 'text.primary' }}>
+            About Koine
+          </Button>
         </Stack>
       </Grid>
       <Grid  size={{ sm: 6 }} sx={{ display: { xs: 'none', sm: 'block' } }}>

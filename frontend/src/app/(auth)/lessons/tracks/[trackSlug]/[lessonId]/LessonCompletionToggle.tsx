@@ -1,9 +1,8 @@
 'use client';
 
 import { useState, useTransition } from 'react';
-import { Stack, Typography } from '@mui/material';
+import { Checkbox, FormControlLabel, Stack, Typography } from '@mui/material';
 import { completeLesson } from '@/lib/api/rest/lessons';
-import { Checkbox } from '@/components/shared';
 import { useUserContext } from '@/lib/types/domain/user';
 import { getActiveDevUserId } from '@/lib/services/auth/devSession';
 
@@ -36,11 +35,15 @@ export default function LessonCompletionToggle({ lessonId, initiallyCompleted }:
 
   return (
     <Stack spacing={1} sx={{ mt: 4 }}>
-      <Checkbox
+      <FormControlLabel
+        control={(
+          <Checkbox
+            checked={isCompleted}
+            onChange={(_, checked) => onToggle(checked)}
+            disabled={isCompleted || isPending}
+          />
+        )}
         label="I understand this lesson"
-        checked={isCompleted}
-        onChange={(_, checked) => onToggle(checked)}
-        disabled={isCompleted || isPending}
       />
       <Typography variant="caption" color="text.secondary">
         TODO(next phase): replace this checkbox with practice problems and a short mastery assessment.

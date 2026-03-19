@@ -1,85 +1,96 @@
+'use client';
+
 import NextLink from 'next/link';
 import {
+  Box,
   Breadcrumbs,
-  Card,
-  CardActions,
-  CardContent,
-  Chip,
   Grid,
   LinearProgress,
   Stack,
   Typography,
 } from '@mui/material';
+import { useEffect, useMemo, useState } from 'react';
+import { useParams, useRouter } from 'next/navigation';
+import { AppShell } from '@/components/layout/AppShell';
+import { LessonCard, type LessonMeta } from '@/design-system-v2/components/lessons/LessonCard';
 import { fetchLessonTrack } from '@/lib/api/rest/lessons';
-import { Button } from '@/components/shared';
 
 export const dynamic = 'force-dynamic';
 
-interface LessonTrackPageProps {
-  params: Promise<{ trackSlug: string }>;
-}
+export default function LessonTrackPage() {
+  const router = useRouter();
+  const params = useParams();
+  const trackSlugParam = params?.trackSlug;
+  const trackSlug = Array.isArray(trackSlugParam) ? trackSlugParam[0] : trackSlugParam;
+  const [track, setTrack] = useState<any | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | undefined>();
 
-export default async function LessonTrackPage({ params }: LessonTrackPageProps) {
-  const { trackSlug } = await params;
-  const trackResult = await fetchLessonTrack(trackSlug);
-  const track = trackResult.ok ? trackResult.data : undefined;
+  useEffect(() => {
+    if (!trackSlug) return;
+    fetchLessonTrack(trackSlug).then((result) => {
+      if (result.ok) {
+        setTrack(result.data);
+        setErrorMessage(undefined);
+      } else {
+        setTrack(null);
+        setErrorMessage(result.error.message);
+      }
+    });
+  }, [trackSlug]);
+
+  const lessons: LessonMeta[] = useMemo(() => (track?.lessons || []).map((lesson: any) => ({
+    id: String(lesson.id),
+    number: lesson.lessonIndex,
+    title: lesson.title,
+    type: lesson.lessonType === 'Vocabulary' ? 'Vocabulary' : lesson.lessonType === 'Culture' ? 'Culture' : 'Grammar',
+    readTime: Math.max(3, Math.min(15, Math.round((lesson.contentMarkdown?.length ?? 0) / 400))),
+    completed: lesson.isCompleted,
+  })), [track?.lessons]);
 
   if (!track) {
     return (
-      <Grid container justifyContent="center" sx={{ mt: 4 }}>
-        <Grid size={{ xs: 11 }}>
+      <AppShell>
+        <Box sx={{ px: { xs: 3, md: 6 }, py: 4 }}>
           <Typography variant="h3" sx={{ mb: 2 }}>Lesson track not found</Typography>
-          {!trackResult.ok && (
+          {errorMessage && (
             <Typography color="error.main" sx={{ mb: 2 }}>
-              Error: {trackResult.error.message}
+              Error: {errorMessage}
             </Typography>
           )}
           <NextLink href="/lessons">Back to lesson tracks</NextLink>
-        </Grid>
-      </Grid>
+        </Box>
+      </AppShell>
     );
   }
 
   return (
-    <Grid container justifyContent="center" sx={{ mt: 4 }}>
-      <Grid size={{ sm: 11 }} sx={{ mb: 6 }}>
-        <Breadcrumbs aria-label="breadcrumb">
+    <AppShell>
+      <Box sx={{ px: { xs: 3, md: 6 }, py: 4 }}>
+        <Breadcrumbs aria-label="breadcrumb" sx={{ mb: 4 }}>
           <NextLink href="/reader">Koine Reader</NextLink>
           <NextLink href="/lessons">Lessons</NextLink>
           <Typography color="primary.main">{track.title}</Typography>
         </Breadcrumbs>
-      </Grid>
 
-      <Grid size={{ xs: 11 }} sx={{ mb: 3 }}>
-        <Typography variant="h2" sx={{ mb: 1 }}>{track.title}</Typography>
-        <Typography variant="body1" sx={{ mb: 2 }}>{track.description}</Typography>
-        <Typography variant="body2" sx={{ mb: 1 }}>
-          {track.completedLessons}/{track.totalLessons} completed
-        </Typography>
-        <LinearProgress value={Number(track.percentComplete)} variant="determinate" />
-      </Grid>
+        <Box sx={{ mb: 3 }}>
+          <Typography variant="h2" sx={{ mb: 1 }}>{track.title}</Typography>
+          <Typography variant="body1" sx={{ mb: 2 }}>{track.description}</Typography>
+          <Typography variant="body2" sx={{ mb: 1 }}>
+            {track.completedLessons}/{track.totalLessons} completed
+          </Typography>
+          <LinearProgress value={Number(track.percentComplete)} variant="determinate" />
+        </Box>
 
-      {track.lessons.map((lesson) => (
-        <Grid key={lesson.id} size={{ xs: 11 }} sx={{ mb: 2 }}>
-          <Card variant="outlined">
-            <CardContent>
-              <Stack direction="row" spacing={1} sx={{ mb: 1 }}>
-                <Chip label={`#${lesson.lessonIndex}`} size="small" />
-                <Chip label={lesson.lessonType} size="small" color="primary" variant="outlined" />
-                {lesson.isCompleted && <Chip label="Completed" size="small" color="success" />}
-              </Stack>
-              <Typography variant="h6">{lesson.title}</Typography>
-            </CardContent>
-            <CardActions>
-              <NextLink href={`/lessons/tracks/${track.slug}/${lesson.id}`}>
-                <Button variant={lesson.isCompleted ? 'text' : 'contained'}>
-                  {lesson.isCompleted ? 'Review Lesson' : 'Start Lesson'}
-                </Button>
-              </NextLink>
-            </CardActions>
-          </Card>
-        </Grid>
-      ))}
-    </Grid>
+        <Stack spacing={2}>
+          {lessons.map((lesson) => (
+            <LessonCard
+              key={lesson.id}
+              lesson={lesson}
+              onClick={(id) => router.push(`/lessons/tracks/${track.slug}/${id}`)}
+            />
+          ))}
+        </Stack>
+      </Box>
+    </AppShell>
   );
 }

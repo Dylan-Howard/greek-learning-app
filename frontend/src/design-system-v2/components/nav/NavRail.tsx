@@ -23,7 +23,7 @@ interface NavItem {
 }
 
 const NAV_ITEMS: NavItem[] = [
-  { label: 'Read',       icon: <MenuBookOutlinedIcon />,  path: '/read' },
+  { label: 'Read',       icon: <MenuBookOutlinedIcon />,  path: '/reader' },
   { label: 'Study',      icon: <StyleOutlinedIcon />,     path: '/study' },
   { label: 'Vocabulary', icon: <ListAltOutlinedIcon />,   path: '/vocabulary' },
   { label: 'Lessons',    icon: <SchoolOutlinedIcon />,    path: '/lessons' },

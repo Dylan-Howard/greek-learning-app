@@ -6,12 +6,13 @@ import {
   Container as MuiContainer,
   Divider as MuiDivider,
   Grid,
+  IconButton,
   Link,
   Stack,
   Typography,
+  Tooltip,
   styled,
 } from '@mui/material';
-import IconButton from '@/components/shared/inputs/IconButton';
 
 export interface FooterLink {
   label: string;
@@ -100,14 +101,16 @@ export const Footer: React.FC<FooterProps> = ({
           {socialLinks && (
             <Stack direction="row" spacing={1}>
               {socialLinks.map((social, index) => (
-                <IconButton
-                  key={index}
-                  href={social.href}
-                  tooltip={social.label}
-                  size="small"
-                >
-                  {social.icon}
-                </IconButton>
+                <Tooltip key={index} title={social.label} arrow>
+                  <IconButton
+                    component="a"
+                    href={social.href}
+                    size="small"
+                    aria-label={social.label}
+                  >
+                    {social.icon}
+                  </IconButton>
+                </Tooltip>
               ))}
             </Stack>
           )}

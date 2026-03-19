@@ -68,6 +68,22 @@ const theme = createTheme({
       disabled:  tokens.color.textMuted,
     },
     divider: tokens.color.border,
+    canvas: {
+      default: tokens.color.bg,
+      subtle: tokens.color.surface,
+      inset: tokens.color.surfaceAlt,
+    },
+    border: {
+      default: tokens.color.border,
+      muted: tokens.color.border,
+      subtle: tokens.color.borderStrong,
+    },
+    neutral: {
+      emphasis: tokens.color.textSecondary,
+      emphasisPlus: tokens.color.textPrimary,
+      muted: `${tokens.color.border}66`,
+      subtle: tokens.color.surfaceAlt,
+    },
     // Custom palette entries via module augmentation (see types/mui.d.ts)
   },
 
@@ -85,6 +101,25 @@ const theme = createTheme({
     caption: { fontSize: '0.75rem', lineHeight: 1.4 },
     overline: { fontSize: '0.6875rem', fontWeight: 600, letterSpacing: '0.08em', lineHeight: 1.2 },
     button: { fontFamily: '"Noto Sans"', fontWeight: 600, fontSize: '0.875rem', textTransform: 'none' },
+    greekBody: {
+      fontFamily: '"Noto Serif", Georgia, serif',
+      fontSize: '1.125rem',
+      lineHeight: 1.8,
+      fontWeight: 400,
+    },
+    greekHelp: {
+      fontFamily:
+        '-apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif',
+      fontSize: '0.75rem',
+      lineHeight: 1.5,
+      fontWeight: 400,
+      color: tokens.color.textSecondary,
+    },
+    prose: {
+      fontSize: '1rem',
+      lineHeight: 1.7,
+      fontWeight: 400,
+    },
   },
 
   shape: { borderRadius: 8 },
