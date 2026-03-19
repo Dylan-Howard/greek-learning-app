@@ -10,5 +10,11 @@ namespace Koine.Application.Interfaces
         Task<bool> UpdateProgressAsync(int userId, UserProgressDto progressDto);
         Task<List<UserLessonDto>> GetUserLessonsAsync(int userId);
         Task<List<UserWordDto>> GetUserVocabularyAsync(int userId);
+
+        /// <summary>
+        /// Pre-seeds the user's SRS deck by marking words above the rank threshold as mastered.
+        /// Beginner rank performs no seeding (threshold = null).
+        /// </summary>
+        Task<bool> SeedOnboardingAsync(int userId, int? minOccurrenceThreshold);
     }
 }

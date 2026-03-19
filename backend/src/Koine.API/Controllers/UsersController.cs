@@ -153,6 +153,34 @@ namespace Koine.API.Controllers
             }
         }
 
+        [HttpPost("{id}/onboarding")]
+        public async Task<ActionResult> Onboarding(int id, [FromBody] OnboardingDto onboardingDto)
+        {
+            // Map rank string to the minimum occurrence threshold for pre-seeding.
+            // beginner → no seeding; intermediate → 50+; scholar → 15+; advanced → 5+
+            int? threshold = onboardingDto.Rank?.ToLowerInvariant() switch
+            {
+                "intermediate" => 50,
+                "scholar"      => 15,
+                "advanced"     => 5,
+                _              => null, // beginner or unknown: no seeding
+            };
+
+            try
+            {
+                var success = await _progressService.SeedOnboardingAsync(id, threshold);
+                if (!success)
+                    return BadRequest(new { message = "Failed to seed onboarding deck" });
+
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error seeding onboarding deck for user {UserId}", id);
+                return StatusCode(500, new { message = "An error occurred while seeding the onboarding deck" });
+            }
+        }
+
         [HttpPut("{id}/settings")]
         public async Task<ActionResult> UpdateUserSettings(int id, [FromBody] UserSettingDto settingDto)
         {

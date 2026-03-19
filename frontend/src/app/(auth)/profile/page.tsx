@@ -6,6 +6,7 @@ import {
   Breadcrumbs,
   Grid,
   Typography,
+  Button,
 } from '@mui/material';
 import NextLink from 'next/link';
 import { AppShell } from '@/components/layout/AppShell';
@@ -16,6 +17,7 @@ import {
   experienceProgressPercent,
   levelFromExperience,
 } from '@/lib/services/user/gamification';
+import { tokens } from '@/theme/theme';
 import MenuBookOutlinedIcon from '@mui/icons-material/MenuBookOutlined';
 import StyleOutlinedIcon from '@mui/icons-material/StyleOutlined';
 import StarOutlineIcon from '@mui/icons-material/StarOutline';
@@ -54,6 +56,21 @@ export default function ProfilePage() {
         </Grid>
 
         <ActivityHeatmap data={[]} />
+
+        <Box sx={{ mt: 3, pt: 2, borderTop: `1px solid ${tokens.color.border}` }}>
+          <Typography variant="h4" sx={{ mb: 0.5 }}>Knowledge level</Typography>
+          <Typography variant="body2" sx={{ color: tokens.color.textSecondary, mb: 1.5 }}>
+            Controls how your vocabulary deck is pre-seeded.
+          </Typography>
+          <Button
+            variant="outlined"
+            size="small"
+            href="/onboarding"
+            sx={{ borderColor: tokens.color.border, color: tokens.color.primary }}
+          >
+            Change level
+          </Button>
+        </Box>
       </Box>
     </AppShell>
   );

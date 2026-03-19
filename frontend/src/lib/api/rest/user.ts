@@ -1,6 +1,7 @@
 import users from '@/app/services/data/userData.json';
 import { apiClient } from '@/lib/api/rest/client';
 import { User } from '@/lib/types/domain/user';
+import { type KnowledgeRank } from '@/app/(client)/onboarding/page';
 
 type ApiUser = {
   id: number;
@@ -183,4 +184,11 @@ export async function updateUser(userData: User): Promise<User> {
   }
 
   return userData;
+}
+
+export async function seedOnboarding(userId: string, rank: KnowledgeRank): Promise<void> {
+  const numericId = toNumericUserId(userId);
+  if (numericId === null) return;
+
+  await apiClient.post<void>(`users/${numericId}/onboarding`, { rank });
 }

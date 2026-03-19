@@ -144,5 +144,46 @@ namespace Koine.Application.Services
                 KnowledgeLevel = kvp.Value.MasteryLevel
             }).ToList();
         }
+
+        public async Task<bool> SeedOnboardingAsync(int userId, int? minOccurrenceThreshold)
+        {
+            // Beginner rank: no pre-seeding required.
+            if (minOccurrenceThreshold is null)
+                return true;
+
+            // Fetch words that meet the occurrence threshold (no upper bound).
+            var wordsToSeed = await _unitOfWork.Vocabulary.GetByOccurrencesAsync(minOccurrenceThreshold.Value, int.MaxValue);
+            if (wordsToSeed.Count == 0)
+                return true;
+
+            var progress = await _unitOfWork.UserProgress.GetOrCreateByUserIdAsync(userId);
+
+            var vocabProgress = JsonSerializer.Deserialize<Dictionary<int, Domain.ValueObjects.VocabularyProgress>>(
+                progress.VocabularyProgressJson) ?? new();
+
+            // Mark each qualifying word as mastered (level 5), preserving any existing higher state.
+            const int masteredLevel = 5;
+            foreach (var word in wordsToSeed)
+            {
+                if (!vocabProgress.TryGetValue(word.Id, out var existing) || existing.MasteryLevel < masteredLevel)
+                {
+                    vocabProgress[word.Id] = new Domain.ValueObjects.VocabularyProgress
+                    {
+                        MasteryLevel = masteredLevel,
+                        NeedsPractice = false,
+                        LastPracticed = DateTime.UtcNow,
+                        TimesSeen = existing?.TimesSeen ?? 0,
+                    };
+                }
+            }
+
+            progress.VocabularyProgressJson = JsonSerializer.Serialize(vocabProgress);
+            progress.UpdatedAt = DateTime.UtcNow;
+
+            await _unitOfWork.UserProgress.UpdateAsync(progress);
+            await _unitOfWork.SaveChangesAsync();
+
+            return true;
+        }
     }
 }

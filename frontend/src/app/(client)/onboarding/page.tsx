@@ -14,6 +14,8 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { useRouter } from 'next/navigation';
 import { tokens } from '@/theme/theme';
+import { useUserContext } from '@/lib/types/domain/user';
+import { seedOnboarding } from '@/lib/api/rest/user';
 
 // ── Rank definitions ─────────────────────────────────────────────────────────
 export type KnowledgeRank = 'beginner' | 'intermediate' | 'scholar' | 'advanced';
@@ -254,16 +256,22 @@ function RankCard({ rank, selected, onSelect }: CardProps) {
 // ── Page ──────────────────────────────────────────────────────────────────────
 export default function OnboardingPage() {
   const router  = useRouter();
+  const { user } = useUserContext();
   const [rank, setRank]       = useState<KnowledgeRank | null>(null);
   const [loading, setLoading] = useState(false);
 
   async function handleContinue() {
     if (!rank) return;
     setLoading(true);
-    // TODO: persist rank to user profile via your API
-    // e.g. await fetch('/api/user/onboarding', { method: 'POST', body: JSON.stringify({ rank }) });
-    await new Promise((r) => setTimeout(r, 600));
-    router.push('/read');
+    try {
+      if (user?.id) {
+        await seedOnboarding(user.id, rank);
+      }
+    } catch (err) {
+      console.error('Failed to save rank:', err);
+    } finally {
+      router.push('/reader');
+    }
   }
 
   const selectedRank = RANKS.find((r) => r.id === rank);
