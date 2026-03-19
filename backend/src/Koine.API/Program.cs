@@ -14,6 +14,7 @@ using System.Data;
 using Koine.API.GraphQL.Schema;
 using Koine.API.GraphQL.Queries;
 using Koine.API.GraphQL.Mutations;
+using Koine.API.GraphQL.DataLoaders;
 using GraphQL;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -83,6 +84,10 @@ builder.Services.AddScoped<Koine.Application.Study.Ports.IVocabularySetItemRepos
 builder.Services.AddScoped<KoineSchema>();
 builder.Services.AddScoped<RootQuery>();
 builder.Services.AddScoped<RootMutation>();
+// DataLoaders — scoped so each request gets its own batch context (Requirement 5.6)
+builder.Services.AddScoped<ChaptersByBookIdDataLoader>();
+builder.Services.AddScoped<WordsByChapterIdDataLoader>();
+builder.Services.AddScoped<GrammaticalFeaturesByIdDataLoader>();
 builder.Services
     .AddGraphQL(b => b
         .AddSchema<KoineSchema>()

@@ -35,18 +35,18 @@ Incrementally wire a GraphQL layer into the Koine backend (GraphQL-dotnet code-f
     - Assert non-nullable DTO fields map to non-nullable GraphQL fields
     - _Requirements: 4.1–4.9_
 
-- [ ] 3. Implement DataLoaders
-  - [ ] 3.1 Implement `ChaptersByBookIdDataLoader` in `Koine.API/GraphQL/DataLoaders/`
+- [x] 3. Implement DataLoaders
+  - [x] 3.1 Implement `ChaptersByBookIdDataLoader` in `Koine.API/GraphQL/DataLoaders/`
     - Extend `BatchDataLoader<int, List<ChapterDto>>`; call `IChapterService.GetChaptersByBookIdsAsync` once per batch
     - Wire `Book.chapters` field in `BookType` to use this DataLoader
     - _Requirements: 5.1, 5.4_
 
-  - [ ] 3.2 Implement `WordsByChapterIdDataLoader`
+  - [x] 3.2 Implement `WordsByChapterIdDataLoader`
     - Extend `BatchDataLoader<int, List<WordDto>>`; call `IVocabularyService` once per batch
     - Wire `Chapter.words` field in `ChapterType` to use this DataLoader
     - _Requirements: 5.2, 5.5_
 
-  - [ ] 3.3 Implement `GrammaticalFeaturesByIdDataLoader`
+  - [x] 3.3 Implement `GrammaticalFeaturesByIdDataLoader`
     - Extend `BatchDataLoader<int, GrammaticalFeatureDto>`; batch feature lookups by id
     - Register all three DataLoaders with scoped lifetime in `Program.cs`
     - _Requirements: 5.3, 5.6_
@@ -68,12 +68,12 @@ Incrementally wire a GraphQL layer into the Koine backend (GraphQL-dotnet code-f
     - Return `null` for nullable not-found fields; return `NOT_FOUND` error for non-nullable not-found fields
     - _Requirements: 2.7, 2.8, 2.9, 2.10, 2.11, 6.1, 6.3, 6.5_
 
-  - [ ]* 4.3 Write property test for resolver output equivalence (Property 4)
+  - [ ] 4.3 Write property test for resolver output equivalence (Property 4)
     - **Property 4: Resolver output is structurally equivalent to Application Service output**
     - Generate random query arguments; assert resolver result deep-equals the Moq service return value
     - **Validates: Requirements 2.2–2.10**
 
-  - [ ]* 4.4 Write unit tests for RootQuery
+  - [ ] 4.4 Write unit tests for RootQuery
     - Test each field delegates to the correct Application Service method
     - Test `NOT_FOUND` error is returned for missing non-nullable resources
     - _Requirements: 2.1–2.11_
@@ -84,12 +84,12 @@ Incrementally wire a GraphQL layer into the Koine backend (GraphQL-dotnet code-f
     - Implement `ResolveUserId` helper in `RootQuery` and `RootMutation` using `IHttpContextAccessor` and `ClaimTypes.NameIdentifier`
     - _Requirements: 6.1, 6.2, 6.3, 6.4, 6.5_
 
-  - [ ]* 5.2 Write property test for unauthenticated rejection (Property 1)
+  - [ ] 5.2 Write property test for unauthenticated rejection (Property 1)
     - **Property 1: Unauthenticated requests are rejected without invoking services**
     - Generate random protected field names; assert `UNAUTHENTICATED` error returned and service mock never called
     - **Validates: Requirements 1.6, 6.2**
 
-  - [ ]* 5.3 Write property test for CurrentUser claim consistency (Property 6)
+  - [ ] 5.3 Write property test for CurrentUser claim consistency (Property 6)
     - **Property 6: CurrentUser claim extraction is consistent across GraphQL and REST**
     - Generate random JWT payloads with `NameIdentifier` claims; assert GraphQL resolver and REST controller extract identical user IDs
     - **Validates: Requirements 6.3, 6.5**
@@ -113,17 +113,17 @@ Incrementally wire a GraphQL layer into the Koine backend (GraphQL-dotnet code-f
     - Return `BAD_USER_INPUT` error for missing required fields or constraint violations before invoking any Application Service
     - _Requirements: 3.19_
 
-  - [ ]* 6.4 Write property test for non-admin forbidden (Property 2)
+  - [ ] 6.4 Write property test for non-admin forbidden (Property 2)
     - **Property 2: Non-admin users are forbidden from admin mutations**
     - Generate random admin mutation names and non-admin role claims; assert `FORBIDDEN` error and service not called
     - **Validates: Requirements 3.18, 6.6**
 
-  - [ ]* 6.5 Write property test for invalid input rejection (Property 5)
+  - [ ] 6.5 Write property test for invalid input rejection (Property 5)
     - **Property 5: Invalid mutation inputs are rejected before service invocation**
     - Generate random invalid input objects; assert `BAD_USER_INPUT` and service not called
     - **Validates: Requirements 3.19**
 
-  - [ ]* 6.6 Write unit tests for RootMutation
+  - [ ] 6.6 Write unit tests for RootMutation
     - Test each mutation delegates to the correct Application Service
     - Test `FORBIDDEN` is returned for admin mutations called by non-admin users
     - _Requirements: 3.1–3.19_
@@ -133,7 +133,7 @@ Incrementally wire a GraphQL layer into the Koine backend (GraphQL-dotnet code-f
   - Verify schema introspection returns all expected types and fields
   - Verify `/graphql` and `/api/*` both respond correctly (coexistence)
 
-- [ ]* 8. Write property test for REST coexistence (Property 7)
+- [ ] 8. Write property test for REST coexistence (Property 7)
   - **Property 7: REST endpoints are unaffected by GraphQL middleware registration**
   - Generate random REST endpoint paths and request bodies; assert response is identical with and without GraphQL middleware
   - **Validates: Requirements 15.1, 15.4**
@@ -155,12 +155,12 @@ Incrementally wire a GraphQL layer into the Koine backend (GraphQL-dotnet code-f
     - Wrap the authenticated layout in an `ApolloProvider` using `getApolloClient()`
     - _Requirements: 7.5_
 
-  - [ ]* 9.4 Write property test for authLink JWT attachment (Property 8)
+  - [ ] 9.4 Write property test for authLink JWT attachment (Property 8)
     - **Property 8: Apollo authLink attaches the Clerk JWT on every request**
     - Generate random JWT strings; assert every outgoing request header contains `Authorization: Bearer <token>`
     - **Validates: Requirements 7.3**
 
-  - [ ]* 9.5 Write unit tests for Apollo Client setup
+  - [ ] 9.5 Write unit tests for Apollo Client setup
     - Assert `createServerClient()` has no `InMemoryCache`
     - Assert `getApolloClient()` returns the same singleton instance on repeated calls
     - Assert `rest/client.ts` still exports `apiClient` (coexistence check)
@@ -181,7 +181,7 @@ Incrementally wire a GraphQL layer into the Koine backend (GraphQL-dotnet code-f
   - Log all errors via `console.error`, matching the pattern in `rest/client.ts`
   - _Requirements: 14.1, 14.2, 14.3, 14.4, 14.5, 14.6_
 
-  - [ ]* 11.1 Write property test for error code propagation (Property 10)
+  - [ ] 11.1 Write property test for error code propagation (Property 10)
     - **Property 10: GraphQL error codes are propagated to the calling component**
     - Generate random GraphQL error arrays with known extension codes; assert `errorLink` maps each to the correct UI state and calls `console.error`
     - **Validates: Requirements 14.1–14.6**
@@ -220,7 +220,7 @@ Incrementally wire a GraphQL layer into the Koine backend (GraphQL-dotnet code-f
   - Add `// TODO: remove after GraphQL transition complete` comment to `frontend/src/lib/api/rest/reader.ts`
   - _Requirements: 9.1, 9.2, 9.3, 9.4, 15.5_
 
-  - [ ]* 14.1 Write property test for mapRenderedUnitsToDisplayUnits equivalence (Property 11)
+  - [ ] 14.1 Write property test for mapRenderedUnitsToDisplayUnits equivalence (Property 11)
     - **Property 11: mapRenderedUnitsToDisplayUnits produces identical output from GraphQL and REST payloads**
     - Generate random `RenderedUnit` trees; assert `mapRenderedUnitsToDisplayUnits` output is deeply equal whether input came from GraphQL or REST response shape
     - **Validates: Requirements 9.3**
@@ -254,7 +254,7 @@ Incrementally wire a GraphQL layer into the Koine backend (GraphQL-dotnet code-f
   - Add `// TODO: remove after GraphQL transition complete` comments to affected REST helper files
   - _Requirements: 13.1, 13.2, 13.3, 13.4, 13.5, 13.6, 15.5_
 
-- [ ]* 19. Write property test for CORS header consistency (Property 12)
+- [ ] 19. Write property test for CORS header consistency (Property 12)
   - **Property 12: CORS headers are present on GraphQL endpoint responses**
   - Generate random allowed-origin values; assert `/graphql` responses include the same CORS headers as `/api/*` responses for the same origin
   - **Validates: Requirements 15.3**

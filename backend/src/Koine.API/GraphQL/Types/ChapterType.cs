@@ -1,4 +1,6 @@
+using GraphQL;
 using GraphQL.Types;
+using Koine.API.GraphQL.DataLoaders;
 using Koine.Application.DTOs.Chapters;
 
 namespace Koine.API.GraphQL.Types;
@@ -18,9 +20,12 @@ public class ChapterType : ObjectGraphType<ChapterDto>
         Field<NonNullGraphType<StringGraphType>>("createdAt")
             .Resolve(ctx => ctx.Source.CreatedAt.ToString("O"));
 
-        // words field is resolved via WordsByChapterIdDataLoader — wired in Task 3
         Field<NonNullGraphType<ListGraphType<NonNullGraphType<WordType>>>>("words")
-            .Description("Words in this chapter — resolved via DataLoader in Task 3.")
-            .Resolve(_ => new List<Application.DTOs.Vocabulary.VocabularyDto>());
+            .Description("Words in this chapter, resolved via WordsByChapterIdDataLoader.")
+            .Resolve(ctx =>
+            {
+                var loader = ctx.RequestServices!.GetRequiredService<WordsByChapterIdDataLoader>();
+                return loader.LoadAsync(ctx.Source.Id);
+            });
     }
 }

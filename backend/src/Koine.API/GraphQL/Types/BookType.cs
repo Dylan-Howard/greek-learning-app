@@ -1,4 +1,6 @@
+using GraphQL;
 using GraphQL.Types;
+using Koine.API.GraphQL.DataLoaders;
 using Koine.Application.DTOs.Books;
 
 namespace Koine.API.GraphQL.Types;
@@ -16,9 +18,12 @@ public class BookType : ObjectGraphType<BookDto>
         Field<NonNullGraphType<StringGraphType>>("languageCode").Resolve(ctx => ctx.Source.LanguageCode);
         Field<NonNullGraphType<IntGraphType>>("chapterCount").Resolve(ctx => ctx.Source.ChapterCount);
 
-        // chapters field is resolved via ChaptersByBookIdDataLoader — wired in Task 3
         Field<NonNullGraphType<ListGraphType<NonNullGraphType<ChapterType>>>>("chapters")
-            .Description("Chapters in this book — resolved via DataLoader in Task 3.")
-            .Resolve(_ => new List<Application.DTOs.Chapters.ChapterDto>());
+            .Description("Chapters in this book, resolved via ChaptersByBookIdDataLoader.")
+            .Resolve(ctx =>
+            {
+                var loader = ctx.RequestServices!.GetRequiredService<ChaptersByBookIdDataLoader>();
+                return loader.LoadAsync(ctx.Source.Id);
+            });
     }
 }
