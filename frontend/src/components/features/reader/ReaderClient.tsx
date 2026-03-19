@@ -52,14 +52,14 @@ function ReaderInner({
 
   useEffect(() => {
     setSelectedWordId(null);
-    setPage({
-      ...page,
+    setPage((prev) => ({
+      ...prev,
       tabId: 0,
       morphologyId: 0,
       selectedUnit: undefined,
       studyFocusWordId: undefined,
-    });
-  }, [bookId, chapterId, page, setPage]);
+    }));
+  }, [bookId, chapterId, setPage]);
 
   const handleWordSelect = useCallback((wordId: string) => {
     setSelectedWordId(wordId);
@@ -67,8 +67,8 @@ function ReaderInner({
     if (!unit) {
       return;
     }
-    setPage({
-      ...page,
+    setPage((prev) => ({
+      ...prev,
       tabId: 3,
       morphologyId: unit.morphologyId ?? 0,
       selectedUnit: {
@@ -85,8 +85,8 @@ function ReaderInner({
         parentPhrases: unit.parentPhrases,
       },
       studyFocusWordId: unit.morphologyId,
-    });
-  }, [page, setPage, unitByTokenId]);
+    }));
+  }, [setPage, unitByTokenId]);
 
   const handleBookChange = (nextBookId: string) => {
     router.push(`/reader/${nextBookId}/1`);
@@ -108,7 +108,7 @@ function ReaderInner({
     <AppShell>
       <ReaderTopBar
         activeTab={page?.tabId ?? 0}
-        onTabChange={(tabId) => setPage({ ...page, tabId })}
+        onTabChange={(tabId) => setPage((prev) => ({ ...prev, tabId }))}
         ttsContent={text.map((unit) => unit.content).join(' ')}
       />
       <Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>

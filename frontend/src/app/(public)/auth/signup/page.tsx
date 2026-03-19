@@ -10,7 +10,7 @@ export default function SignUpPage() {
 
   async function handleSignup(_email: string, _password: string) {
     await new Promise((r) => setTimeout(r, 300));
-    router.push('/reader');
+    router.push('/onboarding');
   }
 
   return (

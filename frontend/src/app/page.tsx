@@ -9,6 +9,7 @@ import Divider from '@mui/material/Divider';
 import { useRouter } from 'next/navigation';
 import PublicLayout from '@/components/public/PublicLayout';
 import { tokens } from '@/design-system-v2/theme/theme';
+import HowItWorksBento from '@/components/public/HowItWorksBento';
 
 function useReveal() {
   const ref = useRef<HTMLDivElement>(null);
@@ -258,7 +259,7 @@ export default function LandingPage() {
           </Box>
         </Box>
 
-        <Box id="how-it-works" sx={{ bgcolor: tokens.color.surface, py: { xs: 8, md: 10 } }}>
+        {/* <Box id="how-it-works" sx={{ bgcolor: tokens.color.surface, py: { xs: 8, md: 10 } }}>
           <Box sx={{ maxWidth: 1100, mx: 'auto', px: { xs: 3, md: 6 } }}>
             <Typography variant="h2" sx={{ mb: 1 }}>How it works</Typography>
             <Typography variant="body1" sx={{ color: tokens.color.textSecondary, mb: 4 }}>
@@ -270,7 +271,10 @@ export default function LandingPage() {
               <FeatureCard icon="📈" title="Track progress" body="See growth over time with session stats and mastery tracking." delay={240} />
             </Box>
           </Box>
-        </Box>
+        </Box> */}
+
+        <HowItWorksBento />
+
       </Box>
     </PublicLayout>
   );

@@ -4,7 +4,8 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import Tooltip from '@mui/material/Tooltip';
-import { usePathname, useRouter } from 'next/navigation';
+import NextLink from 'next/link';
+import { usePathname } from 'next/navigation';
 import { tokens } from '@/design-system-v2/theme/theme';
 import UserAvatarBadge, { type Tier } from './UserAvatarBadge';
 import { useDirection } from '@/design-system-v2/components/layouts/RTLWrapper';
@@ -38,7 +39,6 @@ interface Props {
 
 export default function NavRail({ userInitials, xpPercent, tier }: Props) {
   const pathname  = usePathname();
-  const router    = useRouter();
   const direction = useDirection();
 
   return (
@@ -96,8 +96,8 @@ export default function NavRail({ userInitials, xpPercent, tier }: Props) {
               enterDelay={500}
             >
               <Box
-                component="button"
-                onClick={() => router.push(path)}
+                component={NextLink}
+                href={path}
                 aria-label={label}
                 aria-current={active ? 'page' : undefined}
                 sx={{
@@ -109,6 +109,7 @@ export default function NavRail({ userInitials, xpPercent, tier }: Props) {
                   display:        'flex',
                   alignItems:     'center',
                   justifyContent: 'center',
+                  textDecoration: 'none',
                   bgcolor:        active ? tokens.color.primaryLight : 'transparent',
                   color:          active ? tokens.color.primary : tokens.color.textSecondary,
                   transition:     `background-color ${tokens.motion.fast} ${tokens.motion.ease}, color ${tokens.motion.fast} ${tokens.motion.ease}`,
@@ -137,13 +138,17 @@ export default function NavRail({ userInitials, xpPercent, tier }: Props) {
         arrow
         enterDelay={500}
       >
-        <Box>
+        <Box
+          component={NextLink}
+          href="/profile"
+          aria-label="Profile"
+          sx={{ textDecoration: 'none' }}
+        >
           <UserAvatarBadge
             initials={userInitials}
             xpPercent={xpPercent}
             tier={tier}
             size={40}
-            onClick={() => router.push('/profile')}
           />
         </Box>
       </Tooltip>

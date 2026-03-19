@@ -70,6 +70,52 @@ declare module '@mui/material/Typography' {
   }
 }
 
+// ─── Design Tokens ────────────────────────────────────────────────────────────
+export const tokens = {
+  color: {
+    primary:           '#6B4226',
+    primaryLight:      '#FBF3EE',
+    primaryDark:       '#4A2C17',
+    bg:                '#FFFFFF',
+    surface:           '#FAFAFA',
+    surfaceAlt:        '#F5F5F5',
+    border:            '#E0E0E0',
+    borderStrong:      '#BDBDBD',
+    textPrimary:       '#212121',
+    textSecondary:     '#616161',
+    textMuted:         '#9E9E9E',
+    // SRS semantic
+    srsNew:            '#1565C0',
+    srsAgain:          '#C62828',
+    srsHard:           '#E65100',
+    srsGood:           '#2E7D32',
+    srsEasy:           '#00695C',
+    // Gamification
+    xpGold:            '#C9A84C',
+    xpRingBg:          '#E8E0CC',
+    tierNovice:        '#78909C',
+    tierApprentice:    '#1976D2',
+    tierScholar:       '#6A1B9A',
+    tierMaster:        '#C9A84C',
+  },
+  radius: {
+    xs:   '4px',
+    sm:   '6px',
+    md:   '8px',
+    lg:   '12px',
+    xl:   '16px',
+    full: '9999px',
+  },
+  motion: {
+    fast:   '150ms',
+    normal: '250ms',
+    slow:   '400ms',
+    ease:   'cubic-bezier(0.4, 0, 0.2, 1)',
+    decel:  'cubic-bezier(0, 0, 0.2, 1)',
+    accel:  'cubic-bezier(0.4, 0, 1, 1)',
+  },
+} as const;
+
 const theme = createTheme({
   // ============================================
   // COLOR SCHEMES (Light & Dark)
