@@ -6,7 +6,7 @@ Incrementally wire a GraphQL layer into the Koine backend (GraphQL-dotnet code-f
 
 ## Tasks
 
-- [ ] 1. Add GraphQL-dotnet NuGet package and register the endpoint in Program.cs
+- [x] 1. Add GraphQL-dotnet NuGet package and register the endpoint in Program.cs
   - Add the latest stable `GraphQL` and `GraphQL.Server.Transports.AspNetCore` NuGet packages to `Koine.API.csproj`
   - Create `backend/src/Koine.API/GraphQL/Schema/KoineSchema.cs` with a stub `RootQuery` and `RootMutation`
   - Register `KoineSchema`, `RootQuery`, `RootMutation`, and `AddGraphQL(...)` in `Program.cs` after existing service registrations

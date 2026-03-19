@@ -11,6 +11,10 @@ using NSwag;
 using NSwag.Generation.Processors.Security;
 using Microsoft.Data.SqlClient;
 using System.Data;
+using Koine.API.GraphQL.Schema;
+using Koine.API.GraphQL.Queries;
+using Koine.API.GraphQL.Mutations;
+using GraphQL;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -75,6 +79,18 @@ builder.Services.AddScoped<Koine.Application.Study.Ports.IStudySessionRepository
 builder.Services.AddScoped<Koine.Application.Study.Ports.IVocabularyRepository, Koine.Infrastructure.Study.Repositories.StudyVocabularyRepository>();
 builder.Services.AddScoped<Koine.Application.Study.Ports.IVocabularySetItemRepository, Koine.Infrastructure.Study.Repositories.StudyVocabularySetItemRepository>();
 
+// GraphQL — additive registrations (Requirements 1.4, 1.5, 15.4)
+builder.Services.AddScoped<KoineSchema>();
+builder.Services.AddScoped<RootQuery>();
+builder.Services.AddScoped<RootMutation>();
+builder.Services
+    .AddGraphQL(b => b
+        .AddSchema<KoineSchema>()
+        .AddSystemTextJson()
+        .AddErrorInfoProvider(opt => opt.ExposeExceptionDetails = builder.Environment.IsDevelopment())
+        .AddDataLoader()
+        .AddGraphTypes(typeof(KoineSchema).Assembly));
+
 // JWT Authentication
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
 var secretKey = jwtSettings["SecretKey"] ?? throw new InvalidOperationException("JWT Secret Key not configured");
@@ -128,6 +144,16 @@ if (app.Environment.IsDevelopment())
 app.UseCors("AllowFrontend");
 app.UseAuthentication();
 app.UseAuthorization();
+
+// GraphQL middleware — placed after auth, before MapControllers (Requirements 1.1, 1.2, 1.3, 15.4)
+app.UseGraphQL<KoineSchema>("/graphql");
+if (app.Environment.IsDevelopment())
+{
+#pragma warning disable CS0618 // UseGraphQLPlayground is obsolete but specified by the design doc
+    app.UseGraphQLPlayground("/graphql/ui");
+#pragma warning restore CS0618
+}
+
 app.MapControllers();
 
 // Seed database in development
