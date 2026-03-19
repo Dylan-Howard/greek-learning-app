@@ -1,6 +1,7 @@
 'use client';
 
 import { createContext, useContext } from 'react';
+import type { Dispatch, SetStateAction } from 'react';
 import { Unitv2 } from '@/lib/types/domain/text';
 
 export type ReaderRatedWordState = 'accepted' | 'rejected';
@@ -45,7 +46,7 @@ export interface ReaderPage {
 
 export interface ReaderContextType {
   page: ReaderPage;
-  setPage: (page: ReaderPage) => void;
+  setPage: Dispatch<SetStateAction<ReaderPage>>;
 }
 
 export const ReaderContext = createContext<ReaderContextType | null>(null);

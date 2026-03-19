@@ -12,6 +12,7 @@ import { ChapterNavigatorWrapper } from '@/design-system-v2/components/reader/Ch
 import ReaderTopBar from '@/design-system-v2/components/reader/ReaderTopBar';
 import ReaderPanels from '@/design-system-v2/components/reader/ReaderPanels';
 import { ReaderSkeleton } from '@/design-system-v2/components/shared/LoadingSkeleton';
+import EmptyState from '@/design-system-v2/components/shared/EmptyState';
 import { tokens } from '@/design-system-v2/theme/theme';
 import { type Unitv2 } from '@/lib/types/domain/text';
 import { buildVerseDisplayData } from './readerAdapters';
@@ -96,10 +97,22 @@ function ReaderInner({
     router.push(`/reader/${bookId}/${nextChapter}`);
   };
 
-  if (verses.length === 0) {
+  if (verses.length === 0 && text.length === 0) {
     return (
       <AppShell>
         <ReaderSkeleton />
+      </AppShell>
+    );
+  }
+
+  if (verses.length === 0) {
+    return (
+      <AppShell>
+        <EmptyState
+          title="Reader content unavailable"
+          description="We couldn't render this chapter. Try reloading, or pick another chapter."
+          action={{ label: 'Reload', onClick: () => router.refresh() }}
+        />
       </AppShell>
     );
   }

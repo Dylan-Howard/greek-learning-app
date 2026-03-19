@@ -9,7 +9,7 @@ export function buildVerseDisplayData(units: Unitv2[]) {
   const unitByTokenId = new Map<string, Unitv2>();
 
   units
-    .filter((unit) => unit.content && unit.type !== 'translated')
+    .filter((unit) => unit.content)
     .forEach((unit) => {
       const verseNumber = unit.verseNumber || 0;
       if (!verseMap.has(verseNumber)) {
