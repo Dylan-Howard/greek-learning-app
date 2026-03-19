@@ -14,8 +14,8 @@ Incrementally wire a GraphQL layer into the Koine backend (GraphQL-dotnet code-f
   - Verify the `/graphql` endpoint accepts a POST with `{"query":"{ __typename }"}` and returns a valid envelope
   - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.5, 15.4_
 
-- [ ] 2. Implement GraphQL object types for all domain entities
-  - [ ] 2.1 Create scalar and simple object types in `Koine.API/GraphQL/Types/`
+- [x] 2. Implement GraphQL object types for all domain entities
+  - [x] 2.1 Create scalar and simple object types in `Koine.API/GraphQL/Types/`
     - Implement `BookType`, `ChapterType`, `WordType`, `GrammaticalFeatureType`, `SyntacticalFeatureType`
     - Implement `RenderedChapterType`, `RenderedUnitType`
     - Implement `VocabularySetType`, `VocabularySetItemType`
@@ -24,13 +24,13 @@ Incrementally wire a GraphQL layer into the Koine backend (GraphQL-dotnet code-f
     - Map non-nullable DTO fields to `NonNullGraphType<T>` wrappers
     - _Requirements: 4.1, 4.2, 4.3, 4.4, 4.5, 4.6, 4.7, 4.8, 4.9_
 
-  - [ ] 2.2 Create input types in `Koine.API/GraphQL/Types/InputTypes/`
+  - [x] 2.2 Create input types in `Koine.API/GraphQL/Types/InputTypes/`
     - Implement `StartSessionInputType`, `CreateVocabularySetInputType`, `CompleteLessonInputType`, `UserProgressInputType`
     - Implement `CreateBookInputType`, `UpdateBookInputType`, `CreateChapterInputType`, `UpdateChapterInputType`
     - Implement `CreateVocabularyInputType`, `UpdateVocabularyInputType`
     - _Requirements: 3.2, 3.5, 3.7, 3.8, 3.9, 3.10, 3.12, 3.13, 3.15, 3.16_
 
-  - [ ]* 2.3 Write unit tests for GraphQL type definitions
+  - [x] 2.3 Write unit tests for GraphQL type definitions
     - Assert schema introspection returns all expected root fields and types
     - Assert non-nullable DTO fields map to non-nullable GraphQL fields
     - _Requirements: 4.1–4.9_
