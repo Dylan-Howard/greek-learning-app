@@ -166,7 +166,7 @@ Incrementally wire a GraphQL layer into the Koine backend (GraphQL-dotnet code-f
     - Assert `rest/client.ts` still exports `apiClient` (coexistence check)
     - _Requirements: 7.4, 7.6, 15.5_
 
-- [ ] 10. Configure graphql-codegen and add the codegen script
+- [x] 10. Configure graphql-codegen and add the codegen script
   - Create `frontend/codegen.ts` with schema URL, document glob, and all three required plugins (`typescript`, `typescript-operations`, `typescript-react-apollo`)
   - Set `withHooks: true`, `withResultType: true`, scalar mappings for `UUID`/`DateTime`/`DateOnly`, and `nonOptionalTypename: false`
   - Add `"codegen": "graphql-codegen"` script to `frontend/package.json`
