@@ -173,7 +173,7 @@ Incrementally wire a GraphQL layer into the Koine backend (GraphQL-dotnet code-f
   - Create the `frontend/src/lib/api/graphql/generated/` directory with a `.gitkeep` placeholder
   - _Requirements: 8.1, 8.2, 8.3, 8.4, 8.5, 8.6, 8.7_
 
-- [ ] 11. Implement frontend error handling via Apollo errorLink
+- [x] 11. Implement frontend error handling via Apollo errorLink
   - Add an `errorLink` to the Apollo Client that inspects `graphQLErrors` and `networkError`
   - Map `UNAUTHENTICATED` → redirect to Clerk sign-in (same path as REST 401 handling)
   - Map `NOT_FOUND` → render not-found UI state
@@ -181,7 +181,7 @@ Incrementally wire a GraphQL layer into the Koine backend (GraphQL-dotnet code-f
   - Log all errors via `console.error`, matching the pattern in `rest/client.ts`
   - _Requirements: 14.1, 14.2, 14.3, 14.4, 14.5, 14.6_
 
-  - [ ] 11.1 Write property test for error code propagation (Property 10)
+  - [x] 11.1 Write property test for error code propagation (Property 10)
     - **Property 10: GraphQL error codes are propagated to the calling component**
     - Generate random GraphQL error arrays with known extension codes; assert `errorLink` maps each to the correct UI state and calls `console.error`
     - **Validates: Requirements 14.1–14.6**
