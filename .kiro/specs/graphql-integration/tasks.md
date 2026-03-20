@@ -225,7 +225,7 @@ Incrementally wire a GraphQL layer into the Koine backend (GraphQL-dotnet code-f
     - Generate random `RenderedUnit` trees; assert `mapRenderedUnitsToDisplayUnits` output is deeply equal whether input came from GraphQL or REST response shape
     - **Validates: Requirements 9.3**
 
-- [ ] 15. Transition Study Sessions feature to GraphQL
+- [x] 15. Transition Study Sessions feature to GraphQL
   - Replace `startSession` REST helper with `useStartStudySessionMutation` Apollo hook
   - Replace `rateCard` REST helper with `useRateCardMutation` Apollo hook
   - Replace `completeSession` REST helper with `useCompleteStudySessionMutation` Apollo hook

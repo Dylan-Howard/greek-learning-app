@@ -3,9 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { Box, Button, Grid, Stack, Typography } from '@mui/material';
-import { completeSession } from '@/lib/api/rest/study';
-import { SessionSummaryDto } from '@/lib/types/api';
-import { getActiveDevUserId } from '@/lib/services/auth/devSession';
+import { useCompleteStudySessionMutation } from '@/lib/api/graphql/generated';
 import { useUserContext } from '@/lib/types/domain/user';
 import { AppShell } from '@/components/layout/AppShell';
 
@@ -15,17 +13,27 @@ export default function SummaryPage() {
   const params = useParams();
   const sessionIdParam = params?.sessionId;
   const sessionId = Array.isArray(sessionIdParam) ? sessionIdParam[0] : sessionIdParam;
-  const [summary, setSummary] = useState<SessionSummaryDto | null>(null);
+
+  const [completeStudySession] = useCompleteStudySessionMutation();
+  const [summaryLoaded, setSummaryLoaded] = useState(false);
+  const [summaryData, setSummaryData] = useState<{
+    totalReviewed: number;
+    correctCount: number;
+    correctPercentage: number;
+    xpGained: number;
+    totalExperience: number;
+  } | null>(null);
 
   useEffect(() => {
     if (!sessionId) return;
-    const userId = getActiveDevUserId();
-    completeSession(sessionId, userId).then(async (result) => {
-      if (result.ok) {
-        setSummary(result.data);
-        awardExp(result.data.xpGained, result.data.totalExperience);
-        await syncUser(userId);
+    completeStudySession({ variables: { sessionId } }).then(async (result) => {
+      const summary = result.data?.completeStudySession;
+      if (summary) {
+        setSummaryData(summary);
+        awardExp(summary.xpGained, summary.totalExperience);
+        await syncUser();
       }
+      setSummaryLoaded(true);
     });
   }, [awardExp, sessionId, syncUser]);
 
@@ -37,18 +45,15 @@ export default function SummaryPage() {
             <Stack spacing={3}>
               <Typography variant="h2">Session Summary</Typography>
 
-              {!summary && <Typography>Loading summary...</Typography>}
+              {!summaryLoaded && <Typography>Loading summary...</Typography>}
 
-              {summary && (
+              {summaryLoaded && summaryData && (
                 <>
                   <Typography variant="h4">
-                    Correct: {summary.correctCount} / {summary.totalReviewed}
+                    Correct: {summaryData.correctCount} / {summaryData.totalReviewed}
                   </Typography>
                   <Typography variant="body1">
-                    Accuracy: {summary.correctPercentage.toFixed(1)}%
-                  </Typography>
-                  <Typography variant="body2">
-                    Again: {summary.ratings.Again ?? 0} • Hard: {summary.ratings.Hard ?? 0} • Good: {summary.ratings.Good ?? 0} • Easy: {summary.ratings.Easy ?? 0}
+                    Accuracy: {summaryData.correctPercentage.toFixed(1)}%
                   </Typography>
                 </>
               )}

@@ -12,7 +12,11 @@ import {
 } from '@/app/reader/ReaderPage/ReaderPageContext';
 import RatingButtons from '@/components/features/study/RatingButtons';
 import { fetchProgress, updateProgress } from '@/lib/api/rest/progress';
-import { completeSession, rateCard, startSession } from '@/lib/api/rest/study';
+import {
+  useCompleteStudySessionMutation,
+  useRateCardMutation,
+  useStartStudySessionMutation,
+} from '@/lib/api/graphql/generated';
 import {
   DEV_USER_CHANGED_EVENT,
   getActiveDevUserId,
@@ -20,6 +24,14 @@ import {
 } from '@/lib/services/auth/devSession';
 import { Rating, UserProgressDto } from '@/lib/types/api';
 import { useUserContext } from '@/lib/types/domain/user';
+
+/** Maps the string Rating type to the integer value expected by the GraphQL API. */
+const RATING_TO_INT: Record<Rating, number> = {
+  Again: 1,
+  Hard: 2,
+  Good: 3,
+  Easy: 4,
+};
 
 function applyReaderRatingToProgress(progress: UserProgressDto, vocabId: number, rating: Rating): UserProgressDto {
   const now = new Date().toISOString();
@@ -68,6 +80,10 @@ export default function ReaderStudyMenu() {
   const [error, setError] = useState('');
   const [devUserId, setDevUserId] = useState('1');
 
+  const [startStudySession] = useStartStudySessionMutation();
+  const [rateCardMutation] = useRateCardMutation();
+  const [completeStudySession] = useCompleteStudySessionMutation();
+
   useEffect(() => {
     setDevUserId(getActiveDevUserId());
 
@@ -84,12 +100,8 @@ export default function ReaderStudyMenu() {
     const seen = new Set<number>();
     const queue: number[] = [];
     (page?.chapterUnits || []).forEach((unit) => {
-      if (unit.type !== 'original_practice') {
-        return;
-      }
-      if (!unit.morphologyId || seen.has(unit.morphologyId)) {
-        return;
-      }
+      if (unit.type !== 'original_practice') return;
+      if (!unit.morphologyId || seen.has(unit.morphologyId)) return;
       seen.add(unit.morphologyId);
       queue.push(unit.morphologyId);
     });
@@ -102,9 +114,7 @@ export default function ReaderStudyMenu() {
   const currentDisplayIndex = (activeStudy?.currentIndex || 0) + 1;
 
   useEffect(() => {
-    if (page?.tabId !== 4) {
-      return;
-    }
+    if (page?.tabId !== 4) return;
 
     const currentQueueKey = (activeStudy?.queueWordIds || []).join(',');
     if (currentQueueKey === queueKey && activeStudy?.sessionId) {
@@ -140,24 +150,27 @@ export default function ReaderStudyMenu() {
     setLoading(true);
     setError('');
 
-    startSession({
-      // Use -1 to indicate "all selected cards" and avoid API max-card validation (<=100).
-      cardCount: -1,
-      pool: 'Mixed',
-      direction: 'GreekToEnglish',
-      mode: 'Flip',
-      source: 'ReaderMini',
-      vocabularyIds: amberQueue,
-    }, devUserId).then((result) => {
-      if (cancelled) {
+    startStudySession({
+      variables: {
+        input: {
+          // Use -1 to indicate "all selected cards" and avoid API max-card validation (<=100).
+          cardCount: -1,
+          pool: 'Mixed',
+          direction: 'GreekToEnglish',
+          mode: 'Flip',
+          source: 'ReaderMini',
+          vocabularyIds: amberQueue,
+        },
+      },
+    }).then((result) => {
+      if (cancelled) return;
+
+      if (result.errors || !result.data?.startStudySession) {
+        setError(result.errors?.[0]?.message || 'Unable to start study session.');
         return;
       }
 
-      if (!result.ok) {
-        setError(result.error.message || 'Unable to start study session.');
-        return;
-      }
-
+      const session = result.data.startStudySession;
       const focusId = page.studyFocusWordId && amberQueue.includes(page.studyFocusWordId)
         ? page.studyFocusWordId
         : amberQueue[0];
@@ -169,31 +182,33 @@ export default function ReaderStudyMenu() {
           queueWordIds: amberQueue,
           currentWordId: focusId,
           currentIndex: currentIndex >= 0 ? currentIndex : 0,
-          sessionId: result.data.id,
+          sessionId: session.id,
           ratedStates: {},
           completed: false,
           completionXpApplied: false,
         },
       });
     }).finally(() => {
-      if (!cancelled) {
-        setLoading(false);
-      }
+      if (!cancelled) setLoading(false);
     });
 
     return () => { cancelled = true; };
   }, [page?.tabId, page?.bookId, page?.chapterId, page?.studyFocusWordId, devUserId, queueKey]);
 
   const handleRate = async (rating: Rating) => {
-    if (!activeStudy?.sessionId || !currentWordId) {
-      return;
-    }
+    if (!activeStudy?.sessionId || !currentWordId) return;
 
     setLoading(true);
     setError('');
-    const ratingResult = await rateCard(activeStudy.sessionId, currentWordId, { rating }, devUserId);
-    if (!ratingResult.ok) {
-      setError(ratingResult.error.message || 'Unable to rate card.');
+    const ratingResult = await rateCardMutation({
+      variables: {
+        sessionId: activeStudy.sessionId,
+        vocabularyId: currentWordId,
+        rating: RATING_TO_INT[rating],
+      },
+    });
+    if (ratingResult.errors || !ratingResult.data?.rateCard) {
+      setError(ratingResult.errors?.[0]?.message || 'Unable to rate card.');
       setLoading(false);
       return;
     }
@@ -231,17 +246,14 @@ export default function ReaderStudyMenu() {
   };
 
   useEffect(() => {
-    if (!activeStudy?.completed || !activeStudy.sessionId || activeStudy.completionXpApplied) {
-      return;
-    }
+    if (!activeStudy?.completed || !activeStudy.sessionId || activeStudy.completionXpApplied) return;
 
     let cancelled = false;
-    completeSession(activeStudy.sessionId, devUserId).then(async (result) => {
-      if (cancelled || !result.ok) {
-        return;
-      }
+    completeStudySession({ variables: { sessionId: activeStudy.sessionId } }).then(async (result) => {
+      if (cancelled || result.errors || !result.data?.completeStudySession) return;
 
-      awardExp(result.data.xpGained, result.data.totalExperience);
+      const summary = result.data.completeStudySession;
+      awardExp(summary.xpGained, summary.totalExperience);
       await syncUser(devUserId);
 
       setPage({
@@ -253,9 +265,7 @@ export default function ReaderStudyMenu() {
       });
     });
 
-    return () => {
-      cancelled = true;
-    };
+    return () => { cancelled = true; };
   }, [
     activeStudy?.completed,
     activeStudy?.sessionId,
@@ -325,9 +335,11 @@ export default function ReaderStudyMenu() {
         variant="h3"
         sx={{ mb: 3, fontFamily: '"Noto Serif", serif' }}
       >
-        {currentWordId ? (page.chapterUnits || []).find((x) => x.morphologyId === currentWordId)?.original
-          || (page.chapterUnits || []).find((x) => x.morphologyId === currentWordId)?.content
-          || '' : ''}
+        {currentWordId
+          ? (page.chapterUnits || []).find((x) => x.morphologyId === currentWordId)?.original
+            || (page.chapterUnits || []).find((x) => x.morphologyId === currentWordId)?.content
+            || ''
+          : ''}
       </Typography>
       <RatingButtons onRate={handleRate} disabled={loading} />
     </Box>

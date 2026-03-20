@@ -10,33 +10,16 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-import { useEffect, useState } from 'react';
 import { AppShell } from '@/components/layout/AppShell';
 import StudyDashboardStats from '@/design-system-v2/components/srs/StudyDashboardStats';
-import { getDashboard } from '@/lib/api/rest/study';
-import { getActiveDevUserId } from '@/lib/services/auth/devSession';
-import { type DashboardDto } from '@/lib/types/api';
+import { useGetStudyDashboardQuery } from '@/lib/api/graphql/generated';
 
 export const dynamic = 'force-dynamic';
 
 export default function StudyDashboardPage() {
-  const [dashboard, setDashboard] = useState<DashboardDto | null>(null);
-  const [error, setError] = useState<string | undefined>();
-  const [loading, setLoading] = useState(true);
+  const { data, loading, error } = useGetStudyDashboardQuery();
 
-  useEffect(() => {
-    const userId = getActiveDevUserId();
-    getDashboard(userId).then((result) => {
-      if (result.ok) {
-        setDashboard(result.data);
-        setError(undefined);
-      } else {
-        setDashboard(null);
-        setError(result.error.message);
-      }
-      setLoading(false);
-    });
-  }, []);
+  const dashboard = data?.studyDashboard ?? null;
 
   return (
     <AppShell>
@@ -59,7 +42,7 @@ export default function StudyDashboardPage() {
 
         {error && (
           <Box sx={{ mb: 3 }}>
-            <Typography color="error.main">Unable to load dashboard: {error}</Typography>
+            <Typography color="error.main">Unable to load dashboard: {error.message}</Typography>
           </Box>
         )}
 

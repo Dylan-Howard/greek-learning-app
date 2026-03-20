@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Box, Grid, Typography } from '@mui/material';
 import SessionConfigPanel from '@/design-system-v2/components/srs/SessionConfigPanel';
-import { startSession } from '@/lib/api/rest/study';
+import { useStartStudySessionMutation } from '@/lib/api/graphql/generated';
 import { fetchVocabularySets } from '@/lib/api/rest/vocabulary';
 import { StartSessionRequest, VocabularySetDto } from '@/lib/types/api';
 import { getActiveDevUserId } from '@/lib/services/auth/devSession';
@@ -13,7 +13,6 @@ import { AppShell } from '@/components/layout/AppShell';
 export default function SessionConfigPage() {
   const router = useRouter();
   const [sets, setSets] = useState<VocabularySetDto[]>([]);
-  const [loading, setLoading] = useState(false);
   const [config, setConfig] = useState<StartSessionRequest>({
     cardCount: 10,
     pool: 'Mixed',
@@ -22,6 +21,8 @@ export default function SessionConfigPage() {
     source: 'StandardStudy',
     vocabularySetId: null,
   });
+
+  const [startStudySession, { loading }] = useStartStudySessionMutation();
 
   useEffect(() => {
     fetchVocabularySets(getActiveDevUserId()).then((result) => {
@@ -44,11 +45,21 @@ export default function SessionConfigPage() {
   }, []);
 
   const handleStart = async () => {
-    setLoading(true);
-    const result = await startSession(config, getActiveDevUserId());
-    setLoading(false);
-    if (result.ok) {
-      router.push(`/study/session/${result.data.id}`);
+    const result = await startStudySession({
+      variables: {
+        input: {
+          cardCount: config.cardCount,
+          pool: config.pool,
+          direction: config.direction,
+          mode: config.mode,
+          source: config.source ?? 'StandardStudy',
+          vocabularySetId: config.vocabularySetId ?? undefined,
+          vocabularyIds: config.vocabularyIds ?? undefined,
+        },
+      },
+    });
+    if (result.data?.startStudySession) {
+      router.push(`/study/session/${result.data.startStudySession.id}`);
     }
   };
 

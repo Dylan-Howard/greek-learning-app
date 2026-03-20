@@ -8,10 +8,19 @@ import FlashCard from '@/design-system-v2/components/srs/FlashCard';
 import SRSRatingButtons, { type SRSRating } from '@/design-system-v2/components/srs/SRSRatingButtons';
 import SRSSessionProgress from '@/design-system-v2/components/srs/SRSSessionProgress';
 import MultipleChoiceCard from '@/design-system-v2/components/srs/MultipleChoiceCard';
-import { getNextCard, rateCard } from '@/lib/api/rest/study';
+import { useRateCardMutation } from '@/lib/api/graphql/generated';
+import { getNextCard } from '@/lib/api/rest/study';
 import { CardDto, Rating } from '@/lib/types/api';
 import { getActiveDevUserId } from '@/lib/services/auth/devSession';
 import { tokens } from '@/design-system-v2/theme/theme';
+
+/** Maps the string Rating type to the integer value expected by the GraphQL API. */
+const RATING_TO_INT: Record<Rating, number> = {
+  Again: 1,
+  Hard: 2,
+  Good: 3,
+  Easy: 4,
+};
 
 export default function ActiveSessionPage() {
   const router = useRouter();
@@ -21,6 +30,8 @@ export default function ActiveSessionPage() {
   const [card, setCard] = useState<CardDto | null>(null);
   const [revealed, setRevealed] = useState(false);
   const [loading, setLoading] = useState(true);
+
+  const [rateCardMutation] = useRateCardMutation();
 
   const intervals = useMemo(() => ({
     again: '—',
@@ -51,8 +62,14 @@ export default function ActiveSessionPage() {
   const handleRate = async (rating: Rating) => {
     if (!card) return;
     if (!sessionId) return;
-    const result = await rateCard(sessionId, card.vocabularyId, { rating }, getActiveDevUserId());
-    if (result.ok && result.data.sessionComplete) {
+    const result = await rateCardMutation({
+      variables: {
+        sessionId,
+        vocabularyId: card.vocabularyId,
+        rating: RATING_TO_INT[rating],
+      },
+    });
+    if (result.data?.rateCard?.sessionComplete) {
       router.push(`/study/session/${sessionId}/summary`);
       return;
     }
