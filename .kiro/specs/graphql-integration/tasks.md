@@ -133,7 +133,7 @@ Incrementally wire a GraphQL layer into the Koine backend (GraphQL-dotnet code-f
   - Verify schema introspection returns all expected types and fields
   - Verify `/graphql` and `/api/*` both respond correctly (coexistence)
 
-- [ ] 8. Write property test for REST coexistence (Property 7)
+- [x] 8. Write property test for REST coexistence (Property 7)
   - **Property 7: REST endpoints are unaffected by GraphQL middleware registration**
   - Generate random REST endpoint paths and request bodies; assert response is identical with and without GraphQL middleware
   - **Validates: Requirements 15.1, 15.4**
