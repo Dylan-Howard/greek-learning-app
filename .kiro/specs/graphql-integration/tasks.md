@@ -209,7 +209,7 @@ Incrementally wire a GraphQL layer into the Koine backend (GraphQL-dotnet code-f
     - Verify generated file contains no `any` types and exports typed hooks for every operation
     - _Requirements: 8.2, 8.5, 8.7_
 
-- [ ] 13. Checkpoint — frontend infrastructure complete
+- [x] 13. Checkpoint — frontend infrastructure complete
   - Ensure all tests pass, ask the user if questions arise.
   - Verify `npm run codegen` succeeds and `tsc --noEmit` passes with no errors
 

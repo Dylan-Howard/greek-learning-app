@@ -83,7 +83,9 @@ export default function OnboardingPage() {
           >
             Welcome, Scholar!
           </Typography>
-          <Typography variant="body1" sx={{ textAlign: 'center', mb: 6 }}>To get you started on your learning journey, let us know how comfortable you already feel with Koine Greek.</Typography>
+          <Typography variant="body1" sx={{ textAlign: 'center', mb: 6 }}>
+            To get you started on your learning journey, let us know how comfortable you already feel with Koine Greek.
+          </Typography>
           <Grid
             container
             spacing={0}
@@ -92,38 +94,29 @@ export default function OnboardingPage() {
             columns={10}
             sx={{ mb: 5 }}
           >
-            {
-          userLevelContent.map(({ title }, i) => (
-            <Grid  size={{ sm: 3 }} key={`onboarding-${title}`}>
-              <OnboardingOptionBox
-                title={title}
-                value={i + 1}
-                checked={userLevel === i + 1}
-                onChange={() => onOptionChange(i + 1)}
-              />
-            </Grid>
-          ))
-        }
+            {userLevelContent.map(({ title }, i) => (
+              <Grid size={{ sm: 3 }} key={`onboarding-${title}`}>
+                <OnboardingOptionBox
+                  title={title}
+                  value={i + 1}
+                  checked={userLevel === i + 1}
+                  onChange={() => onOptionChange(i + 1)}
+                />
+              </Grid>
+            ))}
           </Grid>
           <Typography variant="body1" sx={{ textAlign: 'center', mb: 6 }}>
-            {
-          userLevel ? userLevelContent[userLevel - 1].description : ''
-        }
+            {userLevel ? userLevelContent[userLevel - 1].description : ''}
           </Typography>
           <Stack flexDirection="row" justifyContent="center" sx={{ mb: 2 }}>
-            {
-          error && (
-            <p>
-              Error:
-              {error}
-            </p>
-          )
-        }
-            <Button variant="contained" type="submit" disabled={submitDisabled}>Create Account</Button>
+            {error && <p>Error: {error}</p>}
+            <Button variant="contained" type="submit" disabled={submitDisabled}>
+              Create Account
+            </Button>
           </Stack>
         </form>
       </Grid>
-      <Grid  size={{ sm: 6 }} sx={{ display: { xs: 'none', sm: 'block' } }}>
+      <Grid size={{ sm: 6 }} sx={{ display: { xs: 'none', sm: 'block' } }}>
         <Stack flexDirection="column" justifyContent="center" alignItems="center" sx={{ height: '100vh' }}>
           <WelcomeIllustration />
         </Stack>
