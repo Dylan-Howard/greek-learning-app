@@ -1,0 +1,8 @@
+mutation CompleteLesson($input: CompleteLessonInput!) {
+  completeLesson(input: $input) {
+    message
+    xpGained
+    totalExperience
+    firstCompletion
+  }
+}

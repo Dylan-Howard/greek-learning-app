@@ -1,0 +1,24 @@
+query GetBooks {
+  books {
+    id
+    title
+    languageCode
+    chapterCount
+  }
+}
+
+query GetBook($id: Int!) {
+  book(id: $id) {
+    id
+    title
+    languageCode
+    chapterCount
+    chapters {
+      id
+      bookId
+      chapterIndex
+      title
+      createdAt
+    }
+  }
+}

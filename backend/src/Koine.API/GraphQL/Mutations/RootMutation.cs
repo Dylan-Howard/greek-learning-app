@@ -115,6 +115,34 @@ public class RootMutation : ObjectGraphType
                 return (object?)await studyService.DeleteSetAsync(id, userId);
             });
 
+        // ── addVocabularyToSet ─────────────────────────────────────────────
+        Field<NonNullGraphType<BooleanGraphType>>("addVocabularyToSet")
+            .Description("Adds a vocabulary word to a set owned by the authenticated user.")
+            .Argument<NonNullGraphType<IntGraphType>>("setId", "The vocabulary set ID.")
+            .Argument<NonNullGraphType<IntGraphType>>("vocabularyId", "The vocabulary word ID to add.")
+            .AuthorizeWithPolicy("Authenticated")
+            .ResolveAsync(async ctx =>
+            {
+                var setId = ctx.GetArgument<int>("setId");
+                var vocabularyId = ctx.GetArgument<int>("vocabularyId");
+                var userId = ResolveUserId(http);
+                return (object?)await studyService.AddVocabularyToSetAsync(setId, userId, vocabularyId);
+            });
+
+        // ── removeVocabularyFromSet ────────────────────────────────────────
+        Field<NonNullGraphType<BooleanGraphType>>("removeVocabularyFromSet")
+            .Description("Removes a vocabulary word from a set owned by the authenticated user.")
+            .Argument<NonNullGraphType<IntGraphType>>("setId", "The vocabulary set ID.")
+            .Argument<NonNullGraphType<IntGraphType>>("vocabularyId", "The vocabulary word ID to remove.")
+            .AuthorizeWithPolicy("Authenticated")
+            .ResolveAsync(async ctx =>
+            {
+                var setId = ctx.GetArgument<int>("setId");
+                var vocabularyId = ctx.GetArgument<int>("vocabularyId");
+                var userId = ResolveUserId(http);
+                return (object?)await studyService.RemoveVocabularyFromSetAsync(setId, userId, vocabularyId);
+            });
+
         // ── updateProgress ─────────────────────────────────────────────────
         Field<NonNullGraphType<BooleanGraphType>>("updateProgress")
             .Description("Updates the authenticated user's overall progress record.")

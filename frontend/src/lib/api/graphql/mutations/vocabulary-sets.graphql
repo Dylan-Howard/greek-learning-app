@@ -1,0 +1,34 @@
+mutation CreateVocabularySet($input: CreateVocabularySetInput!) {
+  createVocabularySet(input: $input) {
+    id
+    slug
+    title
+    description
+    isSystem
+    totalCount
+    knownCount
+    learningCount
+    percentComplete
+    createdAt
+    items {
+      id
+      vocabularyId
+      root
+      gloss
+      masteryLevel
+      lastSeen
+    }
+  }
+}
+
+mutation DeleteVocabularySet($id: Int!) {
+  deleteVocabularySet(id: $id)
+}
+
+mutation AddVocabularyToSet($setId: Int!, $vocabularyId: Int!) {
+  addVocabularyToSet(setId: $setId, vocabularyId: $vocabularyId)
+}
+
+mutation RemoveVocabularyFromSet($setId: Int!, $vocabularyId: Int!) {
+  removeVocabularyFromSet(setId: $setId, vocabularyId: $vocabularyId)
+}

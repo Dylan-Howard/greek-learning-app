@@ -1,0 +1,33 @@
+mutation StartStudySession($input: StartSessionInput!) {
+  startStudySession(input: $input) {
+    id
+    totalCards
+    cardsReviewed
+    startedAt
+    completedAt
+    pool
+    direction
+    mode
+    vocabularySetId
+  }
+}
+
+mutation RateCard($sessionId: ID!, $vocabularyId: Int!, $rating: Int!) {
+  rateCard(sessionId: $sessionId, vocabularyId: $vocabularyId, rating: $rating) {
+    nextReviewDate
+    scheduledDays
+    newState
+    sessionComplete
+  }
+}
+
+mutation CompleteStudySession($sessionId: ID!) {
+  completeStudySession(sessionId: $sessionId) {
+    totalReviewed
+    correctCount
+    correctPercentage
+    xpGained
+    totalExperience
+    firstCompletionReward
+  }
+}

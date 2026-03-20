@@ -1,0 +1,71 @@
+mutation CreateBook($input: CreateBookInput!) {
+  createBook(input: $input) {
+    id
+    title
+    languageCode
+    chapterCount
+  }
+}
+
+mutation UpdateBook($id: Int!, $input: UpdateBookInput!) {
+  updateBook(id: $id, input: $input) {
+    id
+    title
+    languageCode
+    chapterCount
+  }
+}
+
+mutation DeleteBook($id: Int!) {
+  deleteBook(id: $id)
+}
+
+mutation CreateChapter($bookId: Int!, $input: CreateChapterInput!) {
+  createChapter(bookId: $bookId, input: $input) {
+    id
+    bookId
+    chapterIndex
+    title
+    createdAt
+  }
+}
+
+mutation UpdateChapter($id: Int!, $input: UpdateChapterInput!) {
+  updateChapter(id: $id, input: $input) {
+    id
+    bookId
+    chapterIndex
+    title
+    createdAt
+  }
+}
+
+mutation DeleteChapter($id: Int!) {
+  deleteChapter(id: $id)
+}
+
+mutation CreateVocabulary($input: CreateVocabularyInput!) {
+  createVocabulary(input: $input) {
+    id
+    root
+    transliteration
+    gloss
+    partOfSpeech
+    occurrences
+  }
+}
+
+mutation UpdateVocabulary($id: Int!, $input: UpdateVocabularyInput!) {
+  updateVocabulary(id: $id, input: $input) {
+    id
+    root
+    transliteration
+    gloss
+    partOfSpeech
+    occurrences
+  }
+}
+
+mutation DeleteVocabulary($id: Int!) {
+  deleteVocabulary(id: $id)
+}

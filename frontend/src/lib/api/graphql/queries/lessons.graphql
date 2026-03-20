@@ -1,0 +1,65 @@
+query GetLessonTracks {
+  lessonTracks {
+    id
+    slug
+    title
+    description
+    sortOrder
+    totalLessons
+    completedLessons
+    percentComplete
+    nextLessonId
+    nextLessonSlug
+    nextLessonTitle
+  }
+}
+
+query GetLessonsByTrack($trackSlug: String!) {
+  lessonsByTrack(trackSlug: $trackSlug) {
+    id
+    trackId
+    trackSlug
+    slug
+    title
+    lessonIndex
+    lessonType
+    isCompleted
+    grammaticalFeatureIds
+    syntacticalFeatureIds
+    vocabularyIds
+  }
+}
+
+query GetNextLesson($trackSlug: String!) {
+  nextLesson(trackSlug: $trackSlug) {
+    id
+    trackId
+    trackSlug
+    slug
+    title
+    lessonIndex
+    contentMarkdown
+    lessonType
+    isCompleted
+    grammaticalFeatureIds
+    syntacticalFeatureIds
+    vocabularyIds
+  }
+}
+
+query GetLessonById($id: Int!) {
+  lessonById(id: $id) {
+    id
+    trackId
+    trackSlug
+    slug
+    title
+    lessonIndex
+    contentMarkdown
+    lessonType
+    isCompleted
+    grammaticalFeatureIds
+    syntacticalFeatureIds
+    vocabularyIds
+  }
+}

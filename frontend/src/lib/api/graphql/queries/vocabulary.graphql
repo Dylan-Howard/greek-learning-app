@@ -1,0 +1,8 @@
+query GetVocabulary($occurrences: Int, $comparison: String) {
+  vocabulary(occurrences: $occurrences, comparison: $comparison) {
+    id
+    root
+    gloss
+    occurrences
+  }
+}

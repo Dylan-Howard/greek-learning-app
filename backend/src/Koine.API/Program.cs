@@ -82,16 +82,14 @@ builder.Services.AddScoped<Koine.Application.Study.Ports.IVocabularyRepository, 
 builder.Services.AddScoped<Koine.Application.Study.Ports.IVocabularySetItemRepository, Koine.Infrastructure.Study.Repositories.StudyVocabularySetItemRepository>();
 
 // GraphQL — additive registrations (Requirements 1.4, 1.5, 15.4)
-builder.Services.AddScoped<KoineSchema>();
-builder.Services.AddScoped<RootQuery>();
-builder.Services.AddScoped<RootMutation>();
+// RootQuery and RootMutation are scoped; KoineSchema is owned by AddGraphQL as a singleton.
 // DataLoaders — scoped so each request gets its own batch context (Requirement 5.6)
 builder.Services.AddScoped<ChaptersByBookIdDataLoader>();
 builder.Services.AddScoped<WordsByChapterIdDataLoader>();
 builder.Services.AddScoped<GrammaticalFeaturesByIdDataLoader>();
 builder.Services
     .AddGraphQL(b => b
-        .AddSchema<KoineSchema>()
+        .AddSchema<KoineSchema>(GraphQL.DI.ServiceLifetime.Scoped)
         .AddSystemTextJson()
         .AddErrorInfoProvider(opt => opt.ExposeExceptionDetails = builder.Environment.IsDevelopment())
         .AddDataLoader()

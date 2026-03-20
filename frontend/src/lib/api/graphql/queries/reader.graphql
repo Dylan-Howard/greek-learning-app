@@ -1,0 +1,39 @@
+query FetchChapter($bookId: Int!, $chapterNumber: Int!, $lang: String) {
+  reader(bookId: $bookId, chapterNumber: $chapterNumber, lang: $lang) {
+    chapterId
+    title
+    units {
+      type
+      text
+      original
+      path
+      marker
+      vocabId
+      hints
+      gramFeatureIds
+      synFeatureIds
+      children {
+        type
+        text
+        original
+        path
+        marker
+        vocabId
+        hints
+        gramFeatureIds
+        synFeatureIds
+        children {
+          type
+          text
+          original
+          path
+          marker
+          vocabId
+          hints
+          gramFeatureIds
+          synFeatureIds
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,34 @@
+query GetUserProgress {
+  progress {
+    completedLessonIds
+    totalExperience
+    updatedAt
+  }
+}
+
+query GetUserLessons {
+  userLessons {
+    id
+    trackId
+    trackSlug
+    slug
+    title
+    lessonIndex
+    lessonType
+    isCompleted
+  }
+}
+
+query GetUserVocabulary {
+  studyProgress {
+    vocabularyId
+    root
+    gloss
+    state
+    difficulty
+    stability
+    nextReviewDate
+    reviewCount
+    lapses
+  }
+}

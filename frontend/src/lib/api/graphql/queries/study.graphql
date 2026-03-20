@@ -1,0 +1,55 @@
+query GetStudyDashboard {
+  studyDashboard {
+    totalCards
+    dueToday
+    newCards
+    learningCards
+    reviewCards
+    relearningCards
+    currentStreak
+    reviewHistory {
+      date
+      count
+    }
+  }
+}
+
+query GetStudyProgress {
+  studyProgress {
+    vocabularyId
+    root
+    gloss
+    state
+    difficulty
+    stability
+    nextReviewDate
+    reviewCount
+    lapses
+  }
+}
+
+query GetVocabularySets {
+  studySets {
+    id
+    ownerUserId
+    isSystem
+    slug
+    bookId
+    title
+    description
+    createdAt
+    lastPracticed
+    totalCount
+    knownCount
+    learningCount
+    percentComplete
+    items {
+      id
+      vocabularyId
+      root
+      gloss
+      masteryLevel
+      lastSeen
+    }
+  }
+}

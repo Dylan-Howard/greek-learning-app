@@ -4,6 +4,7 @@ using GraphQL.Types;
 using Koine.API.GraphQL.Types;
 using Koine.Application.Interfaces;
 using Koine.Application.Study.Ports;
+using Koine.Application.DTOs.Lessons;
 
 namespace Koine.API.GraphQL.Queries;
 
@@ -126,6 +127,69 @@ public class RootQuery : ObjectGraphType
                 if (result == null)
                     throw new ExecutionError("Resource not found.") { Code = "NOT_FOUND" };
                 return (object?)result;
+            });
+
+        // ── studyProgress (authenticated) ─────────────────────────────────
+        Field<NonNullGraphType<ListGraphType<NonNullGraphType<CardProgressType>>>>("studyProgress")
+            .Description("Card-level SRS progress records for the authenticated user.")
+            .AuthorizeWithPolicy("Authenticated")
+            .ResolveAsync(async ctx =>
+                (object?)await studySessionService.GetProgressAsync(ctx.CancellationToken));
+
+        // ── lessonTracks (authenticated) ──────────────────────────────────
+        Field<NonNullGraphType<ListGraphType<NonNullGraphType<LessonTrackType>>>>("lessonTracks")
+            .Description("All lesson tracks with completion metadata for the authenticated user.")
+            .AuthorizeWithPolicy("Authenticated")
+            .ResolveAsync(async ctx =>
+            {
+                var userId = ResolveUserId(http);
+                return (object?)await lessonService.GetLessonTracksAsync(userId, includeLessons: true);
+            });
+
+        // ── lessonsByTrack (authenticated) ────────────────────────────────
+        Field<NonNullGraphType<ListGraphType<NonNullGraphType<LessonType>>>>("lessonsByTrack")
+            .Description("All lessons within a specific track for the authenticated user.")
+            .Argument<NonNullGraphType<StringGraphType>>("trackSlug", "The track slug.")
+            .AuthorizeWithPolicy("Authenticated")
+            .ResolveAsync(async ctx =>
+            {
+                var userId = ResolveUserId(http);
+                var trackSlug = ctx.GetArgument<string>("trackSlug");
+                return (object?)await lessonService.GetLessonsByTrackAsync(userId, trackSlug);
+            });
+
+        // ── nextLesson (authenticated) ────────────────────────────────────
+        Field<LessonType>("nextLesson")
+            .Description("The next incomplete lesson in a track for the authenticated user, or null if all complete.")
+            .Argument<NonNullGraphType<StringGraphType>>("trackSlug", "The track slug.")
+            .AuthorizeWithPolicy("Authenticated")
+            .ResolveAsync(async ctx =>
+            {
+                var userId = ResolveUserId(http);
+                var trackSlug = ctx.GetArgument<string>("trackSlug");
+                return (object?)await lessonService.GetNextLessonAsync(userId, trackSlug);
+            });
+
+        // ── lessonById (authenticated) ────────────────────────────────────
+        Field<LessonType>("lessonById")
+            .Description("A single lesson by its ID, with completion status for the authenticated user.")
+            .Argument<NonNullGraphType<IntGraphType>>("id", "The lesson ID.")
+            .AuthorizeWithPolicy("Authenticated")
+            .ResolveAsync(async ctx =>
+            {
+                var userId = ResolveUserId(http);
+                var id = ctx.GetArgument<int>("id");
+                return (object?)await lessonService.GetLessonByIdAsync(id, userId);
+            });
+
+        // ── userLessons (authenticated) ───────────────────────────────────
+        Field<NonNullGraphType<ListGraphType<NonNullGraphType<LessonType>>>>("userLessons")
+            .Description("All lessons the authenticated user has interacted with, with completion status.")
+            .AuthorizeWithPolicy("Authenticated")
+            .ResolveAsync(async ctx =>
+            {
+                var userId = ResolveUserId(http);
+                return (object?)await lessonService.GetAllLessonsAsync(userId);
             });
     }
 

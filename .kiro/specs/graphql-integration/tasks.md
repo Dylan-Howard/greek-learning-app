@@ -186,8 +186,8 @@ Incrementally wire a GraphQL layer into the Koine backend (GraphQL-dotnet code-f
     - Generate random GraphQL error arrays with known extension codes; assert `errorLink` maps each to the correct UI state and calls `console.error`
     - **Validates: Requirements 14.1–14.6**
 
-- [ ] 12. Write GraphQL operation files and run codegen
-  - [ ] 12.1 Create query operation files
+- [x] 12. Write GraphQL operation files and run codegen
+  - [x] 12.1 Create query operation files
     - `frontend/src/lib/api/graphql/queries/reader.graphql` — `FetchChapter(bookId, chapterNumber, lang)`
     - `frontend/src/lib/api/graphql/queries/books.graphql` — `GetBooks`, `GetBook(id)`
     - `frontend/src/lib/api/graphql/queries/vocabulary.graphql` — `GetVocabulary(occurrences, comparison)`
@@ -196,7 +196,7 @@ Incrementally wire a GraphQL layer into the Koine backend (GraphQL-dotnet code-f
     - `frontend/src/lib/api/graphql/queries/study.graphql` — `GetStudyDashboard`, `GetStudyProgress`, `GetVocabularySets`
     - _Requirements: 9.1, 10.1, 11.1, 12.1, 13.1_
 
-  - [ ] 12.2 Create mutation operation files
+  - [x] 12.2 Create mutation operation files
     - `frontend/src/lib/api/graphql/mutations/study.graphql` — `StartStudySession`, `RateCard`, `CompleteStudySession`
     - `frontend/src/lib/api/graphql/mutations/lessons.graphql` — `CompleteLesson`
     - `frontend/src/lib/api/graphql/mutations/progress.graphql` — `UpdateProgress`
@@ -204,7 +204,7 @@ Incrementally wire a GraphQL layer into the Koine backend (GraphQL-dotnet code-f
     - `frontend/src/lib/api/graphql/mutations/admin.graphql` — `CreateBook`, `UpdateBook`, `DeleteBook`, `CreateChapter`, `UpdateChapter`, `DeleteChapter`, `CreateVocabulary`, `UpdateVocabulary`, `DeleteVocabulary`
     - _Requirements: 10.1, 11.1, 12.1, 13.1_
 
-  - [ ] 12.3 Run codegen to generate typed hooks
+  - [x] 12.3 Run codegen to generate typed hooks
     - Run `npm run codegen` from `frontend/` to generate `frontend/src/lib/api/graphql/generated/index.ts`
     - Verify generated file contains no `any` types and exports typed hooks for every operation
     - _Requirements: 8.2, 8.5, 8.7_
