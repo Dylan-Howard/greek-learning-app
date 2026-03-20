@@ -497,6 +497,7 @@ public class GraphQLTypeDefinitionTests
         services.AddSingleton<UpdateChapterInputType>();
         services.AddSingleton<CreateVocabularyInputType>();
         services.AddSingleton<UpdateVocabularyInputType>();
+        services.AddSingleton<VocabularyResultType>();
 
         // Register RootQuery service dependencies as mocks
         services.AddSingleton(new Mock<IBookService>().Object);
@@ -543,6 +544,17 @@ public class GraphQLTypeDefinitionTests
         services.AddSingleton<LessonType>();
         services.AddSingleton<LessonTrackType>();
         services.AddSingleton<LessonCompletionResultType>();
+        services.AddSingleton<VocabularyResultType>();
+        services.AddSingleton<StartSessionInputType>();
+        services.AddSingleton<CreateVocabularySetInputType>();
+        services.AddSingleton<CompleteLessonInputType>();
+        services.AddSingleton<UserProgressInputType>();
+        services.AddSingleton<CreateBookInputType>();
+        services.AddSingleton<UpdateBookInputType>();
+        services.AddSingleton<CreateChapterInputType>();
+        services.AddSingleton<UpdateChapterInputType>();
+        services.AddSingleton<CreateVocabularyInputType>();
+        services.AddSingleton<UpdateVocabularyInputType>();
         services.AddSingleton(new Mock<IBookService>().Object);
         services.AddSingleton(new Mock<IChapterService>().Object);
         services.AddSingleton(new Mock<IVocabularyService>().Object);
@@ -558,8 +570,6 @@ public class GraphQLTypeDefinitionTests
 
         var provider = services.BuildServiceProvider();
         var schema = provider.GetRequiredService<KoineSchema>();
-
-        // Register all domain types from the same provider so there are no duplicate instances.
         // This mirrors the AddGraphTypes() call in Program.cs.
         schema.RegisterType(provider.GetRequiredService<BookType>());
         schema.RegisterType(provider.GetRequiredService<ChapterType>());

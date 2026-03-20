@@ -131,6 +131,7 @@ public class AuthorizationPropertyTests
         services.AddSingleton<UpdateChapterInputType>();
         services.AddSingleton<CreateVocabularyInputType>();
         services.AddSingleton<UpdateVocabularyInputType>();
+        services.AddSingleton<VocabularyResultType>();
 
         services.AddSingleton(books.Object);
         services.AddSingleton(chapters.Object);

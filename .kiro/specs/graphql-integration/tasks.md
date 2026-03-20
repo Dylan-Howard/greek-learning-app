@@ -94,8 +94,8 @@ Incrementally wire a GraphQL layer into the Koine backend (GraphQL-dotnet code-f
     - Generate random JWT payloads with `NameIdentifier` claims; assert GraphQL resolver and REST controller extract identical user IDs
     - **Validates: Requirements 6.3, 6.5**
 
-- [ ] 6. Implement RootMutation with all write operations
-  - [ ] 6.1 Implement user mutations in `Koine.API/GraphQL/Mutations/RootMutation.cs`
+- [x] 6. Implement RootMutation with all write operations
+  - [x] 6.1 Implement user mutations in `Koine.API/GraphQL/Mutations/RootMutation.cs`
     - Add `startStudySession`, `rateCard`, `completeStudySession` mutations delegating to `StudySessionService`
     - Add `createVocabularySet`, `deleteVocabularySet` mutations delegating to `IStudyService`
     - Add `updateProgress` mutation delegating to `IProgressService`
@@ -103,27 +103,27 @@ Incrementally wire a GraphQL layer into the Koine backend (GraphQL-dotnet code-f
     - All require `AuthorizeWithPolicy("Authenticated")`
     - _Requirements: 3.2, 3.3, 3.4, 3.5, 3.6, 3.7, 3.8_
 
-  - [ ] 6.2 Implement admin mutations
+  - [x] 6.2 Implement admin mutations
     - Add `createBook`, `updateBook`, `deleteBook` mutations with `AuthorizeWithPolicy("AdminOnly")`
     - Add `createChapter`, `updateChapter`, `deleteChapter` mutations with `AuthorizeWithPolicy("AdminOnly")`
     - Add `createVocabulary`, `updateVocabulary`, `deleteVocabulary` mutations with `AuthorizeWithPolicy("AdminOnly")`
     - _Requirements: 3.9–3.17_
 
-  - [ ] 6.3 Implement mutation input validation
+  - [x] 6.3 Implement mutation input validation
     - Return `BAD_USER_INPUT` error for missing required fields or constraint violations before invoking any Application Service
     - _Requirements: 3.19_
 
-  - [ ] 6.4 Write property test for non-admin forbidden (Property 2)
+  - [x] 6.4 Write property test for non-admin forbidden (Property 2)
     - **Property 2: Non-admin users are forbidden from admin mutations**
     - Generate random admin mutation names and non-admin role claims; assert `FORBIDDEN` error and service not called
     - **Validates: Requirements 3.18, 6.6**
 
-  - [ ] 6.5 Write property test for invalid input rejection (Property 5)
+  - [x] 6.5 Write property test for invalid input rejection (Property 5)
     - **Property 5: Invalid mutation inputs are rejected before service invocation**
     - Generate random invalid input objects; assert `BAD_USER_INPUT` and service not called
     - **Validates: Requirements 3.19**
 
-  - [ ] 6.6 Write unit tests for RootMutation
+  - [x] 6.6 Write unit tests for RootMutation
     - Test each mutation delegates to the correct Application Service
     - Test `FORBIDDEN` is returned for admin mutations called by non-admin users
     - _Requirements: 3.1–3.19_
