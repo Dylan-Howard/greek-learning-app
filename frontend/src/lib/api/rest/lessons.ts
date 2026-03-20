@@ -1,3 +1,4 @@
+// TODO: remove after GraphQL transition complete
 import { ApiResult, apiClient } from '@/lib/api/rest/client';
 import {
   CompleteLessonDto,

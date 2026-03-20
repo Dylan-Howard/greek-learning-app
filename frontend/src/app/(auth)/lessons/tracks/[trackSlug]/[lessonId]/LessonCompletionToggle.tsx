@@ -2,7 +2,7 @@
 
 import { useState, useTransition } from 'react';
 import { Checkbox, FormControlLabel, Stack, Typography } from '@mui/material';
-import { completeLesson } from '@/lib/api/rest/lessons';
+import { useCompleteLessonMutation } from '@/lib/api/graphql/generated';
 import { useUserContext } from '@/lib/types/domain/user';
 import { getActiveDevUserId } from '@/lib/services/auth/devSession';
 
@@ -11,25 +11,36 @@ interface LessonCompletionToggleProps {
   initiallyCompleted: boolean;
 }
 
-export default function LessonCompletionToggle({ lessonId, initiallyCompleted }: LessonCompletionToggleProps) {
+export function LessonCompletionToggle({ lessonId, initiallyCompleted }: LessonCompletionToggleProps) {
   const { awardExp, syncUser } = useUserContext();
   const [isCompleted, setIsCompleted] = useState(initiallyCompleted);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
+  const [completeLesson] = useCompleteLessonMutation();
+
   const onToggle = (_checked: boolean) => {
     startTransition(async () => {
       const userId = getActiveDevUserId();
-      const result = await completeLesson(lessonId, undefined, userId);
-      if (result.ok) {
+      const result = await completeLesson({
+        variables: { input: { lessonId } },
+      });
+
+      if (result.data?.completeLesson) {
+        const { xpGained, totalExperience } = result.data.completeLesson;
         setIsCompleted(true);
         setErrorMessage(null);
-        awardExp(result.data.xpGained, result.data.totalExperience);
+        awardExp(xpGained, totalExperience);
         await syncUser(userId);
         return;
       }
 
-      setErrorMessage(result.error.message);
+      if (result.errors && result.errors.length > 0) {
+        setErrorMessage(result.errors[0].message);
+        return;
+      }
+
+      setErrorMessage('Could not complete lesson. Please try again.');
     });
   };
 

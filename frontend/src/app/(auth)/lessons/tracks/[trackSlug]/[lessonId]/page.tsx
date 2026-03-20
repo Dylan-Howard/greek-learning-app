@@ -6,16 +6,19 @@ import {
   Breadcrumbs,
   Button,
   Divider,
-  Grid,
   Stack,
   Typography,
 } from '@mui/material';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { AppShell } from '@/components/layout/AppShell';
 import { TextBlock } from '@/design-system-v2/components/lessons/LessonBlocks';
-import { fetchLesson, fetchLessonTrack, fetchNextLesson } from '@/lib/api/rest/lessons';
-import LessonCompletionToggle from '@/app/(auth)/lessons/tracks/[trackSlug]/[lessonId]/LessonCompletionToggle';
+import {
+  useGetLessonByIdQuery,
+  useGetLessonTracksQuery,
+  useGetNextLessonQuery,
+} from '@/lib/api/graphql/generated';
+import { LessonCompletionToggle } from '@/app/(auth)/lessons/tracks/[trackSlug]/[lessonId]/LessonCompletionToggle';
 
 export const dynamic = 'force-dynamic';
 
@@ -31,37 +34,46 @@ export default function LessonDetailPage() {
   const params = useParams();
   const trackSlugParam = params?.trackSlug;
   const lessonIdParam = params?.lessonId;
-  const trackSlug = Array.isArray(trackSlugParam) ? trackSlugParam[0] : trackSlugParam;
-  const lessonId = Array.isArray(lessonIdParam) ? lessonIdParam[0] : lessonIdParam;
-  const numericLessonId = Number.parseInt(lessonId || '', 10);
+  const trackSlug = Array.isArray(trackSlugParam) ? trackSlugParam[0] : (trackSlugParam ?? '');
+  const lessonId = Array.isArray(lessonIdParam) ? lessonIdParam[0] : (lessonIdParam ?? '');
+  const numericLessonId = Number.parseInt(lessonId, 10);
 
-  const [track, setTrack] = useState<any | null>(null);
-  const [lesson, setLesson] = useState<any | null>(null);
-  const [nextLesson, setNextLesson] = useState<any | null>(null);
+  const { data: lessonData, error: lessonError } = useGetLessonByIdQuery({
+    variables: { id: numericLessonId },
+    skip: Number.isNaN(numericLessonId),
+  });
 
-  useEffect(() => {
-    if (!trackSlug || Number.isNaN(numericLessonId)) return;
-    Promise.all([
-      fetchLessonTrack(trackSlug),
-      fetchLesson(numericLessonId),
-      fetchNextLesson(trackSlug),
-    ]).then(([trackResult, lessonResult, nextResult]) => {
-      setTrack(trackResult.ok ? trackResult.data : null);
-      setLesson(lessonResult.ok ? lessonResult.data : null);
-      setNextLesson(nextResult.ok ? nextResult.data : null);
-    });
-  }, [numericLessonId, trackSlug]);
+  const { data: tracksData } = useGetLessonTracksQuery({
+    skip: !trackSlug,
+  });
+
+  const { data: nextLessonData } = useGetNextLessonQuery({
+    variables: { trackSlug },
+    skip: !trackSlug,
+  });
+
+  const lesson = lessonData?.lessonById ?? null;
+  const track = useMemo(
+    () => tracksData?.lessonTracks.find((t) => t.slug === trackSlug) ?? null,
+    [tracksData, trackSlug],
+  );
+  const nextLesson = nextLessonData?.nextLesson ?? null;
 
   const lessonContentHtml = useMemo(() => (
-    renderMarkdown(lesson?.contentMarkdown || '').map((line) => `<p>${line}</p>`).join('')
+    renderMarkdown(lesson?.contentMarkdown ?? '').map((line) => `<p>${line}</p>`).join('')
   ), [lesson?.contentMarkdown]);
 
-  if (!trackSlug || Number.isNaN(numericLessonId) || !track || !lesson || lesson.trackSlug !== trackSlug) {
+  if (!trackSlug || Number.isNaN(numericLessonId) || lessonError || !lesson || lesson.trackSlug !== trackSlug) {
     return (
       <AppShell>
         <Box sx={{ px: { xs: 3, md: 6 }, py: 4 }}>
           <Typography variant="h3" sx={{ mb: 2 }}>Lesson not found</Typography>
-          <NextLink href={`/lessons/tracks/${trackSlug || ''}`}>Back to track</NextLink>
+          {lessonError && (
+            <Typography color="error.main" sx={{ mb: 2 }}>
+              Error: {lessonError.message}
+            </Typography>
+          )}
+          <NextLink href={`/lessons/tracks/${trackSlug}`}>Back to track</NextLink>
         </Box>
       </AppShell>
     );
@@ -73,7 +85,7 @@ export default function LessonDetailPage() {
         <Breadcrumbs aria-label="breadcrumb" sx={{ mb: 4 }}>
           <NextLink href="/reader">Koine Reader</NextLink>
           <NextLink href="/lessons">Lessons</NextLink>
-          <NextLink href={`/lessons/tracks/${track.slug}`}>{track.title}</NextLink>
+          <NextLink href={`/lessons/tracks/${trackSlug}`}>{track?.title ?? trackSlug}</NextLink>
           <Typography color="primary.main">{lesson.title}</Typography>
         </Breadcrumbs>
 
@@ -91,11 +103,11 @@ export default function LessonDetailPage() {
         <LessonCompletionToggle lessonId={lesson.id} initiallyCompleted={lesson.isCompleted} />
 
         <Stack direction="row" spacing={2} sx={{ mt: 4, mb: 8 }}>
-          <Button onClick={() => router.push(`/lessons/tracks/${track.slug}`)}>
+          <Button onClick={() => router.push(`/lessons/tracks/${trackSlug}`)}>
             Back to Track
           </Button>
           {nextLesson && nextLesson.id !== lesson.id && (
-            <Button variant="contained" onClick={() => router.push(`/lessons/tracks/${track.slug}/${nextLesson.id}`)}>
+            <Button variant="contained" onClick={() => router.push(`/lessons/tracks/${trackSlug}/${nextLesson.id}`)}>
               Next Lesson
             </Button>
           )}

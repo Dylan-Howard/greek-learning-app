@@ -9,28 +9,17 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useMemo } from 'react';
 import { AppShell } from '@/components/layout/AppShell';
 import { LessonTrackCard } from '@/design-system-v2/components/lessons/LessonTrackCard';
-import { fetchLessonTracks } from '@/lib/api/rest/lessons';
+import { useGetLessonTracksQuery } from '@/lib/api/graphql/generated';
 
 export const dynamic = 'force-dynamic';
 
 export default function LessonsPage() {
-  const [tracks, setTracks] = useState<any[]>([]);
-  const [tracksError, setTracksError] = useState<string | undefined>();
+  const { data, loading, error } = useGetLessonTracksQuery();
 
-  useEffect(() => {
-    fetchLessonTracks(false).then((result) => {
-      if (result.ok) {
-        setTracks(result.data);
-        setTracksError(undefined);
-      } else {
-        setTracks([]);
-        setTracksError(result.error.message);
-      }
-    });
-  }, []);
+  const tracks = useMemo(() => data?.lessonTracks ?? [], [data]);
 
   return (
     <AppShell>
@@ -45,9 +34,9 @@ export default function LessonsPage() {
           Lessons are ordered in each track. Complete lessons to unlock your next item.
         </Typography>
 
-        {tracksError && (
+        {error && (
           <Typography color="error.main" sx={{ mb: 3 }}>
-            Unable to load lesson tracks: {tracksError}
+            Unable to load lesson tracks: {error.message}
           </Typography>
         )}
 
@@ -78,7 +67,7 @@ export default function LessonsPage() {
           ))}
         </Grid>
 
-        {!tracksError && tracks.length === 0 && (
+        {!loading && !error && tracks.length === 0 && (
           <Typography sx={{ mt: 4 }}>No lesson tracks are currently available.</Typography>
         )}
       </Box>

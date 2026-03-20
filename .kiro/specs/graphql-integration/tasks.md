@@ -240,7 +240,7 @@ Incrementally wire a GraphQL layer into the Koine backend (GraphQL-dotnet code-f
   - Add `// TODO: remove after GraphQL transition complete` comments to affected REST helper files
   - _Requirements: 11.1, 11.2, 11.3, 11.4, 15.5_
 
-- [ ] 17. Transition Lessons feature to GraphQL
+- [x] 17. Transition Lessons feature to GraphQL
   - Replace lesson REST helpers with `useGetLessonTracksQuery`, `useGetLessonsByTrackQuery`, `useGetNextLessonQuery`, `useGetLessonByIdQuery` Apollo hooks
   - Replace lesson completion REST helper with `useCompleteLessonMutation` Apollo hook
   - Display the same error state as the current REST error path when `CompleteLesson` returns errors
