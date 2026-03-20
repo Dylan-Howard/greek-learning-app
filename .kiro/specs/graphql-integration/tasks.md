@@ -138,29 +138,29 @@ Incrementally wire a GraphQL layer into the Koine backend (GraphQL-dotnet code-f
   - Generate random REST endpoint paths and request bodies; assert response is identical with and without GraphQL middleware
   - **Validates: Requirements 15.1, 15.4**
 
-- [ ] 9. Set up Apollo Client in the frontend
-  - [ ] 9.1 Install frontend dependencies
+- [x] 9. Set up Apollo Client in the frontend
+  - [x] 9.1 Install frontend dependencies
     - Add `@apollo/client`, `graphql`, `graphql-tag` to `frontend/package.json`
     - Add `@graphql-codegen/cli`, `@graphql-codegen/typescript`, `@graphql-codegen/typescript-operations`, `@graphql-codegen/typescript-react-apollo` as dev dependencies
     - _Requirements: 7.1, 8.4_
 
-  - [ ] 9.2 Implement `frontend/src/lib/api/graphql/client.ts`
+  - [x] 9.2 Implement `frontend/src/lib/api/graphql/client.ts`
     - Implement `createServerClient()` — plain `HttpLink`, no in-memory cache, mirrors `rest/client.ts` pattern
     - Implement `getApolloClient()` — singleton with `InMemoryCache` and `authLink` that reads Clerk JWT via `getToken()` and injects `Authorization: Bearer <token>`
     - Read endpoint from `NEXT_PUBLIC_GRAPHQL_URL` with fallback `http://localhost:5001/graphql`
     - Do not remove or modify `frontend/src/lib/api/rest/client.ts`
     - _Requirements: 7.1, 7.2, 7.3, 7.4, 7.6_
 
-  - [ ] 9.3 Add Apollo provider to the Next.js app layout
+  - [x] 9.3 Add Apollo provider to the Next.js app layout
     - Wrap the authenticated layout in an `ApolloProvider` using `getApolloClient()`
     - _Requirements: 7.5_
 
-  - [ ] 9.4 Write property test for authLink JWT attachment (Property 8)
+  - [x] 9.4 Write property test for authLink JWT attachment (Property 8)
     - **Property 8: Apollo authLink attaches the Clerk JWT on every request**
     - Generate random JWT strings; assert every outgoing request header contains `Authorization: Bearer <token>`
     - **Validates: Requirements 7.3**
 
-  - [ ] 9.5 Write unit tests for Apollo Client setup
+  - [x] 9.5 Write unit tests for Apollo Client setup
     - Assert `createServerClient()` has no `InMemoryCache`
     - Assert `getApolloClient()` returns the same singleton instance on repeated calls
     - Assert `rest/client.ts` still exports `apiClient` (coexistence check)

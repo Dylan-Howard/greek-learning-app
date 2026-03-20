@@ -7,6 +7,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "codegen": "graphql-codegen",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage"
   },
@@ -33,6 +34,7 @@
     ]
   },
   "dependencies": {
+    "@apollo/client": "^3.13.8",
     "@clerk/clerk-react": "^5.61.1",
     "@clerk/nextjs": "^6.38.2",
     "@emotion/cache": "^11.14.0",
@@ -52,6 +54,8 @@
     "@typescript-eslint/eslint-plugin": "^8.56.1",
     "@typescript-eslint/parser": "^8.56.1",
     "eslint": "^10.0.1",
+    "graphql": "^16.11.0",
+    "graphql-tag": "^2.12.6",
     "next": "^16.1.6",
     "oxlint": "^1.50.0",
     "prettier": "^3.8.1",
@@ -64,7 +68,12 @@
     "web-vitals": "^5.1.0"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^5.0.7",
+    "@graphql-codegen/typescript": "^4.1.6",
+    "@graphql-codegen/typescript-operations": "^4.6.1",
+    "@graphql-codegen/typescript-react-apollo": "^4.3.2",
     "@vitest/coverage-v8": "^4.0.18",
+    "fast-check": "^3.23.2",
     "jsdom": "^28.1.0",
     "vitest": "^4.0.18"
   }

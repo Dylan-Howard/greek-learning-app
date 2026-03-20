@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useState, ReactNode } from 'react';
 import { UserContext } from '@/lib/types/domain/user';
 import * as UserService from '@/lib/api/rest/user';
+import { ApolloClientProvider } from '@/components/layout/ApolloClientProvider';
 import {
   DEV_USER_CHANGED_EVENT,
   getActiveDevUserId,
@@ -66,7 +67,7 @@ export default function ClientProviders({ children }: { children: ReactNode }) {
 
   return (
     <UserContext.Provider value={value}>
-      {children}
+      <ApolloClientProvider>{children}</ApolloClientProvider>
     </UserContext.Provider>
   );
 }
