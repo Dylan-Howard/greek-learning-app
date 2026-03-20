@@ -213,14 +213,14 @@ Incrementally wire a GraphQL layer into the Koine backend (GraphQL-dotnet code-f
   - Ensure all tests pass, ask the user if questions arise.
   - Verify `npm run codegen` succeeds and `tsc --noEmit` passes with no errors
 
-- [ ] 14. Transition Reader feature to GraphQL
+- [x] 14. Transition Reader feature to GraphQL
   - Replace `fetchPage` REST helper calls in the reader data-fetching logic with `useFetchChapterQuery` Apollo hook
   - Preserve and reuse `mapRenderedUnitsToDisplayUnits` with the GraphQL response payload unchanged
   - Display the same error state as the current REST error path when the GraphQL operation returns errors
   - Add `// TODO: remove after GraphQL transition complete` comment to `frontend/src/lib/api/rest/reader.ts`
   - _Requirements: 9.1, 9.2, 9.3, 9.4, 15.5_
 
-  - [ ] 14.1 Write property test for mapRenderedUnitsToDisplayUnits equivalence (Property 11)
+  - [x] 14.1 Write property test for mapRenderedUnitsToDisplayUnits equivalence (Property 11)
     - **Property 11: mapRenderedUnitsToDisplayUnits produces identical output from GraphQL and REST payloads**
     - Generate random `RenderedUnit` trees; assert `mapRenderedUnitsToDisplayUnits` output is deeply equal whether input came from GraphQL or REST response shape
     - **Validates: Requirements 9.3**

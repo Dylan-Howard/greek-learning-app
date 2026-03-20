@@ -1,3 +1,4 @@
+// TODO: remove after GraphQL transition complete
 import { Unitv2 } from '@/lib/types/domain/text';
 import * as AzureTextService from '@/lib/api/rest/text';
 import { apiClient } from '@/lib/api/rest/client';
