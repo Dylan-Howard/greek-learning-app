@@ -51,7 +51,7 @@ Incrementally wire a GraphQL layer into the Koine backend (GraphQL-dotnet code-f
     - Register all three DataLoaders with scoped lifetime in `Program.cs`
     - _Requirements: 5.3, 5.6_
 
-  - [ ]* 3.4 Write property test for DataLoader batching (Property 3)
+  - [x] 3.4 Write property test for DataLoader batching (Property 3)
     - **Property 3: DataLoader batching eliminates N+1 queries for nested fields**
     - Generate random lists of N books/chapters; assert service call count = 1 regardless of N using invocation-counting Moq stubs
     - **Validates: Requirements 5.1, 5.2, 5.3, 5.4, 5.5**
@@ -128,7 +128,7 @@ Incrementally wire a GraphQL layer into the Koine backend (GraphQL-dotnet code-f
     - Test `FORBIDDEN` is returned for admin mutations called by non-admin users
     - _Requirements: 3.1–3.19_
 
-- [ ] 7. Checkpoint — backend GraphQL layer complete
+- [x] 7. Checkpoint — backend GraphQL layer complete
   - Ensure all tests pass, ask the user if questions arise.
   - Verify schema introspection returns all expected types and fields
   - Verify `/graphql` and `/api/*` both respond correctly (coexistence)
