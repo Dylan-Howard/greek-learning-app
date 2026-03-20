@@ -233,7 +233,7 @@ Incrementally wire a GraphQL layer into the Koine backend (GraphQL-dotnet code-f
   - Add `// TODO: remove after GraphQL transition complete` comments to affected REST helper files
   - _Requirements: 10.1, 10.2, 10.3, 10.4, 10.5, 15.5_
 
-- [ ] 16. Transition Vocabulary Sets feature to GraphQL
+- [x] 16. Transition Vocabulary Sets feature to GraphQL
   - Replace `fetchVocabularySets` REST helper with `useGetVocabularySetsQuery` Apollo hook
   - Replace `createVocabularySet` REST helper with `useCreateVocabularySetMutation` Apollo hook
   - Replace `deleteVocabularySet` REST helper with `useDeleteVocabularySetMutation` Apollo hook

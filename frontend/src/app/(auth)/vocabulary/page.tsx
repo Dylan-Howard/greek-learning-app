@@ -17,44 +17,34 @@ import {
 import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import * as AzureTextService from '@/lib/api/rest/text';
-import * as VocabularySetService from '@/lib/api/rest/vocabulary';
 import { AppShell } from '@/components/layout/AppShell';
 import VocabSetCard, { type VocabSet } from '@/design-system-v2/components/vocab/VocabSetCard';
 import VocabWordRow, { type VocabWord } from '@/design-system-v2/components/vocab/VocabWordRow';
 import TransliterationSearchInput from '@/design-system-v2/components/vocab/TransliterationSearchInput';
-import { SimpleWordDto, VocabularySetDto } from '@/lib/types/api';
-import { getActiveDevUserId } from '@/lib/services/auth/devSession';
+import { SimpleWordDto } from '@/lib/types/api';
+import { useGetVocabularySetsQuery } from '@/lib/api/graphql/generated';
 
 export const dynamic = 'force-dynamic';
 
 export default function Vocabulary() {
   const router = useRouter();
   const [words, setWords] = useState<SimpleWordDto[]>([]);
-  const [sets, setSets] = useState<VocabularySetDto[]>([]);
-  const [setsError, setSetsError] = useState<string | undefined>();
   const [query, setQuery] = useState('');
 
+  const { data: setsData, error: setsError } = useGetVocabularySetsQuery();
+
   useEffect(() => {
-    const userId = getActiveDevUserId();
-    Promise.all([
-      AzureTextService.fetchVocabulary(),
-      VocabularySetService.fetchVocabularySets(userId),
-    ]).then(([vocab, setsResult]) => {
+    AzureTextService.fetchVocabulary().then((vocab) => {
       setWords(vocab);
-      if (setsResult.ok) {
-        setSets(setsResult.data);
-        setSetsError(undefined);
-      } else {
-        setSets([]);
-        setSetsError(setsResult.error.message);
-      }
     });
   }, []);
 
+  const sets = useMemo(() => setsData?.studySets?.filter((s) => s != null) ?? [], [setsData]);
+
   const featuredSets = useMemo(() => (
     sets
-      .filter((set: VocabularySetDto) => set.isSystem)
-      .sort((a: VocabularySetDto, b: VocabularySetDto) => b.totalCount - a.totalCount)
+      .filter((set) => set.isSystem)
+      .sort((a, b) => b.totalCount - a.totalCount)
       .slice(0, 3)
   ), [sets]);
 
@@ -95,7 +85,7 @@ export default function Vocabulary() {
         <Typography variant="h2" sx={{ mb: 3 }}>Vocabulary Sets</Typography>
 
         {setsError && (
-          <Typography color="error.main" sx={{ mb: 3 }}>Unable to load vocabulary sets: {setsError}</Typography>
+          <Typography color="error.main" sx={{ mb: 3 }}>Unable to load vocabulary sets: {setsError.message}</Typography>
         )}
 
         <Grid container spacing={2} sx={{ mb: 4 }}>

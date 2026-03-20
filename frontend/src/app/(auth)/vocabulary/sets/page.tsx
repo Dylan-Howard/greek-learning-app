@@ -7,38 +7,23 @@ import {
   Grid,
   Typography,
 } from '@mui/material';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { AppShell } from '@/components/layout/AppShell';
 import VocabSetCard, { type VocabSet } from '@/design-system-v2/components/vocab/VocabSetCard';
-import { fetchVocabularySets } from '@/lib/api/rest/vocabulary';
-import { VocabularySetDto } from '@/lib/types/api';
-import { getActiveDevUserId } from '@/lib/services/auth/devSession';
+import { useGetVocabularySetsQuery } from '@/lib/api/graphql/generated';
 
 export const dynamic = 'force-dynamic';
 
 function VocabularySet() {
   const router = useRouter();
-  const [sets, setSets] = useState<VocabularySetDto[]>([]);
-  const [setsError, setSetsError] = useState<string | undefined>();
+  const { data, loading, error } = useGetVocabularySetsQuery();
 
-  useEffect(() => {
-    const userId = getActiveDevUserId();
-    fetchVocabularySets(userId).then((result) => {
-      if (result.ok) {
-        setSets(result.data);
-        setSetsError(undefined);
-      } else {
-        setSets([]);
-        setSetsError(result.error.message);
-      }
-    });
-  }, []);
+  const sets = useMemo(() => data?.studySets?.filter((s) => s != null) ?? [], [data]);
+  const systemSets = useMemo(() => sets.filter((set) => set.isSystem), [sets]);
+  const customSets = useMemo(() => sets.filter((set) => !set.isSystem), [sets]);
 
-  const systemSets = useMemo(() => sets.filter((set: VocabularySetDto) => set.isSystem), [sets]);
-  const customSets = useMemo(() => sets.filter((set: VocabularySetDto) => !set.isSystem), [sets]);
-
-  const mapSet = (set: VocabularySetDto): VocabSet => ({
+  const mapSet = (set: (typeof sets)[number]): VocabSet => ({
     id: String(set.id),
     title: set.title,
     description: set.description,
@@ -57,10 +42,10 @@ function VocabularySet() {
         </Breadcrumbs>
 
         <Typography variant="h2" sx={{ mb: 3 }}>System Vocabulary Sets</Typography>
-        {setsError && (
-          <Typography color="error.main" sx={{ mb: 3 }}>Unable to load vocabulary sets: {setsError}</Typography>
+        {error && (
+          <Typography color="error.main" sx={{ mb: 3 }}>Unable to load vocabulary sets: {error.message}</Typography>
         )}
-        {systemSets.length === 0 && (
+        {!loading && systemSets.length === 0 && (
           <Typography variant="body1" sx={{ mb: 3 }}>No system sets are currently available.</Typography>
         )}
         <Grid container spacing={2} sx={{ mb: 4 }}>
@@ -76,7 +61,7 @@ function VocabularySet() {
         </Grid>
 
         <Typography variant="h2" sx={{ mb: 3 }}>Custom Vocabulary Sets</Typography>
-        {customSets.length === 0 && (
+        {!loading && customSets.length === 0 && (
           <Typography variant="body1" sx={{ mb: 3 }}>
             Create a custom set from the vocabulary page to start tracking your own list.
           </Typography>
@@ -99,4 +84,4 @@ function VocabularySet() {
   );
 }
 
-export default VocabularySet;
+export { VocabularySet as default };
