@@ -4,7 +4,11 @@ using Koine.API.GraphQL.Types.InputTypes;
 using Koine.API.GraphQL.Schema;
 using Koine.API.GraphQL.Queries;
 using Koine.API.GraphQL.Mutations;
+using Koine.Application.Interfaces;
+using Koine.Application.Study.Ports;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using Moq;
 
 namespace Koine.Tests.Unit.GraphQL;
 
@@ -494,6 +498,17 @@ public class GraphQLTypeDefinitionTests
         services.AddSingleton<CreateVocabularyInputType>();
         services.AddSingleton<UpdateVocabularyInputType>();
 
+        // Register RootQuery service dependencies as mocks
+        services.AddSingleton(new Mock<IBookService>().Object);
+        services.AddSingleton(new Mock<IChapterService>().Object);
+        services.AddSingleton(new Mock<IVocabularyService>().Object);
+        services.AddSingleton(new Mock<IReaderService>().Object);
+        services.AddSingleton(new Mock<ILessonService>().Object);
+        services.AddSingleton(new Mock<IProgressService>().Object);
+        services.AddSingleton(new Mock<IStudyService>().Object);
+        services.AddSingleton(new Mock<IStudySessionService>().Object);
+        services.AddSingleton(new Mock<IHttpContextAccessor>().Object);
+
         // Register root types and schema
         services.AddSingleton<RootQuery>();
         services.AddSingleton<RootMutation>();
@@ -528,6 +543,15 @@ public class GraphQLTypeDefinitionTests
         services.AddSingleton<LessonType>();
         services.AddSingleton<LessonTrackType>();
         services.AddSingleton<LessonCompletionResultType>();
+        services.AddSingleton(new Mock<IBookService>().Object);
+        services.AddSingleton(new Mock<IChapterService>().Object);
+        services.AddSingleton(new Mock<IVocabularyService>().Object);
+        services.AddSingleton(new Mock<IReaderService>().Object);
+        services.AddSingleton(new Mock<ILessonService>().Object);
+        services.AddSingleton(new Mock<IProgressService>().Object);
+        services.AddSingleton(new Mock<IStudyService>().Object);
+        services.AddSingleton(new Mock<IStudySessionService>().Object);
+        services.AddSingleton(new Mock<IHttpContextAccessor>().Object);
         services.AddSingleton<RootQuery>();
         services.AddSingleton<RootMutation>();
         services.AddSingleton<KoineSchema>();

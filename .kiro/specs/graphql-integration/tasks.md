@@ -56,24 +56,24 @@ Incrementally wire a GraphQL layer into the Koine backend (GraphQL-dotnet code-f
     - Generate random lists of N books/chapters; assert service call count = 1 regardless of N using invocation-counting Moq stubs
     - **Validates: Requirements 5.1, 5.2, 5.3, 5.4, 5.5**
 
-- [ ] 4. Implement RootQuery with all domain query fields
-  - [ ] 4.1 Implement public query fields in `Koine.API/GraphQL/Queries/RootQuery.cs`
+- [x] 4. Implement RootQuery with all domain query fields
+  - [x] 4.1 Implement public query fields in `Koine.API/GraphQL/Queries/RootQuery.cs`
     - Add `books`, `book(id)`, `chapters(bookId)`, `vocabulary(occurrences, comparison)` fields delegating to their respective Application Services
     - Add `reader(bookId, chapterNumber, lang)` field delegating to `IReaderService.RenderChapterAsync`
     - _Requirements: 2.1, 2.2, 2.3, 2.4, 2.5, 2.6_
 
-  - [ ] 4.2 Implement authenticated query fields
+  - [x] 4.2 Implement authenticated query fields
     - Add `lessons`, `progress`, `studySets`, `studyDashboard` fields with `AuthorizeWithPolicy("Authenticated")`
     - Resolve `CurrentUser` via `IHttpContextAccessor` using `ClaimTypes.NameIdentifier` (same claim path as REST controllers)
     - Return `null` for nullable not-found fields; return `NOT_FOUND` error for non-nullable not-found fields
     - _Requirements: 2.7, 2.8, 2.9, 2.10, 2.11, 6.1, 6.3, 6.5_
 
-  - [ ] 4.3 Write property test for resolver output equivalence (Property 4)
+  - [x] 4.3 Write property test for resolver output equivalence (Property 4)
     - **Property 4: Resolver output is structurally equivalent to Application Service output**
     - Generate random query arguments; assert resolver result deep-equals the Moq service return value
     - **Validates: Requirements 2.2–2.10**
 
-  - [ ] 4.4 Write unit tests for RootQuery
+  - [x] 4.4 Write unit tests for RootQuery
     - Test each field delegates to the correct Application Service method
     - Test `NOT_FOUND` error is returned for missing non-nullable resources
     - _Requirements: 2.1–2.11_

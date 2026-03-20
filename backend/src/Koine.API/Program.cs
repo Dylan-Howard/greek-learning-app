@@ -73,6 +73,7 @@ builder.Services.AddScoped<ITranslationService, TranslationService>();
 builder.Services.AddScoped<ITranslationUnitService, TranslationUnitService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IStudyService, StudyService>();
+builder.Services.AddScoped<Koine.Application.Study.Ports.IStudySessionService, Koine.Application.Study.Services.StudySessionService>();
 builder.Services.AddScoped<Koine.Application.Study.Services.StudySessionService>();
 builder.Services.AddScoped<Koine.Application.Study.Ports.ICurrentUserProvider, Koine.API.Providers.HttpContextCurrentUserProvider>();
 builder.Services.AddScoped<Koine.Application.Study.Ports.IUserCardProgressRepository, Koine.Infrastructure.Study.Repositories.UserCardProgressRepository>();

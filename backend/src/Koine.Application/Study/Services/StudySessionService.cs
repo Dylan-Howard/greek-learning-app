@@ -14,7 +14,7 @@ namespace Koine.Application.Study.Services
         IUserCardProgressRepository progressRepo,
         IStudySessionRepository sessionRepo,
         IVocabularyRepository vocabRepo,
-        IVocabularySetItemRepository setItemRepo)
+        IVocabularySetItemRepository setItemRepo) : Ports.IStudySessionService
     {
         public async Task<SessionDto> StartSessionAsync(StartSessionRequest request, CancellationToken ct)
         {
