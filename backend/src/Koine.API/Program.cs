@@ -120,6 +120,13 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+// Authorization policies — reuse existing JWT auth middleware (Requirements 6.1, 6.2, 6.6)
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("Authenticated", policy => policy.RequireAuthenticatedUser());
+    options.AddPolicy("AdminOnly", policy => policy.RequireAuthenticatedUser().RequireRole("admin"));
+});
+
 // CORS
 builder.Services.AddCors(options =>
 {

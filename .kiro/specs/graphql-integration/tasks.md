@@ -78,18 +78,18 @@ Incrementally wire a GraphQL layer into the Koine backend (GraphQL-dotnet code-f
     - Test `NOT_FOUND` error is returned for missing non-nullable resources
     - _Requirements: 2.1–2.11_
 
-- [ ] 5. Implement authentication and authorization enforcement
-  - [ ] 5.1 Configure auth policies and `IHttpContextAccessor` wiring
+- [x] 5. Implement authentication and authorization enforcement
+  - [x] 5.1 Configure auth policies and `IHttpContextAccessor` wiring
     - Register `"Authenticated"` and `"AdminOnly"` authorization policies in `Program.cs` reusing existing JWT config
     - Implement `ResolveUserId` helper in `RootQuery` and `RootMutation` using `IHttpContextAccessor` and `ClaimTypes.NameIdentifier`
     - _Requirements: 6.1, 6.2, 6.3, 6.4, 6.5_
 
-  - [ ] 5.2 Write property test for unauthenticated rejection (Property 1)
+  - [x] 5.2 Write property test for unauthenticated rejection (Property 1)
     - **Property 1: Unauthenticated requests are rejected without invoking services**
     - Generate random protected field names; assert `UNAUTHENTICATED` error returned and service mock never called
     - **Validates: Requirements 1.6, 6.2**
 
-  - [ ] 5.3 Write property test for CurrentUser claim consistency (Property 6)
+  - [x] 5.3 Write property test for CurrentUser claim consistency (Property 6)
     - **Property 6: CurrentUser claim extraction is consistent across GraphQL and REST**
     - Generate random JWT payloads with `NameIdentifier` claims; assert GraphQL resolver and REST controller extract identical user IDs
     - **Validates: Requirements 6.3, 6.5**
