@@ -134,28 +134,93 @@ builder.Services
         .AddDataLoader()
         .AddGraphTypes(typeof(KoineSchema).Assembly));
 
-// JWT Authentication
+// JWT Authentication — dual scheme: ClerkJwt (default) + LocalJwt (dev-only)
+// Requirements: 8.1, 8.2, 8.3, 8.6
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
-var secretKey = jwtSettings["SecretKey"] ?? throw new InvalidOperationException("JWT Secret Key not configured");
 
-builder.Services.AddAuthentication(options =>
+var authBuilder = builder.Services.AddAuthentication(options =>
 {
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-})
-.AddJwtBearer(options =>
-{
-    options.TokenValidationParameters = new TokenValidationParameters
-    {
-        ValidateIssuer = true,
-        ValidateAudience = true,
-        ValidateLifetime = true,
-        ValidateIssuerSigningKey = true,
-        ValidIssuer = jwtSettings["Issuer"],
-        ValidAudience = jwtSettings["Audience"],
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey))
-    };
+    options.DefaultAuthenticateScheme = "ClerkJwt";
+    options.DefaultChallengeScheme = "ClerkJwt";
 });
+
+// ClerkJwt scheme — validates Clerk-issued JWTs via JWKS endpoint (Requirements 8.1–8.3)
+if (!string.IsNullOrWhiteSpace(clerkSettings?.JwksUrl))
+{
+    authBuilder.AddJwtBearer("ClerkJwt", options =>
+    {
+        // Authority sets the issuer and drives OIDC discovery; MetadataAddress overrides
+        // the JWKS URL so we can point directly at Clerk's JWKS endpoint (Requirement 8.1).
+        options.Authority = clerkSettings.Issuer;
+        options.MetadataAddress = clerkSettings.JwksUrl;
+        options.RequireHttpsMetadata = !builder.Environment.IsDevelopment();
+
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidIssuer = clerkSettings.Issuer,
+            // Clerk JWTs use `azp` (authorized party) rather than `aud`, so standard
+            // audience validation is disabled. The azp claim is validated in OnTokenValidated
+            // below (Requirement 8.3).
+            ValidateAudience = false,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            // Signing keys are fetched automatically from MetadataAddress (JWKS).
+        };
+
+        if (clerkSettings.AuthorizedParties.Length > 0)
+        {
+            // Validate the `azp` claim after the token signature and lifetime are confirmed.
+            options.Events = new JwtBearerEvents
+            {
+                OnTokenValidated = ctx =>
+                {
+                    var azp = (ctx.SecurityToken as System.IdentityModel.Tokens.Jwt.JwtSecurityToken)
+                        ?.Claims.FirstOrDefault(c => c.Type == "azp")?.Value;
+                    if (azp == null || !clerkSettings.AuthorizedParties.Contains(azp))
+                        ctx.Fail($"Unauthorized azp claim: '{azp}'.");
+                    return Task.CompletedTask;
+                },
+            };
+        }
+    });
+}
+else
+{
+    // Fallback: register a no-op ClerkJwt scheme so the app starts in Development
+    // without Clerk configured (Requirement 11.5 — warn, don't hard-fail in dev).
+    authBuilder.AddJwtBearer("ClerkJwt", options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            ValidateLifetime = false,
+            ValidateIssuerSigningKey = false,
+        };
+    });
+}
+
+#if DEBUG
+// LocalJwt scheme — symmetric-key tokens issued by DevAuthController (Requirement 8.6)
+// Only registered in Debug builds; never active in production.
+{
+    var secretKey = jwtSettings["SecretKey"] ?? throw new InvalidOperationException("JWT Secret Key not configured");
+    authBuilder.AddJwtBearer("LocalJwt", options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = jwtSettings["Issuer"],
+            ValidAudience = jwtSettings["Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey))
+        };
+    });
+}
+#endif
 
 // Authorization policies — reuse existing JWT auth middleware (Requirements 6.1, 6.2, 6.6)
 builder.Services.AddAuthorization(options =>

@@ -18,7 +18,7 @@ Wire Clerk end-to-end across the Next.js frontend and ASP.NET Core backend. Work
   - `ProvisionClerkUserAsync` generates a username from the Clerk first name + last 6 chars of the Clerk ID
   - _Requirements: 9.2, 10.1_
 
-  - [ ] 2.1 Write property test for `ProvisionClerkUserAsync` idempotency (Property 11)
+  - [x] 2.1 Write property test for `ProvisionClerkUserAsync` idempotency (Property 11)
     - **Property 11: User provisioning is idempotent**
     - **Validates: Requirements 10.1, 10.3**
     - Use CsCheck or FsCheck; generate random Clerk IDs; call provisioning twice; assert exactly one `Users` record exists
@@ -30,18 +30,18 @@ Wire Clerk end-to-end across the Next.js frontend and ASP.NET Core backend. Work
   - Add placeholder values to `backend/src/Koine.API/appsettings.Development.json`
   - _Requirements: 8.1, 8.2, 8.3, 12.2, 12.3, 11.5_
 
-- [ ] 4. Register dual JWT schemes (`ClerkJwt` default + `LocalJwt` dev-only) in `Program.cs`
+- [x] 4. Register dual JWT schemes (`ClerkJwt` default + `LocalJwt` dev-only) in `Program.cs`
   - Replace the existing single `AddJwtBearer` call with `AddAuthentication(defaultScheme: "ClerkJwt")`
   - Add `"ClerkJwt"` scheme using `options.Authority` (issuer) and `options.MetadataAddress` (JWKS URL) from `ClerkSettings`; validate `azp` against `ClerkSettings.AuthorizedParties` via `TokenValidationParameters.ValidAudiences` or a custom validator
   - Wrap the existing symmetric-key `"LocalJwt"` scheme registration in `#if DEBUG`
   - _Requirements: 8.1, 8.2, 8.3, 8.6_
 
-  - [ ] 4.1 Write property test for JWT validation (Property 8)
+  - [x] 4.1 Write property test for JWT validation (Property 8)
     - **Property 8: Invalid JWT always returns HTTP 401**
     - **Validates: Requirements 8.1, 8.2, 8.3, 8.5**
     - Use CsCheck/FsCheck; generate expired JWTs, wrong-issuer JWTs, malformed strings; assert every case returns 401
 
-  - [ ] 4.2 Write property test for valid JWT claim extraction (Property 9)
+  - [x] 4.2 Write property test for valid JWT claim extraction (Property 9)
     - **Property 9: Valid Clerk JWT exposes `sub` claim in `HttpContext.User`**
     - **Validates: Requirements 8.4**
     - Generate valid JWT payloads with random `sub` values; assert `HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value` equals the `sub`
