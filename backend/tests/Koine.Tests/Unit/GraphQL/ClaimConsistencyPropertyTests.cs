@@ -3,6 +3,7 @@
 using System.Security.Claims;
 using FsCheck;
 using FsCheck.NUnit;
+using Koine.API.Middleware;
 using Koine.API.Providers;
 using Microsoft.AspNetCore.Http;
 using Moq;
@@ -49,6 +50,11 @@ public class ClaimConsistencyPropertyTests
         {
             User = new ClaimsPrincipal(identity)
         };
+
+        // Also populate Items["NumericUserId"] so HttpContextCurrentUserProvider
+        // (which reads from Items after Task 6's change) sees the same value.
+        if (int.TryParse(userId, out var numericId))
+            httpContext.Items[UserProvisioningMiddleware.NumericUserIdKey] = numericId;
 
         var accessor = new Mock<IHttpContextAccessor>();
         accessor.Setup(a => a.HttpContext).Returns(httpContext);
@@ -131,12 +137,12 @@ public class ClaimConsistencyPropertyTests
         var accessor = new Mock<IHttpContextAccessor>();
         accessor.Setup(a => a.HttpContext).Returns((HttpContext?)null);
 
+        // GraphQL falls back to 0 when HttpContext is null
         var graphQlId = GraphQlResolveUserId(accessor.Object);
-        var restProvider = new HttpContextCurrentUserProvider(accessor.Object);
-        var restId = restProvider.GetUserId();
-
-        // GraphQL returns 0; REST returns 1 (its own fallback) — neither throws
         Assert.That(graphQlId, Is.EqualTo(0));
-        Assert.That(restId, Is.EqualTo(1));
+
+        // REST provider throws UnauthorizedAccessException when Items["NumericUserId"] is absent
+        var restProvider = new HttpContextCurrentUserProvider(accessor.Object);
+        Assert.Throws<UnauthorizedAccessException>(() => restProvider.GetUserId());
     }
 }

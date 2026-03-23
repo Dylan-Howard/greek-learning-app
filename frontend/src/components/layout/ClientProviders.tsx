@@ -1,17 +1,13 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useState, ReactNode } from 'react';
+import { useUser } from '@clerk/nextjs';
 import { UserContext } from '@/lib/types/domain/user';
 import * as UserService from '@/lib/api/rest/user';
 import { ApolloClientProvider } from '@/components/layout/ApolloClientProvider';
-import {
-  DEV_USER_CHANGED_EVENT,
-  getActiveDevUserId,
-  setActiveDevUserId,
-  sanitizeDevUserId,
-} from '@/lib/services/auth/devSession';
 
 export default function ClientProviders({ children }: { children: ReactNode }) {
+  const { isLoaded, isSignedIn, user } = useUser();
   const [activeUser, setActiveUser] = useState(UserService.getDefaultUserState());
   const [expQueue, setExpQueue] = useState<number[]>([]);
 
@@ -24,24 +20,19 @@ export default function ClientProviders({ children }: { children: ReactNode }) {
   }, []);
 
   useEffect(() => {
-    const initialId = getActiveDevUserId();
-    setActiveDevUserId(initialId);
-    loadUser(initialId);
-
-    const onDevUserChanged = (evt: Event) => {
-      const customEvt = evt as CustomEvent<string>;
-      loadUser(sanitizeDevUserId(customEvt.detail));
-    };
-
-    window.addEventListener(DEV_USER_CHANGED_EVENT, onDevUserChanged);
-    return () => window.removeEventListener(DEV_USER_CHANGED_EVENT, onDevUserChanged);
-  }, [loadUser]);
+    if (!isLoaded) return;
+    if (!isSignedIn || !user) {
+      setActiveUser(UserService.getDefaultUserState());
+      return;
+    }
+    loadUser(user.id);
+  }, [isLoaded, isSignedIn, user, loadUser]);
 
   const value = useMemo(() => ({
     user: activeUser,
     setUser: setActiveUser,
     syncUser: async (userId?: string) => {
-      loadUser(userId || getActiveDevUserId());
+      loadUser(userId ?? user?.id ?? 'guest');
     },
     awardExp: (xp: number, totalExpFromServer?: number) => {
       if (xp <= 0) {
@@ -63,7 +54,10 @@ export default function ClientProviders({ children }: { children: ReactNode }) {
     consumeExp: () => {
       setExpQueue((prev) => prev.slice(1));
     },
-  }), [activeUser, expQueue, loadUser]);
+  }), [activeUser, expQueue, loadUser, user]);
+
+  // Return null while Clerk is still loading to avoid flash of guest state
+  if (!isLoaded) return null;
 
   return (
     <UserContext.Provider value={value}>

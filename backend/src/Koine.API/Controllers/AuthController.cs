@@ -12,12 +12,18 @@ namespace Koine.API.Controllers
         private readonly IAuthService _authService;
         private readonly ILogger<AuthController> _logger;
 
+        /// <summary>
+        /// Initializes a new instance of <see cref="AuthController"/>.
+        /// </summary>
         public AuthController(IAuthService authService, ILogger<AuthController> logger)
         {
             _authService = authService;
             _logger = logger;
         }
 
+        /// <summary>
+        /// Authenticates a user and returns a JWT token.
+        /// </summary>
         [HttpPost("login")]
         public async Task<ActionResult<LoginResponseDto>> Login([FromBody] LoginRequestDto loginDto)
         {
@@ -37,26 +43,15 @@ namespace Koine.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Deprecated. Users are provisioned automatically on first Clerk sign-in.
+        /// </summary>
+        /// <returns>HTTP 410 Gone.</returns>
         [HttpPost("register")]
-        public async Task<ActionResult<UserDto>> Register([FromBody] RegisterRequestDto registerDto)
+        public IActionResult Register()
         {
-            try
-            {
-                var user = await _authService.RegisterAsync(
-                    registerDto.Email, 
-                    registerDto.Username, 
-                    registerDto.Password);
-                
-                if (user == null)
-                    return BadRequest(new { message = "Registration failed" });
-                
-                return CreatedAtAction(nameof(Register), user);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error during registration");
-                return StatusCode(500, new { message = "An error occurred during registration" });
-            }
+            _logger.LogWarning("Deprecated POST /api/auth/register endpoint was called. Users are now provisioned via Clerk.");
+            return StatusCode(410, new { message = "Registration via this endpoint is deprecated. Users are provisioned automatically on first Clerk sign-in." });
         }
     }
 }
