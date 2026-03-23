@@ -55,17 +55,19 @@ The goal is to replace all of that with a coherent, production-ready auth flow w
 
 ---
 
-### Requirement 3: Sign-In and Sign-Up Pages Replaced with Clerk Components
+### Requirement 3: Sign-In and Sign-Up Pages Wired to Clerk via Custom Flow
 
-**User Story:** As a learner, I want to sign in and sign up using Clerk's hosted UI components, so that I get a secure, maintained auth experience without the app managing credentials.
+**User Story:** As a learner, I want to sign in and sign up using the app's own UI, backed by Clerk's authentication, so that I get a secure, maintained auth experience that matches the app's design system.
 
 #### Acceptance Criteria
 
-1. THE Frontend SHALL render `<SignIn />` from `@clerk/nextjs` at the `/auth/login` route, replacing the current stub `LoginForm`.
-2. THE Frontend SHALL render `<SignUp />` from `@clerk/nextjs` at the `/auth/signup` route, replacing the current stub `SignUpForm`.
-3. WHEN a user completes sign-up, THE Frontend SHALL redirect them to `/onboarding` (matching the existing `NEXT_PUBLIC_CLERK_SIGN_UP_FORCE_REDIRECT_URL` env var).
-4. WHEN a user completes sign-in, THE Frontend SHALL redirect them to `/reader` (matching the existing `NEXT_PUBLIC_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL` env var).
-5. THE `<SignIn />` and `<SignUp />` components SHALL be wrapped in the existing `AuthShell` layout so visual consistency with the rest of the auth pages is preserved.
+1. THE Frontend SHALL wire the existing `LoginForm` design system component to Clerk's `useSignIn()` hook at the `/auth/login` route, replacing the stub `onSubmit` handler with a real Clerk credential sign-in call.
+2. THE Frontend SHALL wire the existing `SignUpForm` design system component to Clerk's `useSignUp()` hook at the `/auth/signup` route, replacing the stub `onSubmit` handler with a real Clerk account creation call.
+3. THE existing `OAuthButtons` component in `AuthForms.tsx` SHALL be wired to Clerk's `authenticateWithRedirect` for Google and Apple OAuth strategies, with a new `/sso-callback` route handling the redirect via `<AuthenticateWithRedirectCallback />`.
+4. WHEN a user completes sign-up, THE Frontend SHALL redirect them to `/onboarding` (matching the existing `NEXT_PUBLIC_CLERK_SIGN_UP_FORCE_REDIRECT_URL` env var).
+5. WHEN a user completes sign-in, THE Frontend SHALL redirect them to `/reader` (matching the existing `NEXT_PUBLIC_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL` env var).
+6. WHEN Clerk returns an error (e.g. wrong password, unverified email), THE Frontend SHALL surface the error message via the existing `<Alert>` error state in `LoginForm` / `SignUpForm` — no new error UI is required.
+7. THE `AuthForms.tsx` and `AuthShell.tsx` design system components SHALL NOT be modified — all Clerk logic SHALL live exclusively in the page files (`login/page.tsx`, `signup/page.tsx`).
 
 ---
 
