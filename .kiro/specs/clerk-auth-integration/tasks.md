@@ -59,19 +59,19 @@ Wire Clerk end-to-end across the Next.js frontend and ASP.NET Core backend. Work
     - DB failure: assert HTTP 503 response and exception logged
     - _Requirements: 10.1, 10.3, 10.4_
 
-- [ ] 6. Update `HttpContextCurrentUserProvider` to read from `HttpContext.Items`
+- [x] 6. Update `HttpContextCurrentUserProvider` to read from `HttpContext.Items`
   - Replace the current `ClaimTypes.NameIdentifier` integer-parse logic with a read of `HttpContext.Items["NumericUserId"]`
   - Throw `UnauthorizedAccessException("No user record found for Clerk ID: {clerkId}")` when the item is absent
   - Restrict the `X-Dev-User-Id` header fallback to `#if DEBUG` only; remove the hardcoded `return 1` default
   - Add request-scoped caching: store the resolved ID in a private nullable field so the repository is queried at most once per request
   - _Requirements: 9.1, 9.2, 9.3, 9.4, 9.5_
 
-  - [ ] 6.1 Write property test for per-request caching (Property 10)
+  - [x] 6.1 Write property test for per-request caching (Property 10)
     - **Property 10: Clerk user ID lookup returns consistent numeric ID per request**
     - **Validates: Requirements 9.2, 9.4**
     - Generate random Clerk IDs; call `GetUserId()` N times on the same provider instance; assert repository called exactly once
 
-  - [ ] 6.2 Write unit tests for `HttpContextCurrentUserProvider`
+  - [x] 6.2 Write unit tests for `HttpContextCurrentUserProvider`
     - Returns numeric ID from `HttpContext.Items["NumericUserId"]`
     - Throws `UnauthorizedAccessException` when item absent
     - `X-Dev-User-Id` fallback present only in DEBUG build
