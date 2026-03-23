@@ -20,7 +20,7 @@ import IconButton from '@mui/material/IconButton';
 
 // import { SettingsMenuTabSkeleton } from 'app/modules/Skeletons';
 import DetailsMenu from '@/components/features/reader/Navigation/DetailsMenu';
-import ReaderStudyMenu from '@/components/features/reader/Navigation/ReaderStudyMenu';
+import { ReaderStudyMenu } from '@/components/features/reader/Navigation/ReaderStudyMenu';
 import SettingsMenu from '@/components/features/reader/Navigation/SettingsMenu';
 import { useReaderContext } from '@/app/reader/ReaderPage/ReaderPageContext';
 import { useUserContext } from '@/lib/types/domain/user';

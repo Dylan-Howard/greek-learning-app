@@ -247,14 +247,14 @@ Incrementally wire a GraphQL layer into the Koine backend (GraphQL-dotnet code-f
   - Add `// TODO: remove after GraphQL transition complete` comments to affected REST helper files
   - _Requirements: 12.1, 12.2, 12.3, 12.4, 12.5, 15.5_
 
-- [ ] 18. Transition Progress feature to GraphQL
+- [x] 18. Transition Progress feature to GraphQL
   - Replace progress REST helpers with `useGetUserProgressQuery`, `useGetUserLessonsQuery`, `useGetUserVocabularyQuery` Apollo hooks
   - Replace progress update REST helper with `useUpdateProgressMutation` Apollo hook
   - Display the same error state as the current REST error path when any progress operation returns errors
   - Add `// TODO: remove after GraphQL transition complete` comments to affected REST helper files
   - _Requirements: 13.1, 13.2, 13.3, 13.4, 13.5, 13.6, 15.5_
 
-- [ ] 19. Write property test for CORS header consistency (Property 12)
+- [x] 19. Write property test for CORS header consistency (Property 12)
   - **Property 12: CORS headers are present on GraphQL endpoint responses**
   - Generate random allowed-origin values; assert `/graphql` responses include the same CORS headers as `/api/*` responses for the same origin
   - **Validates: Requirements 15.3**

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import {
   Chip,
   Box,
@@ -17,9 +17,8 @@ import {
   Typography,
 } from '@mui/material';
 import { AppShell } from '@/components/layout/AppShell';
-import { getProgress } from '@/lib/api/rest/study';
-import { CardProgressDto, CardState } from '@/lib/types/api';
-import { getActiveDevUserId } from '@/lib/services/auth/devSession';
+import { useGetUserVocabularyQuery } from '@/lib/api/graphql/generated';
+import { CardState } from '@/lib/types/api';
 
 const stateColor = (state: CardState) => {
   switch (state) {
@@ -34,17 +33,11 @@ const stateColor = (state: CardState) => {
   }
 };
 
-export default function ProgressPage() {
-  const [progress, setProgress] = useState<CardProgressDto[]>([]);
+export function ProgressPage() {
   const [query, setQuery] = useState('');
+  const { data, loading, error } = useGetUserVocabularyQuery();
 
-  useEffect(() => {
-    getProgress(getActiveDevUserId()).then((result) => {
-      if (result.ok) {
-        setProgress(result.data);
-      }
-    });
-  }, []);
+  const progress = data?.studyProgress ?? [];
 
   const filtered = useMemo(() => {
     if (!query) return progress;
@@ -60,6 +53,13 @@ export default function ProgressPage() {
           <Grid size={{ xs: 12 }}>
             <Stack spacing={3}>
               <Typography variant="h2">Card Progress</Typography>
+
+              {error && (
+                <Typography color="error.main">
+                  {error.message || 'Failed to load progress data.'}
+                </Typography>
+              )}
+
               <TextField
                 label="Search"
                 value={query}
@@ -82,12 +82,19 @@ export default function ProgressPage() {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {filtered.map((row) => (
+                    {loading && (
+                      <TableRow>
+                        <TableCell colSpan={8}>
+                          <Typography color="text.secondary">Loading...</Typography>
+                        </TableCell>
+                      </TableRow>
+                    )}
+                    {!loading && filtered.map((row) => (
                       <TableRow key={row.vocabularyId}>
                         <TableCell sx={{ fontFamily: '"Noto Serif", serif' }}>{row.root}</TableCell>
                         <TableCell>{row.gloss}</TableCell>
                         <TableCell>
-                          <Chip label={row.state} color={stateColor(row.state)} variant="outlined" />
+                          <Chip label={row.state} color={stateColor(row.state as CardState)} variant="outlined" />
                         </TableCell>
                         <TableCell align="right">{row.difficulty.toFixed(2)}</TableCell>
                         <TableCell align="right">{row.stability.toFixed(2)}</TableCell>
@@ -106,3 +113,5 @@ export default function ProgressPage() {
     </AppShell>
   );
 }
+
+export default ProgressPage;

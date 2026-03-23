@@ -11,18 +11,19 @@ import {
   useReaderContext,
 } from '@/app/reader/ReaderPage/ReaderPageContext';
 import RatingButtons from '@/components/features/study/RatingButtons';
-import { fetchProgress, updateProgress } from '@/lib/api/rest/progress';
 import {
   useCompleteStudySessionMutation,
+  useGetUserProgressQuery,
   useRateCardMutation,
   useStartStudySessionMutation,
+  useUpdateProgressMutation,
 } from '@/lib/api/graphql/generated';
 import {
   DEV_USER_CHANGED_EVENT,
   getActiveDevUserId,
   sanitizeDevUserId,
 } from '@/lib/services/auth/devSession';
-import { Rating, UserProgressDto } from '@/lib/types/api';
+import { Rating } from '@/lib/types/api';
 import { useUserContext } from '@/lib/types/domain/user';
 
 /** Maps the string Rating type to the integer value expected by the GraphQL API. */
@@ -33,47 +34,8 @@ const RATING_TO_INT: Record<Rating, number> = {
   Easy: 4,
 };
 
-function applyReaderRatingToProgress(progress: UserProgressDto, vocabId: number, rating: Rating): UserProgressDto {
-  const now = new Date().toISOString();
-  const current = progress.vocabularyProgress[String(vocabId)] || {
-    masteryLevel: 0,
-    needsPractice: true,
-    lastPracticed: now,
-    timesSeen: 0,
-  };
 
-  let mastery = current.masteryLevel;
-  let needsPractice = current.needsPractice;
-
-  if (rating === 'Again') {
-    mastery = Math.max(mastery - 20, 0);
-    needsPractice = true;
-  } else if (rating === 'Hard') {
-    mastery = Math.max(mastery, 70);
-    needsPractice = true;
-  } else if (rating === 'Good') {
-    mastery = Math.max(mastery, 80);
-    needsPractice = false;
-  } else if (rating === 'Easy') {
-    mastery = Math.max(mastery, 90);
-    needsPractice = false;
-  }
-
-  return {
-    ...progress,
-    vocabularyProgress: {
-      ...progress.vocabularyProgress,
-      [String(vocabId)]: {
-        masteryLevel: mastery,
-        needsPractice,
-        lastPracticed: now,
-        timesSeen: (current.timesSeen || 0) + 1,
-      },
-    },
-  };
-}
-
-export default function ReaderStudyMenu() {
+export function ReaderStudyMenu() {
   const { awardExp, syncUser } = useUserContext();
   const { page, setPage } = useReaderContext();
   const [loading, setLoading] = useState(false);
@@ -83,6 +45,8 @@ export default function ReaderStudyMenu() {
   const [startStudySession] = useStartStudySessionMutation();
   const [rateCardMutation] = useRateCardMutation();
   const [completeStudySession] = useCompleteStudySessionMutation();
+  const [updateProgressMutation] = useUpdateProgressMutation();
+  const { data: progressData, error: progressError } = useGetUserProgressQuery();
 
   useEffect(() => {
     setDevUserId(getActiveDevUserId());
@@ -213,12 +177,21 @@ export default function ReaderStudyMenu() {
       return;
     }
 
-    try {
-      const progress = await fetchProgress(devUserId);
-      const updated = applyReaderRatingToProgress(progress, currentWordId, rating);
-      await updateProgress(devUserId, updated);
-    } catch {
+    // Sync overall progress record via GraphQL after rating a card.
+    // The card's SRS state is already updated server-side by rateCardMutation;
+    // here we persist the latest completedLessonIds and totalExperience snapshot.
+    if (progressError) {
       setError('Rating saved, but progress sync failed.');
+    } else if (progressData?.progress) {
+      const { completedLessonIds, totalExperience } = progressData.progress;
+      const updateResult = await updateProgressMutation({
+        variables: {
+          input: { completedLessonIds, totalExperience },
+        },
+      });
+      if (updateResult.errors) {
+        setError('Rating saved, but progress sync failed.');
+      }
     }
 
     const nextRatedState: ReaderRatedWordState = rating === 'Again' ? 'rejected' : 'accepted';

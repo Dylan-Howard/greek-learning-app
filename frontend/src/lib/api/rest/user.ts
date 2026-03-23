@@ -150,6 +150,7 @@ export async function fetchUser(id: string): Promise<User> {
   }
 }
 
+// TODO: remove after GraphQL transition complete
 export async function fetchUserLessons(id: string) {
   const user = await fetchUser(id);
   return user.progress.lessons;

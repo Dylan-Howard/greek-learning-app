@@ -4,7 +4,7 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { tokens } from '@/design-system-v2/theme/theme';
-import ReaderStudyMenu from '@/components/features/reader/Navigation/ReaderStudyMenu';
+import { ReaderStudyMenu } from '@/components/features/reader/Navigation/ReaderStudyMenu';
 
 export default function ReaderStudyPanel() {
   return (

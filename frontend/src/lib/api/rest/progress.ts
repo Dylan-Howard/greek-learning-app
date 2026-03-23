@@ -1,3 +1,4 @@
+// TODO: remove after GraphQL transition complete
 import { apiClient } from '@/lib/api/rest/client';
 import { UserProgressDto } from '@/lib/types/api';
 
