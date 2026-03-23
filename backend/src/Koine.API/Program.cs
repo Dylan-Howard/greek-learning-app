@@ -260,6 +260,10 @@ app.UseCors("AllowFrontend");
 app.UseAuthentication();
 app.UseAuthorization();
 
+// User provisioning — maps Clerk sub claim to a numeric DB user ID (Requirements 10.1–10.4).
+// Must run after UseAuthorization() so HttpContext.User is populated.
+app.UseMiddleware<Koine.API.Middleware.UserProvisioningMiddleware>();
+
 // GraphQL middleware — placed after auth, before MapControllers (Requirements 1.1, 1.2, 1.3, 15.4)
 app.UseGraphQL<KoineSchema>("/graphql");
 if (app.Environment.IsDevelopment())

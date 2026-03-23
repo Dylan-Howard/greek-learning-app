@@ -46,14 +46,14 @@ Wire Clerk end-to-end across the Next.js frontend and ASP.NET Core backend. Work
     - **Validates: Requirements 8.4**
     - Generate valid JWT payloads with random `sub` values; assert `HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value` equals the `sub`
 
-- [ ] 5. Implement `UserProvisioningMiddleware`
+- [x] 5. Implement `UserProvisioningMiddleware`
   - Create `backend/src/Koine.API/Middleware/UserProvisioningMiddleware.cs`
   - For authenticated requests: read `sub` claim → call `IUserRepository.GetByClerkIdAsync`; if null call `ProvisionClerkUserAsync`; store numeric `userId` in `HttpContext.Items["NumericUserId"]`
   - On `DbUpdateException`: log via `ILogger<UserProvisioningMiddleware>`, short-circuit with HTTP 503 and JSON body `{ "message": "User provisioning failed. Please try again." }`
   - Register after `UseAuthorization()` in `Program.cs`
   - _Requirements: 10.1, 10.2, 10.3, 10.4_
 
-  - [ ] 5.1 Write unit tests for `UserProvisioningMiddleware`
+  - [x] 5.1 Write unit tests for `UserProvisioningMiddleware`
     - New user: assert `ProvisionClerkUserAsync` called and `HttpContext.Items["NumericUserId"]` set
     - Existing user: assert `GetByClerkIdAsync` returns existing record, no provisioning call
     - DB failure: assert HTTP 503 response and exception logged
