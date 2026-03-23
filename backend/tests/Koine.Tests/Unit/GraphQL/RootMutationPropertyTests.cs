@@ -97,6 +97,7 @@ public class RootMutationPropertyTests
         services.AddSingleton<LessonTrackType>();
         services.AddSingleton<LessonCompletionResultType>();
         services.AddSingleton<VocabularyResultType>();
+        services.AddSingleton<CardProgressType>();
         services.AddSingleton<StartSessionInputType>();
         services.AddSingleton<CreateVocabularySetInputType>();
         services.AddSingleton<CompleteLessonInputType>();

@@ -498,6 +498,7 @@ public class GraphQLTypeDefinitionTests
         services.AddSingleton<CreateVocabularyInputType>();
         services.AddSingleton<UpdateVocabularyInputType>();
         services.AddSingleton<VocabularyResultType>();
+        services.AddSingleton<CardProgressType>();
 
         // Register RootQuery service dependencies as mocks
         services.AddSingleton(new Mock<IBookService>().Object);
@@ -545,6 +546,7 @@ public class GraphQLTypeDefinitionTests
         services.AddSingleton<LessonTrackType>();
         services.AddSingleton<LessonCompletionResultType>();
         services.AddSingleton<VocabularyResultType>();
+        services.AddSingleton<CardProgressType>();
         services.AddSingleton<StartSessionInputType>();
         services.AddSingleton<CreateVocabularySetInputType>();
         services.AddSingleton<CompleteLessonInputType>();

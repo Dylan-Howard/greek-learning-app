@@ -259,7 +259,7 @@ Incrementally wire a GraphQL layer into the Koine backend (GraphQL-dotnet code-f
   - Generate random allowed-origin values; assert `/graphql` responses include the same CORS headers as `/api/*` responses for the same origin
   - **Validates: Requirements 15.3**
 
-- [ ] 20. Final checkpoint — Ensure all tests pass
+- [x] 20. Final checkpoint — Ensure all tests pass
   - Ensure all tests pass, ask the user if questions arise.
   - Run `dotnet test backend/tests/Koine.Tests/Koine.Tests.csproj -m:1` and verify all backend tests pass
   - Run `npm run test` from `frontend/` and verify all frontend tests pass
