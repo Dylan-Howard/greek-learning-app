@@ -6,7 +6,7 @@ Wire Clerk end-to-end across the Next.js frontend and ASP.NET Core backend. Work
 
 ## Tasks
 
-- [ ] 1. Add `ClerkId` to the `User` entity and generate the EF migration
+- [x] 1. Add `ClerkId` to the `User` entity and generate the EF migration
   - Add `public string? ClerkId { get; set; }` to `Koine.Domain/Entities/User.cs`
   - Add a unique filtered index on `ClerkId` (non-null values only) in `KoineDbContext` via `OnModelCreating`
   - Run `dotnet ef migrations add AddClerkIdToUser` — do not hand-edit the generated file

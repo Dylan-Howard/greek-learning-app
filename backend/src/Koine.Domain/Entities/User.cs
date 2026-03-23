@@ -7,6 +7,7 @@ namespace Koine.Domain.Entities
         public string Email { get; set; } = string.Empty;
         public string Username { get; set; } = string.Empty;
         public string PasswordHash { get; set; } = string.Empty;
+        public string? ClerkId { get; set; }
         public string? DisplayName { get; set; }
         public int TotalExperience { get; set; }
         public DateTime CreatedAt { get; set; }

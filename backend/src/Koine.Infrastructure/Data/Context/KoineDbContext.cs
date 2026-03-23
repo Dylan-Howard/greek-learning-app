@@ -37,6 +37,11 @@ namespace Koine.Infrastructure.Data.Context
             // Apply all configurations from assembly
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(KoineDbContext).Assembly);
 
+            // Unique filtered index on ClerkId (non-null values only)
+            modelBuilder.Entity<User>()
+                .HasIndex(u => u.ClerkId)
+                .IsUnique()
+                .HasFilter("[ClerkId] IS NOT NULL");
         }
     }
 }
