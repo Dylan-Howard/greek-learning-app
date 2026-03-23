@@ -18,12 +18,12 @@ Wire Clerk end-to-end across the Next.js frontend and ASP.NET Core backend. Work
   - `ProvisionClerkUserAsync` generates a username from the Clerk first name + last 6 chars of the Clerk ID
   - _Requirements: 9.2, 10.1_
 
-  - [ ]* 2.1 Write property test for `ProvisionClerkUserAsync` idempotency (Property 11)
+  - [ ] 2.1 Write property test for `ProvisionClerkUserAsync` idempotency (Property 11)
     - **Property 11: User provisioning is idempotent**
     - **Validates: Requirements 10.1, 10.3**
     - Use CsCheck or FsCheck; generate random Clerk IDs; call provisioning twice; assert exactly one `Users` record exists
 
-- [ ] 3. Add `ClerkSettings` record and startup validation in `Program.cs`
+- [x] 3. Add `ClerkSettings` record and startup validation in `Program.cs`
   - Create `backend/src/Koine.API/Settings/ClerkSettings.cs` as a `record` with `JwksUrl`, `Issuer`, `string[] AuthorizedParties`
   - Bind from `ClerkSettings` config section in `Program.cs`; throw `InvalidOperationException` with a descriptive message if any field is missing in non-Development environments
   - In Development, log a warning (not a hard failure) when `JwksUrl` is not configured
@@ -36,12 +36,12 @@ Wire Clerk end-to-end across the Next.js frontend and ASP.NET Core backend. Work
   - Wrap the existing symmetric-key `"LocalJwt"` scheme registration in `#if DEBUG`
   - _Requirements: 8.1, 8.2, 8.3, 8.6_
 
-  - [ ]* 4.1 Write property test for JWT validation (Property 8)
+  - [ ] 4.1 Write property test for JWT validation (Property 8)
     - **Property 8: Invalid JWT always returns HTTP 401**
     - **Validates: Requirements 8.1, 8.2, 8.3, 8.5**
     - Use CsCheck/FsCheck; generate expired JWTs, wrong-issuer JWTs, malformed strings; assert every case returns 401
 
-  - [ ]* 4.2 Write property test for valid JWT claim extraction (Property 9)
+  - [ ] 4.2 Write property test for valid JWT claim extraction (Property 9)
     - **Property 9: Valid Clerk JWT exposes `sub` claim in `HttpContext.User`**
     - **Validates: Requirements 8.4**
     - Generate valid JWT payloads with random `sub` values; assert `HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value` equals the `sub`
@@ -53,7 +53,7 @@ Wire Clerk end-to-end across the Next.js frontend and ASP.NET Core backend. Work
   - Register after `UseAuthorization()` in `Program.cs`
   - _Requirements: 10.1, 10.2, 10.3, 10.4_
 
-  - [ ]* 5.1 Write unit tests for `UserProvisioningMiddleware`
+  - [ ] 5.1 Write unit tests for `UserProvisioningMiddleware`
     - New user: assert `ProvisionClerkUserAsync` called and `HttpContext.Items["NumericUserId"]` set
     - Existing user: assert `GetByClerkIdAsync` returns existing record, no provisioning call
     - DB failure: assert HTTP 503 response and exception logged
@@ -66,12 +66,12 @@ Wire Clerk end-to-end across the Next.js frontend and ASP.NET Core backend. Work
   - Add request-scoped caching: store the resolved ID in a private nullable field so the repository is queried at most once per request
   - _Requirements: 9.1, 9.2, 9.3, 9.4, 9.5_
 
-  - [ ]* 6.1 Write property test for per-request caching (Property 10)
+  - [ ] 6.1 Write property test for per-request caching (Property 10)
     - **Property 10: Clerk user ID lookup returns consistent numeric ID per request**
     - **Validates: Requirements 9.2, 9.4**
     - Generate random Clerk IDs; call `GetUserId()` N times on the same provider instance; assert repository called exactly once
 
-  - [ ]* 6.2 Write unit tests for `HttpContextCurrentUserProvider`
+  - [ ] 6.2 Write unit tests for `HttpContextCurrentUserProvider`
     - Returns numeric ID from `HttpContext.Items["NumericUserId"]`
     - Throws `UnauthorizedAccessException` when item absent
     - `X-Dev-User-Id` fallback present only in DEBUG build
@@ -91,7 +91,7 @@ Wire Clerk end-to-end across the Next.js frontend and ASP.NET Core backend. Work
   - Pass `signInUrl`, `signUpUrl`, `afterSignInUrl`, `afterSignUpUrl` from env vars to `ClerkProvider`
   - _Requirements: 1.1, 1.2, 1.3_
 
-  - [ ]* 9.1 Write unit tests for `app/layout.tsx`
+  - [ ] 9.1 Write unit tests for `app/layout.tsx`
     - Renders `ClerkProvider` wrapping children
     - Throws when `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` is absent
     - _Requirements: 1.1, 1.2_
@@ -104,22 +104,22 @@ Wire Clerk end-to-end across the Next.js frontend and ASP.NET Core backend. Work
   - Redirect authenticated users without `publicMetadata.onboardingComplete` who request `/(auth)/(.*)` to `/onboarding`
   - _Requirements: 2.1, 2.2, 2.3, 2.4, 2.5, 4.2_
 
-  - [ ]* 10.1 Write property test for protected-route redirect (Property 1)
+  - [ ] 10.1 Write property test for protected-route redirect (Property 1)
     - **Property 1: Protected routes always redirect unauthenticated requests**
     - **Validates: Requirements 2.1**
     - Use fast-check; generate paths from `['reader', 'lessons', 'study', 'vocabulary', 'profile']`; assert redirect response for unauthenticated requests
 
-  - [ ]* 10.2 Write property test for public-route pass-through (Property 2)
+  - [ ] 10.2 Write property test for public-route pass-through (Property 2)
     - **Property 2: Public routes always pass through unauthenticated requests**
     - **Validates: Requirements 2.2, 2.3**
     - Use fast-check; generate paths from `['/welcome', '/auth/login', '/auth/signup', '/onboarding']`; assert no redirect
 
-  - [ ]* 10.3 Write property test for onboarding redirect (Property 3)
+  - [ ] 10.3 Write property test for onboarding redirect (Property 3)
     - **Property 3: Authenticated users without onboarding are redirected to `/onboarding`**
     - **Validates: Requirements 4.2**
     - Simulate authenticated session with `onboardingComplete` absent/false; assert redirect to `/onboarding` for any `/(auth)/` path
 
-  - [ ]* 10.4 Write unit tests for `middleware.ts`
+  - [ ] 10.4 Write unit tests for `middleware.ts`
     - Authenticated user on `/auth/login` → redirect to `/reader`
     - Unauthenticated user on `/reader` → redirect to sign-in
     - `/onboarding` passes through unauthenticated
@@ -132,7 +132,7 @@ Wire Clerk end-to-end across the Next.js frontend and ASP.NET Core backend. Work
   - Do not modify `AuthForms.tsx` or `AuthShell.tsx`
   - _Requirements: 3.1, 3.5, 3.6, 3.7_
 
-  - [ ]* 11.1 Write unit tests for `login/page.tsx`
+  - [ ] 11.1 Write unit tests for `login/page.tsx`
     - Successful sign-in calls `setActive` and navigates to `/reader`
     - Clerk error surfaces via the `LoginForm` `onSubmit` rejection
     - _Requirements: 3.1, 3.5, 3.6_
@@ -144,7 +144,7 @@ Wire Clerk end-to-end across the Next.js frontend and ASP.NET Core backend. Work
   - Do not modify `AuthForms.tsx` or `AuthShell.tsx`
   - _Requirements: 3.2, 3.4, 3.6, 3.7_
 
-  - [ ]* 12.1 Write unit tests for `signup/page.tsx`
+  - [ ] 12.1 Write unit tests for `signup/page.tsx`
     - Successful sign-up calls `setActive` and navigates to `/onboarding`
     - Clerk error surfaces via the `SignUpForm` `onSubmit` rejection
     - _Requirements: 3.2, 3.4, 3.6_
@@ -163,12 +163,12 @@ Wire Clerk end-to-end across the Next.js frontend and ASP.NET Core backend. Work
   - Token must never be stored in `localStorage`, `sessionStorage`, or cookies
   - _Requirements: 5.1, 5.2, 5.3, 5.4, 5.5_
 
-  - [ ]* 14.1 Write property test for Bearer token injection (Property 4)
+  - [ ] 14.1 Write property test for Bearer token injection (Property 4)
     - **Property 4: REST client injects Bearer token for any non-null token**
     - **Validates: Requirements 5.1, 5.2**
     - Use fast-check; generate arbitrary non-empty token strings; assert outgoing request has `Authorization: Bearer <token>` matching exactly
 
-  - [ ]* 14.2 Write property test for no persistent storage (Property 5)
+  - [ ] 14.2 Write property test for no persistent storage (Property 5)
     - **Property 5: Token is never written to persistent browser storage**
     - **Validates: Requirements 5.5**
     - Spy on `localStorage.setItem`, `sessionStorage.setItem`, `document.cookie`; assert no JWT-shaped value (`/^eyJ/`) is written during any request
@@ -181,12 +181,12 @@ Wire Clerk end-to-end across the Next.js frontend and ASP.NET Core backend. Work
   - Remove all imports of `devSession` from `ClientProviders.tsx`
   - _Requirements: 7.1, 7.2, 7.3, 7.4_
 
-  - [ ]* 15.1 Write property test for `fetchUser` always called with Clerk ID (Property 7)
+  - [ ] 15.1 Write property test for `fetchUser` always called with Clerk ID (Property 7)
     - **Property 7: Authenticated Clerk user always triggers `fetchUser`**
     - **Validates: Requirements 7.2**
     - Use fast-check; generate arbitrary Clerk user ID strings; render `ClientProviders` with mocked `useUser` returning `{ isLoaded: true, isSignedIn: true, user: { id } }`; assert `fetchUser` called with that ID
 
-  - [ ]* 15.2 Write unit tests for `ClientProviders`
+  - [ ] 15.2 Write unit tests for `ClientProviders`
     - `isLoaded=false` → renders loading state, `fetchUser` not called
     - `isSignedIn=false` → `setActiveUser` called with `getDefaultUserState()`
     - `isSignedIn=true` → `fetchUser` called with `user.id`
@@ -197,12 +197,12 @@ Wire Clerk end-to-end across the Next.js frontend and ASP.NET Core backend. Work
   - In `buildErrorLink` (or the `authLink` `setContext` in `client.ts`), add `if (!token && process.env.NODE_ENV === 'development') console.warn('[Apollo] getToken() returned null — request sent without Authorization header')`
   - _Requirements: 6.2, 6.4_
 
-  - [ ]* 16.1 Write property test for Apollo `getToken` called per request (Property 6)
+  - [ ] 16.1 Write property test for Apollo `getToken` called per request (Property 6)
     - **Property 6: Apollo client calls `getToken` before every GraphQL request**
     - **Validates: Requirements 6.1**
     - Use fast-check; generate arbitrary operation names; assert `getToken` spy called exactly once per operation
 
-  - [ ]* 16.2 Write unit tests for `ApolloClientProvider`
+  - [ ] 16.2 Write unit tests for `ApolloClientProvider`
     - `UNAUTHENTICATED` error code triggers redirect to `/auth/login` and cache reset
     - `getToken()` returning null logs a console warning in development
     - _Requirements: 6.2, 6.4_
@@ -212,12 +212,12 @@ Wire Clerk end-to-end across the Next.js frontend and ASP.NET Core backend. Work
   - After `signOut()` resolves: call `router.push('/welcome')`, call `setActiveUser(getDefaultUserState())` via `UserContext`, and call `_resetApolloClientForTesting()` (or production-safe equivalent) to clear the Apollo cache
   - _Requirements: 13.1, 13.2, 13.3, 13.4_
 
-  - [ ]* 17.1 Write property test for sign-out guest state reset (Property 12)
+  - [ ] 17.1 Write property test for sign-out guest state reset (Property 12)
     - **Property 12: Sign-out resets `UserContext` to guest state**
     - **Validates: Requirements 13.3**
     - Use fast-check; generate arbitrary authenticated user shapes; after `signOut()` assert `UserContext` value is structurally equal to `getDefaultUserState()`
 
-  - [ ]* 17.2 Write unit tests for sign-out flow
+  - [ ] 17.2 Write unit tests for sign-out flow
     - `signOut()` → redirect to `/welcome`
     - `UserContext` reset to guest state
     - Apollo cache reset called

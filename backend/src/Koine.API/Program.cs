@@ -16,8 +16,47 @@ using Koine.API.GraphQL.Queries;
 using Koine.API.GraphQL.Mutations;
 using Koine.API.GraphQL.DataLoaders;
 using GraphQL;
+using Koine.API.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// --- Clerk Settings ---
+// Bind ClerkSettings from configuration (ClerkSettings__* env vars or appsettings.json section).
+var clerkSettings = builder.Configuration.GetSection("ClerkSettings").Get<ClerkSettings>();
+
+if (builder.Environment.IsDevelopment())
+{
+    // In Development, only warn if JwksUrl is missing — do not hard-fail so the API
+    // can still run without Clerk configured for pure local dev (Requirement 11.5).
+    if (string.IsNullOrWhiteSpace(clerkSettings?.JwksUrl))
+    {
+        // Bootstrap logger: use the built-in LoggerFactory before the host is built.
+        using var loggerFactory = LoggerFactory.Create(b => b.AddConsole());
+        var startupLogger = loggerFactory.CreateLogger("Startup");
+        startupLogger.LogWarning(
+            "ClerkSettings:JwksUrl is not configured. Clerk JWT validation will not be active. " +
+            "Set ClerkSettings__JwksUrl (or ClerkSettings:JwksUrl in appsettings.Development.json) " +
+            "to enable Clerk authentication.");
+    }
+}
+else
+{
+    // In non-Development environments all three fields are required (Requirements 12.3, 8.1–8.3).
+    if (string.IsNullOrWhiteSpace(clerkSettings?.JwksUrl))
+        throw new InvalidOperationException(
+            "Required configuration 'ClerkSettings:JwksUrl' (env var: ClerkSettings__JwksUrl) is missing or empty. " +
+            "Set it to your Clerk JWKS endpoint URL before starting the application.");
+
+    if (string.IsNullOrWhiteSpace(clerkSettings?.Issuer))
+        throw new InvalidOperationException(
+            "Required configuration 'ClerkSettings:Issuer' (env var: ClerkSettings__Issuer) is missing or empty. " +
+            "Set it to your Clerk Frontend API URL before starting the application.");
+
+    if (clerkSettings?.AuthorizedParties is not { Length: > 0 })
+        throw new InvalidOperationException(
+            "Required configuration 'ClerkSettings:AuthorizedParties' (env var: ClerkSettings__AuthorizedParties) is missing or empty. " +
+            "Set it to a comma-separated list of allowed origins before starting the application.");
+}
 
 // Add services to the container
 builder.Services.AddControllers()
