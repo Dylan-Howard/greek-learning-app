@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.Extensions.Logging;
 using Koine.Application.Interfaces;
 using Koine.Application.Interfaces.Repositories;
 using Koine.Infrastructure.Data.Context;
@@ -11,7 +12,7 @@ namespace Koine.Infrastructure.Data
         private readonly KoineDbContext _context;
         private IDbContextTransaction? _transaction;
 
-        public UnitOfWork(KoineDbContext context)
+        public UnitOfWork(KoineDbContext context, ILoggerFactory loggerFactory)
         {
             _context = context;
             
@@ -22,7 +23,7 @@ namespace Koine.Infrastructure.Data
             LessonTracks = new LessonTrackRepository(_context);
             Lessons = new LessonRepository(_context);
             LessonCompletions = new LessonCompletionRepository(_context);
-            Users = new UserRepository(_context);
+            Users = new UserRepository(_context, loggerFactory.CreateLogger<UserRepository>());
             Vocabulary = new VocabularyRepository(_context);
             GrammaticalFeatures = new GrammaticalFeatureRepository(_context);
             SyntacticalFeatures = new SyntacticalFeatureRepository(_context);

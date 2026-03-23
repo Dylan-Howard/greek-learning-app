@@ -12,7 +12,7 @@ Wire Clerk end-to-end across the Next.js frontend and ASP.NET Core backend. Work
   - Run `dotnet ef migrations add AddClerkIdToUser` — do not hand-edit the generated file
   - _Requirements: 9.1, 10.1_
 
-- [ ] 2. Extend `IUserRepository` and implement `GetByClerkIdAsync` / `ProvisionClerkUserAsync`
+- [x] 2. Extend `IUserRepository` and implement `GetByClerkIdAsync` / `ProvisionClerkUserAsync`
   - Add `Task<User?> GetByClerkIdAsync(string clerkId)` and `Task<User> ProvisionClerkUserAsync(string clerkId, string email, string username)` to `IUserRepository` in `Koine.Application/Interfaces/Repositories/`
   - Implement both methods in the existing `UserRepository` in `Koine.Infrastructure`
   - `ProvisionClerkUserAsync` generates a username from the Clerk first name + last 6 chars of the Clerk ID
