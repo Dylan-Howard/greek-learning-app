@@ -66,6 +66,9 @@ Configured via `appsettings*.json` or environment variables:
 ./scripts/coverage-backend.sh
 ./scripts/coverage-frontend.sh
 ./scripts/coverage-all.sh
+
+# Storybook (frontend dev-only)
+cd frontend && npm run storybook
 ```
 
 ## Data Utility Notes

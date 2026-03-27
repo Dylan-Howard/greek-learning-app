@@ -38,3 +38,11 @@ npx tsc --noEmit
 npm run build
 npm run test
 ```
+
+## Storybook (Developer Only)
+
+Storybook is a local developer resource for browsing components and layouts. It is not part of the public app.
+
+```bash
+npm run storybook
+```

@@ -9,12 +9,15 @@
     "start": "next start",
     "codegen": "graphql-codegen",
     "test": "vitest run",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest"
+      "react-app/jest",
+      "plugin:storybook/recommended"
     ],
     "rules": {
       "react/react-in-jsx-scope": "off",
@@ -72,9 +75,15 @@
     "@graphql-codegen/typescript": "^4.1.6",
     "@graphql-codegen/typescript-operations": "^4.6.1",
     "@graphql-codegen/typescript-react-apollo": "^4.3.2",
+    "@storybook/addon-a11y": "^10.3.3",
+    "@storybook/addon-docs": "^10.3.3",
     "@vitest/coverage-v8": "^4.0.18",
     "fast-check": "^3.23.2",
     "jsdom": "^28.1.0",
+    "eslint-plugin-storybook": "^10.3.3",
+    "storybook": "^10.3.3",
+    "@storybook/nextjs-vite": "^10.3.3",
+    "vite": "^8.0.3",
     "vitest": "^4.0.18"
   }
 }
