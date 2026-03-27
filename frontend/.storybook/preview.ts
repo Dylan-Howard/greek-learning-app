@@ -5,11 +5,7 @@ import '@/styles/globals.css';
 
 const preview: Preview = {
   decorators: [
-    (Story) => (
-      <ThemeProvider>
-        <Story />
-      </ThemeProvider>
-    ),
+    (Story) => React.createElement(ThemeProvider, null, React.createElement(Story)),
   ],
   parameters: {
     nextjs: {
