@@ -1,19 +1,10 @@
 'use client';
 
 import React from 'react';
-import { useEffect, useState } from 'react';
 import {
   Box,
-  FormControl,
-  MenuItem,
-  Select,
   Stack,
 } from '@mui/material';
-import {
-  DEV_USER_OPTIONS,
-  getActiveDevUserId,
-  setActiveDevUserId,
-} from '@/lib/services/auth/devSession';
 
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
@@ -33,30 +24,13 @@ import {
 
 export default function Nav() {
   const { user, expQueue, consumeExp } = useUserContext();
-  const devUserLabel: Record<string, string> = {
-    '1': 'Dev Novice',
-    '2': 'Dev 100+',
-    '3': 'Dev 50+',
-    '4': 'Dev 15+',
-    '5': 'Dev Mastered',
-  };
   const { page, setPage } = useReaderContext();
-  const [devUserId, setDevUserId] = useState('1');
 
-  useEffect(() => {
-    setDevUserId(getActiveDevUserId());
-  }, []);
-
-  const handleChange = (_e: any, newTab: number) => {
+  const handleChange = (_e: unknown, newTab: number) => {
     if (newTab === 5) {
       return;
     }
     setPage({ ...page, tabId: newTab });
-  };
-
-  const handleUserChange = (nextUserId: string) => {
-    const id = setActiveDevUserId(nextUserId);
-    setDevUserId(id);
   };
 
   return (
@@ -81,13 +55,6 @@ export default function Nav() {
           alignItems: { xs: 'center', sm: 'stretch' },
         }}
       >
-        <FormControl size="small" sx={{ p: 1 }}>
-          <Select value={devUserId} onChange={(evt) => handleUserChange(`${evt.target.value}`)}>
-            {DEV_USER_OPTIONS.map((id: string) => (
-              <MenuItem value={id} key={`dev-user-${id}`}>{devUserLabel[id] || `Dev User ${id}`}</MenuItem>
-            ))}
-          </Select>
-        </FormControl>
         <BottomNavigationAction
           value={1}
           label="Lessons"

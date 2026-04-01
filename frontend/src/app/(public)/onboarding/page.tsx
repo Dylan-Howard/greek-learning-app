@@ -10,7 +10,7 @@ import Button from '@mui/material/Button';
 
 import WelcomeIllustration from '@/app/(public)/welcome/WelcomeIllustration';
 import * as AzureUserService from '@/lib/api/rest/user';
-import { getActiveDevUserId } from '@/lib/services/auth/devSession';
+import { useUser } from '@clerk/nextjs';
 import completeOnboarding from '@/app/(public)/onboarding/_actions';
 import { OnboardingOptionBox } from '@/design-system-v2/components/onboarding/OnboardingOptionBox';
 
@@ -34,6 +34,7 @@ const userLevelContent = [
 
 export default function OnboardingPage() {
   const router = useRouter();
+  const { user } = useUser();
   const [userLevel, setUserLevel] = useState(0);
   const [error, setError] = useState('');
 
@@ -41,7 +42,8 @@ export default function OnboardingPage() {
   const submitDisabled = userLevel === 0;
 
   const handleSubmit = async () => {
-    const userId = getActiveDevUserId();
+    const userId = user?.id;
+    if (!userId) return;
 
     const userCreateResult = await AzureUserService.createUser(
       userId,

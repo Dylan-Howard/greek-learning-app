@@ -26,11 +26,7 @@ import OptionCheckbox from '@/components/features/reader/Navigation/OptionCheckb
 import { useReaderContext } from '@/app/reader/ReaderPage/ReaderPageContext';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import {
-  DEV_USER_CHANGED_EVENT,
-  getActiveDevUserId,
-  sanitizeDevUserId,
-} from '@/lib/services/auth/devSession';
+import { useUserContext } from '@/lib/types/domain/user';
 
 function mapLessons(lessons: Lesson[], user: User | undefined, filter: string) {
   return lessons.filter((lsn: Lesson) => (
@@ -73,6 +69,7 @@ function SettingsLink({ resource }: { resource: string }) {
 
 function SettingsMenu({ title } : { title: string }) {
   const { page } = useReaderContext();
+  const { user: contextUser } = useUserContext();
   const [activeUser, setActiveUser] = useState(AzureUserService.getDefaultUserState());
 
   const [filter, setFilter] = useState('');
@@ -139,24 +136,13 @@ function SettingsMenu({ title } : { title: string }) {
   };
 
   useEffect(() => {
-    const loadUser = (id: string) => {
-      setLoading((prev) => ({ ...prev, user: true }));
-      AzureUserService.fetchUser(id).then((usr: User) => {
-        setActiveUser(usr);
-        setLoading((prev) => ({ ...prev, user: false }));
-      });
-    };
-
-    loadUser(getActiveDevUserId());
-
-    const onDevUserChanged = (evt: Event) => {
-      const customEvt = evt as CustomEvent<string>;
-      loadUser(sanitizeDevUserId(customEvt.detail));
-    };
-
-    window.addEventListener(DEV_USER_CHANGED_EVENT, onDevUserChanged);
-    return () => window.removeEventListener(DEV_USER_CHANGED_EVENT, onDevUserChanged);
-  }, []);
+    if (!contextUser?.id || contextUser.id === 'guest') return;
+    setLoading((prev) => ({ ...prev, user: true }));
+    AzureUserService.fetchUser(contextUser.id).then((usr: User) => {
+      setActiveUser(usr);
+      setLoading((prev) => ({ ...prev, user: false }));
+    });
+  }, [contextUser?.id]);
 
   /* Loads the settings */
   useEffect(() => {

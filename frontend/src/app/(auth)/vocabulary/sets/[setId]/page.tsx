@@ -20,13 +20,14 @@ import { AppShell } from '@/components/layout/AppShell';
 import VocabWordRow, { type VocabWord } from '@/design-system-v2/components/vocab/VocabWordRow';
 import { fetchVocabularySetById } from '@/lib/api/rest/vocabulary';
 import { VocabularySetItemDto } from '@/lib/types/api';
-import { getActiveDevUserId } from '@/lib/services/auth/devSession';
+import { useUserContext } from '@/lib/types/domain/user';
 
 export const dynamic = 'force-dynamic';
 
 export default function VocabularySetDetailsPage() {
   const router = useRouter();
   const params = useParams();
+  const { user } = useUserContext();
   const setIdParam = params?.setId;
   const setId = Array.isArray(setIdParam) ? setIdParam[0] : setIdParam;
   const numericId = Number.parseInt(setId || '', 10);
@@ -39,8 +40,8 @@ export default function VocabularySetDetailsPage() {
       setSet(null);
       return;
     }
-    const userId = getActiveDevUserId();
-    fetchVocabularySetById(numericId, userId).then((result) => {
+    if (!user?.id) return;
+    fetchVocabularySetById(numericId, user.id).then((result) => {
       if (result.ok) {
         setSet(result.data);
         setErrorMessage(undefined);
@@ -49,7 +50,7 @@ export default function VocabularySetDetailsPage() {
         setErrorMessage(result.error.message);
       }
     });
-  }, [numericId]);
+  }, [numericId, user?.id]);
 
   const mappedWords: VocabWord[] = useMemo(() => (set?.items || []).map((item) => ({
     id: String(item.vocabularyId),

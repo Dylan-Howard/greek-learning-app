@@ -7,11 +7,12 @@ import SessionConfigPanel from '@/design-system-v2/components/srs/SessionConfigP
 import { useStartStudySessionMutation } from '@/lib/api/graphql/generated';
 import { fetchVocabularySets } from '@/lib/api/rest/vocabulary';
 import { StartSessionRequest, VocabularySetDto } from '@/lib/types/api';
-import { getActiveDevUserId } from '@/lib/services/auth/devSession';
+import { useUserContext } from '@/lib/types/domain/user';
 import { AppShell } from '@/components/layout/AppShell';
 
 export default function SessionConfigPage() {
   const router = useRouter();
+  const { user } = useUserContext();
   const [sets, setSets] = useState<VocabularySetDto[]>([]);
   const [config, setConfig] = useState<StartSessionRequest>({
     cardCount: 10,
@@ -25,12 +26,13 @@ export default function SessionConfigPage() {
   const [startStudySession, { loading }] = useStartStudySessionMutation();
 
   useEffect(() => {
-    fetchVocabularySets(getActiveDevUserId()).then((result) => {
+    if (!user?.id) return;
+    fetchVocabularySets(user.id).then((result) => {
       if (result.ok) {
         setSets(result.data);
       }
     });
-  }, []);
+  }, [user?.id]);
 
   useEffect(() => {
     const setIdParam = new URLSearchParams(window.location.search).get('setId');

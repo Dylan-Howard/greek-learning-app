@@ -223,13 +223,13 @@ Wire Clerk end-to-end across the Next.js frontend and ASP.NET Core backend. Work
     - Apollo cache reset called
     - _Requirements: 13.1, 13.2, 13.3, 13.4_
 
-- [ ] 18. Update `frontend/.env.local.example` and `appsettings.Development.json`
+- [x] 18. Update `frontend/.env.local.example` and `appsettings.Development.json`
   - Add all required Clerk frontend env vars to `frontend/.env.local.example` with placeholder values and comments
   - Confirm `appsettings.Development.json` has `ClerkSettings` section with placeholder values (added in task 3)
   - Verify `.gitignore` excludes `.env.local` and `appsettings.*.json` secret files
   - _Requirements: 12.1, 12.2, 12.4_
 
-- [ ] 19. Remove `devSession.ts` from production code paths
+- [x] 19. Remove `devSession.ts` from production code paths
   - Delete `frontend/src/lib/services/auth/devSession.ts` once `ClientProviders` no longer imports it (after task 15)
   - Remove any remaining imports of `getActiveDevUserId`, `setActiveDevUserId`, `DEV_USER_CHANGED_EVENT` from non-debug files
   - _Requirements: 7.5_

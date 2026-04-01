@@ -11,7 +11,6 @@ import MultipleChoiceCard from '@/design-system-v2/components/srs/MultipleChoice
 import { useRateCardMutation } from '@/lib/api/graphql/generated';
 import { getNextCard } from '@/lib/api/rest/study';
 import { CardDto, Rating } from '@/lib/types/api';
-import { getActiveDevUserId } from '@/lib/services/auth/devSession';
 import { tokens } from '@/design-system-v2/theme/theme';
 
 /** Maps the string Rating type to the integer value expected by the GraphQL API. */
@@ -43,7 +42,7 @@ export default function ActiveSessionPage() {
   const loadNext = async () => {
     if (!sessionId) return;
     setLoading(true);
-    const result = await getNextCard(sessionId, getActiveDevUserId());
+    const result = await getNextCard(sessionId);
     if (result.ok) {
       setCard(result.data);
       setRevealed(false);

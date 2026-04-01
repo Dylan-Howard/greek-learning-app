@@ -1,12 +1,9 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import LibraryBooksOutlinedIcon from '@mui/icons-material/LibraryBooksOutlined';
@@ -14,11 +11,6 @@ import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
 import MenuBookOutlinedIcon from '@mui/icons-material/MenuBookOutlined';
 import { tokens } from '@/design-system-v2/theme/theme';
 import ReaderPageAudioButton from '@/components/features/reader/ReaderPageAudioButton';
-import {
-  DEV_USER_OPTIONS,
-  getActiveDevUserId,
-  setActiveDevUserId,
-} from '@/lib/services/auth/devSession';
 
 interface Props {
   activeTab: number;
@@ -27,17 +19,6 @@ interface Props {
 }
 
 export default function ReaderTopBar({ activeTab, onTabChange, ttsContent }: Props) {
-  const [devUserId, setDevUserId] = useState('1');
-
-  useEffect(() => {
-    setDevUserId(getActiveDevUserId());
-  }, []);
-
-  const handleUserChange = (nextUserId: string) => {
-    const id = setActiveDevUserId(nextUserId);
-    setDevUserId(id);
-  };
-
   return (
     <Box
       sx={{
@@ -93,13 +74,6 @@ export default function ReaderTopBar({ activeTab, onTabChange, ttsContent }: Pro
 
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
         <ReaderPageAudioButton content={ttsContent} />
-        <FormControl size="small" sx={{ minWidth: 140 }}>
-          <Select value={devUserId} onChange={(evt) => handleUserChange(`${evt.target.value}`)}>
-            {DEV_USER_OPTIONS.map((id: string) => (
-              <MenuItem value={id} key={`dev-user-${id}`}>{`Dev User ${id}`}</MenuItem>
-            ))}
-          </Select>
-        </FormControl>
       </Box>
     </Box>
   );

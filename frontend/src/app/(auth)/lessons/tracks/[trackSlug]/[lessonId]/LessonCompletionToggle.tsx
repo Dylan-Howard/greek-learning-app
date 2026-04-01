@@ -4,7 +4,6 @@ import { useState, useTransition } from 'react';
 import { Checkbox, FormControlLabel, Stack, Typography } from '@mui/material';
 import { useCompleteLessonMutation } from '@/lib/api/graphql/generated';
 import { useUserContext } from '@/lib/types/domain/user';
-import { getActiveDevUserId } from '@/lib/services/auth/devSession';
 
 interface LessonCompletionToggleProps {
   lessonId: number;
@@ -21,7 +20,6 @@ export function LessonCompletionToggle({ lessonId, initiallyCompleted }: LessonC
 
   const onToggle = (_checked: boolean) => {
     startTransition(async () => {
-      const userId = getActiveDevUserId();
       const result = await completeLesson({
         variables: { input: { lessonId } },
       });
@@ -31,7 +29,7 @@ export function LessonCompletionToggle({ lessonId, initiallyCompleted }: LessonC
         setIsCompleted(true);
         setErrorMessage(null);
         awardExp(xpGained, totalExperience);
-        await syncUser(userId);
+        await syncUser();
         return;
       }
 

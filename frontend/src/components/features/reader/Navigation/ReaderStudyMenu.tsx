@@ -18,11 +18,6 @@ import {
   useStartStudySessionMutation,
   useUpdateProgressMutation,
 } from '@/lib/api/graphql/generated';
-import {
-  DEV_USER_CHANGED_EVENT,
-  getActiveDevUserId,
-  sanitizeDevUserId,
-} from '@/lib/services/auth/devSession';
 import { Rating } from '@/lib/types/api';
 import { useUserContext } from '@/lib/types/domain/user';
 
@@ -40,25 +35,12 @@ export function ReaderStudyMenu() {
   const { page, setPage } = useReaderContext();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [devUserId, setDevUserId] = useState('1');
 
   const [startStudySession] = useStartStudySessionMutation();
   const [rateCardMutation] = useRateCardMutation();
   const [completeStudySession] = useCompleteStudySessionMutation();
   const [updateProgressMutation] = useUpdateProgressMutation();
   const { data: progressData, error: progressError } = useGetUserProgressQuery();
-
-  useEffect(() => {
-    setDevUserId(getActiveDevUserId());
-
-    const onDevUserChanged = (evt: Event) => {
-      const customEvt = evt as CustomEvent<string>;
-      setDevUserId(sanitizeDevUserId(customEvt.detail));
-    };
-
-    window.addEventListener(DEV_USER_CHANGED_EVENT, onDevUserChanged);
-    return () => window.removeEventListener(DEV_USER_CHANGED_EVENT, onDevUserChanged);
-  }, []);
 
   const amberQueue = useMemo(() => {
     const seen = new Set<number>();
@@ -157,7 +139,7 @@ export function ReaderStudyMenu() {
     });
 
     return () => { cancelled = true; };
-  }, [page?.tabId, page?.bookId, page?.chapterId, page?.studyFocusWordId, devUserId, queueKey]);
+  }, [page?.tabId, page?.bookId, page?.chapterId, page?.studyFocusWordId, queueKey]);
 
   const handleRate = async (rating: Rating) => {
     if (!activeStudy?.sessionId || !currentWordId) return;
@@ -227,7 +209,7 @@ export function ReaderStudyMenu() {
 
       const summary = result.data.completeStudySession;
       awardExp(summary.xpGained, summary.totalExperience);
-      await syncUser(devUserId);
+      await syncUser();
 
       setPage({
         ...page,
@@ -244,7 +226,6 @@ export function ReaderStudyMenu() {
     activeStudy?.sessionId,
     activeStudy?.completionXpApplied,
     awardExp,
-    devUserId,
     page,
     setPage,
     syncUser,
