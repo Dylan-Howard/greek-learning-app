@@ -1,7 +1,7 @@
 import users from '@/app/services/data/userData.json';
 import { apiClient } from '@/lib/api/rest/client';
 import { User } from '@/lib/types/domain/user';
-import { type KnowledgeRank } from '@/app/(client)/onboarding/page';
+import { type KnowledgeRank } from '@/lib/types/domain/user';
 
 type ApiUser = {
   id: number;

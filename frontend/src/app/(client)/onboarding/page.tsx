@@ -6,7 +6,7 @@
 // so they don't have to review words they already know.
 //
 // Route: /onboarding
-// Redirect: /auth/signup → /onboarding → /read
+// Redirect: /auth/signup → /onboarding → /reader
 
 import React, { useState } from 'react';
 import Box from '@mui/material/Box';
@@ -14,12 +14,10 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { useRouter } from 'next/navigation';
 import { tokens } from '@/theme/theme';
-import { useUserContext } from '@/lib/types/domain/user';
+import { useUserContext, type KnowledgeRank } from '@/lib/types/domain/user';
 import { seedOnboarding } from '@/lib/api/rest/user';
 
 // ── Rank definitions ─────────────────────────────────────────────────────────
-export type KnowledgeRank = 'beginner' | 'intermediate' | 'scholar' | 'advanced';
-
 interface RankOption {
   id:           KnowledgeRank;
   letter:       string;     // Large decorative Greek letter
@@ -454,7 +452,7 @@ export default function OnboardingPage() {
           Not sure?{' '}
           <Box
             component="button"
-            onClick={() => router.push('/read')}
+            onClick={() => router.push('/reader')}
             sx={{
               border:     'none',
               bgcolor:    'transparent',

@@ -15,13 +15,18 @@ import AppleIcon  from '@mui/icons-material/Apple';
 import { tokens } from '@/design-system-v2/theme/theme';
 
 // ── Shared OAuth buttons ──────────────────────────────────────────────────────
-function OAuthButtons({ action }: { action: 'sign in' | 'sign up' }) {
+interface OAuthButtonsProps {
+  onGoogleClick: () => void;
+  onAppleClick:  () => void;
+}
+function OAuthButtons({ onGoogleClick, onAppleClick }: OAuthButtonsProps) {
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.25 }}>
       <Button
         variant="outlined"
         fullWidth
         startIcon={<GoogleIcon />}
+        onClick={onGoogleClick}
         sx={{
           borderColor: tokens.color.border,
           color:       tokens.color.textPrimary,
@@ -34,6 +39,7 @@ function OAuthButtons({ action }: { action: 'sign in' | 'sign up' }) {
         variant="outlined"
         fullWidth
         startIcon={<AppleIcon />}
+        onClick={onAppleClick}
         sx={{
           borderColor: tokens.color.border,
           color:       tokens.color.textPrimary,
@@ -58,11 +64,13 @@ function OrDivider() {
 
 // ── Login Form ────────────────────────────────────────────────────────────────
 interface LoginFormProps {
-  onSubmit:   (email: string, password: string) => Promise<void>;
-  onSignUp:   () => void;
-  onGuest?:   () => void;
+  onSubmit:        (email: string, password: string) => Promise<void>;
+  onSignUp:        () => void;
+  onGuest?:        () => void;
+  onGoogleSignIn?: () => void;
+  onAppleSignIn?:  () => void;
 }
-export function LoginForm({ onSubmit, onSignUp, onGuest }: LoginFormProps) {
+export function LoginForm({ onSubmit, onSignUp, onGuest, onGoogleSignIn, onAppleSignIn }: LoginFormProps) {
   const [email,    setEmail]    = useState('');
   const [password, setPassword] = useState('');
   const [loading,  setLoading]  = useState(false);
@@ -87,7 +95,10 @@ export function LoginForm({ onSubmit, onSignUp, onGuest }: LoginFormProps) {
 
       {error && <Alert severity="error" sx={{ mb: 2, borderRadius: tokens.radius.sm }}>{error}</Alert>}
 
-      <OAuthButtons action="sign in" />
+      <OAuthButtons
+        onGoogleClick={onGoogleSignIn ?? (() => {})}
+        onAppleClick={onAppleSignIn ?? (() => {})}
+      />
       <OrDivider />
 
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
@@ -148,11 +159,13 @@ export function LoginForm({ onSubmit, onSignUp, onGuest }: LoginFormProps) {
 
 // ── Sign Up Form ──────────────────────────────────────────────────────────────
 interface SignUpFormProps {
-  onSubmit:  (email: string, password: string) => Promise<void>;
-  onLogin:   () => void;
-  onGuest?:  () => void;
+  onSubmit:        (email: string, password: string) => Promise<void>;
+  onLogin:         () => void;
+  onGuest?:        () => void;
+  onGoogleSignUp?: () => void;
+  onAppleSignUp?:  () => void;
 }
-export function SignUpForm({ onSubmit, onLogin, onGuest }: SignUpFormProps) {
+export function SignUpForm({ onSubmit, onLogin, onGuest, onGoogleSignUp, onAppleSignUp }: SignUpFormProps) {
   const [email,    setEmail]    = useState('');
   const [password, setPassword] = useState('');
   const [confirm,  setConfirm]  = useState('');
@@ -179,7 +192,10 @@ export function SignUpForm({ onSubmit, onLogin, onGuest }: SignUpFormProps) {
 
       {error && <Alert severity="error" sx={{ mb: 2, borderRadius: tokens.radius.sm }}>{error}</Alert>}
 
-      <OAuthButtons action="sign up" />
+      <OAuthButtons
+        onGoogleClick={onGoogleSignUp ?? (() => {})}
+        onAppleClick={onAppleSignUp ?? (() => {})}
+      />
       <OrDivider />
 
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>

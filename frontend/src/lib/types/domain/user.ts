@@ -3,6 +3,9 @@
  */
 import { createContext, useContext } from 'react';
 
+/** Knowledge level selected during onboarding — seeds the user's SRS deck. */
+export type KnowledgeRank = 'beginner' | 'intermediate' | 'scholar' | 'advanced';
+
 export type UserProgress = {
   lessons: {
     lessonId: number,

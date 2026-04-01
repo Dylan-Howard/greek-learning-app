@@ -96,13 +96,21 @@ export default function LandingHeader() {
           ))}
         </Box>
 
-        <Button
-          variant="text"
-          onClick={() => router.push('/auth/login')}
-          sx={{ color: tokens.color.textSecondary, fontWeight: 500, fontSize: '0.875rem', display: { xs: 'none', sm: 'flex' } }}
+        <Link
+          href="/auth/login"
+          underline="none"
+          sx={{
+            fontSize: '0.875rem',
+            fontWeight: 500,
+            color: tokens.color.textSecondary,
+            '&:hover': { color: tokens.color.primary },
+            transition: `color ${tokens.motion.fast}`,
+            display: { xs: 'none', sm: 'flex' },
+            alignItems: 'center',
+          }}
         >
           Sign in
-        </Button>
+        </Link>
         <Button
           variant="contained"
           onClick={() => router.push('/auth/signup')}

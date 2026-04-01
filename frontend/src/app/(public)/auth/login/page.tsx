@@ -28,35 +28,33 @@ export default function LoginPage() {
     }
   }
 
-  function handleOAuthClick(e: React.MouseEvent<HTMLDivElement>): void {
-    const target = e.target as HTMLElement;
-    const button = target.closest('button');
-    if (!button || !signIn) return;
-    const text = button.textContent ?? '';
-    if (text.includes('Google')) {
-      void signIn.authenticateWithRedirect({
-        strategy: 'oauth_google',
-        redirectUrl: '/sso-callback',
-        redirectUrlComplete: '/reader',
-      });
-    } else if (text.includes('Apple')) {
-      void signIn.authenticateWithRedirect({
-        strategy: 'oauth_apple',
-        redirectUrl: '/sso-callback',
-        redirectUrlComplete: '/reader',
-      });
-    }
+  function handleGoogleSignIn(): void {
+    if (!signIn) return;
+    void signIn.authenticateWithRedirect({
+      strategy: 'oauth_google',
+      redirectUrl: '/sso-callback',
+      redirectUrlComplete: '/reader',
+    });
+  }
+
+  function handleAppleSignIn(): void {
+    if (!signIn) return;
+    void signIn.authenticateWithRedirect({
+      strategy: 'oauth_apple',
+      redirectUrl: '/sso-callback',
+      redirectUrlComplete: '/reader',
+    });
   }
 
   return (
-    <div role="presentation" onClick={handleOAuthClick}>
-      <AuthShell>
-        <LoginForm
-          onSubmit={handleLogin}
-          onSignUp={() => router.push('/auth/signup')}
-          onGuest={() => router.push('/reader')}
-        />
-      </AuthShell>
-    </div>
+    <AuthShell>
+      <LoginForm
+        onSubmit={handleLogin}
+        onSignUp={() => router.push('/auth/signup')}
+        onGuest={() => router.push('/reader')}
+        onGoogleSignIn={handleGoogleSignIn}
+        onAppleSignIn={handleAppleSignIn}
+      />
+    </AuthShell>
   );
 }
