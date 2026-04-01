@@ -13,6 +13,12 @@ db-data/*
 # Azure Functions localsettings file
 local.settings.json
 
+# ASP.NET Core environment-specific settings (may contain secrets)
+# appsettings.Development.json is committed with placeholder values only —
+# never put real secrets in it.
+appsettings.Production.json
+appsettings.Staging.json
+
 # User-specific files
 *.suo
 *.user
