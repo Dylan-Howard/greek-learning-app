@@ -26,7 +26,7 @@ fi
 
 # Run orchestrator
 python orchestrate.py \
-  --tracker tracker.csv \
+  --tracker ./docs/tracker.csv \
   --parse-script ./greek-nt/parse_opengnt.py \
   --prompt-script "$PROMPT_SCRIPT" \
   --output-dir ./output \

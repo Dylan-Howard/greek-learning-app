@@ -207,17 +207,17 @@ Wire Clerk end-to-end across the Next.js frontend and ASP.NET Core backend. Work
     - `getToken()` returning null logs a console warning in development
     - _Requirements: 6.2, 6.4_
 
-- [ ] 17. Implement sign-out flow
+- [x] 17. Implement sign-out flow
   - Add a sign-out action to the `NavRail` or profile menu that calls `signOut()` from `@clerk/nextjs`
   - After `signOut()` resolves: call `router.push('/welcome')`, call `setActiveUser(getDefaultUserState())` via `UserContext`, and call `_resetApolloClientForTesting()` (or production-safe equivalent) to clear the Apollo cache
   - _Requirements: 13.1, 13.2, 13.3, 13.4_
 
-  - [~] 17.1 Write property test for sign-out guest state reset (Property 12)
+  - [x] 17.1 Write property test for sign-out guest state reset (Property 12)
     - **Property 12: Sign-out resets `UserContext` to guest state**
     - **Validates: Requirements 13.3**
     - Use fast-check; generate arbitrary authenticated user shapes; after `signOut()` assert `UserContext` value is structurally equal to `getDefaultUserState()`
 
-  - [~] 17.2 Write unit tests for sign-out flow
+  - [x] 17.2 Write unit tests for sign-out flow
     - `signOut()` → redirect to `/welcome`
     - `UserContext` reset to guest state
     - Apollo cache reset called
