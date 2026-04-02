@@ -11,7 +11,7 @@ import {
   Typography,
 } from '@mui/material';
 import { AppShell } from '@/components/layout/AppShell';
-import StudyDashboardStats from '@/design-system-v2/components/srs/StudyDashboardStats';
+import StudyDashboardStats from '@/components/srs/StudyDashboardStats';
 import { useGetStudyDashboardQuery } from '@/lib/api/graphql/generated';
 
 export const dynamic = 'force-dynamic';

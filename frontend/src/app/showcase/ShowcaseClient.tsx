@@ -49,14 +49,14 @@ import {
   Facebook as FacebookIcon,
   Instagram as InstagramIcon,
 } from '@mui/icons-material';
-import { LoginForm, SignUpForm } from '@/design-system-v2/components/auth/AuthForms';
-import { MultipleChoice, ConfirmCheckbox } from '@/design-system-v2/components/lessons/LessonBlocks';
-import { Alert } from '@/design-system-v2/components/shared/Alert';
-import { Card } from '@/design-system-v2/components/shared/Card';
-import { Dialog } from '@/design-system-v2/components/shared/Dialog';
-import { KoineCard } from '@/design-system-v2/components/shared/KoineCard';
-import { ProgressCard } from '@/design-system-v2/components/shared/ProgressCard';
-import { ProseBlock } from '@/design-system-v2/components/shared/ProseBlock';
+import { LoginForm, SignUpForm } from '@/components/auth/AuthForms';
+import { MultipleChoice, ConfirmCheckbox } from '@/components/lessons/LessonBlocks';
+import { Alert } from '@/components/shared/Alert';
+import { Card } from '@/components/shared/Card';
+import { Dialog } from '@/components/shared/Dialog';
+import { KoineCard } from '@/components/shared/KoineCard';
+import { ProgressCard } from '@/components/shared/ProgressCard';
+import { ProseBlock } from '@/components/shared/ProseBlock';
 import { GreekTextUnit } from '@/components/features/reader';
 import { Hero, FeatureSection, Footer } from '@/components/features/landing';
 import { AppShell, NavRail } from '@/components/layout';

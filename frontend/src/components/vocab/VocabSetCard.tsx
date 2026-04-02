@@ -10,7 +10,7 @@ import Typography from '@mui/material/Typography';
 import LinearProgress from '@mui/material/LinearProgress';
 import Chip from '@mui/material/Chip';
 import Button from '@mui/material/Button';
-import { tokens } from '@/design-system-v2/theme/theme';
+import { tokens } from '@/theme/theme';
 
 export interface VocabSet {
   id:          string;

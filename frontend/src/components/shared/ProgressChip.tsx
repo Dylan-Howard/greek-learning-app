@@ -4,7 +4,7 @@
 import React from 'react';
 import Chip from '@mui/material/Chip';
 import Box from '@mui/material/Box';
-import { tokens } from '@/design-system-v2/theme/theme';
+import { tokens } from '@/theme/theme';
 
 export type SRSStatus = 'unseen' | 'new' | 'due' | 'mastered';
 

@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import Divider from '@mui/material/Divider';
-import { tokens } from '@/design-system-v2/theme/theme';
+import { tokens } from '@/theme/theme';
 
 const LINKS = {
   App: [

@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import PublicLayout from './PublicLayout';
-import { tokens } from '@/design-system-v2/theme/theme';
+import { tokens } from '@/theme/theme';
 
 interface Section {
   id: string;

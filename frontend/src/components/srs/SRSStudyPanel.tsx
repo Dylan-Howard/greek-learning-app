@@ -7,7 +7,7 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import CloseIcon from '@mui/icons-material/Close';
-import { tokens } from '@/design-system-v2/theme/theme';
+import { tokens } from '@/theme/theme';
 import FlashCard from './FlashCard';
 import SRSRatingButtons, { type SRSRating } from './SRSRatingButtons';
 import SRSSessionProgress from './SRSSessionProgress';

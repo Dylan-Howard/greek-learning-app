@@ -10,7 +10,7 @@ import {
 import { useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { AppShell } from '@/components/layout/AppShell';
-import VocabSetCard, { type VocabSet } from '@/design-system-v2/components/vocab/VocabSetCard';
+import VocabSetCard, { type VocabSet } from '@/components/vocab/VocabSetCard';
 import { useGetVocabularySetsQuery } from '@/lib/api/graphql/generated';
 
 export const dynamic = 'force-dynamic';

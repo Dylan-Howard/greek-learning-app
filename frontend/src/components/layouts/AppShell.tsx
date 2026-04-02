@@ -7,10 +7,10 @@
 
 import React from 'react';
 import Box from '@mui/material/Box';
-import { tokens } from '@/design-system-v2/theme/theme';
-import NavRail from '@/design-system-v2/components/nav/NavRail';
-import BottomNav from '@/design-system-v2/components/nav/BottomNav';
-import { type Tier } from '@/design-system-v2/components/nav/UserAvatarBadge';
+import { tokens } from '@/theme/theme';
+import NavRail from '@/components/nav/NavRail';
+import BottomNav from '@/components/nav/BottomNav';
+import { type Tier } from '@/components/nav/UserAvatarBadge';
 
 interface Props {
   children:      React.ReactNode;

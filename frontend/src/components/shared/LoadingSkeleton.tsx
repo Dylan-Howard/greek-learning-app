@@ -5,7 +5,7 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import Skeleton from '@mui/material/Skeleton'; // v7: from @mui/material, not @mui/lab
-import { tokens } from '@/design-system-v2/theme/theme';
+import { tokens } from '@/theme/theme';
 
 // ── Reader skeleton ─────────────────────────────────────────────────────────
 export function ReaderSkeleton() {

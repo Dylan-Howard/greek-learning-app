@@ -5,7 +5,7 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import GreekWord, { type WordStatus } from './GreekWord';
-import { tokens } from '@/design-system-v2/theme/theme';
+import { tokens } from '@/theme/theme';
 
 export interface WordToken {
   id:     string;   // unique token id, e.g. "JHN.1.1.1"

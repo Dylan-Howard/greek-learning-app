@@ -3,7 +3,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
-import { tokens } from '@/design-system-v2/theme/theme';
+import { tokens } from '@/theme/theme';
 
 interface Props {
   xp:     number;

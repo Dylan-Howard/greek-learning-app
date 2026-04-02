@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 const rootDir = dirname(fileURLToPath(import.meta.url));
 
 const config: StorybookConfig = {
-  stories: ['../src/design-system-v2/**/*.stories.@(ts|tsx)'],
+  stories: ['../src/components/**/*.stories.@(ts|tsx)'],
   addons: ['@storybook/addon-a11y', '@storybook/addon-docs'],
   framework: '@storybook/nextjs-vite',
   staticDirs: ['../public'],

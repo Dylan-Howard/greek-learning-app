@@ -5,8 +5,8 @@ import React from 'react';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import Typography from '@mui/material/Typography';
-import { tokens } from '@/design-system-v2/theme/theme';
-import ProgressChip, { type SRSStatus } from '@/design-system-v2/components/shared/ProgressChip';
+import { tokens } from '@/theme/theme';
+import ProgressChip, { type SRSStatus } from '@/components/shared/ProgressChip';
 
 export interface VocabWord {
   id:            string;

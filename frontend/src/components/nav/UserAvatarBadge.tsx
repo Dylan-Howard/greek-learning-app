@@ -3,7 +3,7 @@
 
 import React from 'react';
 import Box from '@mui/material/Box';
-import { tokens } from '@/design-system-v2/theme/theme';
+import { tokens } from '@/theme/theme';
 
 export type Tier = 'novice' | 'apprentice' | 'scholar' | 'master';
 

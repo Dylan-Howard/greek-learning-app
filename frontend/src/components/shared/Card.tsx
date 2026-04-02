@@ -9,7 +9,7 @@ import {
   CardActions,
   styled,
 } from '@mui/material';
-import { tokens } from '@/design-system-v2/theme/theme';
+import { tokens } from '@/theme/theme';
 
 export interface CardProps extends MuiCardProps {
   title?: string;

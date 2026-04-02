@@ -8,8 +8,8 @@ import Box from '@mui/material/Box';
 import Tooltip from '@mui/material/Tooltip';
 import ChevronLeftIcon  from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import { tokens } from '@/design-system-v2/theme/theme';
-import { useDirection } from '@/design-system-v2/components/layouts/RTLWrapper';
+import { tokens } from '@/theme/theme';
+import { useDirection } from '@/components/layouts/RTLWrapper';
 
 interface Props {
   hasPrev:  boolean;

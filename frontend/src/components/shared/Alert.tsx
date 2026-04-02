@@ -2,7 +2,7 @@
 
 import React from 'react';
 import MuiAlert, { AlertProps as MuiAlertProps } from '@mui/material/Alert';
-import { tokens } from '@/design-system-v2/theme/theme';
+import { tokens } from '@/theme/theme';
 
 export interface AlertProps extends MuiAlertProps {
   message: string;

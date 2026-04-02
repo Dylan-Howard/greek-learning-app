@@ -10,8 +10,8 @@ import {
 } from '@mui/material';
 import NextLink from 'next/link';
 import { AppShell } from '@/components/layout/AppShell';
-import StatCard from '@/design-system-v2/components/profile/StatCard';
-import ActivityHeatmap from '@/design-system-v2/components/profile/ActivityHeatmap';
+import StatCard from '@/components/profile/StatCard';
+import ActivityHeatmap from '@/components/profile/ActivityHeatmap';
 import { useUserContext } from '@/lib/types/domain/user';
 import {
   experienceProgressPercent,

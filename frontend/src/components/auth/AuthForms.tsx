@@ -12,7 +12,7 @@ import Link from '@mui/material/Link';
 import Alert from '@mui/material/Alert'; // MUI v7: from @mui/material
 import GoogleIcon from '@mui/icons-material/Google';
 import AppleIcon  from '@mui/icons-material/Apple';
-import { tokens } from '@/design-system-v2/theme/theme';
+import { tokens } from '@/theme/theme';
 
 // ── Shared OAuth buttons ──────────────────────────────────────────────────────
 interface OAuthButtonsProps {

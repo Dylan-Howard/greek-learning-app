@@ -7,7 +7,7 @@ import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
-import { DetailsSkeleton } from '@/design-system-v2/components/shared/LoadingSkeleton';
+import { DetailsSkeleton } from '@/components/shared/LoadingSkeleton';
 import * as AzureTextService from '@/lib/api/rest/text';
 import { useReaderContext } from '@/app/reader/ReaderPage/ReaderPageContext';
 import WordAudioButton from '@/components/features/reader/Navigation/WordAudioButton';

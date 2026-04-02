@@ -10,7 +10,7 @@ import {
   Typography,
 } from '@mui/material';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
-import { tokens } from '@/design-system-v2/theme/theme';
+import { tokens } from '@/theme/theme';
 import { CardDto } from '@/lib/types/api';
 
 interface Props {

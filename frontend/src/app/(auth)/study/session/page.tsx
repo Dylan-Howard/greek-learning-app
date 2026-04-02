@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Box, Grid, Typography } from '@mui/material';
-import SessionConfigPanel from '@/design-system-v2/components/srs/SessionConfigPanel';
+import SessionConfigPanel from '@/components/srs/SessionConfigPanel';
 import { useStartStudySessionMutation } from '@/lib/api/graphql/generated';
 import { fetchVocabularySets } from '@/lib/api/rest/vocabulary';
 import { StartSessionRequest, VocabularySetDto } from '@/lib/types/api';

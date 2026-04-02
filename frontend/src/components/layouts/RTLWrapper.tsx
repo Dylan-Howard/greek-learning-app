@@ -11,7 +11,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { StyledEngineProvider } from '@mui/material/styles';
 import createCache from '@emotion/cache';
 import { CacheProvider } from '@emotion/react';
-import theme from '@/design-system-v2/theme/theme';
+import theme from '@/theme/theme';
 
 type Direction = 'ltr' | 'rtl';
 

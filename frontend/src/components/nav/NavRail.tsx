@@ -6,9 +6,9 @@ import Box from '@mui/material/Box';
 import Tooltip from '@mui/material/Tooltip';
 import NextLink from 'next/link';
 import { usePathname } from 'next/navigation';
-import { tokens } from '@/design-system-v2/theme/theme';
+import { tokens } from '@/theme/theme';
 import UserAvatarBadge, { type Tier } from './UserAvatarBadge';
-import { useDirection } from '@/design-system-v2/components/layouts/RTLWrapper';
+import { useDirection } from '@/components/layouts/RTLWrapper';
 
 // MUI icons (Material Symbols Outlined)
 import MenuBookOutlinedIcon     from '@mui/icons-material/MenuBookOutlined';

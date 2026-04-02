@@ -18,9 +18,9 @@ import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import * as AzureTextService from '@/lib/api/rest/text';
 import { AppShell } from '@/components/layout/AppShell';
-import VocabSetCard, { type VocabSet } from '@/design-system-v2/components/vocab/VocabSetCard';
-import VocabWordRow, { type VocabWord } from '@/design-system-v2/components/vocab/VocabWordRow';
-import TransliterationSearchInput from '@/design-system-v2/components/vocab/TransliterationSearchInput';
+import VocabSetCard, { type VocabSet } from '@/components/vocab/VocabSetCard';
+import VocabWordRow, { type VocabWord } from '@/components/vocab/VocabWordRow';
+import TransliterationSearchInput from '@/components/vocab/TransliterationSearchInput';
 import { SimpleWordDto } from '@/lib/types/api';
 import { useGetVocabularySetsQuery } from '@/lib/api/graphql/generated';
 

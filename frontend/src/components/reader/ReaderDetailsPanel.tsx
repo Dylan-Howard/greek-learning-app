@@ -3,7 +3,7 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { tokens } from '@/design-system-v2/theme/theme';
+import { tokens } from '@/theme/theme';
 import DetailsMenu from '@/components/features/reader/Navigation/DetailsMenu';
 
 export default function ReaderDetailsPanel() {

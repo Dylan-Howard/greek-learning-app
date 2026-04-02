@@ -17,7 +17,7 @@ import {
 import { useEffect, useMemo, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { AppShell } from '@/components/layout/AppShell';
-import VocabWordRow, { type VocabWord } from '@/design-system-v2/components/vocab/VocabWordRow';
+import VocabWordRow, { type VocabWord } from '@/components/vocab/VocabWordRow';
 import { fetchVocabularySetById } from '@/lib/api/rest/vocabulary';
 import { VocabularySetItemDto } from '@/lib/types/api';
 import { useUserContext } from '@/lib/types/domain/user';

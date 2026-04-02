@@ -8,7 +8,7 @@ import Link from '@mui/material/Link';
 import Divider from '@mui/material/Divider';
 import { useRouter } from 'next/navigation';
 import PublicLayout from '@/components/public/PublicLayout';
-import { tokens } from '@/design-system-v2/theme/theme';
+import { tokens } from '@/theme/theme';
 import HowItWorksBento from '@/components/public/HowItWorksBento';
 
 function useReveal() {

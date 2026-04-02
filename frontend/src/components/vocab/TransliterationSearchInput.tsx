@@ -8,7 +8,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import FormHelperText from '@mui/material/FormHelperText';
 import Box from '@mui/material/Box';
 import SearchIcon from '@mui/icons-material/Search';
-import { tokens } from '@/design-system-v2/theme/theme';
+import { tokens } from '@/theme/theme';
 
 // Basic transliteration map: Latin string → candidate Greek chars
 // Covers common patterns. A real impl would use a full lookup table or server-side.

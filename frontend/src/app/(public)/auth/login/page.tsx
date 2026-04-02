@@ -3,8 +3,8 @@
 import React from 'react';
 import { useRouter } from 'next/navigation';
 import { useSignIn } from '@clerk/nextjs';
-import AuthShell from '@/design-system-v2/components/layouts/AuthShell';
-import { LoginForm } from '@/design-system-v2/components/auth/AuthForms';
+import AuthShell from '@/components/layouts/AuthShell';
+import { LoginForm } from '@/components/auth/AuthForms';
 
 export default function LoginPage() {
   const router = useRouter();

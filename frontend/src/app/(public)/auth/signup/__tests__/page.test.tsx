@@ -19,7 +19,7 @@ vi.mock('@clerk/nextjs', () => ({
   }),
 }));
 
-vi.mock('@/design-system-v2/components/layouts/AuthShell', () => ({
+vi.mock('@/components/layouts/AuthShell', () => ({
   default: ({ children }: { children: React.ReactNode }) => (
     <div data-testid="auth-shell">{children}</div>
   ),
@@ -27,7 +27,7 @@ vi.mock('@/design-system-v2/components/layouts/AuthShell', () => ({
 
 // Minimal SignUpForm: renders a form that calls onSubmit(email, password) on submit
 // and surfaces errors via an Alert role="alert" element.
-vi.mock('@/design-system-v2/components/auth/AuthForms', () => ({
+vi.mock('@/components/auth/AuthForms', () => ({
   SignUpForm: ({
     onSubmit,
   }: {
@@ -58,6 +58,8 @@ vi.mock('@/design-system-v2/components/auth/AuthForms', () => ({
   },
 }));
 
+type SignUpPageComponent = React.ComponentType;
+
 // ── Tests ────────────────────────────────────────────────────────────────────
 
 describe('SignUpPage', () => {
@@ -72,7 +74,7 @@ describe('SignUpPage', () => {
     });
     mockSetActive.mockResolvedValue(undefined);
 
-    const { default: SignUpPage } = await import('../page');
+    const { default: SignUpPage } = await import('../page.js') as unknown as { default: SignUpPageComponent };
     render(<SignUpPage />);
 
     fireEvent.click(screen.getByRole('button', { name: /create account/i }));
@@ -92,7 +94,7 @@ describe('SignUpPage', () => {
       errors: [{ longMessage: 'Email already in use', message: 'Email already in use' }],
     });
 
-    const { default: SignUpPage } = await import('../page');
+    const { default: SignUpPage } = await import('../page.js') as unknown as { default: SignUpPageComponent };
     render(<SignUpPage />);
 
     fireEvent.click(screen.getByRole('button', { name: /create account/i }));

@@ -1,6 +1,6 @@
 import { type Unitv2 } from '@/lib/types/domain/text';
-import { type Verse } from '@/design-system-v2/components/reader/VerseDisplay';
-import { type WordStatus } from '@/design-system-v2/components/reader/GreekWord';
+import { type Verse } from '@/components/reader/VerseDisplay';
+import { type WordStatus } from '@/components/reader/GreekWord';
 
 const PRACTICE_TYPES = new Set(['original_practice']);
 

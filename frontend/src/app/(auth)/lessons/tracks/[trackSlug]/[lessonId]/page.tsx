@@ -12,7 +12,7 @@ import {
 import { useMemo } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { AppShell } from '@/components/layout/AppShell';
-import { TextBlock } from '@/design-system-v2/components/lessons/LessonBlocks';
+import { TextBlock } from '@/components/lessons/LessonBlocks';
 import {
   useGetLessonByIdQuery,
   useGetLessonTracksQuery,

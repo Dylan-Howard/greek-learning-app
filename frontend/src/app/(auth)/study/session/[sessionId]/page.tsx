@@ -4,14 +4,14 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { Box, Grid, Stack, Typography } from '@mui/material';
 import { AppShell } from '@/components/layout/AppShell';
-import FlashCard from '@/design-system-v2/components/srs/FlashCard';
-import SRSRatingButtons, { type SRSRating } from '@/design-system-v2/components/srs/SRSRatingButtons';
-import SRSSessionProgress from '@/design-system-v2/components/srs/SRSSessionProgress';
-import MultipleChoiceCard from '@/design-system-v2/components/srs/MultipleChoiceCard';
+import FlashCard from '@/components/srs/FlashCard';
+import SRSRatingButtons, { type SRSRating } from '@/components/srs/SRSRatingButtons';
+import SRSSessionProgress from '@/components/srs/SRSSessionProgress';
+import MultipleChoiceCard from '@/components/srs/MultipleChoiceCard';
 import { useRateCardMutation } from '@/lib/api/graphql/generated';
 import { getNextCard } from '@/lib/api/rest/study';
 import { CardDto, Rating } from '@/lib/types/api';
-import { tokens } from '@/design-system-v2/theme/theme';
+import { tokens } from '@/theme/theme';
 
 /** Maps the string Rating type to the integer value expected by the GraphQL API. */
 const RATING_TO_INT: Record<Rating, number> = {

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 import ReaderSidebar from './ReaderSidebar';
-import { type SRSCard } from '@/design-system-v2/components/srs/SRSStudyPanel';
+import { type SRSCard } from '@/components/srs/SRSStudyPanel';
 
 const sampleCards: SRSCard[] = [
   {

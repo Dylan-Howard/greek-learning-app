@@ -11,7 +11,7 @@ import {
 import { useMemo } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { AppShell } from '@/components/layout/AppShell';
-import { LessonCard, type LessonMeta } from '@/design-system-v2/components/lessons/LessonCard';
+import { LessonCard, type LessonMeta } from '@/components/lessons/LessonCard';
 import { useGetLessonTracksQuery, useGetLessonsByTrackQuery } from '@/lib/api/graphql/generated';
 
 export const dynamic = 'force-dynamic';

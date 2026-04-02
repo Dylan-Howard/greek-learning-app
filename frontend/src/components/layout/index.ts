@@ -1,4 +1,3 @@
-export { default as AppThemeProvider } from './AppThemeProvider';
 export { default as ClientProviders } from './ClientProviders';
 export { AppShell } from './AppShell';
 export * from './AppShell';

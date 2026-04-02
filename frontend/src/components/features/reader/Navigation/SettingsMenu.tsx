@@ -13,7 +13,7 @@ import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
-import { SettingsMenuTabSkeleton } from '@/design-system-v2/components/shared/LoadingSkeleton';
+import { SettingsMenuTabSkeleton } from '@/components/shared/LoadingSkeleton';
 
 import * as AzureTextService from '@/lib/api/rest/text';
 import * as AzureUserService from '@/lib/api/rest/user';

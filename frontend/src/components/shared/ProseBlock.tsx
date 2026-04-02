@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Box, styled } from '@mui/material';
-import { tokens } from '@/design-system-v2/theme/theme';
+import { tokens } from '@/theme/theme';
 
 export interface ProseBlockProps {
   children: React.ReactNode;

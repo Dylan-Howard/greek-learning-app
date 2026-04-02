@@ -19,7 +19,7 @@ vi.mock('@clerk/nextjs', () => ({
   }),
 }));
 
-vi.mock('@/design-system-v2/components/layouts/AuthShell', () => ({
+vi.mock('@/components/layouts/AuthShell', () => ({
   default: ({ children }: { children: React.ReactNode }) => (
     <div data-testid="auth-shell">{children}</div>
   ),
@@ -27,7 +27,7 @@ vi.mock('@/design-system-v2/components/layouts/AuthShell', () => ({
 
 // Minimal LoginForm: renders a form that calls onSubmit(email, password) on submit
 // and surfaces errors via an Alert role="alert" element.
-vi.mock('@/design-system-v2/components/auth/AuthForms', () => ({
+vi.mock('@/components/auth/AuthForms', () => ({
   LoginForm: ({
     onSubmit,
   }: {
@@ -58,6 +58,8 @@ vi.mock('@/design-system-v2/components/auth/AuthForms', () => ({
   },
 }));
 
+type LoginPageComponent = React.ComponentType;
+
 // ── Tests ────────────────────────────────────────────────────────────────────
 
 describe('LoginPage', () => {
@@ -72,7 +74,7 @@ describe('LoginPage', () => {
     });
     mockSetActive.mockResolvedValue(undefined);
 
-    const { default: LoginPage } = await import('../page');
+    const { default: LoginPage } = await import('../page.js') as unknown as { default: LoginPageComponent };
     render(<LoginPage />);
 
     fireEvent.click(screen.getByRole('button', { name: /log in/i }));
@@ -92,7 +94,7 @@ describe('LoginPage', () => {
       errors: [{ longMessage: 'Invalid credentials', message: 'Invalid credentials' }],
     });
 
-    const { default: LoginPage } = await import('../page');
+    const { default: LoginPage } = await import('../page.js') as unknown as { default: LoginPageComponent };
     render(<LoginPage />);
 
     fireEvent.click(screen.getByRole('button', { name: /log in/i }));

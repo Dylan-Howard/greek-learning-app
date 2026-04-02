@@ -4,8 +4,8 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress';
 import Typography from '@mui/material/Typography';
-import { Card, type CardProps } from '@/design-system-v2/components/shared/Card';
-import { tokens } from '@/design-system-v2/theme/theme';
+import { Card, type CardProps } from '@/components/shared/Card';
+import { tokens } from '@/theme/theme';
 
 export interface ProgressCardProps extends CardProps {
   progress: number;

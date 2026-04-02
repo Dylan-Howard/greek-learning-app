@@ -2,8 +2,8 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import AuthShell from '@/design-system-v2/components/layouts/AuthShell';
-import { ForgotPasswordForm } from '@/design-system-v2/components/auth/AuthForms';
+import AuthShell from '@/components/layouts/AuthShell';
+import { ForgotPasswordForm } from '@/components/auth/AuthForms';
 
 export default function ForgotPasswordPage() {
   const router = useRouter();

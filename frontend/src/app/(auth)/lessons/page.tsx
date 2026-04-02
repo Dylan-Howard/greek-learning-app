@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 import { useMemo } from 'react';
 import { AppShell } from '@/components/layout/AppShell';
-import { LessonTrackCard } from '@/design-system-v2/components/lessons/LessonTrackCard';
+import { LessonTrackCard } from '@/components/lessons/LessonTrackCard';
 import { useGetLessonTracksQuery } from '@/lib/api/graphql/generated';
 
 export const dynamic = 'force-dynamic';

@@ -4,12 +4,12 @@
 import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
-import { tokens } from '@/design-system-v2/theme/theme';
+import { tokens } from '@/theme/theme';
 import WordDetailPanel, { type ParsedWord } from './WordDetailPanel';
 import StudyLaunchPanel from './StudyLaunchPanel';
-import SRSStudyPanel, { type SRSCard } from '@/design-system-v2/components/srs/SRSStudyPanel';
-import XPToast from '@/design-system-v2/components/gamification/XPToast';
-import { type SRSRating } from '@/design-system-v2/components/srs/SRSRatingButtons';
+import SRSStudyPanel, { type SRSCard } from '@/components/srs/SRSStudyPanel';
+import XPToast from '@/components/gamification/XPToast';
+import { type SRSRating } from '@/components/srs/SRSRatingButtons';
 
 interface Props {
   selectedWord:  ParsedWord | null;

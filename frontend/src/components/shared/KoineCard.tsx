@@ -7,7 +7,7 @@ import {
   CardHeader,
   Typography,
 } from '@mui/material';
-import { Card } from '@/design-system-v2/components/shared/Card';
+import { Card } from '@/components/shared/Card';
 
 export interface KoineCardProps {
   title: string;

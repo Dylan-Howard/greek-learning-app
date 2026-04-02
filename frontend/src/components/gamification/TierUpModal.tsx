@@ -5,8 +5,8 @@ import React, { useEffect, useState } from 'react';
 import Dialog from '@mui/material/Dialog';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { tokens } from '@/design-system-v2/theme/theme';
-import { type Tier } from '@/design-system-v2/components/nav/UserAvatarBadge';
+import { tokens } from '@/theme/theme';
+import { type Tier } from '@/components/nav/UserAvatarBadge';
 
 const TIER_CONFIG: Record<Tier, { color: string; icon: string; flavour: string }> = {
   novice:     { color: tokens.color.tierNovice,     icon: '📖', flavour: 'Your journey in the Greek text begins.' },

@@ -6,7 +6,7 @@ import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import Box from '@mui/material/Box';
 import { usePathname, useRouter } from 'next/navigation';
-import { tokens } from '@/design-system-v2/theme/theme';
+import { tokens } from '@/theme/theme';
 
 import MenuBookOutlinedIcon  from '@mui/icons-material/MenuBookOutlined';
 import StyleOutlinedIcon     from '@mui/icons-material/StyleOutlined';

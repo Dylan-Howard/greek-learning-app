@@ -15,7 +15,7 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Alert from '@mui/material/Alert'; // MUI v7: from @mui/material
 import Image from 'next/image';
-import { tokens } from '@/design-system-v2/theme/theme';
+import { tokens } from '@/theme/theme';
 
 // ── Text Block ────────────────────────────────────────────────────────────────
 interface TextBlockProps { content: string }

@@ -42,11 +42,11 @@ vi.mock('@/lib/services/user/gamification', () => ({
   levelFromExperience: () => 1,
 }));
 
-vi.mock('@/design-system-v2/components/layouts/AppShell', () => ({
+vi.mock('@/components/layouts/AppShell', () => ({
   default: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
 }));
 
-vi.mock('@/design-system-v2/components/nav/UserAvatarBadge', () => ({
+vi.mock('@/components/nav/UserAvatarBadge', () => ({
   default: () => <div />,
 }));
 

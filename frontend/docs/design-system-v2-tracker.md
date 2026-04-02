@@ -1,15 +1,15 @@
 # Design System v2 Migration Tracker
 
-Last Updated: 2026-03-18
+Last Updated: 2026-04-02
 
 ## Status Summary
-- Demo page: Complete
-- Component mapping: Mostly complete
+- Demo page: Removed (assimilated into main app)
+- Component mapping: Complete
 - Page migrations: Complete
 
 ## Phase Checklist
-- [x] Copy v2 components and theme into `src/design-system-v2/`
-- [x] Add `/design-system-v2` demo route
+- [x] Assimilate v2 components into `src/components/` and theme into `src/theme/`
+- [x] Remove `/design-system-v2` demo route
 - [x] Enable MUI CSS layer support via `AppRouterCacheProvider` options
 - [ ] Finalize component mapping (legacy -> v2)
 - [x] Migrate shared layout components (AppShell/NavRail/BottomNav)
@@ -24,25 +24,25 @@ Last Updated: 2026-03-18
 ## Component Mapping Matrix
 | Legacy Component | v2 Component | Status | Notes |
 | --- | --- | --- | --- |
-| `layout/AppShell` | `design-system-v2/components/layouts/AppShell` | Complete | AppShellV2 wrapper |
-| `layout/NavRail` | `design-system-v2/components/nav/NavRail` | Complete | Route map updated |
-| `features/reader/ReaderInterface` | `design-system-v2/components/reader/*` | Complete | ReaderV2Client + adapters |
-| `features/study/FlashCard` | `design-system-v2/components/srs/FlashCard` | Complete | Study session swap |
-| `features/study/RatingButtons` | `design-system-v2/components/srs/SRSRatingButtons` | Complete | Rating enum aligned |
-| `features/study/SessionConfig` | `design-system-v2/components/srs/SessionConfigPanel` | Complete | v2 panel added |
-| `features/study/DashboardStats` | `design-system-v2/components/srs/StudyDashboardStats` | Complete | v2 dashboard added |
-| `features/study/MultipleChoiceCard` | `design-system-v2/components/srs/MultipleChoiceCard` | Complete | v2 MC card added |
-| `features/vocabulary/VocabularySetCard` | `design-system-v2/components/vocab/VocabSetCard` | Complete | Data shape mapped |
-| `features/vocabulary/VocabularyTable` | `design-system-v2/components/vocab/VocabWordRow` | Complete | Table rendering updated |
-| `shared/auth/SignInForm` | `design-system-v2/components/auth/LoginForm` | Complete | Auth pages now use v2 AuthForms |
-| `shared/auth/SignUpForm` | `design-system-v2/components/auth/SignUpForm` | Complete | Auth pages now use v2 AuthForms |
-| `shared/Skeletons` | `design-system-v2/components/shared/LoadingSkeleton` | Complete | Added details/settings skeletons |
-| `shared/feedback/Alert` | `design-system-v2/components/shared/Alert` | Complete | MUI v7 Alert wrapper |
-| `shared/feedback/Dialog` | `design-system-v2/components/shared/Dialog` | Complete | v7 onClose reason handling |
-| `shared/display/Card` | `design-system-v2/components/shared/Card` | Complete | Tokenized v2 card helpers |
-| `shared/content/ProseBlock` | `design-system-v2/components/shared/ProseBlock` | Complete | Tokenized prose container |
-| `shared/OnboardingOptionBox` | `design-system-v2/components/onboarding/OnboardingOptionBox` | Complete | v2 onboarding option box |
-| `shared/OnboardingIllustrations` | `design-system-v2/components/onboarding/OnboardingIllustrations` | Complete | v2 re-export for assets |
+| `layout/AppShell` | `components/layouts/AppShell` | Complete | AppShellV2 wrapper |
+| `layout/NavRail` | `components/nav/NavRail` | Complete | Route map updated |
+| `features/reader/ReaderInterface` | `components/reader/*` | Complete | ReaderV2Client + adapters |
+| `features/study/FlashCard` | `components/srs/FlashCard` | Complete | Study session swap |
+| `features/study/RatingButtons` | `components/srs/SRSRatingButtons` | Complete | Rating enum aligned |
+| `features/study/SessionConfig` | `components/srs/SessionConfigPanel` | Complete | v2 panel added |
+| `features/study/DashboardStats` | `components/srs/StudyDashboardStats` | Complete | v2 dashboard added |
+| `features/study/MultipleChoiceCard` | `components/srs/MultipleChoiceCard` | Complete | v2 MC card added |
+| `features/vocabulary/VocabularySetCard` | `components/vocab/VocabSetCard` | Complete | Data shape mapped |
+| `features/vocabulary/VocabularyTable` | `components/vocab/VocabWordRow` | Complete | Table rendering updated |
+| `shared/auth/SignInForm` | `components/auth/LoginForm` | Complete | Auth pages now use v2 AuthForms |
+| `shared/auth/SignUpForm` | `components/auth/SignUpForm` | Complete | Auth pages now use v2 AuthForms |
+| `shared/Skeletons` | `components/shared/LoadingSkeleton` | Complete | Added details/settings skeletons |
+| `shared/feedback/Alert` | `components/shared/Alert` | Complete | MUI v7 Alert wrapper |
+| `shared/feedback/Dialog` | `components/shared/Dialog` | Complete | v7 onClose reason handling |
+| `shared/display/Card` | `components/shared/Card` | Complete | Tokenized v2 card helpers |
+| `shared/content/ProseBlock` | `components/shared/ProseBlock` | Complete | Tokenized prose container |
+| `shared/OnboardingOptionBox` | `components/onboarding/OnboardingOptionBox` | Complete | v2 onboarding option box |
+| `shared/OnboardingIllustrations` | `components/onboarding/OnboardingIllustrations` | Complete | v2 re-export for assets |
 | `features/landing/*` | No v2 equivalent | Open | Legacy landing components only used in showcase |
 
 ## Page Migration Checklist

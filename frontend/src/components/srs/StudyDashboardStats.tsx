@@ -8,9 +8,9 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-import { tokens } from '@/design-system-v2/theme/theme';
+import { tokens } from '@/theme/theme';
 import { DashboardDto } from '@/lib/types/api';
-import StatCard from '@/design-system-v2/components/profile/StatCard';
+import StatCard from '@/components/profile/StatCard';
 import StyleOutlinedIcon from '@mui/icons-material/StyleOutlined';
 import AutoAwesomeOutlinedIcon from '@mui/icons-material/AutoAwesomeOutlined';
 import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined';
