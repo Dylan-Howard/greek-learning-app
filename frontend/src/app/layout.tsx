@@ -1,6 +1,6 @@
 import { ClerkProvider } from '@clerk/nextjs';
 import InitColorSchemeScript from '@mui/material/InitColorSchemeScript';
-import ThemeProvider from '@/design-system-v2/theme/ThemeProvider';
+import ThemeProvider from '@/theme/ThemeProvider';
 import ClientProviders from '@/components/layout/ClientProviders';
 import '@/styles/globals.css';
 

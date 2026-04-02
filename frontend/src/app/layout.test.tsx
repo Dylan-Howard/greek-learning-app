@@ -8,7 +8,7 @@ vi.mock('@clerk/nextjs', () => ({
   ),
 }));
 vi.mock('@mui/material/InitColorSchemeScript', () => ({ default: () => null }));
-vi.mock('@/design-system-v2/theme/ThemeProvider', () => ({
+vi.mock('@/theme/ThemeProvider', () => ({
   default: ({ children }: { children: React.ReactNode }) => (
     <div data-testid="theme-provider">{children}</div>
   ),
@@ -42,6 +42,10 @@ function outermostType(node: React.ReactNode): unknown {
   return node.type;
 }
 
+type RootLayoutComponent = (props: {
+  children: React.ReactNode;
+}) => Promise<React.ReactElement> | React.ReactElement;
+
 describe('RootLayout', () => {
   afterEach(() => {
     vi.unstubAllEnvs();
@@ -50,7 +54,7 @@ describe('RootLayout', () => {
   it('renders ClerkProvider as the outermost wrapper', async () => {
     vi.stubEnv('NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY', 'pk_test_abc123');
 
-    const { default: RootLayout } = await import('./layout');
+    const { default: RootLayout } = await import('./layout.js') as unknown as { default: RootLayoutComponent };
     const { ClerkProvider } = await import('@clerk/nextjs');
 
     const jsx = await RootLayout({ children: <span>hello</span> });
@@ -66,7 +70,7 @@ describe('RootLayout', () => {
     vi.stubEnv('NEXT_PUBLIC_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL', '/reader');
     vi.stubEnv('NEXT_PUBLIC_CLERK_SIGN_UP_FORCE_REDIRECT_URL', '/onboarding');
 
-    const { default: RootLayout } = await import('./layout');
+    const { default: RootLayout } = await import('./layout.js') as unknown as { default: RootLayoutComponent };
 
     const jsx = await RootLayout({ children: <span>hello</span> });
 
@@ -88,7 +92,7 @@ describe('RootLayout', () => {
       ),
     }));
     vi.doMock('@mui/material/InitColorSchemeScript', () => ({ default: () => null }));
-    vi.doMock('@/design-system-v2/theme/ThemeProvider', () => ({
+    vi.doMock('@/theme/ThemeProvider', () => ({
       default: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
     }));
     vi.doMock('@/components/layout/ClientProviders', () => ({
@@ -96,7 +100,7 @@ describe('RootLayout', () => {
     }));
     vi.doMock('@/styles/globals.css', () => ({}));
 
-    await expect(import('./layout')).rejects.toThrow(
+    await expect(import('./layout.js')).rejects.toThrow(
       'NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY is required'
     );
   });
