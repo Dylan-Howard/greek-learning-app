@@ -11,6 +11,7 @@ inclusion: always
 - Keep first line under 50 characters
 - Use imperative mood ("Add feature" not "Added feature")
 - Include body for complex changes
+- Commit messages are enforced via commit hooks (commitlint)
 
 ## Branching
 - Use feature branches for new development
@@ -27,7 +28,7 @@ inclusion: always
 ## Repository Management
 - Use .gitignore to exclude build artifacts and secrets
 - Keep repository size manageable (use Git LFS for large files)
-- Tag releases with semantic versioning
+- Tag releases with CalVer: `YYYY.MM.DD.patch` (UTC)
 - Document branching strategy in README
 
 ## Security

@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+
+set -e
+
+dotnet test backend/tests/Koine.Tests/Koine.Tests.csproj -m:1
+npm --prefix frontend run test -- --run

@@ -71,6 +71,25 @@ Configured via `appsettings*.json` or environment variables:
 cd frontend && npm run storybook
 ```
 
+## Git Hygiene
+
+- Conventional Commits are enforced via commit hooks.
+- Pre-commit runs backend and frontend test suites.
+
+Setup hooks once after cloning:
+
+```bash
+npm install
+```
+
+## Releases (CalVer)
+
+- Release tags use CalVer: `YYYY.MM.DD.patch` (UTC).
+- Releases are created via the `Release` GitHub Action (manual trigger).
+- Docker images are published to GHCR with CalVer and `latest` tags:
+  - `ghcr.io/<owner>/<repo>-backend`
+  - `ghcr.io/<owner>/<repo>-frontend`
+
 ## Data Utility Notes
 
 Book-level C# seed wrappers can be generated via:
