@@ -8,6 +8,10 @@ vi.mock('@clerk/nextjs', () => ({
   ),
 }));
 vi.mock('@mui/material/InitColorSchemeScript', () => ({ default: () => null }));
+vi.mock('next/font/google', () => ({
+  Noto_Sans: () => ({ variable: 'noto-sans' }),
+  Noto_Serif: () => ({ variable: 'noto-serif' }),
+}));
 vi.mock('@/theme/ThemeProvider', () => ({
   default: ({ children }: { children: React.ReactNode }) => (
     <div data-testid="theme-provider">{children}</div>

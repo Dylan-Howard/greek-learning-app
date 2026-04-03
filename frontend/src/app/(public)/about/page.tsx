@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 
 import {
@@ -196,10 +197,12 @@ function About() {
       >
         <Grid  size={{ xs: 3 }}>
           <Stack direction="row">
-            <img
+            <Image
               className="FooterLogo"
-              src="./static/img/icon-500x500.png"
+              src="/static/img/icon-500x500.png"
               alt="Koine"
+              width={40}
+              height={40}
             />
             <Typography
               className="TextGreek"

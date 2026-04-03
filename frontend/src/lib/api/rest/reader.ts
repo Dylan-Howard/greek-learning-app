@@ -113,7 +113,6 @@ export function mapRenderedUnitsToDisplayUnits(units: RawRenderedUnitDto[] = [])
     const verseNumber = extractVerseNumber(unit.path);
 
     if (isReaderDebugEnabled && !content) {
-      // eslint-disable-next-line no-console
       console.warn('[ReaderDebug] Empty leaf content after normalization', {
         unit,
         parents,
@@ -172,7 +171,6 @@ export async function fetchPage(chapterNumber: number, userId: string, bookId = 
   ]);
 
   if (isReaderDebugEnabled) {
-    // eslint-disable-next-line no-console
     console.log('[ReaderDebug] Raw reader payload', {
       chapterId: rendered.chapterId,
       title: rendered.title,
@@ -184,7 +182,6 @@ export async function fetchPage(chapterNumber: number, userId: string, bookId = 
   const mappedUnits = mapRenderedUnitsToDisplayUnits(rendered.units);
 
   if (isReaderDebugEnabled) {
-    // eslint-disable-next-line no-console
     console.log('[ReaderDebug] Mapped display units', {
       count: mappedUnits.length,
       emptyCount: mappedUnits.filter((x) => !x.content).length,
