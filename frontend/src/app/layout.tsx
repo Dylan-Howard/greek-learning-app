@@ -2,6 +2,7 @@ import { ClerkProvider } from '@clerk/nextjs';
 import InitColorSchemeScript from '@mui/material/InitColorSchemeScript';
 import { Noto_Sans, Noto_Serif } from 'next/font/google';
 import ThemeProvider from '@/theme/ThemeProvider';
+import { tokens } from '@/theme/theme';
 import ClientProviders from '@/components/layout/ClientProviders';
 import '@/styles/globals.css';
 
@@ -17,8 +18,8 @@ const notoSerif = Noto_Serif({
   variable: '--font-noto-serif',
 });
 
-const THEME_COLOR_LIGHT = '#6B4226';
-const THEME_COLOR_DARK = '#4A2C17';
+const THEME_COLOR_LIGHT = tokens.color.primary;
+const THEME_COLOR_DARK = tokens.color.primaryDark;
 
 if (!process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY) {
   throw new Error('NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY is required');
