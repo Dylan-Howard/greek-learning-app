@@ -2800,7 +2800,7 @@ namespace Koine.Infrastructure.Data.Seed
                                 {
                                     new Word { Greek = "ὑμῶν", Transliteration = "hymōn", Gloss = "your", GrammarCodes = new List<string> { "PRON", "GEN", "P" }, PartOfSpeech = "prep" },
                                     new Word { Greek = "τὰς", Transliteration = "tas", Gloss = "the", GrammarCodes = new List<string> { "ART", "ACC", "F", "P" }, PartOfSpeech = "art" },
-                                    new Word { Word { Greek = "καρδίας", Transliteration = "kardias", Gloss = "hearts", GrammarCodes = new List<string> { "N", "ACC", "F", "P" }, PartOfSpeech = "n" }
+                                    new Word { Greek = "καρδίας", Transliteration = "kardias", Gloss = "hearts", GrammarCodes = new List<string> { "N", "ACC", "F", "P" }, PartOfSpeech = "n" }
                                 },
                                 Translation = "your hearts"
                             },
@@ -2893,7 +2893,7 @@ namespace Koine.Infrastructure.Data.Seed
                         },
                         Translation = "so that he may establish your hearts blameless in holiness before our God and Father at the coming of our Lord Jesus with all his saints. Amen."
                     }
-                };,
+                }
             };
         }
 

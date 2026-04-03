@@ -2590,7 +2590,7 @@ namespace Koine.Infrastructure.Data.Seed
                                 Content = new List<object>
                                 {
                                     new Word { Greek = "ἀπὸ", Transliteration = "apo", Gloss = "from", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "prep" },
-                                    new Word { Word { Greek = "δόξης", Transliteration = "doxēs", Gloss = "glory", GrammarCodes = new List<string> { "N", "GEN", "F", "S" }, PartOfSpeech = "n" }
+                                    new Word { Greek = "δόξης", Transliteration = "doxēs", Gloss = "glory", GrammarCodes = new List<string> { "N", "GEN", "F", "S" }, PartOfSpeech = "n" }
                                 },
                                 Translation = "from glory"
                             },
@@ -2635,7 +2635,7 @@ namespace Koine.Infrastructure.Data.Seed
                         },
                         Translation = "And we all, with unveiled face, beholding the glory of the Lord, are being transformed into the same image from glory to glory, just as from the Lord, the Spirit."
                     }
-                };,
+                }
             };
         }
 

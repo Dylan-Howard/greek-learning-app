@@ -3567,11 +3567,11 @@ namespace Koine.Infrastructure.Data.Seed
                     SyntaxCodes = new List<string> { "INDEP_CLAUSE" },
                     Content = new List<object>
                     {
-                        new Word { Greek = "Τί", Transliteration = "Ti", Gloss = "What", Grammar_Codes = new List<string> { "PRON", "ACC", "N", "S" }, PartOfSpeech = "pronoun" },
-                        new Word { Greek = "οὖν", Transliteration = "oun", Gloss = "then", Grammar_Codes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
-                        new Word { Greek = "προεχόμεθα", Transliteration = "proechometha", Gloss = "are we better off", Grammar_Codes = new List<string> { "V", "PRES", "MID", "IND", "1P", "P" }, PartOfSpeech = "verb" },
-                        new Word { Greek = "οὐ", Transliteration = "ou", Gloss = "No", Grammar_Codes = new List<string> { "ADV" }, PartOfSpeech = "adv" },
-                        new Word { Greek = "πάντως", Transliteration = "pantōs", Gloss = "at all", Grammar_Codes = new List<string> { "ADV" }, PartOfSpeech = "adv" }
+                        new Word { Greek = "Τί", Transliteration = "Ti", Gloss = "What", GrammarCodes = new List<string> { "PRON", "ACC", "N", "S" }, PartOfSpeech = "pronoun" },
+                        new Word { Greek = "οὖν", Transliteration = "oun", Gloss = "then", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
+                        new Word { Greek = "προεχόμεθα", Transliteration = "proechometha", Gloss = "are we better off", GrammarCodes = new List<string> { "V", "PRES", "MID", "IND", "1P", "P" }, PartOfSpeech = "verb" },
+                        new Word { Greek = "οὐ", Transliteration = "ou", Gloss = "No", GrammarCodes = new List<string> { "ADV" }, PartOfSpeech = "adv" },
+                        new Word { Greek = "πάντως", Transliteration = "pantōs", Gloss = "at all", GrammarCodes = new List<string> { "ADV" }, PartOfSpeech = "adv" }
                     },
                     Translation = "What then? Are we better off? No, not at all."
                 },
@@ -3580,18 +3580,18 @@ namespace Koine.Infrastructure.Data.Seed
                     SyntaxCodes = new List<string> { "INDEP_CLAUSE" },
                     Content = new List<object>
                     {
-                        new Word { Greek = "προῃτιασάμεθα", Transliteration = "proēitiasametha", Gloss = "we have already charged", Grammar_Codes = new List<string> { "V", "AOR", "MID", "IND", "1P", "P" }, PartOfSpeech = "verb" },
-                        new Word { Greek = "γὰρ", Transliteration = "gar", Gloss = "for", Grammar_Codes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
+                        new Word { Greek = "προῃτιασάμεθα", Transliteration = "proēitiasametha", Gloss = "we have already charged", GrammarCodes = new List<string> { "V", "AOR", "MID", "IND", "1P", "P" }, PartOfSpeech = "verb" },
+                        new Word { Greek = "γὰρ", Transliteration = "gar", Gloss = "for", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
                         new Phrase
                         {
                             SyntaxCodes = new List<string> { "NOUN_PHRASE", "OBJ" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "Ἰουδαίους", Transliteration = "Ioudaious", Gloss = "Jews", Grammar_Codes = new List<string> { "ADJ", "ACC", "M", "P" }, PartOfSpeech = "adj" },
-                                new Word { Greek = "τε", Transliteration = "te", Gloss = "both", Grammar_Codes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
-                                new Word { Greek = "καὶ", Transliteration = "kai", Gloss = "and", Grammar_Codes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
-                                new Word { Greek = "Ἕλληνας", Transliteration = "Hellēnas", Gloss = "Greeks", Grammar_Codes = new List<string> { "N", "ACC", "M", "P" }, PartOfSpeech = "noun" },
-                                new Word { Greek = "πάντας", Transliteration = "pantas", Gloss = "all", Grammar_Codes = new List<string> { "ADJ", "ACC", "M", "P" }, PartOfSpeech = "adj" }
+                                new Word { Greek = "Ἰουδαίους", Transliteration = "Ioudaious", Gloss = "Jews", GrammarCodes = new List<string> { "ADJ", "ACC", "M", "P" }, PartOfSpeech = "adj" },
+                                new Word { Greek = "τε", Transliteration = "te", Gloss = "both", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
+                                new Word { Greek = "καὶ", Transliteration = "kai", Gloss = "and", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
+                                new Word { Greek = "Ἕλληνας", Transliteration = "Hellēnas", Gloss = "Greeks", GrammarCodes = new List<string> { "N", "ACC", "M", "P" }, PartOfSpeech = "noun" },
+                                new Word { Greek = "πάντας", Transliteration = "pantas", Gloss = "all", GrammarCodes = new List<string> { "ADJ", "ACC", "M", "P" }, PartOfSpeech = "adj" }
                             },
                             Translation = "both Jews and Greeks all"
                         },
@@ -3605,12 +3605,12 @@ namespace Koine.Infrastructure.Data.Seed
                                     SyntaxCodes = new List<string> { "PREP_PHRASE" },
                                     Content = new List<object>
                                     {
-                                        new Word { Greek = "ὑφ᾽", Transliteration = "hyph'", Gloss = "under", Grammar_Codes = new List<string> { "PREP" }, PartOfSpeech = "preposition" },
-                                        new Word { Greek = "ἁμαρτίαν", Transliteration = "hamartian", Gloss = "sin", Grammar_Codes = new List<string> { "N", "ACC", "F", "S" }, PartOfSpeech = "noun" }
+                                        new Word { Greek = "ὑφ᾽", Transliteration = "hyph'", Gloss = "under", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "preposition" },
+                                        new Word { Greek = "ἁμαρτίαν", Transliteration = "hamartian", Gloss = "sin", GrammarCodes = new List<string> { "N", "ACC", "F", "S" }, PartOfSpeech = "noun" }
                                     },
                                     Translation = "under sin"
                                 },
-                                new Word { Greek = "εἶναι", Transliteration = "einai", Gloss = "to be", Grammar_Codes = new List<string> { "V", "PRES", "ACT", "INF" }, PartOfSpeech = "verb" }
+                                new Word { Greek = "εἶναι", Transliteration = "einai", Gloss = "to be", GrammarCodes = new List<string> { "V", "PRES", "ACT", "INF" }, PartOfSpeech = "verb" }
                             },
                             Translation = "to be under sin"
                         }
@@ -3624,19 +3624,19 @@ namespace Koine.Infrastructure.Data.Seed
                     SyntaxCodes = new List<string> { "INDEP_CLAUSE" },
                     Content = new List<object>
                     {
-                        new Word { Greek = "καθὼς", Transliteration = "kathōs", Gloss = "as", Grammar_Codes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
-                        new Word { Greek = "γέγραπται", Transliteration = "gegraptai", Gloss = "it is written", Grammar_Codes = new List<string> { "V", "PERF", "PASS", "IND", "3P", "S" }, PartOfSpeech = "verb" },
+                        new Word { Greek = "καθὼς", Transliteration = "kathōs", Gloss = "as", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
+                        new Word { Greek = "γέγραπται", Transliteration = "gegraptai", Gloss = "it is written", GrammarCodes = new List<string> { "V", "PERF", "PASS", "IND", "3P", "S" }, PartOfSpeech = "verb" },
                         new Phrase
                         {
                             SyntaxCodes = new List<string> { "DEP_CLAUSE" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "ὅτι", Transliteration = "hoti", Gloss = "that", Grammar_Codes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
-                                new Word { Greek = "οὐκ", Transliteration = "ouk", Gloss = "None", Grammar_Codes = new List<string> { "ADV" }, PartOfSpeech = "adv" },
-                                new Word { Greek = "ἔστιν", Transliteration = "estin", Gloss = "is", Grammar_Codes = new List<string> { "V", "PRES", "ACT", "IND", "3P", "S" }, PartOfSpeech = "verb" },
-                                new Word { Greek = "δίκαιος", Transliteration = "dikaios", Gloss = "righteous", Grammar_Codes = new List<string> { "ADJ", "NOM", "M", "S" }, PartOfSpeech = "adj" },
-                                new Word { Greek = "οὐδὲ", Transliteration = "oude", Gloss = "not even", Grammar_Codes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
-                                new Word { Greek = "εἷς", Transliteration = "heis", Gloss = "one", Grammar_Codes = new List<string> { "ADJ", "NOM", "M", "S" }, PartOfSpeech = "adj" }
+                                new Word { Greek = "ὅτι", Transliteration = "hoti", Gloss = "that", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
+                                new Word { Greek = "οὐκ", Transliteration = "ouk", Gloss = "None", GrammarCodes = new List<string> { "ADV" }, PartOfSpeech = "adv" },
+                                new Word { Greek = "ἔστιν", Transliteration = "estin", Gloss = "is", GrammarCodes = new List<string> { "V", "PRES", "ACT", "IND", "3P", "S" }, PartOfSpeech = "verb" },
+                                new Word { Greek = "δίκαιος", Transliteration = "dikaios", Gloss = "righteous", GrammarCodes = new List<string> { "ADJ", "NOM", "M", "S" }, PartOfSpeech = "adj" },
+                                new Word { Greek = "οὐδὲ", Transliteration = "oude", Gloss = "not even", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
+                                new Word { Greek = "εἷς", Transliteration = "heis", Gloss = "one", GrammarCodes = new List<string> { "ADJ", "NOM", "M", "S" }, PartOfSpeech = "adj" }
                             },
                             Translation = "that none is righteous, no, not one"
                         }
@@ -3650,15 +3650,15 @@ namespace Koine.Infrastructure.Data.Seed
                     SyntaxCodes = new List<string> { "INDEP_CLAUSE" },
                     Content = new List<object>
                     {
-                        new Word { Greek = "οὐκ", Transliteration = "ouk", Gloss = "no one", Grammar_Codes = new List<string> { "ADV" }, PartOfSpeech = "adv" },
-                        new Word { Greek = "ἔστιν", Transliteration = "estin", Gloss = "is", Grammar_Codes = new List<string> { "V", "PRES", "ACT", "IND", "3P", "S" }, PartOfSpeech = "verb" },
+                        new Word { Greek = "οὐκ", Transliteration = "ouk", Gloss = "no one", GrammarCodes = new List<string> { "ADV" }, PartOfSpeech = "adv" },
+                        new Word { Greek = "ἔστιν", Transliteration = "estin", Gloss = "is", GrammarCodes = new List<string> { "V", "PRES", "ACT", "IND", "3P", "S" }, PartOfSpeech = "verb" },
                         new Phrase
                         {
                             SyntaxCodes = new List<string> { "NOUN_PHRASE", "SUBJ" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "ὁ", Transliteration = "ho", Gloss = "the [one]", Grammar_Codes = new List<string> { "ART", "NOM", "M", "S" }, PartOfSpeech = "art" },
-                                new Word { Greek = "συνίων", Transliteration = "syniōn", Gloss = "understanding", Grammar_Codes = new List<string> { "V", "PRES", "ACT", "PTCP", "NOM", "M", "S" }, PartOfSpeech = "verb" }
+                                new Word { Greek = "ὁ", Transliteration = "ho", Gloss = "the [one]", GrammarCodes = new List<string> { "ART", "NOM", "M", "S" }, PartOfSpeech = "art" },
+                                new Word { Greek = "συνίων", Transliteration = "syniōn", Gloss = "understanding", GrammarCodes = new List<string> { "V", "PRES", "ACT", "PTCP", "NOM", "M", "S" }, PartOfSpeech = "verb" }
                             },
                             Translation = "the one who understands"
                         }
@@ -3670,22 +3670,22 @@ namespace Koine.Infrastructure.Data.Seed
                     SyntaxCodes = new List<string> { "INDEP_CLAUSE" },
                     Content = new List<object>
                     {
-                        new Word { Greek = "οὐκ", Transliteration = "ouk", Gloss = "no one", Grammar_Codes = new List<string> { "ADV" }, PartOfSpeech = "adv" },
-                        new Word { Greek = "ἔστιν", Transliteration = "estin", Gloss = "is", Grammar_Codes = new List<string> { "V", "PRES", "ACT", "IND", "3P", "S" }, PartOfSpeech = "verb" },
+                        new Word { Greek = "οὐκ", Transliteration = "ouk", Gloss = "no one", GrammarCodes = new List<string> { "ADV" }, PartOfSpeech = "adv" },
+                        new Word { Greek = "ἔστιν", Transliteration = "estin", Gloss = "is", GrammarCodes = new List<string> { "V", "PRES", "ACT", "IND", "3P", "S" }, PartOfSpeech = "verb" },
                         new Phrase
                         {
                             SyntaxCodes = new List<string> { "NOUN_PHRASE", "SUBJ" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "ὁ", Transliteration = "ho", Gloss = "the [one]", Grammar_Codes = new List<string> { "ART", "NOM", "M", "S" }, PartOfSpeech = "art" },
-                                new Word { Greek = "ἐκζητῶν", Transliteration = "ekzētōn", Gloss = "seeking", Grammar_Codes = new List<string> { "V", "PRES", "ACT", "PTCP", "NOM", "M", "S" }, PartOfSpeech = "verb" },
+                                new Word { Greek = "ὁ", Transliteration = "ho", Gloss = "the [one]", GrammarCodes = new List<string> { "ART", "NOM", "M", "S" }, PartOfSpeech = "art" },
+                                new Word { Greek = "ἐκζητῶν", Transliteration = "ekzētōn", Gloss = "seeking", GrammarCodes = new List<string> { "V", "PRES", "ACT", "PTCP", "NOM", "M", "S" }, PartOfSpeech = "verb" },
                                 new Phrase
                                 {
                                     SyntaxCodes = new List<string> { "NOUN_PHRASE", "OBJ" },
                                     Content = new List<object>
                                     {
-                                        new Word { Greek = "τὸν", Transliteration = "ton", Gloss = "the", Grammar_Codes = new List<string> { "ART", "ACC", "M", "S" }, PartOfSpeech = "art" },
-                                        new Word { Greek = "θεόν", Transliteration = "theon", Gloss = "God", Grammar_Codes = new List<string> { "N", "ACC", "M", "S" }, PartOfSpeech = "noun" }
+                                        new Word { Greek = "τὸν", Transliteration = "ton", Gloss = "the", GrammarCodes = new List<string> { "ART", "ACC", "M", "S" }, PartOfSpeech = "art" },
+                                        new Word { Greek = "θεόν", Transliteration = "theon", Gloss = "God", GrammarCodes = new List<string> { "N", "ACC", "M", "S" }, PartOfSpeech = "noun" }
                                     },
                                     Translation = "God"
                                 }
@@ -3702,10 +3702,10 @@ namespace Koine.Infrastructure.Data.Seed
                     SyntaxCodes = new List<string> { "INDEP_CLAUSE" },
                     Content = new List<object>
                     {
-                        new Word { Greek = "πάντες", Transliteration = "pantes", Gloss = "All", Grammar_Codes = new List<string> { "ADJ", "NOM", "M", "P" }, PartOfSpeech = "adj" },
-                        new Word { Greek = "ἐξέκλιναν", Transliteration = "exeklinan", Gloss = "have turned aside", Grammar_Codes = new List<string> { "V", "AOR", "ACT", "IND", "3P", "P" }, PartOfSpeech = "verb" },
-                        new Word { Greek = "ἅμα", Transliteration = "hama", Gloss = "together", Grammar_Codes = new List<string> { "ADV" }, PartOfSpeech = "adv" },
-                        new Word { Greek = "ἠχρεώθησαν", Transliteration = "ēchreōthēsan", Gloss = "they have become worthless", Grammar_Codes = new List<string> { "V", "AOR", "PASS", "IND", "3P", "P" }, PartOfSpeech = "verb" }
+                        new Word { Greek = "πάντες", Transliteration = "pantes", Gloss = "All", GrammarCodes = new List<string> { "ADJ", "NOM", "M", "P" }, PartOfSpeech = "adj" },
+                        new Word { Greek = "ἐξέκλιναν", Transliteration = "exeklinan", Gloss = "have turned aside", GrammarCodes = new List<string> { "V", "AOR", "ACT", "IND", "3P", "P" }, PartOfSpeech = "verb" },
+                        new Word { Greek = "ἅμα", Transliteration = "hama", Gloss = "together", GrammarCodes = new List<string> { "ADV" }, PartOfSpeech = "adv" },
+                        new Word { Greek = "ἠχρεώθησαν", Transliteration = "ēchreōthēsan", Gloss = "they have become worthless", GrammarCodes = new List<string> { "V", "AOR", "PASS", "IND", "3P", "P" }, PartOfSpeech = "verb" }
                     },
                     Translation = "All have turned aside; together they have become worthless;"
                 },
@@ -3714,16 +3714,16 @@ namespace Koine.Infrastructure.Data.Seed
                     SyntaxCodes = new List<string> { "INDEP_CLAUSE" },
                     Content = new List<object>
                     {
-                        new Word { Greek = "οὐκ", Transliteration = "ouk", Gloss = "no one", Grammar_Codes = new List<string> { "ADV" }, PartOfSpeech = "adv" },
-                        new Word { Greek = "ἔστιν", Transliteration = "estin", Gloss = "is", Grammar_Codes = new List<string> { "V", "PRES", "ACT", "IND", "3P", "S" }, PartOfSpeech = "verb" },
+                        new Word { Greek = "οὐκ", Transliteration = "ouk", Gloss = "no one", GrammarCodes = new List<string> { "ADV" }, PartOfSpeech = "adv" },
+                        new Word { Greek = "ἔστιν", Transliteration = "estin", Gloss = "is", GrammarCodes = new List<string> { "V", "PRES", "ACT", "IND", "3P", "S" }, PartOfSpeech = "verb" },
                         new Phrase
                         {
                             SyntaxCodes = new List<string> { "NOUN_PHRASE", "SUBJ" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "ὁ", Transliteration = "ho", Gloss = "the [one]", Grammar_Codes = new List<string> { "ART", "NOM", "M", "S" }, PartOfSpeech = "art" },
-                                new Word { Greek = "ποιῶν", Transliteration = "poiōn", Gloss = "doing", Grammar_Codes = new List<string> { "V", "PRES", "ACT", "PTCP", "NOM", "M", "S" }, PartOfSpeech = "verb" },
-                                new Word { Greek = "χρηστότητα", Transliteration = "chrēstotēta", Gloss = "good", Grammar_Codes = new List<string> { "N", "ACC", "F", "S" }, PartOfSpeech = "noun" }
+                                new Word { Greek = "ὁ", Transliteration = "ho", Gloss = "the [one]", GrammarCodes = new List<string> { "ART", "NOM", "M", "S" }, PartOfSpeech = "art" },
+                                new Word { Greek = "ποιῶν", Transliteration = "poiōn", Gloss = "doing", GrammarCodes = new List<string> { "V", "PRES", "ACT", "PTCP", "NOM", "M", "S" }, PartOfSpeech = "verb" },
+                                new Word { Greek = "χρηστότητα", Transliteration = "chrēstotēta", Gloss = "good", GrammarCodes = new List<string> { "N", "ACC", "F", "S" }, PartOfSpeech = "noun" }
                             },
                             Translation = "the one who does good"
                         }
@@ -3735,15 +3735,15 @@ namespace Koine.Infrastructure.Data.Seed
                     SyntaxCodes = new List<string> { "INDEP_CLAUSE" },
                     Content = new List<object>
                     {
-                        new Word { Greek = "οὐκ", Transliteration = "ouk", Gloss = "no", Grammar_Codes = new List<string> { "ADV" }, PartOfSpeech = "adv" },
-                        new Word { Greek = "ἔστιν", Transliteration = "estin", Gloss = "is [there]", Grammar_Codes = new List<string> { "V", "PRES", "ACT", "IND", "3P", "S" }, PartOfSpeech = "verb" },
+                        new Word { Greek = "οὐκ", Transliteration = "ouk", Gloss = "no", GrammarCodes = new List<string> { "ADV" }, PartOfSpeech = "adv" },
+                        new Word { Greek = "ἔστιν", Transliteration = "estin", Gloss = "is [there]", GrammarCodes = new List<string> { "V", "PRES", "ACT", "IND", "3P", "S" }, PartOfSpeech = "verb" },
                         new Phrase
                         {
                             SyntaxCodes = new List<string> { "PREP_PHRASE" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "ἕως", Transliteration = "heōs", Gloss = "even", Grammar_Codes = new List<string> { "PREP" }, PartOfSpeech = "preposition" },
-                                new Word { Greek = "ἑνός", Transliteration = "henos", Gloss = "one", Grammar_Codes = new List<string> { "ADJ", "GEN", "M", "S" }, PartOfSpeech = "adj" }
+                                new Word { Greek = "ἕως", Transliteration = "heōs", Gloss = "even", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "preposition" },
+                                new Word { Greek = "ἑνός", Transliteration = "henos", Gloss = "one", GrammarCodes = new List<string> { "ADJ", "GEN", "M", "S" }, PartOfSpeech = "adj" }
                             },
                             Translation = "even one"
                         }
@@ -3762,8 +3762,8 @@ namespace Koine.Infrastructure.Data.Seed
                             SyntaxCodes = new List<string> { "NOUN_PHRASE", "PRED" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "τάφος", Transliteration = "taphos", Gloss = "grave", Grammar_Codes = new List<string> { "N", "NOM", "M", "S" }, PartOfSpeech = "noun" },
-                                new Word { Greek = "ἀνεῳγμένος", Transliteration = "aneōigmenos", Gloss = "opened", Grammar_Codes = new List<string> { "V", "PERF", "PASS", "PTCP", "NOM", "M", "S" }, PartOfSpeech = "verb" }
+                                new Word { Greek = "τάφος", Transliteration = "taphos", Gloss = "grave", GrammarCodes = new List<string> { "N", "NOM", "M", "S" }, PartOfSpeech = "noun" },
+                                new Word { Greek = "ἀνεῳγμένος", Transliteration = "aneōigmenos", Gloss = "opened", GrammarCodes = new List<string> { "V", "PERF", "PASS", "PTCP", "NOM", "M", "S" }, PartOfSpeech = "verb" }
                             },
                             Translation = "an open grave"
                         },
@@ -3772,9 +3772,9 @@ namespace Koine.Infrastructure.Data.Seed
                             SyntaxCodes = new List<string> { "NOUN_PHRASE", "SUBJ" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "ὁ", Transliteration = "ho", Gloss = "the", Grammar_Codes = new List<string> { "ART", "NOM", "M", "S" }, PartOfSpeech = "art" },
-                                new Word { Greek = "λάρυγξ", Transliteration = "laryngx", Gloss = "throat", Grammar_Codes = new List<string> { "N", "NOM", "M", "S" }, PartOfSpeech = "noun" },
-                                new Word { Greek = "αὐτῶν", Transliteration = "autōn", Gloss = "of them", Grammar_Codes = new List<string> { "PRON", "GEN", "M", "P" }, PartOfSpeech = "pronoun" }
+                                new Word { Greek = "ὁ", Transliteration = "ho", Gloss = "the", GrammarCodes = new List<string> { "ART", "NOM", "M", "S" }, PartOfSpeech = "art" },
+                                new Word { Greek = "λάρυγξ", Transliteration = "laryngx", Gloss = "throat", GrammarCodes = new List<string> { "N", "NOM", "M", "S" }, PartOfSpeech = "noun" },
+                                new Word { Greek = "αὐτῶν", Transliteration = "autōn", Gloss = "of them", GrammarCodes = new List<string> { "PRON", "GEN", "M", "P" }, PartOfSpeech = "pronoun" }
                             },
                             Translation = "their throat"
                         }
@@ -3791,13 +3791,13 @@ namespace Koine.Infrastructure.Data.Seed
                             SyntaxCodes = new List<string> { "PREP_PHRASE", "DAT_INSTR" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "ταῖς", Transliteration = "tais", Gloss = "with the", Grammar_Codes = new List<string> { "ART", "DAT", "F", "P" }, PartOfSpeech = "art" },
-                                new Word { Greek = "γλώσσαις", Transliteration = "glōssais", Gloss = "tongues", Grammar_Codes = new List<string> { "N", "DAT", "F", "P" }, PartOfSpeech = "noun" },
-                                new Word { Greek = "αὐτῶν", Transliteration = "autōn", Gloss = "of them", Grammar_Codes = new List<string> { "PRON", "GEN", "M", "P" }, PartOfSpeech = "pronoun" }
+                                new Word { Greek = "ταῖς", Transliteration = "tais", Gloss = "with the", GrammarCodes = new List<string> { "ART", "DAT", "F", "P" }, PartOfSpeech = "art" },
+                                new Word { Greek = "γλώσσαις", Transliteration = "glōssais", Gloss = "tongues", GrammarCodes = new List<string> { "N", "DAT", "F", "P" }, PartOfSpeech = "noun" },
+                                new Word { Greek = "αὐτῶν", Transliteration = "autōn", Gloss = "of them", GrammarCodes = new List<string> { "PRON", "GEN", "M", "P" }, PartOfSpeech = "pronoun" }
                             },
                             Translation = "with their tongues"
                         },
-                        new Word { Greek = "ἐδολιοῦσαν", Transliteration = "edoliousan", Gloss = "they were deceiving", Grammar_Codes = new List<string> { "V", "IMPF", "ACT", "IND", "3P", "P" }, PartOfSpeech = "verb" }
+                        new Word { Greek = "ἐδολιοῦσαν", Transliteration = "edoliousan", Gloss = "they were deceiving", GrammarCodes = new List<string> { "V", "IMPF", "ACT", "IND", "3P", "P" }, PartOfSpeech = "verb" }
                     },
                     Translation = "they use their tongues to deceive."
                 },
@@ -3811,8 +3811,8 @@ namespace Koine.Infrastructure.Data.Seed
                             SyntaxCodes = new List<string> { "NOUN_PHRASE", "SUBJ" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "ἰὸς", Transliteration = "ios", Gloss = "poison", Grammar_Codes = new List<string> { "N", "NOM", "M", "S" }, PartOfSpeech = "noun" },
-                                new Word { Greek = "ἀσπίδων", Transliteration = "aspidōn", Gloss = "of asps", Grammar_Codes = new List<string> { "N", "GEN", "F", "P" }, PartOfSpeech = "noun" }
+                                new Word { Greek = "ἰὸς", Transliteration = "ios", Gloss = "poison", GrammarCodes = new List<string> { "N", "NOM", "M", "S" }, PartOfSpeech = "noun" },
+                                new Word { Greek = "ἀσπίδων", Transliteration = "aspidōn", Gloss = "of asps", GrammarCodes = new List<string> { "N", "GEN", "F", "P" }, PartOfSpeech = "noun" }
                             },
                             Translation = "the poison of asps"
                         },
@@ -3821,15 +3821,15 @@ namespace Koine.Infrastructure.Data.Seed
                             SyntaxCodes = new List<string> { "PREP_PHRASE" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "ὑπὸ", Transliteration = "hypo", Gloss = "under", Grammar_Codes = new List<string> { "PREP" }, PartOfSpeech = "preposition" },
+                                new Word { Greek = "ὑπὸ", Transliteration = "hypo", Gloss = "under", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "preposition" },
                                 new Phrase
                                 {
                                     SyntaxCodes = new List<string> { "NOUN_PHRASE", "OBJ" },
                                     Content = new List<object>
                                     {
-                                        new Word { Greek = "τὰ", Transliteration = "ta", Gloss = "the", Grammar_Codes = new List<string> { "ART", "ACC", "N", "P" }, PartOfSpeech = "art" },
-                                        new Word { Greek = "χείλη", Transliteration = "cheilē", Gloss = "lips", Grammar_Codes = new List<string> { "N", "ACC", "N", "P" }, PartOfSpeech = "noun" },
-                                        new Word { Greek = "αὐτῶν", Transliteration = "autōn", Gloss = "of them", Grammar_Codes = new List<string> { "PRON", "GEN", "M", "P" }, PartOfSpeech = "pronoun" }
+                                        new Word { Greek = "τὰ", Transliteration = "ta", Gloss = "the", GrammarCodes = new List<string> { "ART", "ACC", "N", "P" }, PartOfSpeech = "art" },
+                                        new Word { Greek = "χείλη", Transliteration = "cheilē", Gloss = "lips", GrammarCodes = new List<string> { "N", "ACC", "N", "P" }, PartOfSpeech = "noun" },
+                                        new Word { Greek = "αὐτῶν", Transliteration = "autōn", Gloss = "of them", GrammarCodes = new List<string> { "PRON", "GEN", "M", "P" }, PartOfSpeech = "pronoun" }
                                     },
                                     Translation = "their lips"
                                 }
@@ -3846,26 +3846,26 @@ namespace Koine.Infrastructure.Data.Seed
                     SyntaxCodes = new List<string> { "REL_CLAUSE" },
                     Content = new List<object>
                     {
-                        new Word { Greek = "ὧν", Transliteration = "hōn", Gloss = "Whose", Grammar_Codes = new List<string> { "PRON", "GEN", "M", "P" }, PartOfSpeech = "pronoun" },
+                        new Word { Greek = "ὧν", Transliteration = "hōn", Gloss = "Whose", GrammarCodes = new List<string> { "PRON", "GEN", "M", "P" }, PartOfSpeech = "pronoun" },
                         new Phrase
                         {
                             SyntaxCodes = new List<string> { "NOUN_PHRASE", "SUBJ" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "τὸ", Transliteration = "to", Gloss = "the", Grammar_Codes = new List<string> { "ART", "NOM", "N", "S" }, PartOfSpeech = "art" },
-                                new Word { Greek = "στόμα", Transliteration = "stoma", Gloss = "mouth", Grammar_Codes = new List<string> { "N", "NOM", "N", "S" }, PartOfSpeech = "noun" }
+                                new Word { Greek = "τὸ", Transliteration = "to", Gloss = "the", GrammarCodes = new List<string> { "ART", "NOM", "N", "S" }, PartOfSpeech = "art" },
+                                new Word { Greek = "στόμα", Transliteration = "stoma", Gloss = "mouth", GrammarCodes = new List<string> { "N", "NOM", "N", "S" }, PartOfSpeech = "noun" }
                             },
                             Translation = "mouth"
                         },
-                        new Word { Greek = "γέμει", Transliteration = "gemei", Gloss = "is full", Grammar_Codes = new List<string> { "V", "PRES", "ACT", "IND", "3P", "S" }, PartOfSpeech = "verb" },
+                        new Word { Greek = "γέμει", Transliteration = "gemei", Gloss = "is full", GrammarCodes = new List<string> { "V", "PRES", "ACT", "IND", "3P", "S" }, PartOfSpeech = "verb" },
                         new Phrase
                         {
                             SyntaxCodes = new List<string> { "NOUN_PHRASE", "OBJ" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "ἀρᾶς", Transliteration = "aras", Gloss = "of cursing", Grammar_Codes = new List<string> { "N", "GEN", "F", "S" }, PartOfSpeech = "noun" },
-                                new Word { Greek = "καὶ", Transliteration = "kai", Gloss = "and", Grammar_Codes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
-                                new Word { Greek = "πικρίας", Transliteration = "pikrias", Gloss = "bitterness", Grammar_Codes = new List<string> { "N", "GEN", "F", "S" }, PartOfSpeech = "noun" }
+                                new Word { Greek = "ἀρᾶς", Transliteration = "aras", Gloss = "of cursing", GrammarCodes = new List<string> { "N", "GEN", "F", "S" }, PartOfSpeech = "noun" },
+                                new Word { Greek = "καὶ", Transliteration = "kai", Gloss = "and", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
+                                new Word { Greek = "πικρίας", Transliteration = "pikrias", Gloss = "bitterness", GrammarCodes = new List<string> { "N", "GEN", "F", "S" }, PartOfSpeech = "noun" }
                             },
                             Translation = "of cursing and bitterness"
                         }
@@ -3879,15 +3879,15 @@ namespace Koine.Infrastructure.Data.Seed
                     SyntaxCodes = new List<string> { "INDEP_CLAUSE" },
                     Content = new List<object>
                     {
-                        new Word { Greek = "ὀξεῖς", Transliteration = "oxeis", Gloss = "Swift [are]", Grammar_Codes = new List<string> { "ADJ", "NOM", "M", "P" }, PartOfSpeech = "adj" },
+                        new Word { Greek = "ὀξεῖς", Transliteration = "oxeis", Gloss = "Swift [are]", GrammarCodes = new List<string> { "ADJ", "NOM", "M", "P" }, PartOfSpeech = "adj" },
                         new Phrase
                         {
                             SyntaxCodes = new List<string> { "NOUN_PHRASE", "SUBJ" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "οἱ", Transliteration = "hoi", Gloss = "the", Grammar_Codes = new List<string> { "ART", "NOM", "M", "P" }, PartOfSpeech = "art" },
-                                new Word { Greek = "πόδες", Transliteration = "podes", Gloss = "feet", Grammar_Codes = new List<string> { "N", "NOM", "M", "P" }, PartOfSpeech = "noun" },
-                                new Word { Greek = "αὐτῶν", Transliteration = "autōn", Gloss = "of them", Grammar_Codes = new List<string> { "PRON", "GEN", "M", "P" }, PartOfSpeech = "pronoun" }
+                                new Word { Greek = "οἱ", Transliteration = "hoi", Gloss = "the", GrammarCodes = new List<string> { "ART", "NOM", "M", "P" }, PartOfSpeech = "art" },
+                                new Word { Greek = "πόδες", Transliteration = "podes", Gloss = "feet", GrammarCodes = new List<string> { "N", "NOM", "M", "P" }, PartOfSpeech = "noun" },
+                                new Word { Greek = "αὐτῶν", Transliteration = "autōn", Gloss = "of them", GrammarCodes = new List<string> { "PRON", "GEN", "M", "P" }, PartOfSpeech = "pronoun" }
                             },
                             Translation = "their feet"
                         },
@@ -3896,8 +3896,8 @@ namespace Koine.Infrastructure.Data.Seed
                             SyntaxCodes = new List<string> { "INF_PHRASE" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "ἐκχέαι", Transliteration = "ekcheai", Gloss = "to shed", Grammar_Codes = new List<string> { "V", "AOR", "ACT", "INF" }, PartOfSpeech = "verb" },
-                                new Word { Greek = "αἷμα", Transliteration = "haima", Gloss = "blood", Grammar_Codes = new List<string> { "N", "ACC", "N", "S" }, PartOfSpeech = "noun" }
+                                new Word { Greek = "ἐκχέαι", Transliteration = "ekcheai", Gloss = "to shed", GrammarCodes = new List<string> { "V", "AOR", "ACT", "INF" }, PartOfSpeech = "verb" },
+                                new Word { Greek = "αἷμα", Transliteration = "haima", Gloss = "blood", GrammarCodes = new List<string> { "N", "ACC", "N", "S" }, PartOfSpeech = "noun" }
                             },
                             Translation = "to shed blood"
                         }
@@ -3916,9 +3916,9 @@ namespace Koine.Infrastructure.Data.Seed
                             SyntaxCodes = new List<string> { "NOUN_PHRASE", "SUBJ" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "σύντριμμα", Transliteration = "syntrimma", Gloss = "ruin", Grammar_Codes = new List<string> { "N", "NOM", "N", "S" }, PartOfSpeech = "noun" },
-                                new Word { Greek = "καὶ", Transliteration = "kai", Gloss = "and", Grammar_Codes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
-                                new Word { Greek = "ταλαιπωρία", Transliteration = "talaipōria", Gloss = "misery", Grammar_Codes = new List<string> { "N", "NOM", "F", "S" }, PartOfSpeech = "noun" }
+                                new Word { Greek = "σύντριμμα", Transliteration = "syntrimma", Gloss = "ruin", GrammarCodes = new List<string> { "N", "NOM", "N", "S" }, PartOfSpeech = "noun" },
+                                new Word { Greek = "καὶ", Transliteration = "kai", Gloss = "and", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
+                                new Word { Greek = "ταλαιπωρία", Transliteration = "talaipōria", Gloss = "misery", GrammarCodes = new List<string> { "N", "NOM", "F", "S" }, PartOfSpeech = "noun" }
                             },
                             Translation = "ruin and misery"
                         },
@@ -3927,15 +3927,15 @@ namespace Koine.Infrastructure.Data.Seed
                             SyntaxCodes = new List<string> { "PREP_PHRASE" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "ἐν", Transliteration = "en", Gloss = "in", Grammar_Codes = new List<string> { "PREP" }, PartOfSpeech = "preposition" },
+                                new Word { Greek = "ἐν", Transliteration = "en", Gloss = "in", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "preposition" },
                                 new Phrase
                                 {
                                     SyntaxCodes = new List<string> { "NOUN_PHRASE", "OBJ" },
                                     Content = new List<object>
                                     {
-                                        new Word { Greek = "ταῖς", Transliteration = "tais", Gloss = "the", Grammar_Codes = new List<string> { "ART", "DAT", "F", "P" }, PartOfSpeech = "art" },
-                                        new Word { Greek = "ὁδοῖς", Transliteration = "hodois", Gloss = "ways", Grammar_Codes = new List<string> { "N", "DAT", "F", "P" }, PartOfSpeech = "noun" },
-                                        new Word { Greek = "αὐτῶν", Transliteration = "autōn", Gloss = "of them", Grammar_Codes = new List<string> { "PRON", "GEN", "M", "P" }, PartOfSpeech = "pronoun" }
+                                        new Word { Greek = "ταῖς", Transliteration = "tais", Gloss = "the", GrammarCodes = new List<string> { "ART", "DAT", "F", "P" }, PartOfSpeech = "art" },
+                                        new Word { Greek = "ὁδοῖς", Transliteration = "hodois", Gloss = "ways", GrammarCodes = new List<string> { "N", "DAT", "F", "P" }, PartOfSpeech = "noun" },
+                                        new Word { Greek = "αὐτῶν", Transliteration = "autōn", Gloss = "of them", GrammarCodes = new List<string> { "PRON", "GEN", "M", "P" }, PartOfSpeech = "pronoun" }
                                     },
                                     Translation = "their ways"
                                 }
@@ -11766,24 +11766,24 @@ namespace Koine.Infrastructure.Data.Seed
                     SyntaxCodes = new List<string> { "INDEP_CLAUSE" },
                     Content = new List<object>
                     {
-                        new Word { Greek = "Οὐδὲν", Transliteration = "Ouden", Gloss = "no", Grammar_codes = new List<string> { "ADJ", "NOM", "N", "S" }, Part_of_speech = "adj" },
-                        new Word { Greek = "ἄρα", Transliteration = "ara", Gloss = "then", Grammar_codes = new List<string> { "CONJ" }, Part_of_speech = "conj" },
-                        new Word { Greek = "νῦν", Transliteration = "nyn", Gloss = "now", Grammar_codes = new List<string> { "ADV" }, Part_of_speech = "adv" },
-                        new Word { Greek = "κατάκριμα", Transliteration = "katakrima", Gloss = "condemnation", Grammar_codes = new List<string> { "N", "NOM", "N", "S" }, Part_of_speech = "n" },
+                        new Word { Greek = "Οὐδὲν", Transliteration = "Ouden", Gloss = "no", GrammarCodes = new List<string> { "ADJ", "NOM", "N", "S" }, PartOfSpeech = "adj" },
+                        new Word { Greek = "ἄρα", Transliteration = "ara", Gloss = "then", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
+                        new Word { Greek = "νῦν", Transliteration = "nyn", Gloss = "now", GrammarCodes = new List<string> { "ADV" }, PartOfSpeech = "adv" },
+                        new Word { Greek = "κατάκριμα", Transliteration = "katakrima", Gloss = "condemnation", GrammarCodes = new List<string> { "N", "NOM", "N", "S" }, PartOfSpeech = "n" },
                         new Phrase
                         {
                             SyntaxCodes = new List<string> { "NOUN_PHRASE", "IND_OBJ" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "τοῖς", Transliteration = "tois", Gloss = "to those", Grammar_codes = new List<string> { "ART", "DAT", "M", "P" }, Part_of_speech = "art" },
+                                new Word { Greek = "τοῖς", Transliteration = "tois", Gloss = "to those", GrammarCodes = new List<string> { "ART", "DAT", "M", "P" }, PartOfSpeech = "art" },
                                 new Phrase
                                 {
                                     SyntaxCodes = new List<string> { "PREP_PHRASE" },
                                     Content = new List<object>
                                     {
-                                        new Word { Greek = "ἐν", Transliteration = "en", Gloss = "in", Grammar_codes = new List<string> { "PREP" }, Part_of_speech = "prep" },
-                                        new Word { Greek = "Χριστῷ", Transliteration = "Christō", Gloss = "Christ", Grammar_codes = new List<string> { "N", "DAT", "M", "S" }, Part_of_speech = "n" },
-                                        new Word { Greek = "Ἰησοῦ", Transliteration = "Iēsou", Gloss = "Jesus", Grammar_codes = new List<string> { "N", "DAT", "M", "S" }, Part_of_speech = "n" }
+                                        new Word { Greek = "ἐν", Transliteration = "en", Gloss = "in", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "prep" },
+                                        new Word { Greek = "Χριστῷ", Transliteration = "Christō", Gloss = "Christ", GrammarCodes = new List<string> { "N", "DAT", "M", "S" }, PartOfSpeech = "n" },
+                                        new Word { Greek = "Ἰησοῦ", Transliteration = "Iēsou", Gloss = "Jesus", GrammarCodes = new List<string> { "N", "DAT", "M", "S" }, PartOfSpeech = "n" }
                                     },
                                     Translation = "in Christ Jesus"
                                 }
@@ -11805,16 +11805,16 @@ namespace Koine.Infrastructure.Data.Seed
                             SyntaxCodes = new List<string> { "NOUN_PHRASE", "SUBJ" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "ὁ", Transliteration = "ho", Gloss = "the", Grammar_codes = new List<string> { "ART", "NOM", "M", "S" }, Part_of_speech = "art" },
-                                new Word { Greek = "γὰρ", Transliteration = "gar", Gloss = "for", Grammar_codes = new List<string> { "CONJ" }, Part_of_speech = "conj" },
-                                new Word { Greek = "νόμος", Transliteration = "nomos", Gloss = "law", Grammar_codes = new List<string> { "N", "NOM", "M", "S" }, Part_of_speech = "n" },
+                                new Word { Greek = "ὁ", Transliteration = "ho", Gloss = "the", GrammarCodes = new List<string> { "ART", "NOM", "M", "S" }, PartOfSpeech = "art" },
+                                new Word { Greek = "γὰρ", Transliteration = "gar", Gloss = "for", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
+                                new Word { Greek = "νόμος", Transliteration = "nomos", Gloss = "law", GrammarCodes = new List<string> { "N", "NOM", "M", "S" }, PartOfSpeech = "n" },
                                 new Phrase
                                 {
                                     SyntaxCodes = new List<string> { "NOUN_PHRASE" },
                                     Content = new List<object>
                                     {
-                                        new Word { Greek = "τοῦ", Transliteration = "tou", Gloss = "of the", Grammar_codes = new List<string> { "ART", "GEN", "N", "S" }, Part_of_speech = "art" },
-                                        new Word { Greek = "πνεύματος", Transliteration = "pneumatos", Gloss = "Spirit", Grammar_codes = new List<string> { "N", "GEN", "N", "S" }, Part_of_speech = "n" }
+                                        new Word { Greek = "τοῦ", Transliteration = "tou", Gloss = "of the", GrammarCodes = new List<string> { "ART", "GEN", "N", "S" }, PartOfSpeech = "art" },
+                                        new Word { Greek = "πνεύματος", Transliteration = "pneumatos", Gloss = "Spirit", GrammarCodes = new List<string> { "N", "GEN", "N", "S" }, PartOfSpeech = "n" }
                                     },
                                     Translation = "of the Spirit"
                                 },
@@ -11823,8 +11823,8 @@ namespace Koine.Infrastructure.Data.Seed
                                     SyntaxCodes = new List<string> { "NOUN_PHRASE" },
                                     Content = new List<object>
                                     {
-                                        new Word { Greek = "τῆς", Transliteration = "tēs", Gloss = "of the", Grammar_codes = new List<string> { "ART", "GEN", "F", "S" }, Part_of_speech = "art" },
-                                        new Word { Greek = "ζωῆς", Transliteration = "zōēs", Gloss = "life", Grammar_codes = new List<string> { "N", "GEN", "F", "S" }, Part_of_speech = "n" }
+                                        new Word { Greek = "τῆς", Transliteration = "tēs", Gloss = "of the", GrammarCodes = new List<string> { "ART", "GEN", "F", "S" }, PartOfSpeech = "art" },
+                                        new Word { Greek = "ζωῆς", Transliteration = "zōēs", Gloss = "life", GrammarCodes = new List<string> { "N", "GEN", "F", "S" }, PartOfSpeech = "n" }
                                     },
                                     Translation = "of life"
                                 },
@@ -11833,30 +11833,30 @@ namespace Koine.Infrastructure.Data.Seed
                                     SyntaxCodes = new List<string> { "PREP_PHRASE" },
                                     Content = new List<object>
                                     {
-                                        new Word { Greek = "ἐν", Transliteration = "en", Gloss = "in", Grammar_codes = new List<string> { "PREP" }, Part_of_speech = "prep" },
-                                        new Word { Greek = "Χριστῷ", Transliteration = "Christō", Gloss = "Christ", Grammar_codes = new List<string> { "N", "DAT", "M", "S" }, Part_of_speech = "n" },
-                                        new Word { Greek = "Ἰησοῦ", Transliteration = "Iēsou", Gloss = "Jesus", Grammar_codes = new List<string> { "N", "DAT", "M", "S" }, Part_of_speech = "n" }
+                                        new Word { Greek = "ἐν", Transliteration = "en", Gloss = "in", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "prep" },
+                                        new Word { Greek = "Χριστῷ", Transliteration = "Christō", Gloss = "Christ", GrammarCodes = new List<string> { "N", "DAT", "M", "S" }, PartOfSpeech = "n" },
+                                        new Word { Greek = "Ἰησοῦ", Transliteration = "Iēsou", Gloss = "Jesus", GrammarCodes = new List<string> { "N", "DAT", "M", "S" }, PartOfSpeech = "n" }
                                     },
                                     Translation = "in Christ Jesus"
                                 }
                             },
                             Translation = "the law of the Spirit of life in Christ Jesus"
                         },
-                        new Word { Greek = "ἠλευθέρωσέν", Transliteration = "ēleutherōsen", Gloss = "set free", Grammar_codes = new List<string> { "V", "AOR", "ACT", "IND", "3P", "S" }, Part_of_speech = "v" },
-                        new Word { Greek = "σε", Transliteration = "se", Gloss = "you", Grammar_codes = new List<string> { "PRON", "ACC", "2P", "S" }, Part_of_speech = "pron" },
+                        new Word { Greek = "ἠλευθέρωσέν", Transliteration = "ēleutherōsen", Gloss = "set free", GrammarCodes = new List<string> { "V", "AOR", "ACT", "IND", "3P", "S" }, PartOfSpeech = "v" },
+                        new Word { Greek = "σε", Transliteration = "se", Gloss = "you", GrammarCodes = new List<string> { "PRON", "ACC", "2P", "S" }, PartOfSpeech = "pron" },
                         new Phrase
                         {
                             SyntaxCodes = new List<string> { "PREP_PHRASE" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "ἀπὸ", Transliteration = "apo", Gloss = "from", Grammar_codes = new List<string> { "PREP" }, Part_of_speech = "prep" },
+                                new Word { Greek = "ἀπὸ", Transliteration = "apo", Gloss = "from", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "prep" },
                                 new Phrase
                                 {
                                     SyntaxCodes = new List<string> { "NOUN_PHRASE" },
                                     Content = new List<object>
                                     {
-                                        new Word { Greek = "τοῦ", Transliteration = "tou", Gloss = "the", Grammar_codes = new List<string> { "ART", "GEN", "M", "S" }, Part_of_speech = "art" },
-                                        new Word { Greek = "νόμου", Transliteration = "nomou", Gloss = "law", Grammar_codes = new List<string> { "N", "GEN", "M", "S" }, Part_of_speech = "n" }
+                                        new Word { Greek = "τοῦ", Transliteration = "tou", Gloss = "the", GrammarCodes = new List<string> { "ART", "GEN", "M", "S" }, PartOfSpeech = "art" },
+                                        new Word { Greek = "νόμου", Transliteration = "nomou", Gloss = "law", GrammarCodes = new List<string> { "N", "GEN", "M", "S" }, PartOfSpeech = "n" }
                                     },
                                     Translation = "the law"
                                 },
@@ -11865,19 +11865,19 @@ namespace Koine.Infrastructure.Data.Seed
                                     SyntaxCodes = new List<string> { "NOUN_PHRASE" },
                                     Content = new List<object>
                                     {
-                                        new Word { Greek = "τῆς", Transliteration = "tēs", Gloss = "of", Grammar_codes = new List<string> { "ART", "GEN", "F", "S" }, Part_of_speech = "art" },
-                                        new Word { Greek = "ἁμαρτίας", Transliteration = "hamartias", Gloss = "sin", Grammar_codes = new List<string> { "N", "GEN", "F", "S" }, Part_of_speech = "n" }
+                                        new Word { Greek = "τῆς", Transliteration = "tēs", Gloss = "of", GrammarCodes = new List<string> { "ART", "GEN", "F", "S" }, PartOfSpeech = "art" },
+                                        new Word { Greek = "ἁμαρτίας", Transliteration = "hamartias", Gloss = "sin", GrammarCodes = new List<string> { "N", "GEN", "F", "S" }, PartOfSpeech = "n" }
                                     },
                                     Translation = "of sin"
                                 },
-                                new Word { Greek = "καὶ", Transliteration = "kai", Gloss = "and", Grammar_codes = new List<string> { "CONJ" }, Part_of_speech = "conj" },
+                                new Word { Greek = "καὶ", Transliteration = "kai", Gloss = "and", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
                                 new Phrase
                                 {
                                     SyntaxCodes = new List<string> { "NOUN_PHRASE" },
                                     Content = new List<object>
                                     {
-                                        new Word { Greek = "τοῦ", Transliteration = "tou", Gloss = "the", Grammar_codes = new List<string> { "ART", "GEN", "M", "S" }, Part_of_speech = "art" },
-                                        new Word { Greek = "θανάτου", Transliteration = "thanatou", Gloss = "death", Grammar_codes = new List<string> { "N", "GEN", "M", "S" }, Part_of_speech = "n" }
+                                        new Word { Greek = "τοῦ", Transliteration = "tou", Gloss = "the", GrammarCodes = new List<string> { "ART", "GEN", "M", "S" }, PartOfSpeech = "art" },
+                                        new Word { Greek = "θανάτου", Transliteration = "thanatou", Gloss = "death", GrammarCodes = new List<string> { "N", "GEN", "M", "S" }, PartOfSpeech = "n" }
                                     },
                                     Translation = "the death"
                                 }
@@ -11899,16 +11899,16 @@ namespace Koine.Infrastructure.Data.Seed
                             SyntaxCodes = new List<string> { "NOUN_PHRASE", "OBJ" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "Τὸ", Transliteration = "To", Gloss = "the", Grammar_codes = new List<string> { "ART", "ACC", "N", "S" }, Part_of_speech = "art" },
-                                new Word { Greek = "γὰρ", Transliteration = "gar", Gloss = "for", Grammar_codes = new List<string> { "CONJ" }, Part_of_speech = "conj" },
-                                new Word { Greek = "ἀδύνατον", Transliteration = "adynaton", Gloss = "impossible thing", Grammar_codes = new List<string> { "ADJ", "ACC", "N", "S" }, Part_of_speech = "adj" },
+                                new Word { Greek = "Τὸ", Transliteration = "To", Gloss = "the", GrammarCodes = new List<string> { "ART", "ACC", "N", "S" }, PartOfSpeech = "art" },
+                                new Word { Greek = "γὰρ", Transliteration = "gar", Gloss = "for", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
+                                new Word { Greek = "ἀδύνατον", Transliteration = "adynaton", Gloss = "impossible thing", GrammarCodes = new List<string> { "ADJ", "ACC", "N", "S" }, PartOfSpeech = "adj" },
                                 new Phrase
                                 {
                                     SyntaxCodes = new List<string> { "NOUN_PHRASE" },
                                     Content = new List<object>
                                     {
-                                        new Word { Greek = "τοῦ", Transliteration = "tou", Gloss = "of the", Grammar_codes = new List<string> { "ART", "GEN", "M", "S" }, Part_of_speech = "art" },
-                                        new Word { Greek = "νόμου", Transliteration = "nomou", Gloss = "law", Grammar_codes = new List<string> { "N", "GEN", "M", "S" }, Part_of_speech = "n" }
+                                        new Word { Greek = "τοῦ", Transliteration = "tou", Gloss = "of the", GrammarCodes = new List<string> { "ART", "GEN", "M", "S" }, PartOfSpeech = "art" },
+                                        new Word { Greek = "νόμου", Transliteration = "nomou", Gloss = "law", GrammarCodes = new List<string> { "N", "GEN", "M", "S" }, PartOfSpeech = "n" }
                                     },
                                     Translation = "of the law"
                                 }
@@ -11920,22 +11920,22 @@ namespace Koine.Infrastructure.Data.Seed
                             SyntaxCodes = new List<string> { "REL_CLAUSE" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "ἐν", Transliteration = "en", Gloss = "in", Grammar_codes = new List<string> { "PREP" }, Part_of_speech = "prep" },
-                                new Word { Greek = "ᾧ", Transliteration = "hō", Gloss = "which", Grammar_codes = new List<string> { "PRON", "DAT", "N", "S" }, Part_of_speech = "pron" },
-                                new Word { Greek = "ἠσθένει", Transliteration = "ēsthenei", Gloss = "it was weak", Grammar_codes = new List<string> { "V", "IMPF", "ACT", "IND", "3P", "S" }, Part_of_speech = "v" },
+                                new Word { Greek = "ἐν", Transliteration = "en", Gloss = "in", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "prep" },
+                                new Word { Greek = "ᾧ", Transliteration = "hō", Gloss = "which", GrammarCodes = new List<string> { "PRON", "DAT", "N", "S" }, PartOfSpeech = "pron" },
+                                new Word { Greek = "ἠσθένει", Transliteration = "ēsthenei", Gloss = "it was weak", GrammarCodes = new List<string> { "V", "IMPF", "ACT", "IND", "3P", "S" }, PartOfSpeech = "v" },
                                 new Phrase
                                 {
                                     SyntaxCodes = new List<string> { "PREP_PHRASE" },
                                     Content = new List<object>
                                     {
-                                        new Word { Greek = "διὰ", Transliteration = "dia", Gloss = "through", Grammar_codes = new List<string> { "PREP" }, Part_of_speech = "prep" },
+                                        new Word { Greek = "διὰ", Transliteration = "dia", Gloss = "through", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "prep" },
                                         new Phrase
                                         {
                                             SyntaxCodes = new List<string> { "NOUN_PHRASE" },
                                             Content = new List<object>
                                             {
-                                                new Word { Greek = "τῆς", Transliteration = "tēs", Gloss = "the", Grammar_codes = new List<string> { "ART", "GEN", "F", "S" }, Part_of_speech = "art" },
-                                                new Word { Greek = "σαρκός", Transliteration = "sarkos", Gloss = "flesh", Grammar_codes = new List<string> { "N", "GEN", "F", "S" }, Part_of_speech = "n" }
+                                                new Word { Greek = "τῆς", Transliteration = "tēs", Gloss = "the", GrammarCodes = new List<string> { "ART", "GEN", "F", "S" }, PartOfSpeech = "art" },
+                                                new Word { Greek = "σαρκός", Transliteration = "sarkos", Gloss = "flesh", GrammarCodes = new List<string> { "N", "GEN", "F", "S" }, PartOfSpeech = "n" }
                                             },
                                             Translation = "the flesh"
                                         }
@@ -11950,8 +11950,8 @@ namespace Koine.Infrastructure.Data.Seed
                             SyntaxCodes = new List<string> { "NOUN_PHRASE", "SUBJ" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "ὁ", Transliteration = "ho", Gloss = "the", Grammar_codes = new List<string> { "ART", "NOM", "M", "S" }, Part_of_speech = "art" },
-                                new Word { Greek = "θεὸς", Transliteration = "theos", Gloss = "God", Grammar_codes = new List<string> { "N", "NOM", "M", "S" }, Part_of_speech = "n" }
+                                new Word { Greek = "ὁ", Transliteration = "ho", Gloss = "the", GrammarCodes = new List<string> { "ART", "NOM", "M", "S" }, PartOfSpeech = "art" },
+                                new Word { Greek = "θεὸς", Transliteration = "theos", Gloss = "God", GrammarCodes = new List<string> { "N", "NOM", "M", "S" }, PartOfSpeech = "n" }
                             },
                             Translation = "God"
                         },
@@ -11960,15 +11960,15 @@ namespace Koine.Infrastructure.Data.Seed
                             SyntaxCodes = new List<string> { "PTCP" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "πέμψας", Transliteration = "pempsas", Gloss = "sending", Grammar_codes = new List<string> { "V", "AOR", "ACT", "PTCP", "NOM", "M", "S" }, Part_of_speech = "v" },
+                                new Word { Greek = "πέμψας", Transliteration = "pempsas", Gloss = "sending", GrammarCodes = new List<string> { "V", "AOR", "ACT", "PTCP", "NOM", "M", "S" }, PartOfSpeech = "v" },
                                 new Phrase
                                 {
                                     SyntaxCodes = new List<string> { "NOUN_PHRASE", "OBJ" },
                                     Content = new List<object>
                                     {
-                                        new Word { Greek = "τὸν", Transliteration = "ton", Gloss = "the", Grammar_codes = new List<string> { "ART", "ACC", "M", "S" }, Part_of_speech = "art" },
-                                        new Word { Greek = "ἑαυτοῦ", Transliteration = "heautou", Gloss = "his own", Grammar_codes = new List<string> { "PRON", "GEN", "M", "S" }, Part_of_speech = "pron" },
-                                        new Word { Greek = "υἱὸν", Transliteration = "huion", Gloss = "Son", Grammar_codes = new List<string> { "N", "ACC", "M", "S" }, Part_of_speech = "n" }
+                                        new Word { Greek = "τὸν", Transliteration = "ton", Gloss = "the", GrammarCodes = new List<string> { "ART", "ACC", "M", "S" }, PartOfSpeech = "art" },
+                                        new Word { Greek = "ἑαυτοῦ", Transliteration = "heautou", Gloss = "his own", GrammarCodes = new List<string> { "PRON", "GEN", "M", "S" }, PartOfSpeech = "pron" },
+                                        new Word { Greek = "υἱὸν", Transliteration = "huion", Gloss = "Son", GrammarCodes = new List<string> { "N", "ACC", "M", "S" }, PartOfSpeech = "n" }
                                     },
                                     Translation = "his own Son"
                                 },
@@ -11977,43 +11977,43 @@ namespace Koine.Infrastructure.Data.Seed
                                     SyntaxCodes = new List<string> { "PREP_PHRASE" },
                                     Content = new List<object>
                                     {
-                                        new Word { Greek = "ἐν", Transliteration = "en", Gloss = "in", Grammar_codes = new List<string> { "PREP" }, Part_of_speech = "prep" },
-                                        new Word { Greek = "ὁμοιώματι", Transliteration = "homoiōmati", Gloss = "likeness", Grammar_codes = new List<string> { "N", "DAT", "N", "S" }, Part_of_speech = "n" },
+                                        new Word { Greek = "ἐν", Transliteration = "en", Gloss = "in", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "prep" },
+                                        new Word { Greek = "ὁμοιώματι", Transliteration = "homoiōmati", Gloss = "likeness", GrammarCodes = new List<string> { "N", "DAT", "N", "S" }, PartOfSpeech = "n" },
                                         new Phrase
                                         {
                                             SyntaxCodes = new List<string> { "NOUN_PHRASE" },
                                             Content = new List<object>
                                             {
-                                                new Word { Greek = "σαρκὸς", Transliteration = "sarkos", Gloss = "of flesh", Grammar_codes = new List<string> { "N", "GEN", "F", "S" }, Part_of_speech = "n" },
-                                                new Word { Greek = "ἁμαρτίας", Transliteration = "hamartias", Gloss = "of sin", Grammar_codes = new List<string> { "N", "GEN", "F", "S" }, Part_of_speech = "n" }
+                                                new Word { Greek = "σαρκὸς", Transliteration = "sarkos", Gloss = "of flesh", GrammarCodes = new List<string> { "N", "GEN", "F", "S" }, PartOfSpeech = "n" },
+                                                new Word { Greek = "ἁμαρτίας", Transliteration = "hamartias", Gloss = "of sin", GrammarCodes = new List<string> { "N", "GEN", "F", "S" }, PartOfSpeech = "n" }
                                             },
                                             Translation = "of sinful flesh"
                                         }
                                     },
                                     Translation = "in the likeness of sinful flesh"
                                 },
-                                new Word { Greek = "καὶ", Transliteration = "kai", Gloss = "and", Grammar_codes = new List<string> { "CONJ" }, Part_of_speech = "conj" },
+                                new Word { Greek = "καὶ", Transliteration = "kai", Gloss = "and", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
                                 new Phrase
                                 {
                                     SyntaxCodes = new List<string> { "PREP_PHRASE" },
                                     Content = new List<object>
                                     {
-                                        new Word { Greek = "περὶ", Transliteration = "peri", Gloss = "concerning", Grammar_codes = new List<string> { "PREP" }, Part_of_speech = "prep" },
-                                        new Word { Greek = "ἁμαρτίας", Transliteration = "hamartias", Gloss = "sin", Grammar_codes = new List<string> { "N", "GEN", "F", "S" }, Part_of_speech = "n" }
+                                        new Word { Greek = "περὶ", Transliteration = "peri", Gloss = "concerning", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "prep" },
+                                        new Word { Greek = "ἁμαρτίας", Transliteration = "hamartias", Gloss = "sin", GrammarCodes = new List<string> { "N", "GEN", "F", "S" }, PartOfSpeech = "n" }
                                     },
                                     Translation = "concerning sin"
                                 }
                             },
                             Translation = "by sending his own Son in the likeness of sinful flesh and as an offering for sin"
                         },
-                        new Word { Greek = "κατέκρινεν", Transliteration = "katekrynen", Gloss = "he condemned", Grammar_codes = new List<string> { "V", "AOR", "ACT", "IND", "3P", "S" }, Part_of_speech = "v" },
+                        new Word { Greek = "κατέκρινεν", Transliteration = "katekrynen", Gloss = "he condemned", GrammarCodes = new List<string> { "V", "AOR", "ACT", "IND", "3P", "S" }, PartOfSpeech = "v" },
                         new Phrase
                         {
                             SyntaxCodes = new List<string> { "NOUN_PHRASE", "OBJ" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "τὴν", Transliteration = "tēn", Gloss = "the", Grammar_codes = new List<string> { "ART", "ACC", "F", "S" }, Part_of_speech = "art" },
-                                new Word { Greek = "ἁμαρτίαν", Transliteration = "hamartian", Gloss = "sin", Grammar_codes = new List<string> { "N", "ACC", "F", "S" }, Part_of_speech = "n" }
+                                new Word { Greek = "τὴν", Transliteration = "tēn", Gloss = "the", GrammarCodes = new List<string> { "ART", "ACC", "F", "S" }, PartOfSpeech = "art" },
+                                new Word { Greek = "ἁμαρτίαν", Transliteration = "hamartian", Gloss = "sin", GrammarCodes = new List<string> { "N", "ACC", "F", "S" }, PartOfSpeech = "n" }
                             },
                             Translation = "the sin"
                         },
@@ -12022,14 +12022,14 @@ namespace Koine.Infrastructure.Data.Seed
                             SyntaxCodes = new List<string> { "PREP_PHRASE" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "ἐν", Transliteration = "en", Gloss = "in", Grammar_codes = new List<string> { "PREP" }, Part_of_speech = "prep" },
+                                new Word { Greek = "ἐν", Transliteration = "en", Gloss = "in", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "prep" },
                                 new Phrase
                                 {
                                     SyntaxCodes = new List<string> { "NOUN_PHRASE" },
                                     Content = new List<object>
                                     {
-                                        new Word { Greek = "τῇ", Transliteration = "tē", Gloss = "the", Grammar_codes = new List<string> { "ART", "DAT", "F", "S" }, Part_of_speech = "art" },
-                                        new Word { Greek = "σαρκί", Transliteration = "sarki", Gloss = "flesh", Grammar_codes = new List<string> { "N", "DAT", "F", "S" }, Part_of_speech = "n" }
+                                        new Word { Greek = "τῇ", Transliteration = "tē", Gloss = "the", GrammarCodes = new List<string> { "ART", "DAT", "F", "S" }, PartOfSpeech = "art" },
+                                        new Word { Greek = "σαρκί", Transliteration = "sarki", Gloss = "flesh", GrammarCodes = new List<string> { "N", "DAT", "F", "S" }, PartOfSpeech = "n" }
                                     },
                                     Translation = "the flesh"
                                 }
@@ -12046,35 +12046,35 @@ namespace Koine.Infrastructure.Data.Seed
                     SyntaxCodes = new List<string> { "PURPOSE_CLAUSE" },
                     Content = new List<object>
                     {
-                        new Word { Greek = "ἵνα", Transliteration = "hina", Gloss = "so that", Grammar_codes = new List<string> { "CONJ" }, Part_of_speech = "conj" },
+                        new Word { Greek = "ἵνα", Transliteration = "hina", Gloss = "so that", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
                         new Phrase
                         {
                             SyntaxCodes = new List<string> { "NOUN_PHRASE", "SUBJ" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "τὸ", Transliteration = "to", Gloss = "the", Grammar_codes = new List<string> { "ART", "NOM", "N", "S" }, Part_of_speech = "art" },
-                                new Word { Greek = "δικαίωμα", Transliteration = "dikaiōma", Gloss = "requirement", Grammar_codes = new List<string> { "N", "NOM", "N", "S" }, Part_of_speech = "n" },
+                                new Word { Greek = "τὸ", Transliteration = "to", Gloss = "the", GrammarCodes = new List<string> { "ART", "NOM", "N", "S" }, PartOfSpeech = "art" },
+                                new Word { Greek = "δικαίωμα", Transliteration = "dikaiōma", Gloss = "requirement", GrammarCodes = new List<string> { "N", "NOM", "N", "S" }, PartOfSpeech = "n" },
                                 new Phrase
                                 {
                                     SyntaxCodes = new List<string> { "NOUN_PHRASE" },
                                     Content = new List<object>
                                     {
-                                        new Word { Greek = "τοῦ", Transliteration = "tou", Gloss = "of the", Grammar_codes = new List<string> { "ART", "GEN", "M", "S" }, Part_of_speech = "art" },
-                                        new Word { Greek = "νόμου", Transliteration = "nomou", Gloss = "law", Grammar_codes = new List<string> { "N", "GEN", "M", "S" }, Part_of_speech = "n" }
+                                        new Word { Greek = "τοῦ", Transliteration = "tou", Gloss = "of the", GrammarCodes = new List<string> { "ART", "GEN", "M", "S" }, PartOfSpeech = "art" },
+                                        new Word { Greek = "νόμου", Transliteration = "nomou", Gloss = "law", GrammarCodes = new List<string> { "N", "GEN", "M", "S" }, PartOfSpeech = "n" }
                                     },
                                     Translation = "of the law"
                                 }
                             },
                             Translation = "the requirement of the law"
                         },
-                        new Word { Greek = "πληρωθῇ", Transliteration = "plērōthē", Gloss = "might be fulfilled", Grammar_codes = new List<string> { "V", "AOR", "PASS", "SUBJ", "3P", "S" }, Part_of_speech = "v" },
+                        new Word { Greek = "πληρωθῇ", Transliteration = "plērōthē", Gloss = "might be fulfilled", GrammarCodes = new List<string> { "V", "AOR", "PASS", "SUBJ", "3P", "S" }, PartOfSpeech = "v" },
                         new Phrase
                         {
                             SyntaxCodes = new List<string> { "PREP_PHRASE" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "ἐν", Transliteration = "en", Gloss = "in", Grammar_codes = new List<string> { "PREP" }, Part_of_speech = "prep" },
-                                new Word { Greek = "ἡμῖν", Transliteration = "hēmin", Gloss = "us", Grammar_codes = new List<string> { "PRON", "DAT", "1P", "P" }, Part_of_speech = "pron" }
+                                new Word { Greek = "ἐν", Transliteration = "en", Gloss = "in", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "prep" },
+                                new Word { Greek = "ἡμῖν", Transliteration = "hēmin", Gloss = "us", GrammarCodes = new List<string> { "PRON", "DAT", "1P", "P" }, PartOfSpeech = "pron" }
                             },
                             Translation = "in us"
                         },
@@ -12083,27 +12083,27 @@ namespace Koine.Infrastructure.Data.Seed
                             SyntaxCodes = new List<string> { "NOUN_PHRASE", "APPOS" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "τοῖς", Transliteration = "tois", Gloss = "those", Grammar_codes = new List<string> { "ART", "DAT", "M", "P" }, Part_of_speech = "art" },
-                                new Word { Greek = "μὴ", Transliteration = "mē", Gloss = "not", Grammar_codes = new List<string> { "ADV" }, Part_of_speech = "adv" },
+                                new Word { Greek = "τοῖς", Transliteration = "tois", Gloss = "those", GrammarCodes = new List<string> { "ART", "DAT", "M", "P" }, PartOfSpeech = "art" },
+                                new Word { Greek = "μὴ", Transliteration = "mē", Gloss = "not", GrammarCodes = new List<string> { "ADV" }, PartOfSpeech = "adv" },
                                 new Phrase
                                 {
                                     SyntaxCodes = new List<string> { "PREP_PHRASE" },
                                     Content = new List<object>
                                     {
-                                        new Word { Greek = "κατὰ", Transliteration = "kata", Gloss = "according to", Grammar_codes = new List<string> { "PREP" }, Part_of_speech = "prep" },
-                                        new Word { Greek = "σάρκα", Transliteration = "sarka", Gloss = "flesh", Grammar_codes = new List<string> { "N", "ACC", "F", "S" }, Part_of_speech = "n" }
+                                        new Word { Greek = "κατὰ", Transliteration = "kata", Gloss = "according to", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "prep" },
+                                        new Word { Greek = "σάρκα", Transliteration = "sarka", Gloss = "flesh", GrammarCodes = new List<string> { "N", "ACC", "F", "S" }, PartOfSpeech = "n" }
                                     },
                                     Translation = "according to the flesh"
                                 },
-                                new Word { Greek = "περιπατοῦσιν", Transliteration = "peripatousin", Gloss = "walking", Grammar_codes = new List<string> { "V", "PRES", "ACT", "PTCP", "DAT", "M", "P" }, Part_of_speech = "v" },
-                                new Word { Greek = "ἀλλὰ", Transliteration = "alla", Gloss = "but", Grammar_codes = new List<string> { "CONJ" }, Part_of_speech = "conj" },
+                                new Word { Greek = "περιπατοῦσιν", Transliteration = "peripatousin", Gloss = "walking", GrammarCodes = new List<string> { "V", "PRES", "ACT", "PTCP", "DAT", "M", "P" }, PartOfSpeech = "v" },
+                                new Word { Greek = "ἀλλὰ", Transliteration = "alla", Gloss = "but", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
                                 new Phrase
                                 {
                                     SyntaxCodes = new List<string> { "PREP_PHRASE" },
                                     Content = new List<object>
                                     {
-                                        new Word { Greek = "κατὰ", Transliteration = "kata", Gloss = "according to", Grammar_codes = new List<string> { "PREP" }, Part_of_speech = "prep" },
-                                        new Word { Greek = "πνεῦμα", Transliteration = "pneuma", Gloss = "Spirit", Grammar_codes = new List<string> { "N", "ACC", "N", "S" }, Part_of_speech = "n" }
+                                        new Word { Greek = "κατὰ", Transliteration = "kata", Gloss = "according to", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "prep" },
+                                        new Word { Greek = "πνεῦμα", Transliteration = "pneuma", Gloss = "Spirit", GrammarCodes = new List<string> { "N", "ACC", "N", "S" }, PartOfSpeech = "n" }
                                     },
                                     Translation = "according to the Spirit"
                                 }
@@ -12125,19 +12125,19 @@ namespace Koine.Infrastructure.Data.Seed
                             SyntaxCodes = new List<string> { "NOUN_PHRASE", "SUBJ" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "οἱ", Transliteration = "hoi", Gloss = "the ones", Grammar_codes = new List<string> { "ART", "NOM", "M", "P" }, Part_of_speech = "art" },
-                                new Word { Greek = "γὰρ", Transliteration = "gar", Gloss = "for", Grammar_codes = new List<string> { "CONJ" }, Part_of_speech = "conj" },
+                                new Word { Greek = "οἱ", Transliteration = "hoi", Gloss = "the ones", GrammarCodes = new List<string> { "ART", "NOM", "M", "P" }, PartOfSpeech = "art" },
+                                new Word { Greek = "γὰρ", Transliteration = "gar", Gloss = "for", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
                                 new Phrase
                                 {
                                     SyntaxCodes = new List<string> { "PREP_PHRASE" },
                                     Content = new List<object>
                                     {
-                                        new Word { Greek = "κατὰ", Transliteration = "kata", Gloss = "according to", Grammar_codes = new List<string> { "PREP" }, Part_of_speech = "prep" },
-                                        new Word { Greek = "σάρκα", Transliteration = "sarka", Gloss = "flesh", Grammar_codes = new List<string> { "N", "ACC", "F", "S" }, Part_of_speech = "n" }
+                                        new Word { Greek = "κατὰ", Transliteration = "kata", Gloss = "according to", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "prep" },
+                                        new Word { Greek = "σάρκα", Transliteration = "sarka", Gloss = "flesh", GrammarCodes = new List<string> { "N", "ACC", "F", "S" }, PartOfSpeech = "n" }
                                     },
                                     Translation = "according to the flesh"
                                 },
-                                new Word { Greek = "ὄντες", Transliteration = "ontes", Gloss = "being", Grammar_codes = new List<string> { "V", "PRES", "ACT", "PTCP", "NOM", "M", "P" }, Part_of_speech = "v" }
+                                new Word { Greek = "ὄντες", Transliteration = "ontes", Gloss = "being", GrammarCodes = new List<string> { "V", "PRES", "ACT", "PTCP", "NOM", "M", "P" }, PartOfSpeech = "v" }
                             },
                             Translation = "For those who live according to the flesh"
                         },
@@ -12146,30 +12146,30 @@ namespace Koine.Infrastructure.Data.Seed
                             SyntaxCodes = new List<string> { "NOUN_PHRASE", "OBJ" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "τὰ", Transliteration = "ta", Gloss = "the things", Grammar_codes = new List<string> { "ART", "ACC", "N", "P" }, Part_of_speech = "art" },
+                                new Word { Greek = "τὰ", Transliteration = "ta", Gloss = "the things", GrammarCodes = new List<string> { "ART", "ACC", "N", "P" }, PartOfSpeech = "art" },
                                 new Phrase
                                 {
                                     SyntaxCodes = new List<string> { "NOUN_PHRASE" },
                                     Content = new List<object>
                                     {
-                                        new Word { Greek = "τῆς", Transliteration = "tēs", Gloss = "of the", Grammar_codes = new List<string> { "ART", "GEN", "F", "S" }, Part_of_speech = "art" },
-                                        new Word { Greek = "σαρκὸς", Transliteration = "sarkos", Gloss = "flesh", Grammar_codes = new List<string> { "N", "GEN", "F", "S" }, Part_of_speech = "n" }
+                                        new Word { Greek = "τῆς", Transliteration = "tēs", Gloss = "of the", GrammarCodes = new List<string> { "ART", "GEN", "F", "S" }, PartOfSpeech = "art" },
+                                        new Word { Greek = "σαρκὸς", Transliteration = "sarkos", Gloss = "flesh", GrammarCodes = new List<string> { "N", "GEN", "F", "S" }, PartOfSpeech = "n" }
                                     },
                                     Translation = "of the flesh"
                                 }
                             },
                             Translation = "the things of the flesh"
                         },
-                        new Word { Greek = "φρονοῦσιν", Transliteration = "phronousin", Gloss = "set their minds on", Grammar_codes = new List<string> { "V", "PRES", "ACT", "IND", "3P", "P" }, Part_of_speech = "v" },
-                        new Word { Greek = "οἱ", Transliteration = "hoi", Gloss = "those", Grammar_codes = new List<string> { "ART", "NOM", "M", "P" }, Part_of_speech = "art" },
-                        new Word { Greek = "δὲ", Transliteration = "de", Gloss = "but", Grammar_codes = new List<string> { "CONJ" }, Part_of_speech = "conj" },
+                        new Word { Greek = "φρονοῦσιν", Transliteration = "phronousin", Gloss = "set their minds on", GrammarCodes = new List<string> { "V", "PRES", "ACT", "IND", "3P", "P" }, PartOfSpeech = "v" },
+                        new Word { Greek = "οἱ", Transliteration = "hoi", Gloss = "those", GrammarCodes = new List<string> { "ART", "NOM", "M", "P" }, PartOfSpeech = "art" },
+                        new Word { Greek = "δὲ", Transliteration = "de", Gloss = "but", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
                         new Phrase
                         {
                             SyntaxCodes = new List<string> { "PREP_PHRASE" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "κατὰ", Transliteration = "kata", Gloss = "according to", Grammar_codes = new List<string> { "PREP" }, Part_of_speech = "prep" },
-                                new Word { Greek = "πνεῦμα", Transliteration = "pneuma", Gloss = "Spirit", Grammar_codes = new List<string> { "N", "ACC", "N", "S" }, Part_of_speech = "n" }
+                                new Word { Greek = "κατὰ", Transliteration = "kata", Gloss = "according to", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "prep" },
+                                new Word { Greek = "πνεῦμα", Transliteration = "pneuma", Gloss = "Spirit", GrammarCodes = new List<string> { "N", "ACC", "N", "S" }, PartOfSpeech = "n" }
                             },
                             Translation = "according to the Spirit"
                         },
@@ -12178,14 +12178,14 @@ namespace Koine.Infrastructure.Data.Seed
                             SyntaxCodes = new List<string> { "NOUN_PHRASE", "OBJ" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "τὰ", Transliteration = "ta", Gloss = "the things", Grammar_codes = new List<string> { "ART", "ACC", "N", "P" }, Part_of_speech = "art" },
+                                new Word { Greek = "τὰ", Transliteration = "ta", Gloss = "the things", GrammarCodes = new List<string> { "ART", "ACC", "N", "P" }, PartOfSpeech = "art" },
                                 new Phrase
                                 {
                                     SyntaxCodes = new List<string> { "NOUN_PHRASE" },
                                     Content = new List<object>
                                     {
-                                        new Word { Greek = "τοῦ", Transliteration = "tou", Gloss = "of the", Grammar_codes = new List<string> { "ART", "GEN", "N", "S" }, Part_of_speech = "art" },
-                                        new Word { Greek = "πνεύματος", Transliteration = "pneumatos", Gloss = "Spirit", Grammar_codes = new List<string> { "N", "GEN", "N", "S" }, Part_of_speech = "n" }
+                                        new Word { Greek = "τοῦ", Transliteration = "tou", Gloss = "of the", GrammarCodes = new List<string> { "ART", "GEN", "N", "S" }, PartOfSpeech = "art" },
+                                        new Word { Greek = "πνεύματος", Transliteration = "pneumatos", Gloss = "Spirit", GrammarCodes = new List<string> { "N", "GEN", "N", "S" }, PartOfSpeech = "n" }
                                     },
                                     Translation = "of the Spirit"
                                 }
@@ -12207,47 +12207,47 @@ namespace Koine.Infrastructure.Data.Seed
                             SyntaxCodes = new List<string> { "NOUN_PHRASE", "SUBJ" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "τὸ", Transliteration = "to", Gloss = "the", Grammar_codes = new List<string> { "ART", "NOM", "N", "S" }, Part_of_speech = "art" },
-                                new Word { Greek = "γὰρ", Transliteration = "gar", Gloss = "for", Grammar_codes = new List<string> { "CONJ" }, Part_of_speech = "conj" },
-                                new Word { Greek = "φρόνημα", Transliteration = "phronēma", Gloss = "mindset", Grammar_codes = new List<string> { "N", "NOM", "N", "S" }, Part_of_speech = "n" },
+                                new Word { Greek = "τὸ", Transliteration = "to", Gloss = "the", GrammarCodes = new List<string> { "ART", "NOM", "N", "S" }, PartOfSpeech = "art" },
+                                new Word { Greek = "γὰρ", Transliteration = "gar", Gloss = "for", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
+                                new Word { Greek = "φρόνημα", Transliteration = "phronēma", Gloss = "mindset", GrammarCodes = new List<string> { "N", "NOM", "N", "S" }, PartOfSpeech = "n" },
                                 new Phrase
                                 {
                                     SyntaxCodes = new List<string> { "NOUN_PHRASE" },
                                     Content = new List<object>
                                     {
-                                        new Word { Greek = "τῆς", Transliteration = "tēs", Gloss = "of the", Grammar_codes = new List<string> { "ART", "GEN", "F", "S" }, Part_of_speech = "art" },
-                                        new Word { Greek = "σαρκὸς", Transliteration = "sarkos", Gloss = "flesh", Grammar_codes = new List<string> { "N", "GEN", "F", "S" }, Part_of_speech = "n" }
+                                        new Word { Greek = "τῆς", Transliteration = "tēs", Gloss = "of the", GrammarCodes = new List<string> { "ART", "GEN", "F", "S" }, PartOfSpeech = "art" },
+                                        new Word { Greek = "σαρκὸς", Transliteration = "sarkos", Gloss = "flesh", GrammarCodes = new List<string> { "N", "GEN", "F", "S" }, PartOfSpeech = "n" }
                                     },
                                     Translation = "of the flesh"
                                 }
                             },
                             Translation = "For the mindset of the flesh"
                         },
-                        new Word { Greek = "θάνατος", Transliteration = "thanatos", Gloss = "is death", Grammar_codes = new List<string> { "N", "NOM", "M", "S" }, Part_of_speech = "n" },
+                        new Word { Greek = "θάνατος", Transliteration = "thanatos", Gloss = "is death", GrammarCodes = new List<string> { "N", "NOM", "M", "S" }, PartOfSpeech = "n" },
                         new Phrase
                         {
                             SyntaxCodes = new List<string> { "NOUN_PHRASE", "SUBJ" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "τὸ", Transliteration = "to", Gloss = "the", Grammar_codes = new List<string> { "ART", "NOM", "N", "S" }, Part_of_speech = "art" },
-                                new Word { Greek = "δὲ", Transliteration = "de", Gloss = "but", Grammar_codes = new List<string> { "CONJ" }, Part_of_speech = "conj" },
-                                new Word { Greek = "φρόνημα", Transliteration = "phronēma", Gloss = "mindset", Grammar_codes = new List<string> { "N", "NOM", "N", "S" }, Part_of_speech = "n" },
+                                new Word { Greek = "τὸ", Transliteration = "to", Gloss = "the", GrammarCodes = new List<string> { "ART", "NOM", "N", "S" }, PartOfSpeech = "art" },
+                                new Word { Greek = "δὲ", Transliteration = "de", Gloss = "but", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
+                                new Word { Greek = "φρόνημα", Transliteration = "phronēma", Gloss = "mindset", GrammarCodes = new List<string> { "N", "NOM", "N", "S" }, PartOfSpeech = "n" },
                                 new Phrase
                                 {
                                     SyntaxCodes = new List<string> { "NOUN_PHRASE" },
                                     Content = new List<object>
                                     {
-                                        new Word { Greek = "τοῦ", Transliteration = "tou", Gloss = "of the", Grammar_codes = new List<string> { "ART", "GEN", "N", "S" }, Part_of_speech = "art" },
-                                        new Word { Greek = "πνεύματος", Transliteration = "pneumatos", Gloss = "Spirit", Grammar_codes = new List<string> { "N", "GEN", "N", "S" }, Part_of_speech = "n" }
+                                        new Word { Greek = "τοῦ", Transliteration = "tou", Gloss = "of the", GrammarCodes = new List<string> { "ART", "GEN", "N", "S" }, PartOfSpeech = "art" },
+                                        new Word { Greek = "πνεύματος", Transliteration = "pneumatos", Gloss = "Spirit", GrammarCodes = new List<string> { "N", "GEN", "N", "S" }, PartOfSpeech = "n" }
                                     },
                                     Translation = "of the Spirit"
                                 }
                             },
                             Translation = "but the mindset of the Spirit"
                         },
-                        new Word { Greek = "ζωὴ", Transliteration = "zōē", Gloss = "is life", Grammar_codes = new List<string> { "N", "NOM", "F", "S" }, Part_of_speech = "n" },
-                        new Word { Greek = "καὶ", Transliteration = "kai", Gloss = "and", Grammar_codes = new List<string> { "CONJ" }, Part_of_speech = "conj" },
-                        new Word { Greek = "εἰρήνη", Transliteration = "eirēnē", Gloss = "peace", Grammar_codes = new List<string> { "N", "NOM", "F", "S" }, Part_of_speech = "n" }
+                        new Word { Greek = "ζωὴ", Transliteration = "zōē", Gloss = "is life", GrammarCodes = new List<string> { "N", "NOM", "F", "S" }, PartOfSpeech = "n" },
+                        new Word { Greek = "καὶ", Transliteration = "kai", Gloss = "and", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
+                        new Word { Greek = "εἰρήνη", Transliteration = "eirēnē", Gloss = "peace", GrammarCodes = new List<string> { "N", "NOM", "F", "S" }, PartOfSpeech = "n" }
                     },
                     Translation = "For the mindset of the flesh is death, but the mindset of the Spirit is life and peace."
                 },
@@ -12258,35 +12258,35 @@ namespace Koine.Infrastructure.Data.Seed
                     SyntaxCodes = new List<string> { "CAUSAL_CLAUSE" },
                     Content = new List<object>
                     {
-                        new Word { Greek = "διότι", Transliteration = "dioti", Gloss = "because", Grammar_codes = new List<string> { "CONJ" }, Part_of_speech = "conj" },
+                        new Word { Greek = "διότι", Transliteration = "dioti", Gloss = "because", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
                         new Phrase
                         {
                             SyntaxCodes = new List<string> { "NOUN_PHRASE", "SUBJ" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "τὸ", Transliteration = "to", Gloss = "the", Grammar_codes = new List<string> { "ART", "NOM", "N", "S" }, Part_of_speech = "art" },
-                                new Word { Greek = "φρόνημα", Transliteration = "phronēma", Gloss = "mindset", Grammar_codes = new List<string> { "N", "NOM", "N", "S" }, Part_of_speech = "n" },
+                                new Word { Greek = "τὸ", Transliteration = "to", Gloss = "the", GrammarCodes = new List<string> { "ART", "NOM", "N", "S" }, PartOfSpeech = "art" },
+                                new Word { Greek = "φρόνημα", Transliteration = "phronēma", Gloss = "mindset", GrammarCodes = new List<string> { "N", "NOM", "N", "S" }, PartOfSpeech = "n" },
                                 new Phrase
                                 {
                                     SyntaxCodes = new List<string> { "NOUN_PHRASE" },
                                     Content = new List<object>
                                     {
-                                        new Word { Greek = "τῆς", Transliteration = "tēs", Gloss = "of the", Grammar_codes = new List<string> { "ART", "GEN", "F", "S" }, Part_of_speech = "art" },
-                                        new Word { Greek = "σαρκὸς", Transliteration = "sarkos", Gloss = "flesh", Grammar_codes = new List<string> { "N", "GEN", "F", "S" }, Part_of_speech = "n" }
+                                        new Word { Greek = "τῆς", Transliteration = "tēs", Gloss = "of the", GrammarCodes = new List<string> { "ART", "GEN", "F", "S" }, PartOfSpeech = "art" },
+                                        new Word { Greek = "σαρκὸς", Transliteration = "sarkos", Gloss = "flesh", GrammarCodes = new List<string> { "N", "GEN", "F", "S" }, PartOfSpeech = "n" }
                                     },
                                     Translation = "of the flesh"
                                 }
                             },
                             Translation = "the mindset of the flesh"
                         },
-                        new Word { Greek = "ἔχθρα", Transliteration = "echthra", Gloss = "is hostile", Grammar_codes = new List<string> { "N", "NOM", "F", "S" }, Part_of_speech = "n" },
+                        new Word { Greek = "ἔχθρα", Transliteration = "echthra", Gloss = "is hostile", GrammarCodes = new List<string> { "N", "NOM", "F", "S" }, PartOfSpeech = "n" },
                         new Phrase
                         {
                             SyntaxCodes = new List<string> { "PREP_PHRASE" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "εἰς", Transliteration = "eis", Gloss = "toward", Grammar_codes = new List<string> { "PREP" }, Part_of_speech = "prep" },
-                                new Word { Greek = "θεόν", Transliteration = "theon", Gloss = "God", Grammar_codes = new List<string> { "N", "ACC", "M", "S" }, Part_of_speech = "n" }
+                                new Word { Greek = "εἰς", Transliteration = "eis", Gloss = "toward", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "prep" },
+                                new Word { Greek = "θεόν", Transliteration = "theon", Gloss = "God", GrammarCodes = new List<string> { "N", "ACC", "M", "S" }, PartOfSpeech = "n" }
                             },
                             Translation = "toward God"
                         },
@@ -12295,27 +12295,27 @@ namespace Koine.Infrastructure.Data.Seed
                             SyntaxCodes = new List<string> { "PREP_PHRASE" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "τῷ", Transliteration = "tō", Gloss = "to the", Grammar_codes = new List<string> { "ART", "DAT", "M", "S" }, Part_of_speech = "art" },
-                                new Word { Greek = "γὰρ", Transliteration = "gar", Gloss = "for", Grammar_codes = new List<string> { "CONJ" }, Part_of_speech = "conj" },
-                                new Word { Greek = "νόμῳ", Transliteration = "nomō", Gloss = "law", Grammar_codes = new List<string> { "N", "DAT", "M", "S" }, Part_of_speech = "n" },
+                                new Word { Greek = "τῷ", Transliteration = "tō", Gloss = "to the", GrammarCodes = new List<string> { "ART", "DAT", "M", "S" }, PartOfSpeech = "art" },
+                                new Word { Greek = "γὰρ", Transliteration = "gar", Gloss = "for", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
+                                new Word { Greek = "νόμῳ", Transliteration = "nomō", Gloss = "law", GrammarCodes = new List<string> { "N", "DAT", "M", "S" }, PartOfSpeech = "n" },
                                 new Phrase
                                 {
                                     SyntaxCodes = new List<string> { "NOUN_PHRASE" },
                                     Content = new List<object>
                                     {
-                                        new Word { Greek = "τοῦ", Transliteration = "tou", Gloss = "of", Grammar_codes = new List<string> { "ART", "GEN", "M", "S" }, Part_of_speech = "art" },
-                                        new Word { Greek = "θεοῦ", Transliteration = "theou", Gloss = "God", Grammar_codes = new List<string> { "N", "GEN", "M", "S" }, Part_of_speech = "n" }
+                                        new Word { Greek = "τοῦ", Transliteration = "tou", Gloss = "of", GrammarCodes = new List<string> { "ART", "GEN", "M", "S" }, PartOfSpeech = "art" },
+                                        new Word { Greek = "θεοῦ", Transliteration = "theou", Gloss = "God", GrammarCodes = new List<string> { "N", "GEN", "M", "S" }, PartOfSpeech = "n" }
                                     },
                                     Translation = "of God"
                                 }
                             },
                             Translation = "for to the law of God"
                         },
-                        new Word { Greek = "οὐχ", Transliteration = "ouch", Gloss = "not", Grammar_codes = new List<string> { "ADV" }, Part_of_speech = "adv" },
-                        new Word { Greek = "ὑποτάσσεται", Transliteration = "hypotassetai", Gloss = "it does submit", Grammar_codes = new List<string> { "V", "PRES", "PASS", "IND", "3P", "S" }, Part_of_speech = "v" },
-                        new Word { Greek = "οὐδὲ", Transliteration = "oude", Gloss = "nor", Grammar_codes = new List<string> { "CONJ" }, Part_of_speech = "conj" },
-                        new Word { Greek = "γὰρ", Transliteration = "gar", Gloss = "indeed", Grammar_codes = new List<string> { "CONJ" }, Part_of_speech = "conj" },
-                        new Word { Greek = "δύναται", Transliteration = "dynatai", Gloss = "it is able", Grammar_codes = new List<string> { "V", "PRES", "MID", "IND", "3P", "S" }, Part_of_speech = "v" }
+                        new Word { Greek = "οὐχ", Transliteration = "ouch", Gloss = "not", GrammarCodes = new List<string> { "ADV" }, PartOfSpeech = "adv" },
+                        new Word { Greek = "ὑποτάσσεται", Transliteration = "hypotassetai", Gloss = "it does submit", GrammarCodes = new List<string> { "V", "PRES", "PASS", "IND", "3P", "S" }, PartOfSpeech = "v" },
+                        new Word { Greek = "οὐδὲ", Transliteration = "oude", Gloss = "nor", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
+                        new Word { Greek = "γὰρ", Transliteration = "gar", Gloss = "indeed", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
+                        new Word { Greek = "δύναται", Transliteration = "dynatai", Gloss = "it is able", GrammarCodes = new List<string> { "V", "PRES", "MID", "IND", "3P", "S" }, PartOfSpeech = "v" }
                     },
                     Translation = "Because the mindset of the flesh is hostile toward God, for it does not submit to God's law; indeed, it cannot."
                 },
@@ -12331,26 +12331,26 @@ namespace Koine.Infrastructure.Data.Seed
                             SyntaxCodes = new List<string> { "NOUN_PHRASE", "SUBJ" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "οἱ", Transliteration = "hoi", Gloss = "those", Grammar_codes = new List<string> { "ART", "NOM", "M", "P" }, Part_of_speech = "art" },
-                                new Word { Greek = "δὲ", Transliteration = "de", Gloss = "and", Grammar_codes = new List<string> { "CONJ" }, Part_of_speech = "conj" },
+                                new Word { Greek = "οἱ", Transliteration = "hoi", Gloss = "those", GrammarCodes = new List<string> { "ART", "NOM", "M", "P" }, PartOfSpeech = "art" },
+                                new Word { Greek = "δὲ", Transliteration = "de", Gloss = "and", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
                                 new Phrase
                                 {
                                     SyntaxCodes = new List<string> { "PREP_PHRASE" },
                                     Content = new List<object>
                                     {
-                                        new Word { Greek = "ἐν", Transliteration = "en", Gloss = "in", Grammar_codes = new List<string> { "PREP" }, Part_of_speech = "prep" },
-                                        new Word { Greek = "σαρκὶ", Transliteration = "sarki", Gloss = "flesh", Grammar_codes = new List<string> { "N", "DAT", "F", "S" }, Part_of_speech = "n" }
+                                        new Word { Greek = "ἐν", Transliteration = "en", Gloss = "in", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "prep" },
+                                        new Word { Greek = "σαρκὶ", Transliteration = "sarki", Gloss = "flesh", GrammarCodes = new List<string> { "N", "DAT", "F", "S" }, PartOfSpeech = "n" }
                                     },
                                     Translation = "in the flesh"
                                 },
-                                new Word { Greek = "ὄντες", Transliteration = "ontes", Gloss = "being", Grammar_codes = new List<string> { "V", "PRES", "ACT", "PTCP", "NOM", "M", "P" }, Part_of_speech = "v" }
+                                new Word { Greek = "ὄντες", Transliteration = "ontes", Gloss = "being", GrammarCodes = new List<string> { "V", "PRES", "ACT", "PTCP", "NOM", "M", "P" }, PartOfSpeech = "v" }
                             },
                             Translation = "Those who are in the flesh"
                         },
-                        new Word { Greek = "θεῷ", Transliteration = "theō", Gloss = "God", Grammar_codes = new List<string> { "N", "DAT", "M", "S" }, Part_of_speech = "n" },
-                        new Word { Greek = "ἀρέσαι", Transliteration = "aresai", Gloss = "to please", Grammar_codes = new List<string> { "V", "AOR", "ACT", "INF" }, Part_of_speech = "v" },
-                        new Word { Greek = "οὐ", Transliteration = "ou", Gloss = "not", Grammar_codes = new List<string> { "ADV" }, Part_of_speech = "adv" },
-                        new Word { Greek = "δύνανται", Transliteration = "dynantai", Gloss = "are able", Grammar_codes = new List<string> { "V", "PRES", "MID", "IND", "3P", "P" }, Part_of_speech = "v" }
+                        new Word { Greek = "θεῷ", Transliteration = "theō", Gloss = "God", GrammarCodes = new List<string> { "N", "DAT", "M", "S" }, PartOfSpeech = "n" },
+                        new Word { Greek = "ἀρέσαι", Transliteration = "aresai", Gloss = "to please", GrammarCodes = new List<string> { "V", "AOR", "ACT", "INF" }, PartOfSpeech = "v" },
+                        new Word { Greek = "οὐ", Transliteration = "ou", Gloss = "not", GrammarCodes = new List<string> { "ADV" }, PartOfSpeech = "adv" },
+                        new Word { Greek = "δύνανται", Transliteration = "dynantai", Gloss = "are able", GrammarCodes = new List<string> { "V", "PRES", "MID", "IND", "3P", "P" }, PartOfSpeech = "v" }
                     },
                     Translation = "Those who are in the flesh cannot please God."
                 },
@@ -22797,26 +22797,26 @@ namespace Koine.Infrastructure.Data.Seed
                     SyntaxCodes = new List<string> { "INDEP_CLAUSE" },
                     Content = new List<object>
                     {
-                        new Word { Greek = "τὸ", Transliteration = "to", Gloss = "the", Grammar_codes = new List<string> { "ART", "NOM", "N", "S" }, PartOfSpeech = "art" },
-                        new Word { Greek = "γὰρ", Transliteration = "gar", Gloss = "for", Grammar_codes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
-                        new Word { Greek = "οὐ", Transliteration = "ou", Gloss = "not", Grammar_codes = new List<string> { "PART" }, PartOfSpeech = "prep" },
-                        new Word { Greek = "μοιχεύσεις", Transliteration = "moicheuseis", Gloss = "you shall commit adultery", Grammar_codes = new List<string> { "V", "FUT", "ACT", "IND", "2P", "S" }, PartOfSpeech = "v" },
-                        new Word { Greek = "οὐ", Transliteration = "ou", Gloss = "not", Grammar_codes = new List<string> { "PART" }, PartOfSpeech = "prep" },
-                        new Word { Greek = "φονεύσεις", Transliteration = "phoneuseis", Gloss = "you shall murder", Grammar_codes = new List<string> { "V", "FUT", "ACT", "IND", "2P", "S" }, PartOfSpeech = "v" },
-                        new Word { Greek = "οὐ", Transliteration = "ou", Gloss = "not", Grammar_codes = new List<string> { "PART" }, PartOfSpeech = "prep" },
-                        new Word { Greek = "κλέψεις", Transliteration = "klepseis", Gloss = "you shall steal", Grammar_codes = new List<string> { "V", "FUT", "ACT", "IND", "2P", "S" }, PartOfSpeech = "v" },
-                        new Word { Greek = "οὐκ", Transliteration = "ouk", Gloss = "not", Grammar_codes = new List<string> { "PART" }, PartOfSpeech = "prep" },
-                        new Word { Greek = "ἐπιθυμήσεις", Transliteration = "epithymēseis", Gloss = "you shall covet", Grammar_codes = new List<string> { "V", "FUT", "ACT", "IND", "2P", "S" }, PartOfSpeech = "v" },
-                        new Word { Greek = "καὶ", Transliteration = "kai", Gloss = "and", Grammar_codes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
+                        new Word { Greek = "τὸ", Transliteration = "to", Gloss = "the", GrammarCodes = new List<string> { "ART", "NOM", "N", "S" }, PartOfSpeech = "art" },
+                        new Word { Greek = "γὰρ", Transliteration = "gar", Gloss = "for", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
+                        new Word { Greek = "οὐ", Transliteration = "ou", Gloss = "not", GrammarCodes = new List<string> { "PART" }, PartOfSpeech = "prep" },
+                        new Word { Greek = "μοιχεύσεις", Transliteration = "moicheuseis", Gloss = "you shall commit adultery", GrammarCodes = new List<string> { "V", "FUT", "ACT", "IND", "2P", "S" }, PartOfSpeech = "v" },
+                        new Word { Greek = "οὐ", Transliteration = "ou", Gloss = "not", GrammarCodes = new List<string> { "PART" }, PartOfSpeech = "prep" },
+                        new Word { Greek = "φονεύσεις", Transliteration = "phoneuseis", Gloss = "you shall murder", GrammarCodes = new List<string> { "V", "FUT", "ACT", "IND", "2P", "S" }, PartOfSpeech = "v" },
+                        new Word { Greek = "οὐ", Transliteration = "ou", Gloss = "not", GrammarCodes = new List<string> { "PART" }, PartOfSpeech = "prep" },
+                        new Word { Greek = "κλέψεις", Transliteration = "klepseis", Gloss = "you shall steal", GrammarCodes = new List<string> { "V", "FUT", "ACT", "IND", "2P", "S" }, PartOfSpeech = "v" },
+                        new Word { Greek = "οὐκ", Transliteration = "ouk", Gloss = "not", GrammarCodes = new List<string> { "PART" }, PartOfSpeech = "prep" },
+                        new Word { Greek = "ἐπιθυμήσεις", Transliteration = "epithymēseis", Gloss = "you shall covet", GrammarCodes = new List<string> { "V", "FUT", "ACT", "IND", "2P", "S" }, PartOfSpeech = "v" },
+                        new Word { Greek = "καὶ", Transliteration = "kai", Gloss = "and", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
                         new Phrase
                         {
                             SyntaxCodes = new List<string> { "COND_CLAUSE" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "εἴ", Transliteration = "ei", Gloss = "if", Grammar_codes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
-                                new Word { Greek = "τις", Transliteration = "tis", Gloss = "any", Grammar_codes = new List<string> { "PRON", "NOM", "F", "S" }, PartOfSpeech = "part" },
-                                new Word { Greek = "ἑτέρα", Transliteration = "hetera", Gloss = "other", Grammar_codes = new List<string> { "ADJ", "NOM", "F", "S" }, PartOfSpeech = "adj" },
-                                new Word { Greek = "ἐντολή", Transliteration = "entolē", Gloss = "commandment", Grammar_codes = new List<string> { "N", "NOM", "F", "S" }, PartOfSpeech = "n" }
+                                new Word { Greek = "εἴ", Transliteration = "ei", Gloss = "if", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
+                                new Word { Greek = "τις", Transliteration = "tis", Gloss = "any", GrammarCodes = new List<string> { "PRON", "NOM", "F", "S" }, PartOfSpeech = "part" },
+                                new Word { Greek = "ἑτέρα", Transliteration = "hetera", Gloss = "other", GrammarCodes = new List<string> { "ADJ", "NOM", "F", "S" }, PartOfSpeech = "adj" },
+                                new Word { Greek = "ἐντολή", Transliteration = "entolē", Gloss = "commandment", GrammarCodes = new List<string> { "N", "NOM", "F", "S" }, PartOfSpeech = "n" }
                             },
                             Translation = "and if there is any other commandment"
                         },
@@ -22825,48 +22825,48 @@ namespace Koine.Infrastructure.Data.Seed
                             SyntaxCodes = new List<string> { "PREP_PHRASE" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "ἐν", Transliteration = "en", Gloss = "in", Grammar_codes = new List<string> { "PREP" }, PartOfSpeech = "prep" },
+                                new Word { Greek = "ἐν", Transliteration = "en", Gloss = "in", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "prep" },
                                 new Phrase
                                 {
                                     SyntaxCodes = new List<string> { "NOUN_PHRASE" },
                                     Content = new List<object>
                                     {
-                                        new Word { Greek = "τῷ", Transliteration = "tō", Gloss = "the", Grammar_codes = new List<string> { "ART", "DAT", "M", "S" }, PartOfSpeech = "art" },
-                                        new Word { Greek = "λόγῳ", Transliteration = "logō", Gloss = "word", Grammar_codes = new List<string> { "N", "DAT", "M", "S" }, PartOfSpeech = "n" },
-                                        new Word { Greek = "τούτῳ", Transliteration = "toutō", Gloss = "this", Grammar_codes = new List<string> { "PRON", "DAT", "M", "S" }, PartOfSpeech = "adv" }
+                                        new Word { Greek = "τῷ", Transliteration = "tō", Gloss = "the", GrammarCodes = new List<string> { "ART", "DAT", "M", "S" }, PartOfSpeech = "art" },
+                                        new Word { Greek = "λόγῳ", Transliteration = "logō", Gloss = "word", GrammarCodes = new List<string> { "N", "DAT", "M", "S" }, PartOfSpeech = "n" },
+                                        new Word { Greek = "τούτῳ", Transliteration = "toutō", Gloss = "this", GrammarCodes = new List<string> { "PRON", "DAT", "M", "S" }, PartOfSpeech = "adv" }
                                     },
                                     Translation = "this word"
                                 }
                             },
                             Translation = "in this word"
                         },
-                        new Word { Greek = "ἀνακεφαλαιοῦται", Transliteration = "anakephalaioutai", Gloss = "it is summed up", Grammar_codes = new List<string> { "V", "PRES", "PASS", "IND", "3P", "S" }, PartOfSpeech = "v" },
+                        new Word { Greek = "ἀνακεφαλαιοῦται", Transliteration = "anakephalaioutai", Gloss = "it is summed up", GrammarCodes = new List<string> { "V", "PRES", "PASS", "IND", "3P", "S" }, PartOfSpeech = "v" },
                         new Phrase
                         {
                             SyntaxCodes = new List<string> { "PREP_PHRASE" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "ἐν", Transliteration = "en", Gloss = "in", Grammar_codes = new List<string> { "PREP" }, PartOfSpeech = "prep" },
+                                new Word { Greek = "ἐν", Transliteration = "en", Gloss = "in", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "prep" },
                                 new Phrase
                                 {
                                     SyntaxCodes = new List<string> { "NOUN_PHRASE" },
                                     Content = new List<object>
                                     {
-                                        new Word { Greek = "τῷ", Transliteration = "tō", Gloss = "the [saying]", Grammar_codes = new List<string> { "ART", "DAT", "M", "S" }, PartOfSpeech = "art" },
-                                        new Word { Greek = "ἀγαπήσεις", Transliteration = "agapēseis", Gloss = "You shall love", Grammar_codes = new List<string> { "V", "FUT", "ACT", "IND", "2P", "S" }, PartOfSpeech = "v" },
+                                        new Word { Greek = "τῷ", Transliteration = "tō", Gloss = "the [saying]", GrammarCodes = new List<string> { "ART", "DAT", "M", "S" }, PartOfSpeech = "art" },
+                                        new Word { Greek = "ἀγαπήσεις", Transliteration = "agapēseis", Gloss = "You shall love", GrammarCodes = new List<string> { "V", "FUT", "ACT", "IND", "2P", "S" }, PartOfSpeech = "v" },
                                         new Phrase
                                         {
                                             SyntaxCodes = new List<string> { "NOUN_PHRASE", "OBJ" },
                                             Content = new List<object>
                                             {
-                                                new Word { Greek = "τὸν", Transliteration = "ton", Gloss = "the", Grammar_codes = new List<string> { "ART", "ACC", "M", "S" }, PartOfSpeech = "art" },
-                                                new Word { Greek = "πλησίον", Transliteration = "plēsion", Gloss = "neighbor", Grammar_codes = new List<string> { "ADV" }, PartOfSpeech = "adj" },
-                                                new Word { Greek = "σου", Transliteration = "sou", Gloss = "of you", Grammar_codes = new List<string> { "PRON", "GEN", "2P", "S" }, PartOfSpeech = "prep" }
+                                                new Word { Greek = "τὸν", Transliteration = "ton", Gloss = "the", GrammarCodes = new List<string> { "ART", "ACC", "M", "S" }, PartOfSpeech = "art" },
+                                                new Word { Greek = "πλησίον", Transliteration = "plēsion", Gloss = "neighbor", GrammarCodes = new List<string> { "ADV" }, PartOfSpeech = "adj" },
+                                                new Word { Greek = "σου", Transliteration = "sou", Gloss = "of you", GrammarCodes = new List<string> { "PRON", "GEN", "2P", "S" }, PartOfSpeech = "prep" }
                                             },
                                             Translation = "your neighbor"
                                         },
-                                        new Word { Greek = "ὡς", Transliteration = "hōs", Gloss = "as", Grammar_codes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
-                                        new Word { Greek = "σεαυτόν", Transliteration = "seauton", Gloss = "yourself", Grammar_codes = new List<string> { "PRON", "ACC", "M", "S" }, PartOfSpeech = "f" }
+                                        new Word { Greek = "ὡς", Transliteration = "hōs", Gloss = "as", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
+                                        new Word { Greek = "σεαυτόν", Transliteration = "seauton", Gloss = "yourself", GrammarCodes = new List<string> { "PRON", "ACC", "M", "S" }, PartOfSpeech = "f" }
                                     },
                                     Translation = "You shall love your neighbor as yourself"
                                 }
@@ -22888,8 +22888,8 @@ namespace Koine.Infrastructure.Data.Seed
                             SyntaxCodes = new List<string> { "NOUN_PHRASE", "SUBJ" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "ἡ", Transliteration = "hē", Gloss = "the", Grammar_codes = new List<string> { "ART", "NOM", "F", "S" }, PartOfSpeech = "art" },
-                                new Word { Greek = "ἀγάπη", Transliteration = "agapē", Gloss = "love", Grammar_codes = new List<string> { "N", "NOM", "F", "S" }, PartOfSpeech = "n" }
+                                new Word { Greek = "ἡ", Transliteration = "hē", Gloss = "the", GrammarCodes = new List<string> { "ART", "NOM", "F", "S" }, PartOfSpeech = "art" },
+                                new Word { Greek = "ἀγάπη", Transliteration = "agapē", Gloss = "love", GrammarCodes = new List<string> { "N", "NOM", "F", "S" }, PartOfSpeech = "n" }
                             },
                             Translation = "Love"
                         },
@@ -22898,24 +22898,24 @@ namespace Koine.Infrastructure.Data.Seed
                             SyntaxCodes = new List<string> { "NOUN_PHRASE", "IND_OBJ" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "τῷ", Transliteration = "tō", Gloss = "to the", Grammar_codes = new List<string> { "ART", "DAT", "M", "S" }, PartOfSpeech = "art" },
-                                new Word { Greek = "πλησίον", Transliteration = "plēsion", Gloss = "neighbor", Grammar_codes = new List<string> { "ADV" }, PartOfSpeech = "adj" }
+                                new Word { Greek = "τῷ", Transliteration = "tō", Gloss = "to the", GrammarCodes = new List<string> { "ART", "DAT", "M", "S" }, PartOfSpeech = "art" },
+                                new Word { Greek = "πλησίον", Transliteration = "plēsion", Gloss = "neighbor", GrammarCodes = new List<string> { "ADV" }, PartOfSpeech = "adj" }
                             },
                             Translation = "to a neighbor"
                         },
-                        new Word { Greek = "κακὸν", Transliteration = "kakon", Gloss = "evil", Grammar_codes = new List<string> { "ADJ", "ACC", "N", "S" }, PartOfSpeech = "adj" },
-                        new Word { Greek = "οὐκ", Transliteration = "ouk", Gloss = "not", Grammar_codes = new List<string> { "PART" }, PartOfSpeech = "prep" },
-                        new Word { Greek = "ἐργάζεται", Transliteration = "ergazetai", Gloss = "does", Grammar_codes = new List<string> { "V", "PRES", "MID", "IND", "3P", "S" }, PartOfSpeech = "v" },
-                        new Word { Greek = "πλήρωμα", Transliteration = "plērōma", Gloss = "fulfillment", Grammar_codes = new List<string> { "N", "NOM", "N", "S" }, PartOfSpeech = "n" },
-                        new Word { Greek = "οὖν", Transliteration = "oun", Gloss = "therefore", Grammar_codes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
+                        new Word { Greek = "κακὸν", Transliteration = "kakon", Gloss = "evil", GrammarCodes = new List<string> { "ADJ", "ACC", "N", "S" }, PartOfSpeech = "adj" },
+                        new Word { Greek = "οὐκ", Transliteration = "ouk", Gloss = "not", GrammarCodes = new List<string> { "PART" }, PartOfSpeech = "prep" },
+                        new Word { Greek = "ἐργάζεται", Transliteration = "ergazetai", Gloss = "does", GrammarCodes = new List<string> { "V", "PRES", "MID", "IND", "3P", "S" }, PartOfSpeech = "v" },
+                        new Word { Greek = "πλήρωμα", Transliteration = "plērōma", Gloss = "fulfillment", GrammarCodes = new List<string> { "N", "NOM", "N", "S" }, PartOfSpeech = "n" },
+                        new Word { Greek = "οὖν", Transliteration = "oun", Gloss = "therefore", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
                         new Phrase
                         {
                             SyntaxCodes = new List<string> { "NOUN_PHRASE" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "νόμου", Transliteration = "nomou", Gloss = "of law", Grammar_codes = new List<string> { "N", "GEN", "M", "S" }, PartOfSpeech = "n" },
-                                new Word { Greek = "ἡ", Transliteration = "hē", Gloss = "the", Grammar_codes = new List<string> { "ART", "NOM", "F", "S" }, PartOfSpeech = "art" },
-                                new Word { Greek = "ἀγάπη", Transliteration = "agapē", Gloss = "love", Grammar_codes = new List<string> { "N", "NOM", "F", "S" }, PartOfSpeech = "n" }
+                                new Word { Greek = "νόμου", Transliteration = "nomou", Gloss = "of law", GrammarCodes = new List<string> { "N", "GEN", "M", "S" }, PartOfSpeech = "n" },
+                                new Word { Greek = "ἡ", Transliteration = "hē", Gloss = "the", GrammarCodes = new List<string> { "ART", "NOM", "F", "S" }, PartOfSpeech = "art" },
+                                new Word { Greek = "ἀγάπη", Transliteration = "agapē", Gloss = "love", GrammarCodes = new List<string> { "N", "NOM", "F", "S" }, PartOfSpeech = "n" }
                             },
                             Translation = "love is the fulfillment of the law"
                         }
@@ -22929,21 +22929,21 @@ namespace Koine.Infrastructure.Data.Seed
                     SyntaxCodes = new List<string> { "INDEP_CLAUSE" },
                     Content = new List<object>
                     {
-                        new Word { Greek = "Καὶ", Transliteration = "Kai", Gloss = "And", Grammar_codes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
-                        new Word { Greek = "τοῦτο", Transliteration = "touto", Gloss = "this", Grammar_codes = new List<string> { "PRON", "ACC", "N", "S" }, PartOfSpeech = "adv" },
+                        new Word { Greek = "Καὶ", Transliteration = "Kai", Gloss = "And", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
+                        new Word { Greek = "τοῦτο", Transliteration = "touto", Gloss = "this", GrammarCodes = new List<string> { "PRON", "ACC", "N", "S" }, PartOfSpeech = "adv" },
                         new Phrase
                         {
                             SyntaxCodes = new List<string> { "PTCP" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "εἰδότες", Transliteration = "eidotes", Gloss = "knowing", Grammar_codes = new List<string> { "V", "PERF", "ACT", "PTCP", "NOM", "M", "P" }, PartOfSpeech = "v" },
+                                new Word { Greek = "εἰδότες", Transliteration = "eidotes", Gloss = "knowing", GrammarCodes = new List<string> { "V", "PERF", "ACT", "PTCP", "NOM", "M", "P" }, PartOfSpeech = "v" },
                                 new Phrase
                                 {
                                     SyntaxCodes = new List<string> { "NOUN_PHRASE", "OBJ" },
                                     Content = new List<object>
                                     {
-                                        new Word { Greek = "τὸν", Transliteration = "ton", Gloss = "the", Grammar_codes = new List<string> { "ART", "ACC", "M", "S" }, PartOfSpeech = "art" },
-                                        new Word { Greek = "καιρόν", Transliteration = "kairon", Gloss = "time", Grammar_codes = new List<string> { "N", "ACC", "M", "S" }, PartOfSpeech = "n" }
+                                        new Word { Greek = "τὸν", Transliteration = "ton", Gloss = "the", GrammarCodes = new List<string> { "ART", "ACC", "M", "S" }, PartOfSpeech = "art" },
+                                        new Word { Greek = "καιρόν", Transliteration = "kairon", Gloss = "time", GrammarCodes = new List<string> { "N", "ACC", "M", "S" }, PartOfSpeech = "n" }
                                     },
                                     Translation = "the time"
                                 }
@@ -22955,46 +22955,46 @@ namespace Koine.Infrastructure.Data.Seed
                             SyntaxCodes = new List<string> { "CAUSAL_CLAUSE" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "ὅτι", Transliteration = "hoti", Gloss = "that", Grammar_codes = new List<string> { "CONJ" }, PartOfSpeech = "adj" },
-                                new Word { Greek = "ὥρα", Transliteration = "hōra", Gloss = "hour", Grammar_codes = new List<string> { "N", "NOM", "F", "S" }, PartOfSpeech = "n" },
-                                new Word { Greek = "ἤδη", Transliteration = "ēdē", Gloss = "already", Grammar_codes = new List<string> { "ADV" }, PartOfSpeech = "adj" },
-                                new Word { Greek = "ὑμᾶς", Transliteration = "hymas", Gloss = "for you", Grammar_codes = new List<string> { "PRON", "ACC", "2P", "P" }, PartOfSpeech = "prep" },
+                                new Word { Greek = "ὅτι", Transliteration = "hoti", Gloss = "that", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "adj" },
+                                new Word { Greek = "ὥρα", Transliteration = "hōra", Gloss = "hour", GrammarCodes = new List<string> { "N", "NOM", "F", "S" }, PartOfSpeech = "n" },
+                                new Word { Greek = "ἤδη", Transliteration = "ēdē", Gloss = "already", GrammarCodes = new List<string> { "ADV" }, PartOfSpeech = "adj" },
+                                new Word { Greek = "ὑμᾶς", Transliteration = "hymas", Gloss = "for you", GrammarCodes = new List<string> { "PRON", "ACC", "2P", "P" }, PartOfSpeech = "prep" },
                                 new Phrase
                                 {
                                     SyntaxCodes = new List<string> { "PREP_PHRASE" },
                                     Content = new List<object>
                                     {
-                                        new Word { Greek = "ἐξ", Transliteration = "ex", Gloss = "from", Grammar_codes = new List<string> { "PREP" }, PartOfSpeech = "prep" },
-                                        new Word { Greek = "ὕπνου", Transliteration = "hypnou", Gloss = "sleep", Grammar_codes = new List<string> { "N", "GEN", "M", "S" }, PartOfSpeech = "n" }
+                                        new Word { Greek = "ἐξ", Transliteration = "ex", Gloss = "from", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "prep" },
+                                        new Word { Greek = "ὕπνου", Transliteration = "hypnou", Gloss = "sleep", GrammarCodes = new List<string> { "N", "GEN", "M", "S" }, PartOfSpeech = "n" }
                                     },
                                     Translation = "out of sleep"
                                 },
-                                new Word { Greek = "ἐγερθῆναι", Transliteration = "egerthēnai", Gloss = "to wake", Grammar_codes = new List<string> { "V", "AOR", "PASS", "INF" }, PartOfSpeech = "v" }
+                                new Word { Greek = "ἐγερθῆναι", Transliteration = "egerthēnai", Gloss = "to wake", GrammarCodes = new List<string> { "V", "AOR", "PASS", "INF" }, PartOfSpeech = "v" }
                             },
                             Translation = "that it is already the hour for you to wake from sleep"
                         },
-                        new Word { Greek = "νῦν", Transliteration = "nyn", Gloss = "now", Grammar_codes = new List<string> { "ADV" }, PartOfSpeech = "adj" },
-                        new Word { Greek = "γὰρ", Transliteration = "gar", Gloss = "for", Grammar_codes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
-                        new Word { Greek = "ἐγγύτερον", Transliteration = "engyteron", Gloss = "nearer", Grammar_codes = new List<string> { "ADJ", "NOM", "N", "S" }, PartOfSpeech = "adj" },
-                        new Word { Greek = "ἡμῶν", Transliteration = "hēmōn", Gloss = "to us", Grammar_codes = new List<string> { "PRON", "GEN", "1P", "P" }, PartOfSpeech = "prep" },
+                        new Word { Greek = "νῦν", Transliteration = "nyn", Gloss = "now", GrammarCodes = new List<string> { "ADV" }, PartOfSpeech = "adj" },
+                        new Word { Greek = "γὰρ", Transliteration = "gar", Gloss = "for", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
+                        new Word { Greek = "ἐγγύτερον", Transliteration = "engyteron", Gloss = "nearer", GrammarCodes = new List<string> { "ADJ", "NOM", "N", "S" }, PartOfSpeech = "adj" },
+                        new Word { Greek = "ἡμῶν", Transliteration = "hēmōn", Gloss = "to us", GrammarCodes = new List<string> { "PRON", "GEN", "1P", "P" }, PartOfSpeech = "prep" },
                         new Phrase
                         {
                             SyntaxCodes = new List<string> { "NOUN_PHRASE", "SUBJ" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "ἡ", Transliteration = "hē", Gloss = "the", Grammar_codes = new List<string> { "ART", "NOM", "F", "S" }, PartOfSpeech = "art" },
-                                new Word { Greek = "σωτηρία", Transliteration = "sōtēria", Gloss = "salvation", Grammar_codes = new List<string> { "N", "NOM", "F", "S" }, PartOfSpeech = "n" }
+                                new Word { Greek = "ἡ", Transliteration = "hē", Gloss = "the", GrammarCodes = new List<string> { "ART", "NOM", "F", "S" }, PartOfSpeech = "art" },
+                                new Word { Greek = "σωτηρία", Transliteration = "sōtēria", Gloss = "salvation", GrammarCodes = new List<string> { "N", "NOM", "F", "S" }, PartOfSpeech = "n" }
                             },
                             Translation = "salvation"
                         },
-                        new Word { Greek = "ἢ", Transliteration = "ē", Gloss = "than", Grammar_codes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
+                        new Word { Greek = "ἢ", Transliteration = "ē", Gloss = "than", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
                         new Phrase
                         {
                             SyntaxCodes = new List<string> { "TEMP_CLAUSE" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "ὅτε", Transliteration = "hote", Gloss = "when", Grammar_codes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
-                                new Word { Greek = "ἐπιστεύσαμεν", Transliteration = "episteusamen", Gloss = "we believed", Grammar_codes = new List<string> { "V", "AOR", "ACT", "IND", "1P", "P" }, PartOfSpeech = "v" }
+                                new Word { Greek = "ὅτε", Transliteration = "hote", Gloss = "when", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
+                                new Word { Greek = "ἐπιστεύσαμεν", Transliteration = "episteusamen", Gloss = "we believed", GrammarCodes = new List<string> { "V", "AOR", "ACT", "IND", "1P", "P" }, PartOfSpeech = "v" }
                             },
                             Translation = "when we first believed"
                         }
@@ -23013,62 +23013,62 @@ namespace Koine.Infrastructure.Data.Seed
                             SyntaxCodes = new List<string> { "NOUN_PHRASE", "SUBJ" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "ἡ", Transliteration = "hē", Gloss = "the", Grammar_codes = new List<string> { "ART", "NOM", "F", "S" }, PartOfSpeech = "art" },
-                                new Word { Greek = "νὺξ", Transliteration = "nyx", Gloss = "night", Grammar_codes = new List<string> { "N", "NOM", "F", "S" }, PartOfSpeech = "n" }
+                                new Word { Greek = "ἡ", Transliteration = "hē", Gloss = "the", GrammarCodes = new List<string> { "ART", "NOM", "F", "S" }, PartOfSpeech = "art" },
+                                new Word { Greek = "νὺξ", Transliteration = "nyx", Gloss = "night", GrammarCodes = new List<string> { "N", "NOM", "F", "S" }, PartOfSpeech = "n" }
                             },
                             Translation = "the night"
                         },
-                        new Word { Greek = "προέκοψεν", Transliteration = "proekopsen", Gloss = "is far gone", Grammar_codes = new List<string> { "V", "AOR", "ACT", "IND", "3P", "S" }, PartOfSpeech = "v" },
+                        new Word { Greek = "προέκοψεν", Transliteration = "proekopsen", Gloss = "is far gone", GrammarCodes = new List<string> { "V", "AOR", "ACT", "IND", "3P", "S" }, PartOfSpeech = "v" },
                         new Phrase
                         {
                             SyntaxCodes = new List<string> { "NOUN_PHRASE", "SUBJ" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "ἡ", Transliteration = "hē", Gloss = "the", Grammar_codes = new List<string> { "ART", "NOM", "F", "S" }, PartOfSpeech = "art" },
-                                new Word { Greek = "δὲ", Transliteration = "de", Gloss = "but", Grammar_codes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
-                                new Word { Greek = "ἡμέρα", Transliteration = "hēmera", Gloss = "day", Grammar_codes = new List<string> { "N", "NOM", "F", "S" }, PartOfSpeech = "n" }
+                                new Word { Greek = "ἡ", Transliteration = "hē", Gloss = "the", GrammarCodes = new List<string> { "ART", "NOM", "F", "S" }, PartOfSpeech = "art" },
+                                new Word { Greek = "δὲ", Transliteration = "de", Gloss = "but", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
+                                new Word { Greek = "ἡμέρα", Transliteration = "hēmera", Gloss = "day", GrammarCodes = new List<string> { "N", "NOM", "F", "S" }, PartOfSpeech = "n" }
                             },
                             Translation = "but the day"
                         },
-                        new Word { Greek = "ἤγγικεν", Transliteration = "ēngiken", Gloss = "is at hand", Grammar_codes = new List<string> { "V", "PERF", "ACT", "IND", "3P", "S" }, PartOfSpeech = "v" },
-                        new Word { Greek = "ἀποθώμεθα", Transliteration = "apothōmetha", Gloss = "let us cast off", Grammar_codes = new List<string> { "V", "AOR", "MID", "SUBJ", "1P", "P" }, PartOfSpeech = "v" },
-                        new Word { Greek = "οὖν", Transliteration = "oun", Gloss = "therefore", Grammar_codes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
+                        new Word { Greek = "ἤγγικεν", Transliteration = "ēngiken", Gloss = "is at hand", GrammarCodes = new List<string> { "V", "PERF", "ACT", "IND", "3P", "S" }, PartOfSpeech = "v" },
+                        new Word { Greek = "ἀποθώμεθα", Transliteration = "apothōmetha", Gloss = "let us cast off", GrammarCodes = new List<string> { "V", "AOR", "MID", "SUBJ", "1P", "P" }, PartOfSpeech = "v" },
+                        new Word { Greek = "οὖν", Transliteration = "oun", Gloss = "therefore", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
                         new Phrase
                         {
                             SyntaxCodes = new List<string> { "NOUN_PHRASE", "OBJ" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "τὰ", Transliteration = "ta", Gloss = "the", Grammar_codes = new List<string> { "ART", "ACC", "N", "P" }, PartOfSpeech = "art" },
-                                new Word { Greek = "ἔργα", Transliteration = "erga", Gloss = "works", Grammar_codes = new List<string> { "N", "ACC", "N", "P" }, PartOfSpeech = "n" },
+                                new Word { Greek = "τὰ", Transliteration = "ta", Gloss = "the", GrammarCodes = new List<string> { "ART", "ACC", "N", "P" }, PartOfSpeech = "art" },
+                                new Word { Greek = "ἔργα", Transliteration = "erga", Gloss = "works", GrammarCodes = new List<string> { "N", "ACC", "N", "P" }, PartOfSpeech = "n" },
                                 new Phrase
                                 {
                                     SyntaxCodes = new List<string> { "NOUN_PHRASE" },
                                     Content = new List<object>
                                     {
-                                        new Word { Greek = "τοῦ", Transliteration = "tou", Gloss = "of the", Grammar_codes = new List<string> { "ART", "GEN", "N", "S" }, PartOfSpeech = "art" },
-                                        new Word { Greek = "σκότους", Transliteration = "skotous", Gloss = "darkness", Grammar_codes = new List<string> { "N", "GEN", "N", "S" }, PartOfSpeech = "n" }
+                                        new Word { Greek = "τοῦ", Transliteration = "tou", Gloss = "of the", GrammarCodes = new List<string> { "ART", "GEN", "N", "S" }, PartOfSpeech = "art" },
+                                        new Word { Greek = "σκότους", Transliteration = "skotous", Gloss = "darkness", GrammarCodes = new List<string> { "N", "GEN", "N", "S" }, PartOfSpeech = "n" }
                                     },
                                     Translation = "of darkness"
                                 }
                             },
                             Translation = "the works of darkness"
                         },
-                        new Word { Greek = "ἐνδυσώμεθα", Transliteration = "endusōmetha", Gloss = "let us put on", Grammar_codes = new List<string> { "V", "AOR", "MID", "SUBJ", "1P", "P" }, PartOfSpeech = "v" },
-                        new Word { Greek = "δὲ", Transliteration = "de", Gloss = "and", Grammar_codes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
+                        new Word { Greek = "ἐνδυσώμεθα", Transliteration = "endusōmetha", Gloss = "let us put on", GrammarCodes = new List<string> { "V", "AOR", "MID", "SUBJ", "1P", "P" }, PartOfSpeech = "v" },
+                        new Word { Greek = "δὲ", Transliteration = "de", Gloss = "and", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
                         new Phrase
                         {
                             SyntaxCodes = new List<string> { "NOUN_PHRASE", "OBJ" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "τὰ", Transliteration = "ta", Gloss = "the", Grammar_codes = new List<string> { "ART", "ACC", "N", "P" }, PartOfSpeech = "art" },
-                                new Word { Greek = "ὅπλα", Transliteration = "hopla", Gloss = "armor", Grammar_codes = new List<string> { "N", "ACC", "N", "P" }, PartOfSpeech = "n" },
+                                new Word { Greek = "τὰ", Transliteration = "ta", Gloss = "the", GrammarCodes = new List<string> { "ART", "ACC", "N", "P" }, PartOfSpeech = "art" },
+                                new Word { Greek = "ὅπλα", Transliteration = "hopla", Gloss = "armor", GrammarCodes = new List<string> { "N", "ACC", "N", "P" }, PartOfSpeech = "n" },
                                 new Phrase
                                 {
                                     SyntaxCodes = new List<string> { "NOUN_PHRASE" },
                                     Content = new List<object>
                                     {
-                                        new Word { Greek = "τοῦ", Transliteration = "tou", Gloss = "of the", Grammar_codes = new List<string> { "ART", "GEN", "N", "S" }, PartOfSpeech = "art" },
-                                        new Word { Greek = "φωτός", Transliteration = "phōtos", Gloss = "light", Grammar_codes = new List<string> { "N", "GEN", "N", "S" }, PartOfSpeech = "n" }
+                                        new Word { Greek = "τοῦ", Transliteration = "tou", Gloss = "of the", GrammarCodes = new List<string> { "ART", "GEN", "N", "S" }, PartOfSpeech = "art" },
+                                        new Word { Greek = "φωτός", Transliteration = "phōtos", Gloss = "light", GrammarCodes = new List<string> { "N", "GEN", "N", "S" }, PartOfSpeech = "n" }
                                     },
                                     Translation = "of light"
                                 }
@@ -23085,31 +23085,31 @@ namespace Koine.Infrastructure.Data.Seed
                     SyntaxCodes = new List<string> { "INDEP_CLAUSE" },
                     Content = new List<object>
                     {
-                        new Word { Greek = "ὡς", Transliteration = "hōs", Gloss = "as", Grammar_codes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
+                        new Word { Greek = "ὡς", Transliteration = "hōs", Gloss = "as", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
                         new Phrase
                         {
                             SyntaxCodes = new List<string> { "PREP_PHRASE" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "ἐν", Transliteration = "en", Gloss = "in", Grammar_codes = new List<string> { "PREP" }, PartOfSpeech = "prep" },
-                                new Word { Greek = "ἡμέρᾳ", Transliteration = "hēmera", Gloss = "day", Grammar_codes = new List<string> { "N", "DAT", "F", "S" }, PartOfSpeech = "n" }
+                                new Word { Greek = "ἐν", Transliteration = "en", Gloss = "in", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "prep" },
+                                new Word { Greek = "ἡμέρᾳ", Transliteration = "hēmera", Gloss = "day", GrammarCodes = new List<string> { "N", "DAT", "F", "S" }, PartOfSpeech = "n" }
                             },
                             Translation = "in the day"
                         },
-                        new Word { Greek = "εὐσχημόνως", Transliteration = "euschēmonōs", Gloss = "properly", Grammar_codes = new List<string> { "ADV" }, PartOfSpeech = "adj" },
-                        new Word { Greek = "περιπατήσωμεν", Transliteration = "peripatēsōmen", Gloss = "let us walk", Grammar_codes = new List<string> { "V", "AOR", "ACT", "SUBJ", "1P", "P" }, PartOfSpeech = "v" },
-                        new Word { Greek = "μὴ", Transliteration = "mē", Gloss = "not", Grammar_codes = new List<string> { "PART" }, PartOfSpeech = "prep" },
-                        new Word { Greek = "κώμοις", Transliteration = "kōmois", Gloss = "in orgies", Grammar_codes = new List<string> { "N", "DAT", "M", "P" }, PartOfSpeech = "n" },
-                        new Word { Greek = "καὶ", Transliteration = "kai", Gloss = "and", Grammar_codes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
-                        new Word { Greek = "μέθαις", Transliteration = "methais", Gloss = "drunkenness", Grammar_codes = new List<string> { "N", "DAT", "F", "P" }, PartOfSpeech = "n" },
-                        new Word { Greek = "μὴ", Transliteration = "mē", Gloss = "not", Grammar_codes = new List<string> { "PART" }, PartOfSpeech = "prep" },
-                        new Word { Greek = "κοίταις", Transliteration = "koitais", Gloss = "sexual immorality", Grammar_codes = new List<string> { "N", "DAT", "F", "P" }, PartOfSpeech = "n" },
-                        new Word { Greek = "καὶ", Transliteration = "kai", Gloss = "and", Grammar_codes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
-                        new Word { Greek = "ἀσελγείαις", Transliteration = "aselgeiais", Gloss = "sensuality", Grammar_codes = new List<string> { "N", "DAT", "F", "P" }, PartOfSpeech = "n" },
-                        new Word { Greek = "μὴ", Transliteration = "mē", Gloss = "not", Grammar_codes = new List<string> { "PART" }, PartOfSpeech = "prep" },
-                        new Word { Greek = "ἔριδι", Transliteration = "eridi", Gloss = "quarreling", Grammar_codes = new List<string> { "N", "DAT", "F", "S" }, PartOfSpeech = "n" },
-                        new Word { Greek = "καὶ", Transliteration = "kai", Gloss = "and", Grammar_codes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
-                        new Word { Greek = "ζήλῳ", Transliteration = "zēlō", Gloss = "jealousy", Grammar_codes = new List<string> { "N", "DAT", "M", "S" }, PartOfSpeech = "n" }
+                        new Word { Greek = "εὐσχημόνως", Transliteration = "euschēmonōs", Gloss = "properly", GrammarCodes = new List<string> { "ADV" }, PartOfSpeech = "adj" },
+                        new Word { Greek = "περιπατήσωμεν", Transliteration = "peripatēsōmen", Gloss = "let us walk", GrammarCodes = new List<string> { "V", "AOR", "ACT", "SUBJ", "1P", "P" }, PartOfSpeech = "v" },
+                        new Word { Greek = "μὴ", Transliteration = "mē", Gloss = "not", GrammarCodes = new List<string> { "PART" }, PartOfSpeech = "prep" },
+                        new Word { Greek = "κώμοις", Transliteration = "kōmois", Gloss = "in orgies", GrammarCodes = new List<string> { "N", "DAT", "M", "P" }, PartOfSpeech = "n" },
+                        new Word { Greek = "καὶ", Transliteration = "kai", Gloss = "and", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
+                        new Word { Greek = "μέθαις", Transliteration = "methais", Gloss = "drunkenness", GrammarCodes = new List<string> { "N", "DAT", "F", "P" }, PartOfSpeech = "n" },
+                        new Word { Greek = "μὴ", Transliteration = "mē", Gloss = "not", GrammarCodes = new List<string> { "PART" }, PartOfSpeech = "prep" },
+                        new Word { Greek = "κοίταις", Transliteration = "koitais", Gloss = "sexual immorality", GrammarCodes = new List<string> { "N", "DAT", "F", "P" }, PartOfSpeech = "n" },
+                        new Word { Greek = "καὶ", Transliteration = "kai", Gloss = "and", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
+                        new Word { Greek = "ἀσελγείαις", Transliteration = "aselgeiais", Gloss = "sensuality", GrammarCodes = new List<string> { "N", "DAT", "F", "P" }, PartOfSpeech = "n" },
+                        new Word { Greek = "μὴ", Transliteration = "mē", Gloss = "not", GrammarCodes = new List<string> { "PART" }, PartOfSpeech = "prep" },
+                        new Word { Greek = "ἔριδι", Transliteration = "eridi", Gloss = "quarreling", GrammarCodes = new List<string> { "N", "DAT", "F", "S" }, PartOfSpeech = "n" },
+                        new Word { Greek = "καὶ", Transliteration = "kai", Gloss = "and", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
+                        new Word { Greek = "ζήλῳ", Transliteration = "zēlō", Gloss = "jealousy", GrammarCodes = new List<string> { "N", "DAT", "M", "S" }, PartOfSpeech = "n" }
                     },
                     Translation = "Let us walk properly as in the daytime, not in orgies and drunkenness, not in sexual immorality and sensuality, not in quarreling and jealousy."
                 },
@@ -23120,21 +23120,21 @@ namespace Koine.Infrastructure.Data.Seed
                     SyntaxCodes = new List<string> { "INDEP_CLAUSE" },
                     Content = new List<object>
                     {
-                        new Word { Greek = "ἀλλ᾽", Transliteration = "all'", Gloss = "But", Grammar_codes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
-                        new Word { Greek = "ἐνδύσασθε", Transliteration = "endusasthe", Gloss = "put on", Grammar_codes = new List<string> { "V", "AOR", "MID", "IMP", "2P", "P" }, PartOfSpeech = "v" },
+                        new Word { Greek = "ἀλλ᾽", Transliteration = "all'", Gloss = "But", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
+                        new Word { Greek = "ἐνδύσασθε", Transliteration = "endusasthe", Gloss = "put on", GrammarCodes = new List<string> { "V", "AOR", "MID", "IMP", "2P", "P" }, PartOfSpeech = "v" },
                         new Phrase
                         {
                             SyntaxCodes = new List<string> { "NOUN_PHRASE", "OBJ" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "τὸν", Transliteration = "ton", Gloss = "the", Grammar_codes = new List<string> { "ART", "ACC", "M", "S" }, PartOfSpeech = "art" },
-                                new Word { Greek = "κύριον", Transliteration = "kyrion", Gloss = "Lord", Grammar_codes = new List<string> { "N", "ACC", "M", "S" }, PartOfSpeech = "n" },
-                                new Word { Greek = "Ἰησοῦν", Transliteration = "Iēsoun", Gloss = "Jesus", Grammar_codes = new List<string> { "N", "ACC", "M", "S" }, PartOfSpeech = "n" },
-                                new Word { Greek = "Χριστὸν", Transliteration = "Christon", Gloss = "Christ", Grammar_codes = new List<string> { "N", "ACC", "M", "S" }, PartOfSpeech = "n" }
+                                new Word { Greek = "τὸν", Transliteration = "ton", Gloss = "the", GrammarCodes = new List<string> { "ART", "ACC", "M", "S" }, PartOfSpeech = "art" },
+                                new Word { Greek = "κύριον", Transliteration = "kyrion", Gloss = "Lord", GrammarCodes = new List<string> { "N", "ACC", "M", "S" }, PartOfSpeech = "n" },
+                                new Word { Greek = "Ἰησοῦν", Transliteration = "Iēsoun", Gloss = "Jesus", GrammarCodes = new List<string> { "N", "ACC", "M", "S" }, PartOfSpeech = "n" },
+                                new Word { Greek = "Χριστὸν", Transliteration = "Christon", Gloss = "Christ", GrammarCodes = new List<string> { "N", "ACC", "M", "S" }, PartOfSpeech = "n" }
                             },
                             Translation = "the Lord Jesus Christ"
                         },
-                        new Word { Greek = "καὶ", Transliteration = "kai", Gloss = "and", Grammar_codes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
+                        new Word { Greek = "καὶ", Transliteration = "kai", Gloss = "and", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
                         new Phrase
                         {
                             SyntaxCodes = new List<string> { "NOUN_PHRASE", "OBJ" },
@@ -23145,24 +23145,24 @@ namespace Koine.Infrastructure.Data.Seed
                                     SyntaxCodes = new List<string> { "NOUN_PHRASE" },
                                     Content = new List<object>
                                     {
-                                        new Word { Greek = "τῆς", Transliteration = "tēs", Gloss = "the", Grammar_codes = new List<string> { "ART", "GEN", "F", "S" }, PartOfSpeech = "art" },
-                                        new Word { Greek = "σαρκὸς", Transliteration = "sarkos", Gloss = "flesh", Grammar_codes = new List<string> { "N", "GEN", "F", "S" }, PartOfSpeech = "n" }
+                                        new Word { Greek = "τῆς", Transliteration = "tēs", Gloss = "the", GrammarCodes = new List<string> { "ART", "GEN", "F", "S" }, PartOfSpeech = "art" },
+                                        new Word { Greek = "σαρκὸς", Transliteration = "sarkos", Gloss = "flesh", GrammarCodes = new List<string> { "N", "GEN", "F", "S" }, PartOfSpeech = "n" }
                                     },
                                     Translation = "for the flesh"
                                 },
-                                new Word { Greek = "πρόνοιαν", Transliteration = "pronoian", Gloss = "provision", Grammar_codes = new List<string> { "N", "ACC", "F", "S" }, PartOfSpeech = "n" }
+                                new Word { Greek = "πρόνοιαν", Transliteration = "pronoian", Gloss = "provision", GrammarCodes = new List<string> { "N", "ACC", "F", "S" }, PartOfSpeech = "n" }
                             },
                             Translation = "provision for the flesh"
                         },
-                        new Word { Greek = "μὴ", Transliteration = "mē", Gloss = "not", Grammar_codes = new List<string> { "PART" }, PartOfSpeech = "prep" },
-                        new Word { Greek = "ποιεῖσθε", Transliteration = "poieisthe", Gloss = "make", Grammar_codes = new List<string> { "V", "PRES", "MID", "IMP", "2P", "P" }, PartOfSpeech = "v" },
+                        new Word { Greek = "μὴ", Transliteration = "mē", Gloss = "not", GrammarCodes = new List<string> { "PART" }, PartOfSpeech = "prep" },
+                        new Word { Greek = "ποιεῖσθε", Transliteration = "poieisthe", Gloss = "make", GrammarCodes = new List<string> { "V", "PRES", "MID", "IMP", "2P", "P" }, PartOfSpeech = "v" },
                         new Phrase
                         {
                             SyntaxCodes = new List<string> { "PREP_PHRASE" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "εἰς", Transliteration = "eis", Gloss = "to [gratify]", Grammar_codes = new List<string> { "PREP" }, PartOfSpeech = "prep" },
-                                new Word { Greek = "ἐπιθυμίας", Transliteration = "epithymias", Gloss = "desires", Grammar_codes = new List<string> { "N", "ACC", "F", "P" }, PartOfSpeech = "n" }
+                                new Word { Greek = "εἰς", Transliteration = "eis", Gloss = "to [gratify]", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "prep" },
+                                new Word { Greek = "ἐπιθυμίας", Transliteration = "epithymias", Gloss = "desires", GrammarCodes = new List<string> { "N", "ACC", "F", "P" }, PartOfSpeech = "n" }
                             },
                             Translation = "to gratify its desires"
                         }
@@ -24680,15 +24680,15 @@ namespace Koine.Infrastructure.Data.Seed
                     SyntaxCodes = new List<string> { "INDEP_CLAUSE" },
                     Content = new List<object>
                     {
-                        new Word { Greek = "ἔχω", Transliteration = "echō", Gloss = "I have", Grammar_codes = new List<string> { "V", "PRES", "ACT", "IND", "1P", "S" }, PartOfSpeech = "verb" },
-                        new Word { Greek = "οὖν", Transliteration = "oun", Gloss = "therefore", Grammar_codes = new List<string> { "CONJ" }, PartOfSpeech = "conjunction" },
+                        new Word { Greek = "ἔχω", Transliteration = "echō", Gloss = "I have", GrammarCodes = new List<string> { "V", "PRES", "ACT", "IND", "1P", "S" }, PartOfSpeech = "verb" },
+                        new Word { Greek = "οὖν", Transliteration = "oun", Gloss = "therefore", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conjunction" },
                         new Phrase
                         {
                             SyntaxCodes = new List<string> { "NOUN_PHRASE", "OBJ" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "τὴν", Transliteration = "tēn", Gloss = "the", Grammar_codes = new List<string> { "ART", "ACC", "F", "S" }, PartOfSpeech = "article" },
-                                new Word { Greek = "καύχησιν", Transliteration = "kauchēsin", Gloss = "boasting", Grammar_codes = new List<string> { "N", "ACC", "F", "S" }, PartOfSpeech = "noun" }
+                                new Word { Greek = "τὴν", Transliteration = "tēn", Gloss = "the", GrammarCodes = new List<string> { "ART", "ACC", "F", "S" }, PartOfSpeech = "article" },
+                                new Word { Greek = "καύχησιν", Transliteration = "kauchēsin", Gloss = "boasting", GrammarCodes = new List<string> { "N", "ACC", "F", "S" }, PartOfSpeech = "noun" }
                             },
                             Translation = "the boasting"
                         },
@@ -24697,9 +24697,9 @@ namespace Koine.Infrastructure.Data.Seed
                             SyntaxCodes = new List<string> { "PREP_PHRASE" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "ἐν", Transliteration = "en", Gloss = "in", Grammar_codes = new List<string> { "PREP" }, PartOfSpeech = "preposition" },
-                                new Word { Greek = "Χριστῷ", Transliteration = "Christō", Gloss = "Christ", Grammar_codes = new List<string> { "N", "DAT", "M", "S" }, PartOfSpeech = "noun" },
-                                new Word { Greek = "Ἰησοῦ", Transliteration = "Iēsou", Gloss = "Jesus", Grammar_codes = new List<string> { "N", "DAT", "M", "S" }, PartOfSpeech = "noun" }
+                                new Word { Greek = "ἐν", Transliteration = "en", Gloss = "in", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "preposition" },
+                                new Word { Greek = "Χριστῷ", Transliteration = "Christō", Gloss = "Christ", GrammarCodes = new List<string> { "N", "DAT", "M", "S" }, PartOfSpeech = "noun" },
+                                new Word { Greek = "Ἰησοῦ", Transliteration = "Iēsou", Gloss = "Jesus", GrammarCodes = new List<string> { "N", "DAT", "M", "S" }, PartOfSpeech = "noun" }
                             },
                             Translation = "in Christ Jesus"
                         },
@@ -24708,15 +24708,15 @@ namespace Koine.Infrastructure.Data.Seed
                             SyntaxCodes = new List<string> { "NOUN_PHRASE" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "τὰ", Transliteration = "ta", Gloss = "the [things]", Grammar_codes = new List<string> { "ART", "ACC", "N", "P" }, PartOfSpeech = "article" },
+                                new Word { Greek = "τὰ", Transliteration = "ta", Gloss = "the [things]", GrammarCodes = new List<string> { "ART", "ACC", "N", "P" }, PartOfSpeech = "article" },
                                 new Phrase
                                 {
                                     SyntaxCodes = new List<string> { "PREP_PHRASE" },
                                     Content = new List<object>
                                     {
-                                        new Word { Greek = "πρὸς", Transliteration = "pros", Gloss = "to", Grammar_codes = new List<string> { "PREP" }, PartOfSpeech = "preposition" },
-                                        new Word { Greek = "τὸν", Transliteration = "ton", Gloss = "the", Grammar_codes = new List<string> { "ART", "ACC", "M", "S" }, PartOfSpeech = "article" },
-                                        new Word { Greek = "θεόν", Transliteration = "theon", Gloss = "God", Grammar_codes = new List<string> { "N", "ACC", "M", "S" }, PartOfSpeech = "noun" }
+                                        new Word { Greek = "πρὸς", Transliteration = "pros", Gloss = "to", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "preposition" },
+                                        new Word { Greek = "τὸν", Transliteration = "ton", Gloss = "the", GrammarCodes = new List<string> { "ART", "ACC", "M", "S" }, PartOfSpeech = "article" },
+                                        new Word { Greek = "θεόν", Transliteration = "theon", Gloss = "God", GrammarCodes = new List<string> { "N", "ACC", "M", "S" }, PartOfSpeech = "noun" }
                                     },
                                     Translation = "pertaining to God"
                                 }
@@ -24732,16 +24732,16 @@ namespace Koine.Infrastructure.Data.Seed
                     SyntaxCodes = new List<string> { "INDEP_CLAUSE" },
                     Content = new List<object>
                     {
-                        new Word { Greek = "οὐ", Transliteration = "ou", Gloss = "not", Grammar_codes = new List<string> { "ADV" }, PartOfSpeech = "adverb" },
-                        new Word { Greek = "γὰρ", Transliteration = "gar", Gloss = "for", Grammar_codes = new List<string> { "CONJ" }, PartOfSpeech = "conjunction" },
-                        new Word { Greek = "τολμήσω", Transliteration = "tolmēsō", Gloss = "I will dare", Grammar_codes = new List<string> { "V", "FUT", "ACT", "IND", "1P", "S" }, PartOfSpeech = "verb" },
-                        new Word { Greek = "τι", Transliteration = "ti", Gloss = "anything", Grammar_codes = new List<string> { "PRON", "ACC", "N", "S" }, PartOfSpeech = "pronoun" },
+                        new Word { Greek = "οὐ", Transliteration = "ou", Gloss = "not", GrammarCodes = new List<string> { "ADV" }, PartOfSpeech = "adverb" },
+                        new Word { Greek = "γὰρ", Transliteration = "gar", Gloss = "for", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conjunction" },
+                        new Word { Greek = "τολμήσω", Transliteration = "tolmēsō", Gloss = "I will dare", GrammarCodes = new List<string> { "V", "FUT", "ACT", "IND", "1P", "S" }, PartOfSpeech = "verb" },
+                        new Word { Greek = "τι", Transliteration = "ti", Gloss = "anything", GrammarCodes = new List<string> { "PRON", "ACC", "N", "S" }, PartOfSpeech = "pronoun" },
                         new Phrase
                         {
                             SyntaxCodes = new List<string> { "INF_PHRASE" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "λαλεῖν", Transliteration = "lalein", Gloss = "to speak", Grammar_codes = new List<string> { "V", "PRES", "ACT", "INF" }, PartOfSpeech = "verb" }
+                                new Word { Greek = "λαλεῖν", Transliteration = "lalein", Gloss = "to speak", GrammarCodes = new List<string> { "V", "PRES", "ACT", "INF" }, PartOfSpeech = "verb" }
                             },
                             Translation = "to speak"
                         },
@@ -24750,17 +24750,17 @@ namespace Koine.Infrastructure.Data.Seed
                             SyntaxCodes = new List<string> { "REL_CLAUSE" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "ὧν", Transliteration = "hōn", Gloss = "of which", Grammar_codes = new List<string> { "PRON", "GEN", "N", "P" }, PartOfSpeech = "pronoun" },
-                                new Word { Greek = "οὐ", Transliteration = "ou", Gloss = "not", Grammar_codes = new List<string> { "ADV" }, PartOfSpeech = "adverb" },
-                                new Word { Greek = "κατειργάσατο", Transliteration = "kateirgasato", Gloss = "produced", Grammar_codes = new List<string> { "V", "AOR", "MID", "IND", "3P", "S" }, PartOfSpeech = "verb" },
-                                new Word { Greek = "Χριστὸς", Transliteration = "Christos", Gloss = "Christ", Grammar_codes = new List<string> { "N", "NOM", "M", "S" }, PartOfSpeech = "noun" },
+                                new Word { Greek = "ὧν", Transliteration = "hōn", Gloss = "of which", GrammarCodes = new List<string> { "PRON", "GEN", "N", "P" }, PartOfSpeech = "pronoun" },
+                                new Word { Greek = "οὐ", Transliteration = "ou", Gloss = "not", GrammarCodes = new List<string> { "ADV" }, PartOfSpeech = "adverb" },
+                                new Word { Greek = "κατειργάσατο", Transliteration = "kateirgasato", Gloss = "produced", GrammarCodes = new List<string> { "V", "AOR", "MID", "IND", "3P", "S" }, PartOfSpeech = "verb" },
+                                new Word { Greek = "Χριστὸς", Transliteration = "Christos", Gloss = "Christ", GrammarCodes = new List<string> { "N", "NOM", "M", "S" }, PartOfSpeech = "noun" },
                                 new Phrase
                                 {
                                     SyntaxCodes = new List<string> { "PREP_PHRASE" },
                                     Content = new List<object>
                                     {
-                                        new Word { Greek = "δι᾽", Transliteration = "di'", Gloss = "through", Grammar_codes = new List<string> { "PREP" }, PartOfSpeech = "preposition" },
-                                        new Word { Greek = "ἐμοῦ", Transliteration = "emou", Gloss = "me", Grammar_codes = new List<string> { "PRON", "GEN", "1P", "S" }, PartOfSpeech = "pronoun" }
+                                        new Word { Greek = "δι᾽", Transliteration = "di'", Gloss = "through", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "preposition" },
+                                        new Word { Greek = "ἐμοῦ", Transliteration = "emou", Gloss = "me", GrammarCodes = new List<string> { "PRON", "GEN", "1P", "S" }, PartOfSpeech = "pronoun" }
                                     },
                                     Translation = "through me"
                                 },
@@ -24769,9 +24769,9 @@ namespace Koine.Infrastructure.Data.Seed
                                     SyntaxCodes = new List<string> { "PREP_PHRASE" },
                                     Content = new List<object>
                                     {
-                                        new Word { Greek = "εἰς", Transliteration = "eis", Gloss = "for", Grammar_codes = new List<string> { "PREP" }, PartOfSpeech = "preposition" },
-                                        new Word { Greek = "ὑπακοὴν", Transliteration = "hypakoēn", Gloss = "obedience", Grammar_codes = new List<string> { "N", "ACC", "F", "S" }, PartOfSpeech = "noun" },
-                                        new Word { Greek = "ἐθνῶν", Transliteration = "ethnōn", Gloss = "of [the] Gentiles", Grammar_codes = new List<string> { "N", "GEN", "N", "P" }, PartOfSpeech = "noun" }
+                                        new Word { Greek = "εἰς", Transliteration = "eis", Gloss = "for", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "preposition" },
+                                        new Word { Greek = "ὑπακοὴν", Transliteration = "hypakoēn", Gloss = "obedience", GrammarCodes = new List<string> { "N", "ACC", "F", "S" }, PartOfSpeech = "noun" },
+                                        new Word { Greek = "ἐθνῶν", Transliteration = "ethnōn", Gloss = "of [the] Gentiles", GrammarCodes = new List<string> { "N", "GEN", "N", "P" }, PartOfSpeech = "noun" }
                                     },
                                     Translation = "for the obedience of the Gentiles"
                                 },
@@ -24780,9 +24780,9 @@ namespace Koine.Infrastructure.Data.Seed
                                     SyntaxCodes = new List<string> { "DAT_INSTR" },
                                     Content = new List<object>
                                     {
-                                        new Word { Greek = "λόγῳ", Transliteration = "logō", Gloss = "by word", Grammar_codes = new List<string> { "N", "DAT", "M", "S" }, PartOfSpeech = "noun" },
-                                        new Word { Greek = "καὶ", Transliteration = "kai", Gloss = "and", Grammar_codes = new List<string> { "CONJ" }, PartOfSpeech = "conjunction" },
-                                        new Word { Greek = "ἔργῳ", Transliteration = "ergō", Gloss = "by deed", Grammar_codes = new List<string> { "N", "DAT", "N", "S" }, PartOfSpeech = "noun" }
+                                        new Word { Greek = "λόγῳ", Transliteration = "logō", Gloss = "by word", GrammarCodes = new List<string> { "N", "DAT", "M", "S" }, PartOfSpeech = "noun" },
+                                        new Word { Greek = "καὶ", Transliteration = "kai", Gloss = "and", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conjunction" },
+                                        new Word { Greek = "ἔργῳ", Transliteration = "ergō", Gloss = "by deed", GrammarCodes = new List<string> { "N", "DAT", "N", "S" }, PartOfSpeech = "noun" }
                                     },
                                     Translation = "by word and deed"
                                 }
@@ -24803,11 +24803,11 @@ namespace Koine.Infrastructure.Data.Seed
                             SyntaxCodes = new List<string> { "PREP_PHRASE" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "ἐν", Transliteration = "en", Gloss = "in", Grammar_codes = new List<string> { "PREP" }, PartOfSpeech = "preposition" },
-                                new Word { Greek = "δυνάμει", Transliteration = "dynamei", Gloss = "power", Grammar_codes = new List<string> { "N", "DAT", "F", "S" }, PartOfSpeech = "noun" },
-                                new Word { Greek = "σημείων", Transliteration = "sēmeiōn", Gloss = "of signs", Grammar_codes = new List<string> { "N", "GEN", "N", "P" }, PartOfSpeech = "noun" },
-                                new Word { Greek = "καὶ", Transliteration = "kai", Gloss = "and", Grammar_codes = new List<string> { "CONJ" }, PartOfSpeech = "conjunction" },
-                                new Word { Greek = "τεράτων", Transliteration = "teratōn", Gloss = "wonders", Grammar_codes = new List<string> { "N", "GEN", "N", "P" }, PartOfSpeech = "noun" }
+                                new Word { Greek = "ἐν", Transliteration = "en", Gloss = "in", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "preposition" },
+                                new Word { Greek = "δυνάμει", Transliteration = "dynamei", Gloss = "power", GrammarCodes = new List<string> { "N", "DAT", "F", "S" }, PartOfSpeech = "noun" },
+                                new Word { Greek = "σημείων", Transliteration = "sēmeiōn", Gloss = "of signs", GrammarCodes = new List<string> { "N", "GEN", "N", "P" }, PartOfSpeech = "noun" },
+                                new Word { Greek = "καὶ", Transliteration = "kai", Gloss = "and", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conjunction" },
+                                new Word { Greek = "τεράτων", Transliteration = "teratōn", Gloss = "wonders", GrammarCodes = new List<string> { "N", "GEN", "N", "P" }, PartOfSpeech = "noun" }
                             },
                             Translation = "in the power of signs and wonders"
                         },
@@ -24816,10 +24816,10 @@ namespace Koine.Infrastructure.Data.Seed
                             SyntaxCodes = new List<string> { "PREP_PHRASE" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "ἐν", Transliteration = "en", Gloss = "in", Grammar_codes = new List<string> { "PREP" }, PartOfSpeech = "preposition" },
-                                new Word { Greek = "δυνάμει", Transliteration = "dynamei", Gloss = "power", Grammar_codes = new List<string> { "N", "DAT", "F", "S" }, PartOfSpeech = "noun" },
-                                new Word { Greek = "πνεύματος", Transliteration = "pneumatos", Gloss = "of [the] Spirit", Grammar_codes = new List<string> { "N", "GEN", "N", "S" }, PartOfSpeech = "noun" },
-                                new Word { Greek = "θεοῦ", Transliteration = "theou", Gloss = "of God", Grammar_codes = new List<string> { "N", "GEN", "M", "S" }, PartOfSpeech = "noun" }
+                                new Word { Greek = "ἐν", Transliteration = "en", Gloss = "in", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "preposition" },
+                                new Word { Greek = "δυνάμει", Transliteration = "dynamei", Gloss = "power", GrammarCodes = new List<string> { "N", "DAT", "F", "S" }, PartOfSpeech = "noun" },
+                                new Word { Greek = "πνεύματος", Transliteration = "pneumatos", Gloss = "of [the] Spirit", GrammarCodes = new List<string> { "N", "GEN", "N", "S" }, PartOfSpeech = "noun" },
+                                new Word { Greek = "θεοῦ", Transliteration = "theou", Gloss = "of God", GrammarCodes = new List<string> { "N", "GEN", "M", "S" }, PartOfSpeech = "noun" }
                             },
                             Translation = "in the power of the Spirit of God"
                         }
@@ -24831,41 +24831,41 @@ namespace Koine.Infrastructure.Data.Seed
                     SyntaxCodes = new List<string> { "RESULT_CLAUSE" },
                     Content = new List<object>
                     {
-                        new Word { Greek = "ὥστε", Transliteration = "hōste", Gloss = "so that", Grammar_codes = new List<string> { "CONJ" }, PartOfSpeech = "conjunction" },
-                        new Word { Greek = "με", Transliteration = "me", Gloss = "me", Grammar_codes = new List<string> { "PRON", "ACC", "1P", "S" }, PartOfSpeech = "pronoun" },
+                        new Word { Greek = "ὥστε", Transliteration = "hōste", Gloss = "so that", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conjunction" },
+                        new Word { Greek = "με", Transliteration = "me", Gloss = "me", GrammarCodes = new List<string> { "PRON", "ACC", "1P", "S" }, PartOfSpeech = "pronoun" },
                         new Phrase
                         {
                             SyntaxCodes = new List<string> { "PREP_PHRASE" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "ἀπὸ", Transliteration = "apo", Gloss = "from", Grammar_codes = new List<string> { "PREP" }, PartOfSpeech = "preposition" },
-                                new Word { Greek = "Ἰερουσαλὴμ", Transliteration = "Ierousalēm", Gloss = "Jerusalem", Grammar_codes = new List<string> { "N", "GEN", "F", "S" }, PartOfSpeech = "noun" }
+                                new Word { Greek = "ἀπὸ", Transliteration = "apo", Gloss = "from", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "preposition" },
+                                new Word { Greek = "Ἰερουσαλὴμ", Transliteration = "Ierousalēm", Gloss = "Jerusalem", GrammarCodes = new List<string> { "N", "GEN", "F", "S" }, PartOfSpeech = "noun" }
                             },
                             Translation = "from Jerusalem"
                         },
-                        new Word { Greek = "καὶ", Transliteration = "kai", Gloss = "and", Grammar_codes = new List<string> { "CONJ" }, PartOfSpeech = "conjunction" },
-                        new Word { Greek = "κύκλῳ", Transliteration = "kyklō", Gloss = "round about", Grammar_codes = new List<string> { "ADV" }, PartOfSpeech = "adverb" },
+                        new Word { Greek = "καὶ", Transliteration = "kai", Gloss = "and", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conjunction" },
+                        new Word { Greek = "κύκλῳ", Transliteration = "kyklō", Gloss = "round about", GrammarCodes = new List<string> { "ADV" }, PartOfSpeech = "adverb" },
                         new Phrase
                         {
                             SyntaxCodes = new List<string> { "PREP_PHRASE" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "μέχρι", Transliteration = "mechri", Gloss = "as far as", Grammar_codes = new List<string> { "PREP" }, PartOfSpeech = "preposition" },
-                                new Word { Greek = "τοῦ", Transliteration = "tou", Gloss = "the", Grammar_codes = new List<string> { "ART", "GEN", "N", "S" }, PartOfSpeech = "article" },
-                                new Word { Greek = "Ἰλλυρικοῦ", Transliteration = "Illyrikou", Gloss = "Illyricum", Grammar_codes = new List<string> { "N", "GEN", "N", "S" }, PartOfSpeech = "noun" }
+                                new Word { Greek = "μέχρι", Transliteration = "mechri", Gloss = "as far as", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "preposition" },
+                                new Word { Greek = "τοῦ", Transliteration = "tou", Gloss = "the", GrammarCodes = new List<string> { "ART", "GEN", "N", "S" }, PartOfSpeech = "article" },
+                                new Word { Greek = "Ἰλλυρικοῦ", Transliteration = "Illyrikou", Gloss = "Illyricum", GrammarCodes = new List<string> { "N", "GEN", "N", "S" }, PartOfSpeech = "noun" }
                             },
                             Translation = "as far as Illyricum"
                         },
-                        new Word { Greek = "πεπληρωκέναι", Transliteration = "peplērōkenai", Gloss = "to have fulfilled", Grammar_codes = new List<string> { "V", "PERF", "ACT", "INF" }, PartOfSpeech = "verb" },
+                        new Word { Greek = "πεπληρωκέναι", Transliteration = "peplērōkenai", Gloss = "to have fulfilled", GrammarCodes = new List<string> { "V", "PERF", "ACT", "INF" }, PartOfSpeech = "verb" },
                         new Phrase
                         {
                             SyntaxCodes = new List<string> { "NOUN_PHRASE", "OBJ" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "τὸ", Transliteration = "to", Gloss = "the", Grammar_codes = new List<string> { "ART", "ACC", "N", "S" }, PartOfSpeech = "article" },
-                                new Word { Greek = "εὐαγγέλιον", Transliteration = "euangelion", Gloss = "gospel", Grammar_codes = new List<string> { "N", "ACC", "N", "S" }, PartOfSpeech = "noun" },
-                                new Word { Greek = "τοῦ", Transliteration = "tou", Gloss = "of the", Grammar_codes = new List<string> { "ART", "GEN", "M", "S" }, PartOfSpeech = "article" },
-                                new Word { Greek = "Χριστοῦ", Transliteration = "Christou", Gloss = "Christ", Grammar_codes = new List<string> { "N", "GEN", "M", "S" }, PartOfSpeech = "noun" }
+                                new Word { Greek = "τὸ", Transliteration = "to", Gloss = "the", GrammarCodes = new List<string> { "ART", "ACC", "N", "S" }, PartOfSpeech = "article" },
+                                new Word { Greek = "εὐαγγέλιον", Transliteration = "euangelion", Gloss = "gospel", GrammarCodes = new List<string> { "N", "ACC", "N", "S" }, PartOfSpeech = "noun" },
+                                new Word { Greek = "τοῦ", Transliteration = "tou", Gloss = "of the", GrammarCodes = new List<string> { "ART", "GEN", "M", "S" }, PartOfSpeech = "article" },
+                                new Word { Greek = "Χριστοῦ", Transliteration = "Christou", Gloss = "Christ", GrammarCodes = new List<string> { "N", "GEN", "M", "S" }, PartOfSpeech = "noun" }
                             },
                             Translation = "the gospel of Christ"
                         }
@@ -24878,14 +24878,14 @@ namespace Koine.Infrastructure.Data.Seed
                     SyntaxCodes = new List<string> { "INDEP_CLAUSE" },
                     Content = new List<object>
                     {
-                        new Word { Greek = "οὕτως", Transliteration = "houtōs", Gloss = "thus", Grammar_codes = new List<string> { "ADV" }, PartOfSpeech = "adverb" },
-                        new Word { Greek = "δὲ", Transliteration = "de", Gloss = "and", Grammar_codes = new List<string> { "CONJ" }, PartOfSpeech = "conjunction" },
+                        new Word { Greek = "οὕτως", Transliteration = "houtōs", Gloss = "thus", GrammarCodes = new List<string> { "ADV" }, PartOfSpeech = "adverb" },
+                        new Word { Greek = "δὲ", Transliteration = "de", Gloss = "and", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conjunction" },
                         new Phrase
                         {
                             SyntaxCodes = new List<string> { "PTCP" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "φιλοτιμούμενον", Transliteration = "philotimoumenon", Gloss = "making it my ambition", Grammar_codes = new List<string> { "V", "PRES", "MID", "PTCP", "ACC", "M", "S" }, PartOfSpeech = "verb" }
+                                new Word { Greek = "φιλοτιμούμενον", Transliteration = "philotimoumenon", Gloss = "making it my ambition", GrammarCodes = new List<string> { "V", "PRES", "MID", "PTCP", "ACC", "M", "S" }, PartOfSpeech = "verb" }
                             },
                             Translation = "making it my ambition"
                         },
@@ -24894,19 +24894,19 @@ namespace Koine.Infrastructure.Data.Seed
                             SyntaxCodes = new List<string> { "INF_PHRASE" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "εὐαγγελίζεσθαι", Transliteration = "euangelizesthai", Gloss = "to preach the gospel", Grammar_codes = new List<string> { "V", "PRES", "MID", "INF" }, PartOfSpeech = "verb" }
+                                new Word { Greek = "εὐαγγελίζεσθαι", Transliteration = "euangelizesthai", Gloss = "to preach the gospel", GrammarCodes = new List<string> { "V", "PRES", "MID", "INF" }, PartOfSpeech = "verb" }
                             },
                             Translation = "to preach the gospel"
                         },
-                        new Word { Greek = "οὐχ", Transliteration = "ouch", Gloss = "not", Grammar_codes = new List<string> { "ADV" }, PartOfSpeech = "adverb" },
+                        new Word { Greek = "οὐχ", Transliteration = "ouch", Gloss = "not", GrammarCodes = new List<string> { "ADV" }, PartOfSpeech = "adverb" },
                         new Phrase
                         {
                             SyntaxCodes = new List<string> { "DEP_CLAUSE" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "ὅπου", Transliteration = "hopou", Gloss = "where", Grammar_codes = new List<string> { "ADV" }, PartOfSpeech = "adverb" },
-                                new Word { Greek = "ὠνομάσθη", Transliteration = "ōnomasthē", Gloss = "was named", Grammar_codes = new List<string> { "V", "AOR", "PASS", "IND", "3P", "S" }, PartOfSpeech = "verb" },
-                                new Word { Greek = "Χριστός", Transliteration = "Christos", Gloss = "Christ", Grammar_codes = new List<string> { "N", "NOM", "M", "S" }, PartOfSpeech = "noun" }
+                                new Word { Greek = "ὅπου", Transliteration = "hopou", Gloss = "where", GrammarCodes = new List<string> { "ADV" }, PartOfSpeech = "adverb" },
+                                new Word { Greek = "ὠνομάσθη", Transliteration = "ōnomasthē", Gloss = "was named", GrammarCodes = new List<string> { "V", "AOR", "PASS", "IND", "3P", "S" }, PartOfSpeech = "verb" },
+                                new Word { Greek = "Χριστός", Transliteration = "Christos", Gloss = "Christ", GrammarCodes = new List<string> { "N", "NOM", "M", "S" }, PartOfSpeech = "noun" }
                             },
                             Translation = "where Christ was named"
                         },
@@ -24915,20 +24915,20 @@ namespace Koine.Infrastructure.Data.Seed
                             SyntaxCodes = new List<string> { "PURPOSE_CLAUSE" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "ἵνα", Transliteration = "hina", Gloss = "so that", Grammar_codes = new List<string> { "CONJ" }, PartOfSpeech = "conjunction" },
-                                new Word { Greek = "μὴ", Transliteration = "mē", Gloss = "not", Grammar_codes = new List<string> { "ADV" }, PartOfSpeech = "adverb" },
+                                new Word { Greek = "ἵνα", Transliteration = "hina", Gloss = "so that", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conjunction" },
+                                new Word { Greek = "μὴ", Transliteration = "mē", Gloss = "not", GrammarCodes = new List<string> { "ADV" }, PartOfSpeech = "adverb" },
                                 new Phrase
                                 {
                                     SyntaxCodes = new List<string> { "PREP_PHRASE" },
                                     Content = new List<object>
                                     {
-                                        new Word { Greek = "ἐπ᾽", Transliteration = "ep'", Gloss = "upon", Grammar_codes = new List<string> { "PREP" }, PartOfSpeech = "preposition" },
-                                        new Word { Greek = "ἀλλότριον", Transliteration = "allotrion", Gloss = "another's", Grammar_codes = new List<string> { "ADJ", "ACC", "M", "S" }, PartOfSpeech = "adjective" },
-                                        new Word { Greek = "θεμέλιον", Transliteration = "themelion", Gloss = "foundation", Grammar_codes = new List<string> { "N", "ACC", "M", "S" }, PartOfSpeech = "noun" }
+                                        new Word { Greek = "ἐπ᾽", Transliteration = "ep'", Gloss = "upon", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "preposition" },
+                                        new Word { Greek = "ἀλλότριον", Transliteration = "allotrion", Gloss = "another's", GrammarCodes = new List<string> { "ADJ", "ACC", "M", "S" }, PartOfSpeech = "adjective" },
+                                        new Word { Greek = "θεμέλιον", Transliteration = "themelion", Gloss = "foundation", GrammarCodes = new List<string> { "N", "ACC", "M", "S" }, PartOfSpeech = "noun" }
                                     },
                                     Translation = "upon another's foundation"
                                 },
-                                new Word { Greek = "οἰκοδομῶ", Transliteration = "oikodomō", Gloss = "I might build", Grammar_codes = new List<string> { "V", "PRES", "ACT", "SUBJ", "1P", "S" }, PartOfSpeech = "verb" }
+                                new Word { Greek = "οἰκοδομῶ", Transliteration = "oikodomō", Gloss = "I might build", GrammarCodes = new List<string> { "V", "PRES", "ACT", "SUBJ", "1P", "S" }, PartOfSpeech = "verb" }
                             },
                             Translation = "lest I should build upon another man's foundation"
                         }
@@ -24941,9 +24941,9 @@ namespace Koine.Infrastructure.Data.Seed
                     SyntaxCodes = new List<string> { "INDEP_CLAUSE" },
                     Content = new List<object>
                     {
-                        new Word { Greek = "ἀλλὰ", Transliteration = "alla", Gloss = "but", Grammar_codes = new List<string> { "CONJ" }, PartOfSpeech = "conjunction" },
-                        new Word { Greek = "καθὼς", Transliteration = "kathōs", Gloss = "as", Grammar_codes = new List<string> { "CONJ" }, PartOfSpeech = "conjunction" },
-                        new Word { Greek = "γέγραπται", Transliteration = "gegraptai", Gloss = "it is written", Grammar_codes = new List<string> { "V", "PERF", "PASS", "IND", "3P", "S" }, PartOfSpeech = "verb" },
+                        new Word { Greek = "ἀλλὰ", Transliteration = "alla", Gloss = "but", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conjunction" },
+                        new Word { Greek = "καθὼς", Transliteration = "kathōs", Gloss = "as", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conjunction" },
+                        new Word { Greek = "γέγραπται", Transliteration = "gegraptai", Gloss = "it is written", GrammarCodes = new List<string> { "V", "PERF", "PASS", "IND", "3P", "S" }, PartOfSpeech = "verb" },
                         new Phrase
                         {
                             SyntaxCodes = new List<string> { "INDEP_CLAUSE" },
@@ -24954,27 +24954,27 @@ namespace Koine.Infrastructure.Data.Seed
                                     SyntaxCodes = new List<string> { "REL_CLAUSE", "SUBJ" },
                                     Content = new List<object>
                                     {
-                                        new Word { Greek = "οἷς", Transliteration = "hois", Gloss = "to whom", Grammar_codes = new List<string> { "PRON", "DAT", "M", "P" }, PartOfSpeech = "pronoun" },
-                                        new Word { Greek = "οὐκ", Transliteration = "ouk", Gloss = "not", Grammar_codes = new List<string> { "ADV" }, PartOfSpeech = "adverb" },
-                                        new Word { Greek = "ἀνηγγέλη", Transliteration = "anēngelē", Gloss = "it was told", Grammar_codes = new List<string> { "V", "AOR", "PASS", "IND", "3P", "S" }, PartOfSpeech = "verb" },
+                                        new Word { Greek = "οἷς", Transliteration = "hois", Gloss = "to whom", GrammarCodes = new List<string> { "PRON", "DAT", "M", "P" }, PartOfSpeech = "pronoun" },
+                                        new Word { Greek = "οὐκ", Transliteration = "ouk", Gloss = "not", GrammarCodes = new List<string> { "ADV" }, PartOfSpeech = "adverb" },
+                                        new Word { Greek = "ἀνηγγέλη", Transliteration = "anēngelē", Gloss = "it was told", GrammarCodes = new List<string> { "V", "AOR", "PASS", "IND", "3P", "S" }, PartOfSpeech = "verb" },
                                         new Phrase
                                         {
                                             SyntaxCodes = new List<string> { "PREP_PHRASE" },
                                             Content = new List<object>
                                             {
-                                                new Word { Greek = "περὶ", Transliteration = "peri", Gloss = "concerning", Grammar_codes = new List<string> { "PREP" }, PartOfSpeech = "preposition" },
-                                                new Word { Greek = "αὐτοῦ", Transliteration = "autou", Gloss = "him", Grammar_codes = new List<string> { "PRON", "GEN", "M", "S" }, PartOfSpeech = "pronoun" }
+                                                new Word { Greek = "περὶ", Transliteration = "peri", Gloss = "concerning", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "preposition" },
+                                                new Word { Greek = "αὐτοῦ", Transliteration = "autou", Gloss = "him", GrammarCodes = new List<string> { "PRON", "GEN", "M", "S" }, PartOfSpeech = "pronoun" }
                                             },
                                             Translation = "concerning him"
                                         }
                                     },
                                     Translation = "Those to whom it was not told concerning him"
                                 },
-                                new Word { Greek = "ὄψονται", Transliteration = "opsontai", Gloss = "they shall see", Grammar_codes = new List<string> { "V", "FUT", "MID", "IND", "3P", "P" }, PartOfSpeech = "verb" }
+                                new Word { Greek = "ὄψονται", Transliteration = "opsontai", Gloss = "they shall see", GrammarCodes = new List<string> { "V", "FUT", "MID", "IND", "3P", "P" }, PartOfSpeech = "verb" }
                             },
                             Translation = "They to whom it was not told concerning him shall see"
                         },
-                        new Word { Greek = "καὶ", Transliteration = "kai", Gloss = "and", Grammar_codes = new List<string> { "CONJ" }, PartOfSpeech = "conjunction" },
+                        new Word { Greek = "καὶ", Transliteration = "kai", Gloss = "and", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conjunction" },
                         new Phrase
                         {
                             SyntaxCodes = new List<string> { "INDEP_CLAUSE" },
@@ -24985,13 +24985,13 @@ namespace Koine.Infrastructure.Data.Seed
                                     SyntaxCodes = new List<string> { "REL_CLAUSE", "SUBJ" },
                                     Content = new List<object>
                                     {
-                                        new Word { Greek = "οἳ", Transliteration = "hoi", Gloss = "who", Grammar_codes = new List<string> { "PRON", "NOM", "M", "P" }, PartOfSpeech = "pronoun" },
-                                        new Word { Greek = "οὐκ", Transliteration = "ouk", Gloss = "not", Grammar_codes = new List<string> { "ADV" }, PartOfSpeech = "adverb" },
-                                        new Word { Greek = "ἀκηκόασιν", Transliteration = "akēkoasin", Gloss = "have heard", Grammar_codes = new List<string> { "V", "PERF", "ACT", "IND", "3P", "P" }, PartOfSpeech = "verb" }
+                                        new Word { Greek = "οἳ", Transliteration = "hoi", Gloss = "who", GrammarCodes = new List<string> { "PRON", "NOM", "M", "P" }, PartOfSpeech = "pronoun" },
+                                        new Word { Greek = "οὐκ", Transliteration = "ouk", Gloss = "not", GrammarCodes = new List<string> { "ADV" }, PartOfSpeech = "adverb" },
+                                        new Word { Greek = "ἀκηκόασιν", Transliteration = "akēkoasin", Gloss = "have heard", GrammarCodes = new List<string> { "V", "PERF", "ACT", "IND", "3P", "P" }, PartOfSpeech = "verb" }
                                     },
                                     Translation = "they who have not heard"
                                 },
-                                new Word { Greek = "συνήσουσιν", Transliteration = "synēsousin", Gloss = "they shall understand", Grammar_codes = new List<string> { "V", "FUT", "ACT", "IND", "3P", "P" }, PartOfSpeech = "verb" }
+                                new Word { Greek = "συνήσουσιν", Transliteration = "synēsousin", Gloss = "they shall understand", GrammarCodes = new List<string> { "V", "FUT", "ACT", "IND", "3P", "P" }, PartOfSpeech = "verb" }
                             },
                             Translation = "and they who have not heard shall understand."
                         }
@@ -25004,16 +25004,16 @@ namespace Koine.Infrastructure.Data.Seed
                     SyntaxCodes = new List<string> { "INDEP_CLAUSE" },
                     Content = new List<object>
                     {
-                        new Word { Greek = "Διὸ", Transliteration = "Dio", Gloss = "therefore", Grammar_codes = new List<string> { "CONJ" }, PartOfSpeech = "conjunction" },
-                        new Word { Greek = "καὶ", Transliteration = "kai", Gloss = "also", Grammar_codes = new List<string> { "CONJ" }, PartOfSpeech = "conjunction" },
-                        new Word { Greek = "ἐνεκοπτόμην", Transliteration = "enekoptomēn", Gloss = "I was hindered", Grammar_codes = new List<string> { "V", "IMPF", "PASS", "IND", "1P", "S" }, PartOfSpeech = "verb" },
+                        new Word { Greek = "Διὸ", Transliteration = "Dio", Gloss = "therefore", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conjunction" },
+                        new Word { Greek = "καὶ", Transliteration = "kai", Gloss = "also", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conjunction" },
+                        new Word { Greek = "ἐνεκοπτόμην", Transliteration = "enekoptomēn", Gloss = "I was hindered", GrammarCodes = new List<string> { "V", "IMPF", "PASS", "IND", "1P", "S" }, PartOfSpeech = "verb" },
                         new Phrase
                         {
                             SyntaxCodes = new List<string> { "NOUN_PHRASE" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "τὰ", Transliteration = "ta", Gloss = "the", Grammar_codes = new List<string> { "ART", "ACC", "N", "P" }, PartOfSpeech = "article" },
-                                new Word { Greek = "πολλὰ", Transliteration = "polla", Gloss = "many [times]", Grammar_codes = new List<string> { "ADJ", "ACC", "N", "P" }, PartOfSpeech = "adjective" }
+                                new Word { Greek = "τὰ", Transliteration = "ta", Gloss = "the", GrammarCodes = new List<string> { "ART", "ACC", "N", "P" }, PartOfSpeech = "article" },
+                                new Word { Greek = "πολλὰ", Transliteration = "polla", Gloss = "many [times]", GrammarCodes = new List<string> { "ADJ", "ACC", "N", "P" }, PartOfSpeech = "adjective" }
                             },
                             Translation = "these many times"
                         },
@@ -25022,15 +25022,15 @@ namespace Koine.Infrastructure.Data.Seed
                             SyntaxCodes = new List<string> { "INF_PHRASE" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "τοῦ", Transliteration = "tou", Gloss = "the", Grammar_codes = new List<string> { "ART", "GEN", "N", "S" }, PartOfSpeech = "article" },
-                                new Word { Greek = "ἐλθεῖν", Transliteration = "elthein", Gloss = "to come", Grammar_codes = new List<string> { "V", "AOR", "ACT", "INF" }, PartOfSpeech = "verb" },
+                                new Word { Greek = "τοῦ", Transliteration = "tou", Gloss = "the", GrammarCodes = new List<string> { "ART", "GEN", "N", "S" }, PartOfSpeech = "article" },
+                                new Word { Greek = "ἐλθεῖν", Transliteration = "elthein", Gloss = "to come", GrammarCodes = new List<string> { "V", "AOR", "ACT", "INF" }, PartOfSpeech = "verb" },
                                 new Phrase
                                 {
                                     SyntaxCodes = new List<string> { "PREP_PHRASE" },
                                     Content = new List<object>
                                     {
-                                        new Word { Greek = "πρὸς", Transliteration = "pros", Gloss = "to", Grammar_codes = new List<string> { "PREP" }, PartOfSpeech = "preposition" },
-                                        new Word { Greek = "ὑμᾶς", Transliteration = "hymas", Gloss = "you", Grammar_codes = new List<string> { "PRON", "ACC", "2P", "P" }, PartOfSpeech = "pronoun" }
+                                        new Word { Greek = "πρὸς", Transliteration = "pros", Gloss = "to", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "preposition" },
+                                        new Word { Greek = "ὑμᾶς", Transliteration = "hymas", Gloss = "you", GrammarCodes = new List<string> { "PRON", "ACC", "2P", "P" }, PartOfSpeech = "pronoun" }
                                     },
                                     Translation = "to you"
                                 }
@@ -25046,39 +25046,39 @@ namespace Koine.Infrastructure.Data.Seed
                     SyntaxCodes = new List<string> { "INDEP_CLAUSE" },
                     Content = new List<object>
                     {
-                        new Word { Greek = "νυνὶ", Transliteration = "nyni", Gloss = "now", Grammar_codes = new List<string> { "ADV" }, PartOfSpeech = "adverb" },
-                        new Word { Greek = "δὲ", Transliteration = "de", Gloss = "but", Grammar_codes = new List<string> { "CONJ" }, PartOfSpeech = "conjunction" },
-                        new Word { Greek = "μηκέτι", Transliteration = "mēketi", Gloss = "no longer", Grammar_codes = new List<string> { "ADV" }, PartOfSpeech = "adverb" },
+                        new Word { Greek = "νυνὶ", Transliteration = "nyni", Gloss = "now", GrammarCodes = new List<string> { "ADV" }, PartOfSpeech = "adverb" },
+                        new Word { Greek = "δὲ", Transliteration = "de", Gloss = "but", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conjunction" },
+                        new Word { Greek = "μηκέτι", Transliteration = "mēketi", Gloss = "no longer", GrammarCodes = new List<string> { "ADV" }, PartOfSpeech = "adverb" },
                         new Phrase
                         {
                             SyntaxCodes = new List<string> { "PTCP", "SUBJ" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "ἔχων", Transliteration = "echōn", Gloss = "having", Grammar_codes = new List<string> { "V", "PRES", "ACT", "PTCP", "NOM", "M", "S" }, PartOfSpeech = "verb" },
-                                new Word { Greek = "τόπον", Transliteration = "topon", Gloss = "place", Grammar_codes = new List<string> { "N", "ACC", "M", "S" }, PartOfSpeech = "noun" },
+                                new Word { Greek = "ἔχων", Transliteration = "echōn", Gloss = "having", GrammarCodes = new List<string> { "V", "PRES", "ACT", "PTCP", "NOM", "M", "S" }, PartOfSpeech = "verb" },
+                                new Word { Greek = "τόπον", Transliteration = "topon", Gloss = "place", GrammarCodes = new List<string> { "N", "ACC", "M", "S" }, PartOfSpeech = "noun" },
                                 new Phrase
                                 {
                                     SyntaxCodes = new List<string> { "PREP_PHRASE" },
                                     Content = new List<object>
                                     {
-                                        new Word { Greek = "ἐν", Transliteration = "en", Gloss = "in", Grammar_codes = new List<string> { "PREP" }, PartOfSpeech = "preposition" },
-                                        new Word { Greek = "τοῖς", Transliteration = "tois", Gloss = "the", Grammar_codes = new List<string> { "ART", "DAT", "N", "P" }, PartOfSpeech = "article" },
-                                        new Word { Greek = "κλίμασιν", Transliteration = "klimasin", Gloss = "regions", Grammar_codes = new List<string> { "N", "DAT", "N", "P" }, PartOfSpeech = "noun" },
-                                        new Word { Greek = "τούτοις", Transliteration = "toutois", Gloss = "these", Grammar_codes = new List<string> { "PRON", "DAT", "N", "P" }, PartOfSpeech = "pronoun" }
+                                        new Word { Greek = "ἐν", Transliteration = "en", Gloss = "in", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "preposition" },
+                                        new Word { Greek = "τοῖς", Transliteration = "tois", Gloss = "the", GrammarCodes = new List<string> { "ART", "DAT", "N", "P" }, PartOfSpeech = "article" },
+                                        new Word { Greek = "κλίμασιν", Transliteration = "klimasin", Gloss = "regions", GrammarCodes = new List<string> { "N", "DAT", "N", "P" }, PartOfSpeech = "noun" },
+                                        new Word { Greek = "τούτοις", Transliteration = "toutois", Gloss = "these", GrammarCodes = new List<string> { "PRON", "DAT", "N", "P" }, PartOfSpeech = "pronoun" }
                                     },
                                     Translation = "in these regions"
                                 }
                             },
                             Translation = "having no longer a place in these regions"
                         },
-                        new Word { Greek = "ἐπιποθίαν", Transliteration = "epipothian", Gloss = "a longing", Grammar_codes = new List<string> { "N", "ACC", "F", "S" }, PartOfSpeech = "noun" },
-                        new Word { Greek = "δὲ", Transliteration = "de", Gloss = "and", Grammar_codes = new List<string> { "CONJ" }, PartOfSpeech = "conjunction" },
+                        new Word { Greek = "ἐπιποθίαν", Transliteration = "epipothian", Gloss = "a longing", GrammarCodes = new List<string> { "N", "ACC", "F", "S" }, PartOfSpeech = "noun" },
+                        new Word { Greek = "δὲ", Transliteration = "de", Gloss = "and", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conjunction" },
                         new Phrase
                         {
                             SyntaxCodes = new List<string> { "PTCP" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "ἔχων", Transliteration = "echōn", Gloss = "having", Grammar_codes = new List<string> { "V", "PRES", "ACT", "PTCP", "NOM", "M", "S" }, PartOfSpeech = "verb" }
+                                new Word { Greek = "ἔχων", Transliteration = "echōn", Gloss = "having", GrammarCodes = new List<string> { "V", "PRES", "ACT", "PTCP", "NOM", "M", "S" }, PartOfSpeech = "verb" }
                             },
                             Translation = "having"
                         },
@@ -25087,15 +25087,15 @@ namespace Koine.Infrastructure.Data.Seed
                             SyntaxCodes = new List<string> { "INF_PHRASE" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "τοῦ", Transliteration = "tou", Gloss = "the", Grammar_codes = new List<string> { "ART", "GEN", "N", "S" }, PartOfSpeech = "article" },
-                                new Word { Greek = "ἐλθεῖν", Transliteration = "elthein", Gloss = "to come", Grammar_codes = new List<string> { "V", "AOR", "ACT", "INF" }, PartOfSpeech = "verb" },
+                                new Word { Greek = "τοῦ", Transliteration = "tou", Gloss = "the", GrammarCodes = new List<string> { "ART", "GEN", "N", "S" }, PartOfSpeech = "article" },
+                                new Word { Greek = "ἐλθεῖν", Transliteration = "elthein", Gloss = "to come", GrammarCodes = new List<string> { "V", "AOR", "ACT", "INF" }, PartOfSpeech = "verb" },
                                 new Phrase
                                 {
                                     SyntaxCodes = new List<string> { "PREP_PHRASE" },
                                     Content = new List<object>
                                     {
-                                        new Word { Greek = "πρὸς", Transliteration = "pros", Gloss = "to", Grammar_codes = new List<string> { "PREP" }, PartOfSpeech = "preposition" },
-                                        new Word { Greek = "ὑμᾶς", Transliteration = "hymas", Gloss = "you", Grammar_codes = new List<string> { "PRON", "ACC", "2P", "P" }, PartOfSpeech = "pronoun" }
+                                        new Word { Greek = "πρὸς", Transliteration = "pros", Gloss = "to", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "preposition" },
+                                        new Word { Greek = "ὑμᾶς", Transliteration = "hymas", Gloss = "you", GrammarCodes = new List<string> { "PRON", "ACC", "2P", "P" }, PartOfSpeech = "pronoun" }
                                     },
                                     Translation = "to you"
                                 }
@@ -25107,9 +25107,9 @@ namespace Koine.Infrastructure.Data.Seed
                             SyntaxCodes = new List<string> { "PREP_PHRASE" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "ἀπὸ", Transliteration = "apo", Gloss = "from", Grammar_codes = new List<string> { "PREP" }, PartOfSpeech = "preposition" },
-                                new Word { Greek = "πολλῶν", Transliteration = "pollōn", Gloss = "many", Grammar_codes = new List<string> { "ADJ", "GEN", "N", "P" }, PartOfSpeech = "adjective" },
-                                new Word { Greek = "ἐτῶν", Transliteration = "etōn", Gloss = "years", Grammar_codes = new List<string> { "N", "GEN", "N", "P" }, PartOfSpeech = "noun" }
+                                new Word { Greek = "ἀπὸ", Transliteration = "apo", Gloss = "from", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "preposition" },
+                                new Word { Greek = "πολλῶν", Transliteration = "pollōn", Gloss = "many", GrammarCodes = new List<string> { "ADJ", "GEN", "N", "P" }, PartOfSpeech = "adjective" },
+                                new Word { Greek = "ἐτῶν", Transliteration = "etōn", Gloss = "years", GrammarCodes = new List<string> { "N", "GEN", "N", "P" }, PartOfSpeech = "noun" }
                             },
                             Translation = "for many years"
                         }
@@ -25127,31 +25127,31 @@ namespace Koine.Infrastructure.Data.Seed
                             SyntaxCodes = new List<string> { "TEMP_CLAUSE" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "ὡς", Transliteration = "hōs", Gloss = "whenever", Grammar_codes = new List<string> { "CONJ" }, PartOfSpeech = "conjunction" },
-                                new Word { Greek = "ἂν", Transliteration = "an", Gloss = "[potential]", Grammar_codes = new List<string> { "PART" }, PartOfSpeech = "particle" },
-                                new Word { Greek = "πορεύωμαι", Transliteration = "poreuōmai", Gloss = "I may go", Grammar_codes = new List<string> { "V", "PRES", "MID", "SUBJ", "1P", "S" }, PartOfSpeech = "verb" },
+                                new Word { Greek = "ὡς", Transliteration = "hōs", Gloss = "whenever", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conjunction" },
+                                new Word { Greek = "ἂν", Transliteration = "an", Gloss = "[potential]", GrammarCodes = new List<string> { "PART" }, PartOfSpeech = "particle" },
+                                new Word { Greek = "πορεύωμαι", Transliteration = "poreuōmai", Gloss = "I may go", GrammarCodes = new List<string> { "V", "PRES", "MID", "SUBJ", "1P", "S" }, PartOfSpeech = "verb" },
                                 new Phrase
                                 {
                                     SyntaxCodes = new List<string> { "PREP_PHRASE" },
                                     Content = new List<object>
                                     {
-                                        new Word { Greek = "εἰς", Transliteration = "eis", Gloss = "to", Grammar_codes = new List<string> { "PREP" }, PartOfSpeech = "preposition" },
-                                        new Word { Greek = "τὴν", Transliteration = "tēn", Gloss = "the", Grammar_codes = new List<string> { "ART", "ACC", "F", "S" }, PartOfSpeech = "article" },
-                                        new Word { Greek = "Σπανίαν", Transliteration = "Spanian", Gloss = "Spain", Grammar_codes = new List<string> { "N", "ACC", "F", "S" }, PartOfSpeech = "noun" }
+                                        new Word { Greek = "εἰς", Transliteration = "eis", Gloss = "to", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "preposition" },
+                                        new Word { Greek = "τὴν", Transliteration = "tēn", Gloss = "the", GrammarCodes = new List<string> { "ART", "ACC", "F", "S" }, PartOfSpeech = "article" },
+                                        new Word { Greek = "Σπανίαν", Transliteration = "Spanian", Gloss = "Spain", GrammarCodes = new List<string> { "N", "ACC", "F", "S" }, PartOfSpeech = "noun" }
                                     },
                                     Translation = "to Spain"
                                 }
                             },
                             Translation = "whenever I go to Spain"
                         },
-                        new Word { Greek = "ἐλπίζω", Transliteration = "elpizō", Gloss = "I hope", Grammar_codes = new List<string> { "V", "PRES", "ACT", "IND", "1P", "S" }, PartOfSpeech = "verb" },
-                        new Word { Greek = "γὰρ", Transliteration = "gar", Gloss = "for", Grammar_codes = new List<string> { "CONJ" }, PartOfSpeech = "conjunction" },
+                        new Word { Greek = "ἐλπίζω", Transliteration = "elpizō", Gloss = "I hope", GrammarCodes = new List<string> { "V", "PRES", "ACT", "IND", "1P", "S" }, PartOfSpeech = "verb" },
+                        new Word { Greek = "γὰρ", Transliteration = "gar", Gloss = "for", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conjunction" },
                         new Phrase
                         {
                             SyntaxCodes = new List<string> { "PTCP" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "διαπορευόμενος", Transliteration = "diaporeuomenos", Gloss = "passing through", Grammar_codes = new List<string> { "V", "PRES", "MID", "PTCP", "NOM", "M", "S" }, PartOfSpeech = "verb" }
+                                new Word { Greek = "διαπορευόμενος", Transliteration = "diaporeuomenos", Gloss = "passing through", GrammarCodes = new List<string> { "V", "PRES", "MID", "PTCP", "NOM", "M", "S" }, PartOfSpeech = "verb" }
                             },
                             Translation = "as I pass through"
                         },
@@ -25160,12 +25160,12 @@ namespace Koine.Infrastructure.Data.Seed
                             SyntaxCodes = new List<string> { "INF_PHRASE" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "θεάσασθαι", Transliteration = "theasasthai", Gloss = "to see", Grammar_codes = new List<string> { "V", "AOR", "MID", "INF" }, PartOfSpeech = "verb" },
-                                new Word { Greek = "ὑμᾶς", Transliteration = "hymas", Gloss = "you", Grammar_codes = new List<string> { "PRON", "ACC", "2P", "P" }, PartOfSpeech = "pronoun" }
+                                new Word { Greek = "θεάσασθαι", Transliteration = "theasasthai", Gloss = "to see", GrammarCodes = new List<string> { "V", "AOR", "MID", "INF" }, PartOfSpeech = "verb" },
+                                new Word { Greek = "ὑμᾶς", Transliteration = "hymas", Gloss = "you", GrammarCodes = new List<string> { "PRON", "ACC", "2P", "P" }, PartOfSpeech = "pronoun" }
                             },
                             Translation = "to see you"
                         },
-                        new Word { Greek = "καὶ", Transliteration = "kai", Gloss = "and", Grammar_codes = new List<string> { "CONJ" }, PartOfSpeech = "conjunction" },
+                        new Word { Greek = "καὶ", Transliteration = "kai", Gloss = "and", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conjunction" },
                         new Phrase
                         {
                             SyntaxCodes = new List<string> { "INF_PHRASE" },
@@ -25176,13 +25176,13 @@ namespace Koine.Infrastructure.Data.Seed
                                     SyntaxCodes = new List<string> { "PREP_PHRASE" },
                                     Content = new List<object>
                                     {
-                                        new Word { Greek = "ὑφ᾽", Transliteration = "hyph'", Gloss = "by", Grammar_codes = new List<string> { "PREP" }, PartOfSpeech = "preposition" },
-                                        new Word { Greek = "ὑμῶν", Transliteration = "hymōn", Gloss = "you", Grammar_codes = new List<string> { "PRON", "GEN", "2P", "P" }, PartOfSpeech = "pronoun" }
+                                        new Word { Greek = "ὑφ᾽", Transliteration = "hyph'", Gloss = "by", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "preposition" },
+                                        new Word { Greek = "ὑμῶν", Transliteration = "hymōn", Gloss = "you", GrammarCodes = new List<string> { "PRON", "GEN", "2P", "P" }, PartOfSpeech = "pronoun" }
                                     },
                                     Translation = "by you"
                                 },
-                                new Word { Greek = "προπεμφθῆναι", Transliteration = "propemphthēnai", Gloss = "to be helped on my way", Grammar_codes = new List<string> { "V", "AOR", "PASS", "INF" }, PartOfSpeech = "verb" },
-                                new Word { Greek = "ἐκεῖ", Transliteration = "ekei", Gloss = "there", Grammar_codes = new List<string> { "ADV" }, PartOfSpeech = "adverb" }
+                                new Word { Greek = "προπεμφθῆναι", Transliteration = "propemphthēnai", Gloss = "to be helped on my way", GrammarCodes = new List<string> { "V", "AOR", "PASS", "INF" }, PartOfSpeech = "verb" },
+                                new Word { Greek = "ἐκεῖ", Transliteration = "ekei", Gloss = "there", GrammarCodes = new List<string> { "ADV" }, PartOfSpeech = "adverb" }
                             },
                             Translation = "to be helped on my way there by you"
                         },
@@ -25191,20 +25191,20 @@ namespace Koine.Infrastructure.Data.Seed
                             SyntaxCodes = new List<string> { "COND_CLAUSE" },
                             Content = new List<object>
                             {
-                                new Word { Greek = "ἐὰν", Transliteration = "ean", Gloss = "if", Grammar_codes = new List<string> { "CONJ" }, PartOfSpeech = "conjunction" },
-                                new Word { Greek = "ὑμῶν", Transliteration = "hymōn", Gloss = "of you", Grammar_codes = new List<string> { "PRON", "GEN", "2P", "P" }, PartOfSpeech = "pronoun" },
-                                new Word { Greek = "πρῶτον", Transliteration = "prōton", Gloss = "first", Grammar_codes = new List<string> { "ADV" }, PartOfSpeech = "adverb" },
+                                new Word { Greek = "ἐὰν", Transliteration = "ean", Gloss = "if", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conjunction" },
+                                new Word { Greek = "ὑμῶν", Transliteration = "hymōn", Gloss = "of you", GrammarCodes = new List<string> { "PRON", "GEN", "2P", "P" }, PartOfSpeech = "pronoun" },
+                                new Word { Greek = "πρῶτον", Transliteration = "prōton", Gloss = "first", GrammarCodes = new List<string> { "ADV" }, PartOfSpeech = "adverb" },
                                 new Phrase
                                 {
                                     SyntaxCodes = new List<string> { "PREP_PHRASE" },
                                     Content = new List<object>
                                     {
-                                        new Word { Greek = "ἀπὸ", Transliteration = "apo", Gloss = "in", Grammar_codes = new List<string> { "PREP" }, PartOfSpeech = "preposition" },
-                                        new Word { Greek = "μέρους", Transliteration = "merous", Gloss = "part", Grammar_codes = new List<string> { "N", "GEN", "N", "S" }, PartOfSpeech = "noun" }
+                                        new Word { Greek = "ἀπὸ", Transliteration = "apo", Gloss = "in", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "preposition" },
+                                        new Word { Greek = "μέρους", Transliteration = "merous", Gloss = "part", GrammarCodes = new List<string> { "N", "GEN", "N", "S" }, PartOfSpeech = "noun" }
                                     },
                                     Translation = "in part"
                                 },
-                                new Word { Greek = "ἐμπλησθῶ", Transliteration = "emplēsthō", Gloss = "I may be satisfied", Grammar_codes = new List<string> { "V", "AOR", "PASS", "SUBJ", "1P", "S" }, PartOfSpeech = "verb" }
+                                new Word { Greek = "ἐμπλησθῶ", Transliteration = "emplēsthō", Gloss = "I may be satisfied", GrammarCodes = new List<string> { "V", "AOR", "PASS", "SUBJ", "1P", "S" }, PartOfSpeech = "verb" }
                             },
                             Translation = "once I have enjoyed your company for a while"
                         }
