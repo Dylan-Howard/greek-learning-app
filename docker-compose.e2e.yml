@@ -1,0 +1,14 @@
+services:
+  playwright:
+    image: mcr.microsoft.com/playwright:v1.51.1-jammy
+    container_name: koine-playwright
+    working_dir: /work
+    volumes:
+      - ./:/work
+    environment:
+      - PLAYWRIGHT_BASE_URL=http://frontend:3000
+      - PLAYWRIGHT_API_BASE_URL=http://backend
+    depends_on:
+      - frontend
+    networks:
+      - koine-test-network

@@ -31,7 +31,7 @@ npx --prefix frontend playwright install --with-deps
 # Smoke tests (full stack + Playwright)
 ./scripts/test-smoke.sh
 
-# E2E tests (full stack + Playwright)
+# E2E tests (full stack + Playwright, containerized)
 ./scripts/test-e2e.sh
 
 # All tests
@@ -55,6 +55,7 @@ Playwright uses these defaults if not overridden:
 ## Tips
 
 - If the test stack is already running, set `COMPOSE_FILE=docker-compose.test.yml` and reuse it.
+- `scripts/test-e2e.sh` uses `docker-compose.e2e.yml` to run Playwright inside a container for deterministic execution.
 - For flaky Docker startup, increase the wait time in `scripts/wait-for-url.sh`.
 
 ## Troubleshooting
