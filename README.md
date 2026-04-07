@@ -36,6 +36,10 @@ dotnet test backend/tests/Koine.Tests/Koine.Tests.csproj -m:1
 cd frontend && npm run test -- --run
 ```
 
+## Testing
+
+See `docs/testing/README.md` for the full test workflow (unit, integration, smoke, e2e) and CI behavior.
+
 ## Environment Variables
 
 ### Frontend (`frontend/.env.local`)

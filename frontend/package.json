@@ -10,6 +10,9 @@
     "codegen": "graphql-codegen",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
+    "test:smoke": "playwright test --config=playwright.config.ts --project=smoke",
+    "test:e2e": "playwright test --config=playwright.config.ts --project=e2e",
+    "test:playwright:install": "playwright install --with-deps",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
@@ -78,6 +81,7 @@
     "@graphql-codegen/typescript-react-apollo": "^4.3.2",
     "@storybook/addon-a11y": "^10.3.3",
     "@storybook/addon-docs": "^10.3.3",
+    "@playwright/test": "^1.51.1",
     "@vitest/coverage-v8": "^4.0.18",
     "fast-check": "^3.23.2",
     "jsdom": "^28.1.0",

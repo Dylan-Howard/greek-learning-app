@@ -1,0 +1,66 @@
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: koine-db-test
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=YourStrong@Passw0rd
+      - MSSQL_PID=Developer
+    ports:
+      - "1433:1433"
+    volumes:
+      - ./db-data-test:/var/opt/mssql
+    networks:
+      - koine-test-network
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P 'YourStrong@Passw0rd' -Q 'SELECT 1' -C || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: KoineBackend.Dockerfile
+    container_name: koine-api-test
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=Koine;User Id=sa;Password=YourStrong@Passw0rd;TrustServerCertificate=True;
+      - JwtSettings__SecretKey=YourSuperSecretKeyThatIsAtLeast32CharactersLongForDevelopment!
+      - JwtSettings__Issuer=KoineAPI
+      - JwtSettings__Audience=KoineClient
+    ports:
+      - "5001:80"
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+    networks:
+      - koine-test-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        - NEXT_PUBLIC_API_URL=http://localhost:5001/api
+        - NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_b25lLW1vY2Nhc2luLTIwLmNsZXJrLmFjY291bnRzLmRldiQ
+    container_name: koine-frontend-test
+    env_file:
+      - ./frontend/.env.local
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:5001/api
+      - INTERNAL_API_URL=http://backend/api
+      - NEXT_PUBLIC_GRAPHQL_URL=http://localhost:5001/graphql
+      - E2E_BYPASS_AUTH=true
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - koine-test-network
+
+networks:
+  koine-test-network:
+    driver: bridge

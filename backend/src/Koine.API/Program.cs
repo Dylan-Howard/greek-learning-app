@@ -328,6 +328,8 @@ if (app.Environment.IsDevelopment())
 
 app.Run();
 
+public partial class Program { }
+
 static bool IsDuplicateObjectMigrationError(SqlException ex)
 {
     // SQL Server 2714: "There is already an object named ... in the database."

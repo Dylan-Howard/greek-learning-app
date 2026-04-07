@@ -47,6 +47,10 @@ export function resolveMiddlewareAction(
 }
 
 const middleware = clerkMiddleware(async (auth, req) => {
+  if (process.env.E2E_BYPASS_AUTH === 'true') {
+    return NextResponse.next();
+  }
+
   const { userId, sessionClaims } = await auth();
   const { pathname } = req.nextUrl;
 

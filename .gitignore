@@ -9,6 +9,7 @@
 .pnp.js
 
 db-data/*
+db-data-test/*
 
 # Azure Functions localsettings file
 local.settings.json
@@ -280,6 +281,7 @@ __pycache__/
 
 # testing
 /coverage
+frontend/test-results/
 
 # production
 */.next

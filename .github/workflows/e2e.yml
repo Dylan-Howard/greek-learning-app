@@ -1,16 +1,16 @@
-name: CI
+name: E2E
 
 on:
-  pull_request:
-  push:
-    branches: ["master"]
+  workflow_dispatch:
+  # schedule:
+  #   - cron: "0 3 * * *"
 
 concurrency:
-  group: ci-${{ github.ref }}
+  group: e2e-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  build-test:
+  e2e:
     runs-on: ubuntu-latest
 
     steps:
@@ -29,20 +29,11 @@ jobs:
           cache: "npm"
           cache-dependency-path: frontend/package-lock.json
 
-      - name: Backend Tests
-        run: dotnet test backend/tests/Koine.Tests/Koine.Tests.csproj -m:1 --verbosity minimal
-
-      - name: Backend Integration Tests
-        run: dotnet test backend/tests/Koine.IntegrationTests/Koine.IntegrationTests.csproj -m:1 --verbosity minimal
-
       - name: Frontend Install
         run: npm --prefix frontend ci
 
       - name: Install Playwright Browsers
         run: npx --prefix frontend playwright install --with-deps
-
-      - name: Frontend Tests
-        run: npm --prefix frontend run test -- --run
 
       - name: Start Test Stack
         run: docker compose -f docker-compose.test.yml up -d --build
@@ -52,12 +43,9 @@ jobs:
           ./scripts/wait-for-url.sh "http://localhost:5001/api/books" 120
           ./scripts/wait-for-url.sh "http://localhost:3000" 120
 
-      - name: Playwright Smoke Tests
-        run: npm --prefix frontend run test:smoke
+      - name: Playwright E2E Tests
+        run: npm --prefix frontend run test:e2e
 
       - name: Stop Test Stack
         if: always()
         run: docker compose -f docker-compose.test.yml down --remove-orphans
-
-      - name: Frontend Build
-        run: npm --prefix frontend run build
