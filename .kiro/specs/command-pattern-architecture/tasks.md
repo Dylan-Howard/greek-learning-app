@@ -6,14 +6,14 @@ Implement the command pattern base classes, exception types, and DI registration
 
 ## Tasks
 
-- [ ] 1. Create shared base classes in `Koine.Application/Common/`
-  - [ ] 1.1 Create `BaseAction` abstract class
+- [x] 1. Create shared base classes in `Koine.Application/Common/`
+  - [x] 1.1 Create `BaseAction` abstract class
     - Create `backend/src/Koine.Application/Common/BaseAction.cs`
     - Plain abstract class, no generic type parameters, no constructor parameters, no methods
     - XML doc comment on the class
     - _Requirements: 1.1, 1.2_
 
-  - [ ] 1.2 Create `BaseDomainAction` abstract class
+  - [x] 1.2 Create `BaseDomainAction` abstract class
     - Create `backend/src/Koine.Application/Common/BaseDomainAction.cs`
     - Extends `BaseAction`; injects `KoineDbContext` and `ICurrentUserContext` via constructor
     - Exposes both as `protected readonly` fields
@@ -23,13 +23,13 @@ Implement the command pattern base classes, exception types, and DI registration
     - Note: `ICurrentUserContext` is a new interface to define in `Koine.Application/Common/` that mirrors `ICurrentUserProvider` in `Koine.Application.Study.Ports` — expose `int GetUserId()`
     - _Requirements: 1.3, 1.4, 1.5, 1.6, 1.7, 5.4_
 
-  - [ ] 1.3 Create `ICurrentUserContext` interface
+  - [x] 1.3 Create `ICurrentUserContext` interface
     - Create `backend/src/Koine.Application/Common/ICurrentUserContext.cs`
     - Single method: `int GetUserId()`
     - XML doc comment
     - _Requirements: 1.5_
 
-  - [ ] 1.4 Create `IEventWriter` interface
+  - [x] 1.4 Create `IEventWriter` interface
     - Create `backend/src/Koine.Application/Common/IEventWriter.cs`
     - Single method: `Task WriteAsync<TEvent>(TEvent domainEvent)`
     - XML doc comment
