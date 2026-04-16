@@ -328,8 +328,6 @@ if (app.Environment.IsDevelopment())
 
 app.Run();
 
-public partial class Program { }
-
 static bool IsDuplicateObjectMigrationError(SqlException ex)
 {
     // SQL Server 2714: "There is already an object named ... in the database."
@@ -371,3 +369,5 @@ static async Task<bool> TableExistsAsync(KoineDbContext context, string tableNam
         }
     }
 }
+
+public partial class Program { }

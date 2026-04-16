@@ -1,4 +1,5 @@
 using System.Net.Http.Headers;
+using Koine.IntegrationTests;
 using Koine.IntegrationTests.Fixtures;
 using NUnit.Framework;
 

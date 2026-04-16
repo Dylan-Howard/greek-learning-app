@@ -288,7 +288,7 @@ private static List<object> GetChapter14()
                     Content = new List<object>
                     {
                         new Word { Greek = "γείτονας", Transliteration = "geitonas", Gloss = "neighbors", GrammarCodes = new List<string> { "N", "ACC", "M", "P" }, PartOfSpeech = "n" },
-                        new Word { Word { Greek = "πλουσίους", Transliteration = "plousious", Gloss = "rich", GrammarCodes = new List<string> { "ADJ", "ACC", "M", "P" }, PartOfSpeech = "adj" } }
+                        new Word { Greek = "πλουσίους", Transliteration = "plousious", Gloss = "rich", GrammarCodes = new List<string> { "ADJ", "ACC", "M", "P" }, PartOfSpeech = "adj" }
                     },
                     Translation = "rich neighbors"
                 },

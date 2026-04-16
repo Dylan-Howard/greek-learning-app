@@ -432,7 +432,7 @@ private static List<object> GetChapter7()
                     Translation = "from the time I entered"
                 },
                 new Word { Greek = "οὐ", Transliteration = "ou", Gloss = "not", GrammarCodes = new List<string> { "ADV" }, PartOfSpeech = "adv" },
-                new Word { Word { Greek = "διέλιπεν", Transliteration = "dielipen", Gloss = "has stopped", GrammarCodes = new List<string> { "V", "AOR", "ACT", "IND", "3P", "S" }, PartOfSpeech = "v" },
+                new Word { Greek = "διέλιπεν", Transliteration = "dielipen", Gloss = "has stopped", GrammarCodes = new List<string> { "V", "AOR", "ACT", "IND", "3P", "S" }, PartOfSpeech = "v" },
                 new Phrase
                 {
                     SyntaxCodes = new List<string> { "PTCP" },

@@ -299,7 +299,7 @@ private static List<object> GetChapter28()
                             Content = new List<object>
                             {
                                 new Word { Greek = "τοῖς", Transliteration = "tois", Gloss = "with the", GrammarCodes = new List<string> { "ART", "DAT", "N", "P" }, PartOfSpeech = "art" },
-                                new Word { Word { Greek = "ὠσὶν", Transliteration = "ōsin", Gloss = "ears", GrammarCodes = new List<string> { "N", "DAT", "N", "P" }, PartOfSpeech = "n" }
+                                new Word { Greek = "ὠσὶν", Transliteration = "ōsin", Gloss = "ears", GrammarCodes = new List<string> { "N", "DAT", "N", "P" }, PartOfSpeech = "n" }
                             },
                             Translation = "with their ears"
                         },

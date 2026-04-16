@@ -1,7 +1,7 @@
-using System.Data.SqlClient;
 using Koine.Infrastructure.Data.Context;
 using Koine.Infrastructure.Data.Seed;
 using Koine.IntegrationTests.Infrastructure;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Respawn;

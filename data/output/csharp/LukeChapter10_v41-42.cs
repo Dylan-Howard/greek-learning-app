@@ -119,7 +119,7 @@ private static List<object> GetChapter10()
             SyntaxCodes = new List<string> { "INDEP_CLAUSE" },
             Content = new List<object>
             {
-                new NOUN_PHRASE
+                new Phrase
                 {
                     SyntaxCodes = new List<string> { "NOUN_PHRASE" },
                     Content = new List<object>

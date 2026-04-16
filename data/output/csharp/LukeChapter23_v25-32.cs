@@ -25,7 +25,7 @@ private static List<object> GetChapter23()
                                 new Word { Greek = "διὰ", Transliteration = "dia", Gloss = "on account of", PartOfSpeech = "prep", GrammarCodes = new List<string> { "PREP" } },
                                 new Word { Greek = "στάσιν", Transliteration = "stasin", Gloss = "insurrection", PartOfSpeech = "n", GrammarCodes = new List<string> { "N", "ACC", "F", "S" } },
                                 new Word { Greek = "καὶ", Transliteration = "kai", Gloss = "and", PartOfSpeech = "conj", GrammarCodes = new List<string> { "CONJ" } },
-                                new Word { Greek = "φόνον", Transliteration = "phonon", Gloss = "murder", PartOfSpeech = "n", GrammarCodes = new List<string> { "N", "ACC", "M", "S" } }
+                                new Word { Greek = "φόνον", Transliteration = "phonon", Gloss = "murder", PartOfSpeech = "n", GrammarCodes = new List<string> { "N", "ACC", "M", "S" }
                             },
                             Translation = "on account of insurrection and murder"
                         },
@@ -36,7 +36,7 @@ private static List<object> GetChapter23()
                             Content = new List<object>
                             {
                                 new Word { Greek = "εἰς", Transliteration = "eis", Gloss = "into", PartOfSpeech = "prep", GrammarCodes = new List<string> { "PREP" } },
-                                new Word { Greek = "φυλακὴν", Transliteration = "phylakēn", Gloss = "prison", PartOfSpeech = "n", GrammarCodes = new List<string> { "N", "ACC", "F", "S" } }
+                                new Word { Greek = "φυλακὴν", Transliteration = "phylakēn", Gloss = "prison", PartOfSpeech = "n", GrammarCodes = new List<string> { "N", "ACC", "F", "S" }
                             },
                             Translation = "into prison"
                         }
@@ -49,7 +49,7 @@ private static List<object> GetChapter23()
                     Content = new List<object>
                     {
                         new Word { Greek = "ὃν", Transliteration = "hon", Gloss = "whom", PartOfSpeech = "pron", GrammarCodes = new List<string> { "PRON", "ACC", "M", "S" } },
-                        new Word { Greek = "ᾐτοῦντο", Transliteration = "ēitounto", Gloss = "they were asking for", PartOfSpeech = "v", GrammarCodes = new List<string> { "V", "IMPF", "MID", "IND", "3P", "P" } }
+                        new Word { Greek = "ᾐτοῦντο", Transliteration = "ēitounto", Gloss = "they were asking for", PartOfSpeech = "v", GrammarCodes = new List<string> { "V", "IMPF", "MID", "IND", "3P", "P" }
                     },
                     Translation = "whom they were asking for"
                 }
@@ -68,7 +68,7 @@ private static List<object> GetChapter23()
                     {
                         new Word { Greek = "τὸν", Transliteration = "ton", Gloss = "the", PartOfSpeech = "art", GrammarCodes = new List<string> { "ART", "ACC", "M", "S" } },
                         new Word { Greek = "δὲ", Transliteration = "de", Gloss = "but", PartOfSpeech = "conj", GrammarCodes = new List<string> { "CONJ" } },
-                        new Word { Greek = "Ἰησοῦν", Transliteration = "Iēsoun", Gloss = "Jesus", PartOfSpeech = "n", GrammarCodes = new List<string> { "N", "ACC", "M", "S" } }
+                        new Word { Greek = "Ἰησοῦν", Transliteration = "Iēsoun", Gloss = "Jesus", PartOfSpeech = "n", GrammarCodes = new List<string> { "N", "ACC", "M", "S" }
                     },
                     Translation = "but Jesus"
                 },
@@ -80,7 +80,7 @@ private static List<object> GetChapter23()
                     {
                         new Word { Greek = "τῷ", Transliteration = "tō", Gloss = "to the", PartOfSpeech = "art", GrammarCodes = new List<string> { "ART", "DAT", "N", "S" } },
                         new Word { Greek = "θελήματι", Transliteration = "thelēmati", Gloss = "will", PartOfSpeech = "n", GrammarCodes = new List<string> { "N", "DAT", "N", "S" } },
-                        new Word { Greek = "αὐτῶν", Transliteration = "autōn", Gloss = "of them", PartOfSpeech = "prep", GrammarCodes = new List<string> { "PRON", "GEN", "M", "P" } }
+                        new Word { Greek = "αὐτῶν", Transliteration = "autōn", Gloss = "of them", PartOfSpeech = "prep", GrammarCodes = new List<string> { "PRON", "GEN", "M", "P" }
                     },
                     Translation = "to their will"
                 }
@@ -102,7 +102,7 @@ private static List<object> GetChapter23()
                     {
                         new Word { Greek = "ὡς", Transliteration = "hōs", Gloss = "as", PartOfSpeech = "conj", GrammarCodes = new List<string> { "CONJ" } },
                         new Word { Greek = "ἀπήγαγον", Transliteration = "apēgagon", Gloss = "they led away", PartOfSpeech = "v", GrammarCodes = new List<string> { "V", "AOR", "ACT", "IND", "3P", "P" } },
-                        new Word { Greek = "αὐτόν", Transliteration = "auton", Gloss = "him", PartOfSpeech = "prep", GrammarCodes = new List<string> { "PRON", "ACC", "M", "S" } }
+                        new Word { Greek = "αὐτόν", Transliteration = "auton", Gloss = "him", PartOfSpeech = "prep", GrammarCodes = new List<string> { "PRON", "ACC", "M", "S" }
                     },
                     Translation = "as they led him away"
                 },
@@ -114,7 +114,7 @@ private static List<object> GetChapter23()
                     {
                         new Word { Greek = "Σίμωνά", Transliteration = "Simōna", Gloss = "Simon", PartOfSpeech = "n", GrammarCodes = new List<string> { "N", "ACC", "M", "S" } },
                         new Word { Greek = "τινα", Transliteration = "tina", Gloss = "a certain", PartOfSpeech = "part", GrammarCodes = new List<string> { "PRON", "ACC", "M", "S" } },
-                        new Word { Greek = "Κυρηναῖον", Transliteration = "Kyrēnaion", Gloss = "Cyrenian", PartOfSpeech = "n", GrammarCodes = new List<string> { "N", "ACC", "M", "S" } }
+                        new Word { Greek = "Κυρηναῖον", Transliteration = "Kyrēnaion", Gloss = "Cyrenian", PartOfSpeech = "n", GrammarCodes = new List<string> { "N", "ACC", "M", "S" }
                     },
                     Translation = "a certain Simon of Cyrene"
                 },
@@ -125,7 +125,7 @@ private static List<object> GetChapter23()
                     Content = new List<object>
                     {
                         new Word { Greek = "ἀπ᾽", Transliteration = "ap'", Gloss = "from", PartOfSpeech = "prep", GrammarCodes = new List<string> { "PREP" } },
-                        new Word { Greek = "ἀγροῦ", Transliteration = "agrou", Gloss = "the country", PartOfSpeech = "n", GrammarCodes = new List<string> { "N", "GEN", "M", "S" } }
+                        new Word { Greek = "ἀγροῦ", Transliteration = "agrou", Gloss = "the country", PartOfSpeech = "n", GrammarCodes = new List<string> { "N", "GEN", "M", "S" }
                     },
                     Translation = "from the country"
                 },
@@ -137,7 +137,7 @@ private static List<object> GetChapter23()
                     Content = new List<object>
                     {
                         new Word { Greek = "τὸν", Transliteration = "ton", Gloss = "the", PartOfSpeech = "art", GrammarCodes = new List<string> { "ART", "ACC", "M", "S" } },
-                        new Word { Greek = "σταυρὸν", Transliteration = "stauron", Gloss = "cross", PartOfSpeech = "n", GrammarCodes = new List<string> { "N", "ACC", "M", "S" } }
+                        new Word { Greek = "σταυρὸν", Transliteration = "stauron", Gloss = "cross", PartOfSpeech = "n", GrammarCodes = new List<string> { "N", "ACC", "M", "S" }
                     },
                     Translation = "the cross"
                 },
@@ -154,7 +154,7 @@ private static List<object> GetChapter23()
                             Content = new List<object>
                             {
                                 new Word { Greek = "τοῦ", Transliteration = "tou", Gloss = "the", PartOfSpeech = "art", GrammarCodes = new List<string> { "ART", "GEN", "M", "S" } },
-                                new Word { Greek = "Ἰησοῦ", Transliteration = "Iēsou", Gloss = "Jesus", PartOfSpeech = "n", GrammarCodes = new List<string> { "N", "GEN", "M", "S" } }
+                                new Word { Greek = "Ἰησοῦ", Transliteration = "Iēsou", Gloss = "Jesus", PartOfSpeech = "n", GrammarCodes = new List<string> { "N", "GEN", "M", "S" }
                             },
                             Translation = "Jesus"
                         }
@@ -187,7 +187,7 @@ private static List<object> GetChapter23()
                             Content = new List<object>
                             {
                                 new Word { Greek = "τοῦ", Transliteration = "tou", Gloss = "of the", PartOfSpeech = "art", GrammarCodes = new List<string> { "ART", "GEN", "M", "S" } },
-                                new Word { Greek = "λαοῦ", Transliteration = "laou", Gloss = "people", PartOfSpeech = "n", GrammarCodes = new List<string> { "N", "GEN", "M", "S" } }
+                                new Word { Greek = "λαοῦ", Transliteration = "laou", Gloss = "people", PartOfSpeech = "n", GrammarCodes = new List<string> { "N", "GEN", "M", "S" }
                             },
                             Translation = "of the people"
                         }
@@ -210,7 +210,7 @@ private static List<object> GetChapter23()
                                 new Word { Greek = "ἐκόπτοντο", Transliteration = "ekoptonto", Gloss = "were mourning", PartOfSpeech = "v", GrammarCodes = new List<string> { "V", "IMPF", "MID", "IND", "3P", "P" } },
                                 new Word { Greek = "καὶ", Transliteration = "kai", Gloss = "and", PartOfSpeech = "conj", GrammarCodes = new List<string> { "CONJ" } },
                                 new Word { Greek = "ἐθρήνουν", Transliteration = "ethrēnoun", Gloss = "were lamenting", PartOfSpeech = "v", GrammarCodes = new List<string> { "V", "IMPF", "ACT", "IND", "3P", "P" } },
-                                new Word { Greek = "αὐτόν", Transliteration = "auton", Gloss = "him", PartOfSpeech = "prep", GrammarCodes = new List<string> { "PRON", "ACC", "M", "S" } }
+                                new Word { Greek = "αὐτόν", Transliteration = "auton", Gloss = "him", PartOfSpeech = "prep", GrammarCodes = new List<string> { "PRON", "ACC", "M", "S" }
                             },
                             Translation = "who were mourning and lamenting him"
                         }
@@ -235,7 +235,7 @@ private static List<object> GetChapter23()
                     Content = new List<object>
                     {
                         new Word { Greek = "πρὸς", Transliteration = "pros", Gloss = "to", PartOfSpeech = "prep", GrammarCodes = new List<string> { "PREP" } },
-                        new Word { Greek = "αὐτὰς", Transliteration = "autas", Gloss = "them", PartOfSpeech = "prep", GrammarCodes = new List<string> { "PRON", "ACC", "F", "P" } }
+                        new Word { Greek = "αὐτὰς", Transliteration = "autas", Gloss = "them", PartOfSpeech = "prep", GrammarCodes = new List<string> { "PRON", "ACC", "F", "P" }
                     },
                     Translation = "to them"
                 },
@@ -245,7 +245,7 @@ private static List<object> GetChapter23()
                     Content = new List<object>
                     {
                         new Word { Greek = "ὁ", Transliteration = "ho", Gloss = "the", PartOfSpeech = "art", GrammarCodes = new List<string> { "ART", "NOM", "M", "S" } },
-                        new Word { Greek = "Ἰησοῦς", Transliteration = "Iēsous", Gloss = "Jesus", PartOfSpeech = "n", GrammarCodes = new List<string> { "N", "NOM", "M", "S" } }
+                        new Word { Greek = "Ἰησοῦς", Transliteration = "Iēsous", Gloss = "Jesus", PartOfSpeech = "n", GrammarCodes = new List<string> { "N", "NOM", "M", "S" }
                     },
                     Translation = "Jesus"
                 },
@@ -261,7 +261,7 @@ private static List<object> GetChapter23()
                             Content = new List<object>
                             {
                                 new Word { Greek = "θυγατέρες", Transliteration = "thygateres", Gloss = "Daughters", PartOfSpeech = "n", GrammarCodes = new List<string> { "N", "VOC", "F", "P" } },
-                                new Word { Greek = "Ἰερουσαλήμ", Transliteration = "Ierousalēm", Gloss = "of Jerusalem", PartOfSpeech = "n", GrammarCodes = new List<string> { "N", "GEN", "F", "S" } }
+                                new Word { Greek = "Ἰερουσαλήμ", Transliteration = "Ierousalēm", Gloss = "of Jerusalem", PartOfSpeech = "n", GrammarCodes = new List<string> { "N", "GEN", "F", "S" }
                             },
                             Translation = "Daughters of Jerusalem"
                         },
@@ -273,7 +273,7 @@ private static List<object> GetChapter23()
                             Content = new List<object>
                             {
                                 new Word { Greek = "ἐπ᾽", Transliteration = "ep'", Gloss = "for", PartOfSpeech = "prep", GrammarCodes = new List<string> { "PREP" } },
-                                new Word { Greek = "ἐμέ", Transliteration = "eme", Gloss = "me", PartOfSpeech = "prep", GrammarCodes = new List<string> { "PRON", "ACC", "1P", "S" } }
+                                new Word { Greek = "ἐμέ", Transliteration = "eme", Gloss = "me", PartOfSpeech = "prep", GrammarCodes = new List<string> { "PRON", "ACC", "1P", "S" }
                             },
                             Translation = "for me"
                         },
@@ -284,7 +284,7 @@ private static List<object> GetChapter23()
                             Content = new List<object>
                             {
                                 new Word { Greek = "ἐφ᾽", Transliteration = "eph'", Gloss = "for", PartOfSpeech = "prep", GrammarCodes = new List<string> { "PREP" } },
-                                new Word { Greek = "ἑαυτὰς", Transliteration = "heautas", Gloss = "yourselves", PartOfSpeech = "f", GrammarCodes = new List<string> { "PRON", "ACC", "F", "P" } }
+                                new Word { Greek = "ἑαυτὰς", Transliteration = "heautas", Gloss = "yourselves", PartOfSpeech = "f", GrammarCodes = new List<string> { "PRON", "ACC", "F", "P" }
                             },
                             Translation = "for yourselves"
                         },
@@ -303,7 +303,7 @@ private static List<object> GetChapter23()
                                     {
                                         new Word { Greek = "τὰ", Transliteration = "ta", Gloss = "the", PartOfSpeech = "art", GrammarCodes = new List<string> { "ART", "ACC", "N", "P" } },
                                         new Word { Greek = "τέκνα", Transliteration = "tekna", Gloss = "children", PartOfSpeech = "n", GrammarCodes = new List<string> { "N", "ACC", "N", "P" } },
-                                        new Word { Greek = "ὑμῶν", Transliteration = "hymōn", Gloss = "of you", PartOfSpeech = "prep", GrammarCodes = new List<string> { "PRON", "GEN", "2P", "P" } }
+                                        new Word { Greek = "ὑμῶν", Transliteration = "hymōn", Gloss = "of you", PartOfSpeech = "prep", GrammarCodes = new List<string> { "PRON", "GEN", "2P", "P" }
                                     },
                                     Translation = "your children"
                                 }
@@ -338,11 +338,11 @@ private static List<object> GetChapter23()
                             Content = new List<object>
                             {
                                 new Word { Greek = "ἐν", Transliteration = "en", Gloss = "in", PartOfSpeech = "prep", GrammarCodes = new List<string> { "PREP" } },
-                                new Word { Greek = "αἷς", Transliteration = "hais", Gloss = "which", PartOfSpeech = "pron", GrammarCodes = new List<string> { "PRON", "DAT", "F", "P" } }
+                                new Word { Greek = "αἷς", Transliteration = "hais", Gloss = "which", PartOfSpeech = "pron", GrammarCodes = new List<string> { "PRON", "DAT", "F", "P" }
                             },
                             Translation = "in which"
                         },
-                        new Word { Greek = "ἐροῦσιν", Transliteration = "erousin", Gloss = "they will say", PartOfSpeech = "v", GrammarCodes = new List<string> { "V", "FUT", "ACT", "IND", "3P", "P" } }
+                        new Word { Greek = "ἐροῦσιν", Transliteration = "erousin", Gloss = "they will say", PartOfSpeech = "v", GrammarCodes = new List<string> { "V", "FUT", "ACT", "IND", "3P", "P" }
                     },
                     Translation = "in which they will say"
                 },
@@ -358,7 +358,7 @@ private static List<object> GetChapter23()
                             {
                                 new Word { Greek = "μακάριαι", Transliteration = "makariai", Gloss = "Blessed", PartOfSpeech = "adj", GrammarCodes = new List<string> { "ADJ", "NOM", "F", "P" } },
                                 new Word { Greek = "αἱ", Transliteration = "hai", Gloss = "the", PartOfSpeech = "art", GrammarCodes = new List<string> { "ART", "NOM", "F", "P" } },
-                                new Word { Greek = "στεῖραι", Transliteration = "steirai", Gloss = "barren", PartOfSpeech = "adj", GrammarCodes = new List<string> { "ADJ", "NOM", "F", "P" } }
+                                new Word { Greek = "στεῖραι", Transliteration = "steirai", Gloss = "barren", PartOfSpeech = "adj", GrammarCodes = new List<string> { "ADJ", "NOM", "F", "P" }
                             },
                             Translation = "Blessed are the barren"
                         },
@@ -377,7 +377,7 @@ private static List<object> GetChapter23()
                                     {
                                         new Word { Greek = "αἳ", Transliteration = "hai", Gloss = "which", PartOfSpeech = "pron", GrammarCodes = new List<string> { "PRON", "NOM", "F", "P" } },
                                         new Word { Greek = "οὐκ", Transliteration = "ouk", Gloss = "never", PartOfSpeech = "prep", GrammarCodes = new List<string> { "ADV" } },
-                                        new Word { Greek = "ἐγέννησαν", Transliteration = "egennēsan", Gloss = "bore", PartOfSpeech = "v", GrammarCodes = new List<string> { "V", "AOR", "ACT", "IND", "3P", "P" } }
+                                        new Word { Greek = "ἐγέννησαν", Transliteration = "egennēsan", Gloss = "bore", PartOfSpeech = "v", GrammarCodes = new List<string> { "V", "AOR", "ACT", "IND", "3P", "P" }
                                     },
                                     Translation = "which never bore"
                                 }
@@ -398,7 +398,7 @@ private static List<object> GetChapter23()
                                     {
                                         new Word { Greek = "οἳ", Transliteration = "hoi", Gloss = "which", PartOfSpeech = "pron", GrammarCodes = new List<string> { "PRON", "NOM", "M", "P" } },
                                         new Word { Greek = "οὐκ", Transliteration = "ouk", Gloss = "never", PartOfSpeech = "prep", GrammarCodes = new List<string> { "ADV" } },
-                                        new Word { Greek = "ἔθρεψαν", Transliteration = "ethrepsan", Gloss = "nursed", PartOfSpeech = "v", GrammarCodes = new List<string> { "V", "AOR", "ACT", "IND", "3P", "P" } }
+                                        new Word { Greek = "ἔθρεψαν", Transliteration = "ethrepsan", Gloss = "nursed", PartOfSpeech = "v", GrammarCodes = new List<string> { "V", "AOR", "ACT", "IND", "3P", "P" }
                                     },
                                     Translation = "which never nursed"
                                 }
@@ -432,7 +432,7 @@ private static List<object> GetChapter23()
                             Content = new List<object>
                             {
                                 new Word { Greek = "τοῖς", Transliteration = "tois", Gloss = "to the", PartOfSpeech = "art", GrammarCodes = new List<string> { "ART", "DAT", "N", "P" } },
-                                new Word { Greek = "ὄρεσιν", Transliteration = "oresin", Gloss = "mountains", PartOfSpeech = "n", GrammarCodes = new List<string> { "N", "DAT", "N", "P" } }
+                                new Word { Greek = "ὄρεσιν", Transliteration = "oresin", Gloss = "mountains", PartOfSpeech = "n", GrammarCodes = new List<string> { "N", "DAT", "N", "P" }
                             },
                             Translation = "to the mountains"
                         }
@@ -451,7 +451,7 @@ private static List<object> GetChapter23()
                             Content = new List<object>
                             {
                                 new Word { Greek = "ἐφ᾽", Transliteration = "eph'", Gloss = "on", PartOfSpeech = "prep", GrammarCodes = new List<string> { "PREP" } },
-                                new Word { Greek = "ἡμᾶς", Transliteration = "hēmas", Gloss = "us", PartOfSpeech = "prep", GrammarCodes = new List<string> { "PRON", "ACC", "1P", "P" } }
+                                new Word { Greek = "ἡμᾶς", Transliteration = "hēmas", Gloss = "us", PartOfSpeech = "prep", GrammarCodes = new List<string> { "PRON", "ACC", "1P", "P" }
                             },
                             Translation = "on us"
                         }
@@ -470,12 +470,12 @@ private static List<object> GetChapter23()
                             Content = new List<object>
                             {
                                 new Word { Greek = "τοῖς", Transliteration = "tois", Gloss = "to the", PartOfSpeech = "art", GrammarCodes = new List<string> { "ART", "DAT", "M", "P" } },
-                                new Word { Greek = "βουνοῖς", Transliteration = "bounois", Gloss = "hills", PartOfSpeech = "n", GrammarCodes = new List<string> { "N", "DAT", "M", "P" } }
+                                new Word { Greek = "βουνοῖς", Transliteration = "bounois", Gloss = "hills", PartOfSpeech = "n", GrammarCodes = new List<string> { "N", "DAT", "M", "P" }
                             },
                             Translation = "to the hills"
                         },
                         new Word { Greek = "καλύψατε", Transliteration = "kalypsate", Gloss = "Cover", PartOfSpeech = "v", GrammarCodes = new List<string> { "V", "AOR", "ACT", "IMP", "2P", "P" } },
-                        new Word { Greek = "ἡμᾶς", Transliteration = "hēmas", Gloss = "us", PartOfSpeech = "prep", GrammarCodes = new List<string> { "PRON", "ACC", "1P", "P" } }
+                        new Word { Greek = "ἡμᾶς", Transliteration = "hēmas", Gloss = "us", PartOfSpeech = "prep", GrammarCodes = new List<string> { "PRON", "ACC", "1P", "P" }
                     },
                     Translation = "\"and to the hills, Cover us\""
                 }
@@ -509,7 +509,7 @@ private static List<object> GetChapter23()
                                     {
                                         new Word { Greek = "τῷ", Transliteration = "tō", Gloss = "the", PartOfSpeech = "art", GrammarCodes = new List<string> { "ART", "DAT", "N", "S" } },
                                         new Word { Greek = "ὑγρῷ", Transliteration = "hygrō", Gloss = "green", PartOfSpeech = "adj", GrammarCodes = new List<string> { "ADJ", "DAT", "N", "S" } },
-                                        new Word { Greek = "ξύλῳ", Transliteration = "xylō", Gloss = "wood", PartOfSpeech = "n", GrammarCodes = new List<string> { "N", "DAT", "N", "S" } }
+                                        new Word { Greek = "ξύλῳ", Transliteration = "xylō", Gloss = "wood", PartOfSpeech = "n", GrammarCodes = new List<string> { "N", "DAT", "N", "S" }
                                     },
                                     Translation = "the green wood"
                                 }
@@ -517,7 +517,7 @@ private static List<object> GetChapter23()
                             Translation = "in the green wood"
                         },
                         new Word { Greek = "ταῦτα", Transliteration = "tauta", Gloss = "these things", PartOfSpeech = "adv", GrammarCodes = new List<string> { "PRON", "ACC", "N", "P" } },
-                        new Word { Greek = "ποιοῦσιν", Transliteration = "poiousin", Gloss = "they do", PartOfSpeech = "v", GrammarCodes = new List<string> { "V", "PRES", "ACT", "IND", "3P", "P" } }
+                        new Word { Greek = "ποιοῦσιν", Transliteration = "poiousin", Gloss = "they do", PartOfSpeech = "v", GrammarCodes = new List<string> { "V", "PRES", "ACT", "IND", "3P", "P" }
                     },
                     Translation = "if they do these things in the green wood"
                 },
@@ -533,7 +533,7 @@ private static List<object> GetChapter23()
                             Content = new List<object>
                             {
                                 new Word { Greek = "τῷ", Transliteration = "tō", Gloss = "the", PartOfSpeech = "art", GrammarCodes = new List<string> { "ART", "DAT", "N", "S" } },
-                                new Word { Greek = "ξηρῷ", Transliteration = "xērō", Gloss = "dry", PartOfSpeech = "adj", GrammarCodes = new List<string> { "ADJ", "DAT", "N", "S" } }
+                                new Word { Greek = "ξηρῷ", Transliteration = "xērō", Gloss = "dry", PartOfSpeech = "adj", GrammarCodes = new List<string> { "ADJ", "DAT", "N", "S" }
                             },
                             Translation = "the dry"
                         }
@@ -541,7 +541,7 @@ private static List<object> GetChapter23()
                     Translation = "in the dry [wood]"
                 },
                 new Word { Greek = "τί", Transliteration = "ti", Gloss = "what", PartOfSpeech = "interj", GrammarCodes = new List<string> { "PRON", "NOM", "N", "S" } },
-                new Word { Greek = "γένηται", Transliteration = "genētai", Gloss = "will happen", PartOfSpeech = "v", GrammarCodes = new List<string> { "V", "AOR", "MID", "SUBJ", "3P", "S" } }
+                new Word { Greek = "γένηται", Transliteration = "genētai", Gloss = "will happen", PartOfSpeech = "v", GrammarCodes = new List<string> { "V", "AOR", "MID", "SUBJ", "3P", "S" }
             },
             Translation = "For if they do these things in the green wood, what will happen in the dry?"
         },
@@ -562,7 +562,7 @@ private static List<object> GetChapter23()
                     {
                         new Word { Greek = "ἕτεροι", Transliteration = "heteroi", Gloss = "others", PartOfSpeech = "adj", GrammarCodes = new List<string> { "ADJ", "NOM", "M", "P" } },
                         new Word { Greek = "κακοῦργοι", Transliteration = "kakourgoi", Gloss = "criminals", PartOfSpeech = "adj", GrammarCodes = new List<string> { "N", "NOM", "M", "P" } },
-                        new Word { Greek = "δύο", Transliteration = "dyo", Gloss = "two", PartOfSpeech = "adj", GrammarCodes = new List<string> { "ADJ", "NOM", "M", "P" } }
+                        new Word { Greek = "δύο", Transliteration = "dyo", Gloss = "two", PartOfSpeech = "adj", GrammarCodes = new List<string> { "ADJ", "NOM", "M", "P" }
                     },
                     Translation = "two others, criminals,"
                 },
@@ -572,7 +572,7 @@ private static List<object> GetChapter23()
                     Content = new List<object>
                     {
                         new Word { Greek = "σὺν", Transliteration = "syn", Gloss = "with", PartOfSpeech = "prep", GrammarCodes = new List<string> { "PREP" } },
-                        new Word { Greek = "αὐτῷ", Transliteration = "autō", Gloss = "him", PartOfSpeech = "prep", GrammarCodes = new List<string> { "PRON", "DAT", "M", "S" } }
+                        new Word { Greek = "αὐτῷ", Transliteration = "autō", Gloss = "him", PartOfSpeech = "prep", GrammarCodes = new List<string> { "PRON", "DAT", "M", "S" }
                     },
                     Translation = "with him"
                 },
@@ -581,7 +581,7 @@ private static List<object> GetChapter23()
                     SyntaxCodes = new List<string> { "INF_PHRASE", "PURPOSE" },
                     Content = new List<object>
                     {
-                        new Word { Greek = "ἀναιρεθῆναι", Transliteration = "anairethēnai", Gloss = "to be put to death", PartOfSpeech = "v", GrammarCodes = new List<string> { "V", "AOR", "PASS", "INF" } }
+                        new Word { Greek = "ἀναιρεθῆναι", Transliteration = "anairethēnai", Gloss = "to be put to death", PartOfSpeech = "v", GrammarCodes = new List<string> { "V", "AOR", "PASS", "INF" }
                     },
                     Translation = "to be put to death"
                 }

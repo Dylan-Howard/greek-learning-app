@@ -27,7 +27,7 @@ private static List<object> GetChapter25()
                     Content = new List<object>
                     {
                         new Word { Greek = "ἀναβολὴν", Transliteration = "anabolēn", Gloss = "delay", GrammarCodes = new List<string> { "N", "ACC", "F", "S" }, PartOfSpeech = "n" },
-                        new Word { Greek = "μηδεμίαν", Transliteration = "mēdemian", Gloss = "no one", Gloss = "not one", GrammarCodes = new List<string> { "ADJ", "ACC", "F", "S" }, PartOfSpeech = "adj" }
+                        new Word { Greek = "μηδεμίαν", Transliteration = "mēdemian", Gloss = "no one", GrammarCodes = new List<string> { "ADJ", "ACC", "F", "S" }, PartOfSpeech = "adj" }
                     },
                     Translation = "no delay"
                 },

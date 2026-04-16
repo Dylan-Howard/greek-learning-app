@@ -9,14 +9,14 @@ private static List<object> GetChapter1()
             SyntaxCodes = new List<string> { "INDEP_CLAUSE" },
             Content = new List<object>
             {
-                new NOUN_PHRASE
+                new Phrase
                 {
                     SyntaxCodes = new List<string> { "NOUN_PHRASE", "SUBJ" },
                     Content = new List<object>
                     {
                         new Word { Greek = "Παῦλος", Transliteration = "Paulos", Gloss = "Paul", GrammarCodes = new List<string> { "N", "NOM", "M", "S" }, PartOfSpeech = "n" },
                         new Word { Greek = "ἀπόστολος", Transliteration = "apostolos", Gloss = "apostle", GrammarCodes = new List<string> { "N", "NOM", "M", "S" }, PartOfSpeech = "n" },
-                        new NOUN_PHRASE
+                        new Phrase
                         {
                             SyntaxCodes = new List<string> { "NOUN_PHRASE", "GEN_DESC" },
                             Content = new List<object>
@@ -35,7 +35,7 @@ private static List<object> GetChapter1()
                     Content = new List<object>
                     {
                         new Word { Greek = "διὰ", Transliteration = "dia", Gloss = "through", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "prep" },
-                        new NOUN_PHRASE
+                        new Phrase
                         {
                             SyntaxCodes = new List<string> { "NOUN_PHRASE" },
                             Content = new List<object>
@@ -49,7 +49,7 @@ private static List<object> GetChapter1()
                     Translation = "by the will of God"
                 },
                 new Word { Greek = "καὶ", Transliteration = "kai", Gloss = "and", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
-                new NOUN_PHRASE
+                new Phrase
                 {
                     SyntaxCodes = new List<string> { "NOUN_PHRASE", "SUBJ" },
                     Content = new List<object>
@@ -111,7 +111,7 @@ private static List<object> GetChapter1()
                     },
                     Translation = "To the saints and faithful brothers in Christ at Colossae:"
                 },
-                new NOUN_PHRASE
+                new Phrase
                 {
                     SyntaxCodes = new List<string> { "NOUN_PHRASE", "SUBJ" },
                     Content = new List<object>
@@ -122,7 +122,7 @@ private static List<object> GetChapter1()
                 },
                 new Word { Greek = "ὑμῖν", Transliteration = "hymin", Gloss = "to you", GrammarCodes = new List<string> { "PRON", "DAT", "2P", "P" }, PartOfSpeech = "pron" },
                 new Word { Greek = "καὶ", Transliteration = "kai", Gloss = "and", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
-                new NOUN_PHRASE
+                new Phrase
                 {
                     SyntaxCodes = new List<string> { "NOUN_PHRASE", "SUBJ" },
                     Content = new List<object>
@@ -137,7 +137,7 @@ private static List<object> GetChapter1()
                     Content = new List<object>
                     {
                         new Word { Greek = "ἀπὸ", Transliteration = "apo", Gloss = "from", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "prep" },
-                        new NOUN_PHRASE
+                        new Phrase
                         {
                             SyntaxCodes = new List<string> { "NOUN_PHRASE" },
                             Content = new List<object>
@@ -167,7 +167,7 @@ private static List<object> GetChapter1()
                     Content = new List<object>
                     {
                         new Word { Greek = "Εὐχαριστοῦμεν", Transliteration = "Eucharistoumen", Gloss = "we give thanks", GrammarCodes = new List<string> { "V", "PRES", "ACT", "IND", "1P", "P" }, PartOfSpeech = "v" },
-                        new NOUN_PHRASE
+                        new Phrase
                         {
                             SyntaxCodes = new List<string> { "NOUN_PHRASE", "IND_OBJ" },
                             Content = new List<object>
@@ -175,7 +175,7 @@ private static List<object> GetChapter1()
                                 new Word { Greek = "τῷ", Transliteration = "tō", Gloss = "the", GrammarCodes = new List<string> { "ART", "DAT", "M", "S" }, PartOfSpeech = "art" },
                                 new Word { Greek = "θεῷ", Transliteration = "theō", Gloss = "God", GrammarCodes = new List<string> { "N", "DAT", "M", "S" }, PartOfSpeech = "n" },
                                 new Word { Greek = "πατρὶ", Transliteration = "patri", Gloss = "Father", GrammarCodes = new List<string> { "N", "DAT", "M", "S" }, PartOfSpeech = "n" },
-                                new NOUN_PHRASE
+                                new Phrase
                                 {
                                     SyntaxCodes = new List<string> { "NOUN_PHRASE", "GEN_DESC" },
                                     Content = new List<object>
@@ -223,7 +223,7 @@ private static List<object> GetChapter1()
                     Content = new List<object>
                     {
                         new Word { Greek = "ἀκούσαντες", Transliteration = "akousantes", Gloss = "having heard", GrammarCodes = new List<string> { "V", "AOR", "ACT", "PTCP", "NOM", "M", "P" }, PartOfSpeech = "v" },
-                        new NOUN_PHRASE
+                        new Phrase
                         {
                             SyntaxCodes = new List<string> { "NOUN_PHRASE", "OBJ" },
                             Content = new List<object>
@@ -246,7 +246,7 @@ private static List<object> GetChapter1()
                             Translation = "your faith in Christ Jesus"
                         },
                         new Word { Greek = "καὶ", Transliteration = "kai", Gloss = "and", GrammarCodes = new List<string> { "CONJ" }, PartOfSpeech = "conj" },
-                        new NOUN_PHRASE
+                        new Phrase
                         {
                             SyntaxCodes = new List<string> { "NOUN_PHRASE", "OBJ" },
                             Content = new List<object>
@@ -266,6 +266,6 @@ private static List<object> GetChapter1()
                                             Content = new List<object>
                                             {
                                                 new Word { Greek = "εἰς", Transliteration = "eis", Gloss = "toward", GrammarCodes = new List<string> { "PREP" }, PartOfSpeech = "prep" },
-                                                new NOUN_PHRASE
+                                                new Phrase
                                                 {
                                                     SyntaxCodes = new List<string> { "NOUN_PHRASE
