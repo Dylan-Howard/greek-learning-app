@@ -35,15 +35,15 @@ Implement the command pattern base classes, exception types, and DI registration
     - XML doc comment
     - _Requirements: 4.1_
 
-- [ ] 2. Create exception types in `Koine.Application/Common/Exceptions/`
-  - [ ] 2.1 Create `ValidationException`
+- [x] 2. Create exception types in `Koine.Application/Common/Exceptions/`
+  - [x] 2.1 Create `ValidationException`
     - Create `backend/src/Koine.Application/Common/Exceptions/ValidationException.cs`
     - Two constructors: `(string field, string message)` and `(IReadOnlyDictionary<string, string[]> errors)`
     - Exposes `IReadOnlyDictionary<string, string[]> Errors` property
     - XML doc comments
     - _Requirements: 3.4_
 
-  - [ ] 2.2 Create `UnauthorizedException`, `ForbiddenException`, `NotFoundException`
+  - [x] 2.2 Create `UnauthorizedException`, `ForbiddenException`, `NotFoundException`
     - Create `backend/src/Koine.Application/Common/Exceptions/UnauthorizedException.cs`
     - Create `backend/src/Koine.Application/Common/Exceptions/ForbiddenException.cs`
     - Create `backend/src/Koine.Application/Common/Exceptions/NotFoundException.cs`
