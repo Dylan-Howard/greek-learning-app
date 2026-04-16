@@ -17,6 +17,7 @@ using Koine.API.GraphQL.Mutations;
 using Koine.API.GraphQL.DataLoaders;
 using GraphQL;
 using Koine.API.Settings;
+using Koine.Application.Common;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -119,6 +120,9 @@ builder.Services.AddScoped<Koine.Application.Study.Ports.IUserCardProgressReposi
 builder.Services.AddScoped<Koine.Application.Study.Ports.IStudySessionRepository, Koine.Infrastructure.Study.Repositories.StudySessionRepository>();
 builder.Services.AddScoped<Koine.Application.Study.Ports.IVocabularyRepository, Koine.Infrastructure.Study.Repositories.StudyVocabularyRepository>();
 builder.Services.AddScoped<Koine.Application.Study.Ports.IVocabularySetItemRepository, Koine.Infrastructure.Study.Repositories.StudyVocabularySetItemRepository>();
+
+// Command Pattern Actions — auto-discovers all concrete BaseAction subclasses in Koine.Application
+builder.Services.AddKoineActions();
 
 // GraphQL — additive registrations (Requirements 1.4, 1.5, 15.4)
 // RootQuery and RootMutation are scoped; KoineSchema is owned by AddGraphQL as a singleton.

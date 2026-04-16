@@ -52,20 +52,20 @@ Implement the command pattern base classes, exception types, and DI registration
     - XML doc comments on all
     - _Requirements: 5.1, 5.2, 7.3, 7.4, 7.5_
 
-- [ ] 3. Create `ActionRegistrationExtensions` and register in `Program.cs`
-  - [ ] 3.1 Create `ActionRegistrationExtensions`
+- [x] 3. Create `ActionRegistrationExtensions` and register in `Program.cs`
+  - [x] 3.1 Create `ActionRegistrationExtensions`
     - Create `backend/src/Koine.Application/Common/ActionRegistrationExtensions.cs`
     - `public static IServiceCollection AddKoineActions(this IServiceCollection services)` extension method
     - Scans `typeof(BaseAction).Assembly` for concrete non-abstract `BaseAction` subclasses and registers each as `Scoped`
     - XML doc comment
     - _Requirements: 6.1, 6.4_
 
-  - [ ] 3.2 Call `AddKoineActions()` in `Program.cs`
+  - [x] 3.2 Call `AddKoineActions()` in `Program.cs`
     - Add `builder.Services.AddKoineActions();` after the existing manual service registrations in `backend/src/Koine.API/Program.cs`
     - Add the required `using Koine.Application.Common;` directive
     - _Requirements: 6.2, 9.4_
 
-  - [ ]* 3.3 Write property test for DI registration (Property 12)
+  - [x] 3.3 Write property test for DI registration (Property 12)
     - Create `backend/tests/Koine.Tests/Unit/CommandPattern/ActionRegistrationTests.cs`
     - `// Feature: command-pattern-architecture, Property 12: DI registration discovers all concrete BaseAction subclasses`
     - `[Property(MaxTest = 100)]` — for each concrete `BaseAction` subclass in the assembly, calling `AddKoineActions` and building a `ServiceCollection` must allow that type to be resolved as a scoped service
