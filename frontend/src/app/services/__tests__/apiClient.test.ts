@@ -30,7 +30,11 @@ describe('apiClient', () => {
       json: async () => ({ message: 'validation failed' }),
     }));
 
+    const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+
     await expect(apiClient.post('books', { title: 'x' })).rejects.toThrow('validation failed');
+
+    errorSpy.mockRestore();
   });
 
   it('returns typed error with getResult', async () => {

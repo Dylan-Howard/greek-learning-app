@@ -96,6 +96,9 @@ describe('ApolloClientProvider — UNAUTHENTICATED error handling', () => {
     mockGetToken.mockResolvedValue('valid-token');
     mockFetch.mockResolvedValueOnce(makeUnauthenticatedResponse());
 
+    // Mock console.error to suppress the expected GraphQL error log
+    const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+
     const client = renderProvider();
 
     const query = gql`
@@ -116,6 +119,8 @@ describe('ApolloClientProvider — UNAUTHENTICATED error handling', () => {
 
     // _resetApolloClientForTesting called: once on mount + once in onUnauthenticated
     expect(mockResetApolloClient).toHaveBeenCalledTimes(2);
+
+    errorSpy.mockRestore();
   });
 });
 
